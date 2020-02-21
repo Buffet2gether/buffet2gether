@@ -53,9 +53,7 @@ class MyAppState extends State<MyApp>
     return MaterialApp(
       title: 'Buffet2Gether', //App's name
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Buffet2Gether'), //Title
-        ),
+        appBar: AppBar(title: Text('Buffet2Gether'),),
         body: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -71,7 +69,12 @@ class MyAppState extends State<MyApp>
                 Container(
                   margin: EdgeInsets.only(top: 20),
                   child: RaisedButton(
-                    child: Text(isActive ? 'STOP' : 'START'),
+                    child: Text(isActive ? 'STOP' : 'START',
+                        style: TextStyle(
+                          fontFamily: 'Opun',
+                          package: 'buffet2gether_font',
+                    )
+                    ),
                     onPressed: () {
                       setState(() {
                         isActive = !isActive;
@@ -112,12 +115,16 @@ class CustomTextContainer extends StatelessWidget {
               color: Colors.white,
               fontSize: 45,
               fontWeight: FontWeight.bold,
+              fontFamily: 'Opun',
+              package: 'buffet2gether_font',
             ),
           ),
           Text(
             '$label',
             style: TextStyle(
               color: Colors.white70,
+              fontFamily: 'Opun',
+              package: 'buffet2gether_font',
             ),
           )
         ],

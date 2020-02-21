@@ -1,4 +1,4 @@
-# buffet2gether_ui
+# buffet2gether_home
 
 A new Flutter application.
 

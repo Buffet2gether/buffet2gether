@@ -1,4 +1,4 @@
-package com.buffet2gether.buffet2gether_ui
+package com.buffet2gether.buffet2gether_home
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

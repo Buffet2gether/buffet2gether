@@ -58,8 +58,19 @@ class MyAppState extends State<MyApp>
         ),
         body: Center(
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize: MainAxisSize.max, // min = center, max = top
               children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start, //ชิดซ้าย-ขวา
+                  children: <Widget>[
+                    TextField(
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Enter a search term'
+                      ),
+                    ),
+                  ],
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start, //ชิดซ้าย-ขวา
                   children: <Widget>[
@@ -69,7 +80,7 @@ class MyAppState extends State<MyApp>
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center, //ชิดซ้าย-ขวา
                   children: <Widget>[
                     CustomTextContainer(label: 'Hrs', value: hrs.toString().padLeft(2, '0')),
                     CustomTextContainer(label: 'Min', value: min.toString().padLeft(2, '0')),
@@ -79,7 +90,7 @@ class MyAppState extends State<MyApp>
                 Container(
                   margin: EdgeInsets.only(top: 20),
                   child: RaisedButton(
-                    child: Text(isActive ? 'STOP' : 'START'),
+                    child: Text(isActive ? 'STOP' : 'START', style: TextStyle(fontFamily: 'Opun')),
                     onPressed: () {
                       setState(() {
                         isActive = !isActive;
@@ -117,14 +128,16 @@ class CustomTextContainer extends StatelessWidget {
           Text(
             '$value',
             style: TextStyle(
+              fontFamily: 'Opun',
               color: Colors.white,
-              fontSize: 45,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
             '$label',
             style: TextStyle(
+              fontFamily: 'Opun',
               color: Colors.white70,
             ),
           )

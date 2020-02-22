@@ -54,7 +54,7 @@ class MyAppState extends State<MyApp>
       title: 'Buffet2Gether', //App's name
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Buffet2Gether'), //Title
+          title: Text('Buffet2Gether',style: TextStyle(fontFamily: 'Opun'),), //Title
         ),
         body: Center(
             child: Column(

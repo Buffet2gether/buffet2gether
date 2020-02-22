@@ -32,6 +32,16 @@ class MyAppState extends State<MyApp>
     }
   }
 
+  final myController = TextEditingController();
+
+  @override
+  void dispose()
+  {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context)
   {
@@ -56,21 +66,28 @@ class MyAppState extends State<MyApp>
         appBar: AppBar(
           title: Text('Buffet2Gether',style: TextStyle(fontFamily: 'Opun'),), //Title
         ),
-        body: Center(
+        body: Padding(
+            padding: const EdgeInsets.all(15.0),
             child: Column(
-              mainAxisSize: MainAxisSize.max, // min = center, max = top
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start, //ชิดซ้าย-ขวา
-                  children: <Widget>[
-                    TextField(
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Enter a search term'
-                      ),
-                    ),
-                  ],
-                ),
+              mainAxisSize: MainAxisSize.min, // min = center, max = top
+              children: <Widget>
+              [
+                Container(
+                    margin: EdgeInsets.symmetric(horizontal: 5),
+                    padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
+                    decoration: new BoxDecoration(
+                      borderRadius: new BorderRadius.circular(10),
+                      color: Colors.deepOrange,),
+                  child: TextField(
+                      controller: myController,
+                      style: TextStyle(
+                        fontFamily: 'Opun',
+                        color: Colors.white70,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      )
+                  ),
+      ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start, //ชิดซ้าย-ขวา
                   children: <Widget>[
@@ -98,9 +115,25 @@ class MyAppState extends State<MyApp>
                       );
                     },
                   ),
-                )
+                ),
               ],
             )
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: ()
+          {
+            return showDialog(
+              context: context,
+              builder: (context)
+              {
+                return AlertDialog(
+                  content: Text(myController.text),
+                );
+              },
+            );
+          },
+          tooltip: 'Show me the value!',
+          child: Icon(Icons.text_fields),
         ),
       ),
     );

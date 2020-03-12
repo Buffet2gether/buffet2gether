@@ -74,6 +74,144 @@ class MyAppState extends State<MyCustomForm>
     }
     int hrs = secondsPassed~/(60*60);
 
+    final rowSearch = Container(
+      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
+      decoration: new BoxDecoration(
+        borderRadius: new BorderRadius.circular(10),
+        color: Colors.orangeAccent,),
+      child: TextField(
+        cursorColor: Colors.white,
+        controller: myController,
+        style: TextStyle(
+          fontFamily: 'Opun',
+          color: Colors.white,
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+
+    final textPro = Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          '  โปรโมชั่นจากน้องบุฟ !  ',
+          textAlign: TextAlign.start,
+          style: TextStyle(
+            fontFamily: 'Opun',
+            color: Colors.black,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            backgroundColor: Colors.amberAccent,
+          ),
+        )
+      ],
+    );
+
+    final textRecom = Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          '  น้องบุฟแนะนำ !  ',
+          textAlign: TextAlign.start,
+          style: TextStyle(
+            fontFamily: 'Opun',
+            color: Colors.black,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            backgroundColor: Colors.amberAccent,
+          ),
+        )
+      ],
+    );
+
+    final textMore = Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          '  ร้านอื่น ๆ ของน้องบุฟ  ',
+          textAlign: TextAlign.start,
+          style: TextStyle(
+            fontFamily: 'Opun',
+            color: Colors.black,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            backgroundColor: Colors.amberAccent,
+          ),
+        )
+      ],
+    );
+
+    final rowRecom = DefaultTextStyle.merge(
+      style: TextStyle(
+        fontFamily: 'Opun',
+        color: Colors.white,
+        fontSize: 15,
+        fontWeight: FontWeight.bold,
+      ),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              children: <Widget>[
+                Image.asset('assets/images/rec1.png'),
+                Text('hlgjh')
+              ],
+            ),
+            Column(
+
+            ),
+            Column(
+
+            ),
+          ],
+        ),
+      )
+    );
+
+    final colMore = DefaultTextStyle.merge(
+        style: TextStyle(
+          fontFamily: 'Opun',
+          color: Colors.white,
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+        ),
+        child: Container(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+              ),
+              Column(
+
+              ),
+              Column(
+
+              ),
+            ],
+          ),
+        )
+    );
+
+    final homeColumn = Container(
+      //padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
+      child: Column(
+        children: [
+          rowSearch,
+          textPro,
+          Image.asset('assets/images/pro.jpg', ),
+          textRecom,
+          rowRecom,
+          textMore,
+          colMore,
+        ],
+      ),
+    );
+
     return MaterialApp(
       title: 'Buffet2Gether', //App's name
       home: DefaultTabController(
@@ -93,29 +231,15 @@ class MyAppState extends State<MyCustomForm>
           ),
           body: TabBarView(
             children: [
-              Padding(
+              Container(
+                child: homeColumn,
+              )
+              /*Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.min, // min = center, max = top
                     children: <Widget>
                     [
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: 5),
-                        padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
-                        decoration: new BoxDecoration(
-                          borderRadius: new BorderRadius.circular(10),
-                          color: Colors.orangeAccent,),
-                        child: TextField(
-                            cursorColor: Colors.white,
-                            controller: myController,
-                            style: TextStyle(
-                              fontFamily: 'Opun',
-                              color: Colors.white70,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                        ),
-                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center, //ชิดซ้าย-ขวา
                         children: <Widget>[
@@ -138,13 +262,11 @@ class MyAppState extends State<MyCustomForm>
                       ),
                     ],
                   ),
-                ),
-
+                )*/,
               Icon(Icons.fastfood),
               Icon(Icons.notifications_active),
               Icon(Icons.assignment_ind),
             ],
-
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: ()

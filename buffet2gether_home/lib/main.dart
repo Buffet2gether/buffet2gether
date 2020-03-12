@@ -4,11 +4,19 @@ import 'dart:async';
 
 void main() => runApp(MyApp());
 
+/*class MyApp extends StatefulWidget
+{
+  @override
+  State<StatefulWidget> createState()
+  {
+    return new MyAppState();
+  }
+}*/
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Retrieve Text Input',
       home: MyCustomForm(),
     );
   }
@@ -18,15 +26,6 @@ class MyCustomForm extends StatefulWidget {
   @override
   MyAppState createState() => MyAppState();
 }
-
-/*class MyApp extends StatefulWidget
-{
-  @override
-  State<StatefulWidget> createState()
-  {
-    return new MyAppState();
-  }
-}*/
 
 class MyAppState extends State<MyCustomForm>
 {
@@ -77,82 +76,102 @@ class MyAppState extends State<MyCustomForm>
 
     return MaterialApp(
       title: 'Buffet2Gether', //App's name
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Buffet2Gether',style: TextStyle(fontFamily: 'Opun'),), //Title
-        ),
-        body: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min, // min = center, max = top
-              children: <Widget>
+      home: DefaultTabController(
+        length: 4,
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: TabBar(
+              tabs:
               [
-                Container(
-                    margin: EdgeInsets.symmetric(horizontal: 5),
-                    padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
-                    decoration: new BoxDecoration(
-                      borderRadius: new BorderRadius.circular(10),
-                      color: Colors.orangeAccent,),
-                  child: TextField(
-                      controller: myController,
-                      style: TextStyle(
-                        fontFamily: 'Opun',
-                        color: Colors.white70,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      )
-                  ),
-                ),
-                Container(
-                  //margin: EdgeInsets.only(top: 20),
-                  child: RaisedButton(
-                    child: Text(isActive ? 'STOP' : 'START', style: TextStyle(fontFamily: 'Opun')),
-                    onPressed: () {
-                      setState(() {
-                        isActive = !isActive;
-                      }
-                      );
-                    },
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center, //ชิดซ้าย-ขวา
-                  children: <Widget>[
-                    CustomTextContainer(label: 'Hrs', value: hrs.toString().padLeft(2, '0')),
-                    CustomTextContainer(label: 'Min', value: min.toString().padLeft(2, '0')),
-                    CustomTextContainer(label: 'Sec', value: sec.toString().padLeft(2, '0')),
-                  ],
-                ),
-                Container(
-                  //margin: EdgeInsets.only(top: 20),
-                  child: RaisedButton(
-                    child: Text(isActive ? 'STOP' : 'START', style: TextStyle(fontFamily: 'Opun')),
-                    onPressed: () {
-                      setState(() {
-                        isActive = !isActive;
-                      }
-                      );
-                    },
-                  ),
-                ),
+                Tab(icon: Icon(Icons.home),),
+                Tab(icon: Icon(Icons.fastfood),),
+                Tab(icon: Icon(Icons.notifications_active),),
+                Tab(icon: Icon(Icons.assignment_ind),),
               ],
-            )
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: ()
-          {
-            return showDialog(
-              context: context,
-              builder: (context)
-              {
-                return AlertDialog(
-                  content: Text(myController.text),
-                );
-              },
-            );
-          },
-          tooltip: 'Show me the value!',
-          child: Icon(Icons.check),
+            ),
+            title: Text('Buffet2Getherr',style: TextStyle(fontFamily: 'Opun'),),backgroundColor: Colors.deepOrange,
+          ),
+          body: TabBarView(
+            children: [
+              Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min, // min = center, max = top
+                    children: <Widget>
+                    [
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 5),
+                        padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
+                        decoration: new BoxDecoration(
+                          borderRadius: new BorderRadius.circular(10),
+                          color: Colors.orangeAccent,),
+                        child: TextField(
+                            cursorColor: Colors.white,
+                            controller: myController,
+                            style: TextStyle(
+                              fontFamily: 'Opun',
+                              color: Colors.white70,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            )
+                        ),
+                      ),
+                      Container(
+                        //margin: EdgeInsets.only(top: 20),
+                        child: RaisedButton(
+                          child: Text(isActive ? 'STOP' : 'START', style: TextStyle(fontFamily: 'Opun')),
+                          onPressed: () {
+                            setState(() {
+                              isActive = !isActive;
+                            }
+                            );
+                          },
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center, //ชิดซ้าย-ขวา
+                        children: <Widget>[
+                          CustomTextContainer(label: 'Hrs', value: hrs.toString().padLeft(2, '0')),
+                          CustomTextContainer(label: 'Min', value: min.toString().padLeft(2, '0')),
+                          CustomTextContainer(label: 'Sec', value: sec.toString().padLeft(2, '0')),
+                        ],
+                      ),
+                      Container(
+                        //margin: EdgeInsets.only(top: 20),
+                        child: RaisedButton(
+                          child: Text(isActive ? 'STOP' : 'START', style: TextStyle(fontFamily: 'Opun')),
+                          onPressed: () {
+                            setState(() {
+                              isActive = !isActive;
+                            }
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              Icon(Icons.fastfood),
+              Icon(Icons.notifications_active),
+              Icon(Icons.assignment_ind),
+            ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: ()
+            {
+              return showDialog(
+                context: context,
+                builder: (context)
+                {
+                  return AlertDialog(
+                    content: Text(myController.text),
+                  );
+                },
+              );
+            },
+            tooltip: 'Show me the value!',
+            child: Icon(Icons.search),foregroundColor: Colors.white, splashColor: Colors.white, backgroundColor: Colors.deepOrange,
+          ),
         ),
       ),
     );

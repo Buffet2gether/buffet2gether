@@ -77,7 +77,7 @@ class MyAppState extends State<MyApp>
                     padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
                     decoration: new BoxDecoration(
                       borderRadius: new BorderRadius.circular(10),
-                      color: Colors.deepOrange,),
+                      color: Colors.orangeAccent,),
                   child: TextField(
                       controller: myController,
                       style: TextStyle(
@@ -87,14 +87,18 @@ class MyAppState extends State<MyApp>
                         fontWeight: FontWeight.bold,
                       )
                   ),
-      ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start, //ชิดซ้าย-ขวา
-                  children: <Widget>[
-                    CustomTextContainer(label: 'Hi', value: hrs.toString().padLeft(2, '1')),
-                    CustomTextContainer(label: 'ya', value: min.toString().padLeft(2, '2')),
-                    CustomTextContainer(label: 'kUy', value: sec.toString().padLeft(2, '3')),
-                  ],
+                ),
+                Container(
+                  //margin: EdgeInsets.only(top: 20),
+                  child: RaisedButton(
+                    child: Text(isActive ? 'STOP' : 'START', style: TextStyle(fontFamily: 'Opun')),
+                    onPressed: () {
+                      setState(() {
+                        isActive = !isActive;
+                      }
+                      );
+                    },
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center, //ชิดซ้าย-ขวา
@@ -105,7 +109,7 @@ class MyAppState extends State<MyApp>
                   ],
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 20),
+                  //margin: EdgeInsets.only(top: 20),
                   child: RaisedButton(
                     child: Text(isActive ? 'STOP' : 'START', style: TextStyle(fontFamily: 'Opun')),
                     onPressed: () {
@@ -140,7 +144,8 @@ class MyAppState extends State<MyApp>
   }
 }
 
-class CustomTextContainer extends StatelessWidget {
+class CustomTextContainer extends StatelessWidget
+{
   CustomTextContainer({this.label, this.value});
 
   final String label;

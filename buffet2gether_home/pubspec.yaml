@@ -1,0 +1,24 @@
+name: buffet2gether_home
+description: A new Flutter application.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  fonts:
+    - family: Opun
+      fonts:
+        - asset: fonts/Opun-Regular.ttf
+  uses-material-design: true

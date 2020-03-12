@@ -113,19 +113,7 @@ class MyAppState extends State<MyCustomForm>
                               color: Colors.white70,
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
-                            )
-                        ),
-                      ),
-                      Container(
-                        //margin: EdgeInsets.only(top: 20),
-                        child: RaisedButton(
-                          child: Text(isActive ? 'STOP' : 'START', style: TextStyle(fontFamily: 'Opun')),
-                          onPressed: () {
-                            setState(() {
-                              isActive = !isActive;
-                            }
-                            );
-                          },
+                            ),
                         ),
                       ),
                       Row(
@@ -151,10 +139,12 @@ class MyAppState extends State<MyCustomForm>
                     ],
                   ),
                 ),
+
               Icon(Icons.fastfood),
               Icon(Icons.notifications_active),
               Icon(Icons.assignment_ind),
             ],
+
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: ()
@@ -188,7 +178,7 @@ class CustomTextContainer extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5),
+      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       padding: EdgeInsets.all(20),
       decoration: new BoxDecoration(
         borderRadius: new BorderRadius.circular(10),

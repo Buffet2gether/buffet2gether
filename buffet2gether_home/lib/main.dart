@@ -4,16 +4,31 @@ import 'dart:async';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatefulWidget
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Retrieve Text Input',
+      home: MyCustomForm(),
+    );
+  }
+}
+
+class MyCustomForm extends StatefulWidget {
+  @override
+  MyAppState createState() => MyAppState();
+}
+
+/*class MyApp extends StatefulWidget
 {
   @override
   State<StatefulWidget> createState()
   {
     return new MyAppState();
   }
-}
+}*/
 
-class MyAppState extends State<MyApp>
+class MyAppState extends State<MyCustomForm>
 {
   static const duration = const Duration(seconds: 1);
 
@@ -137,7 +152,7 @@ class MyAppState extends State<MyApp>
             );
           },
           tooltip: 'Show me the value!',
-          child: Icon(Icons.text_fields),
+          child: Icon(Icons.check),
         ),
       ),
     );

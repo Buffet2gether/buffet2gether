@@ -22,3 +22,5 @@ flutter:
       fonts:
         - asset: fonts/Opun-Regular.ttf
   uses-material-design: true
+  assets:
+    - assets/images/

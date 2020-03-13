@@ -4,16 +4,30 @@ import 'dart:async';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatefulWidget
+/*class MyApp extends StatefulWidget
 {
   @override
   State<StatefulWidget> createState()
   {
     return new MyAppState();
   }
+}*/
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MyCustomForm(),
+    );
+  }
 }
 
-class MyAppState extends State<MyApp>
+class MyCustomForm extends StatefulWidget {
+  @override
+  MyAppState createState() => MyAppState();
+}
+
+class MyAppState extends State<MyCustomForm>
 {
   static const duration = const Duration(seconds: 1);
 
@@ -60,87 +74,224 @@ class MyAppState extends State<MyApp>
     }
     int hrs = secondsPassed~/(60*60);
 
+    final rowSearch = Container(
+      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
+      decoration: new BoxDecoration(
+        borderRadius: new BorderRadius.circular(10),
+        color: Colors.orangeAccent,),
+      child: TextField(
+        cursorColor: Colors.white,
+        controller: myController,
+        style: TextStyle(
+          fontFamily: 'Opun',
+          color: Colors.white,
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+
+    final textPro = Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          '  โปรโมชั่นจากน้องบุฟ !  ',
+          textAlign: TextAlign.start,
+          style: TextStyle(
+            fontFamily: 'Opun',
+            color: Colors.black,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            backgroundColor: Colors.amberAccent,
+          ),
+        )
+      ],
+    );
+
+    final textRecom = Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          '  น้องบุฟแนะนำ !  ',
+          textAlign: TextAlign.start,
+          style: TextStyle(
+            fontFamily: 'Opun',
+            color: Colors.black,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            backgroundColor: Colors.amberAccent,
+          ),
+        )
+      ],
+    );
+
+    final textMore = Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          '  ร้านอื่น ๆ ของน้องบุฟ  ',
+          textAlign: TextAlign.start,
+          style: TextStyle(
+            fontFamily: 'Opun',
+            color: Colors.black,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            backgroundColor: Colors.amberAccent,
+          ),
+        )
+      ],
+    );
+
+    final rowRecom = DefaultTextStyle.merge(
+      style: TextStyle(
+        fontFamily: 'Opun',
+        color: Colors.white,
+        fontSize: 15,
+        fontWeight: FontWeight.bold,
+      ),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              children: <Widget>[
+                Image.asset('assets/images/rec1.png'),
+                Text('hlgjh')
+              ],
+            ),
+            Column(
+
+            ),
+            Column(
+
+            ),
+          ],
+        ),
+      )
+    );
+
+    final colMore = DefaultTextStyle.merge(
+        style: TextStyle(
+          fontFamily: 'Opun',
+          color: Colors.white,
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+        ),
+        child: Container(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+              ),
+              Column(
+
+              ),
+              Column(
+
+              ),
+            ],
+          ),
+        )
+    );
+
+    final homeColumn = Container(
+      //padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
+      child: Column(
+        children: [
+          rowSearch,
+          textPro,
+          Image.asset('assets/images/pro.jpg', ),
+          textRecom,
+          rowRecom,
+          textMore,
+          colMore,
+        ],
+      ),
+    );
+
     return MaterialApp(
       title: 'Buffet2Gether', //App's name
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Buffet2Gether',style: TextStyle(fontFamily: 'Opun'),), //Title
-        ),
-        body: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min, // min = center, max = top
-              children: <Widget>
+      home: DefaultTabController(
+        length: 4,
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: TabBar(
+              tabs:
               [
-                Container(
-                    margin: EdgeInsets.symmetric(horizontal: 5),
-                    padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
-                    decoration: new BoxDecoration(
-                      borderRadius: new BorderRadius.circular(10),
-                      color: Colors.deepOrange,),
-                  child: TextField(
-                      controller: myController,
-                      style: TextStyle(
-                        fontFamily: 'Opun',
-                        color: Colors.white70,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      )
-                  ),
-      ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start, //ชิดซ้าย-ขวา
-                  children: <Widget>[
-                    CustomTextContainer(label: 'Hi', value: hrs.toString().padLeft(2, '1')),
-                    CustomTextContainer(label: 'ya', value: min.toString().padLeft(2, '2')),
-                    CustomTextContainer(label: 'kUy', value: sec.toString().padLeft(2, '3')),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center, //ชิดซ้าย-ขวา
-                  children: <Widget>[
-                    CustomTextContainer(label: 'Hrs', value: hrs.toString().padLeft(2, '0')),
-                    CustomTextContainer(label: 'Min', value: min.toString().padLeft(2, '0')),
-                    CustomTextContainer(label: 'Sec', value: sec.toString().padLeft(2, '0')),
-                  ],
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 20),
-                  child: RaisedButton(
-                    child: Text(isActive ? 'STOP' : 'START', style: TextStyle(fontFamily: 'Opun')),
-                    onPressed: () {
-                      setState(() {
-                        isActive = !isActive;
-                      }
-                      );
-                    },
-                  ),
-                ),
+                Tab(icon: Icon(Icons.home),),
+                Tab(icon: Icon(Icons.fastfood),),
+                Tab(icon: Icon(Icons.notifications_active),),
+                Tab(icon: Icon(Icons.assignment_ind),),
               ],
-            )
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: ()
-          {
-            return showDialog(
-              context: context,
-              builder: (context)
-              {
-                return AlertDialog(
-                  content: Text(myController.text),
-                );
-              },
-            );
-          },
-          tooltip: 'Show me the value!',
-          child: Icon(Icons.text_fields),
+            ),
+            title: Text('Buffet2Getherr',style: TextStyle(fontFamily: 'Opun'),),backgroundColor: Colors.deepOrange,
+          ),
+          body: TabBarView(
+            children: [
+              Container(
+                child: homeColumn,
+              )
+              /*Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min, // min = center, max = top
+                    children: <Widget>
+                    [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center, //ชิดซ้าย-ขวา
+                        children: <Widget>[
+                          CustomTextContainer(label: 'Hrs', value: hrs.toString().padLeft(2, '0')),
+                          CustomTextContainer(label: 'Min', value: min.toString().padLeft(2, '0')),
+                          CustomTextContainer(label: 'Sec', value: sec.toString().padLeft(2, '0')),
+                        ],
+                      ),
+                      Container(
+                        //margin: EdgeInsets.only(top: 20),
+                        child: RaisedButton(
+                          child: Text(isActive ? 'STOP' : 'START', style: TextStyle(fontFamily: 'Opun')),
+                          onPressed: () {
+                            setState(() {
+                              isActive = !isActive;
+                            }
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                )*/,
+              Icon(Icons.fastfood),
+              Icon(Icons.notifications_active),
+              Icon(Icons.assignment_ind),
+            ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: ()
+            {
+              return showDialog(
+                context: context,
+                builder: (context)
+                {
+                  return AlertDialog(
+                    content: Text(myController.text),
+                  );
+                },
+              );
+            },
+            tooltip: 'Show me the value!',
+            child: Icon(Icons.search),foregroundColor: Colors.white, splashColor: Colors.white, backgroundColor: Colors.deepOrange,
+          ),
         ),
       ),
     );
   }
 }
 
-class CustomTextContainer extends StatelessWidget {
+class CustomTextContainer extends StatelessWidget
+{
   CustomTextContainer({this.label, this.value});
 
   final String label;
@@ -149,7 +300,7 @@ class CustomTextContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5),
+      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       padding: EdgeInsets.all(20),
       decoration: new BoxDecoration(
         borderRadius: new BorderRadius.circular(10),

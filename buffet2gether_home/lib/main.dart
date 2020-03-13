@@ -1,4 +1,5 @@
 //import 'dart:html';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -158,7 +159,16 @@ class MyAppState extends State<MyCustomForm>
             Column(
               children: <Widget>[
                 Image.asset('assets/images/rec1.png'),
-                Text('hlgjh')
+                Text(
+                  'hahb',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontFamily: 'Opun',
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
               ],
             ),
             Column(
@@ -203,7 +213,7 @@ class MyAppState extends State<MyCustomForm>
         children: [
           rowSearch,
           textPro,
-          Image.asset('assets/images/pro.jpg', ),
+          Image.asset('assets/images/pro.jpg', fit: BoxFit.cover ),
           textRecom,
           rowRecom,
           textMore,

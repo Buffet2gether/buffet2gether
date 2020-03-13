@@ -87,7 +87,7 @@ class MyAppState extends State<MyCustomForm>
         style: TextStyle(
           fontFamily: 'Opun',
           color: Colors.white,
-          fontSize: 15,
+          fontSize: 13,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -98,7 +98,6 @@ class MyAppState extends State<MyCustomForm>
       children: [
         Text(
           '  โปรโมชั่นจากน้องบุฟ !  ',
-          textAlign: TextAlign.start,
           style: TextStyle(
             fontFamily: 'Opun',
             color: Colors.black,
@@ -115,7 +114,6 @@ class MyAppState extends State<MyCustomForm>
       children: [
         Text(
           '  น้องบุฟแนะนำ !  ',
-          textAlign: TextAlign.start,
           style: TextStyle(
             fontFamily: 'Opun',
             color: Colors.black,
@@ -132,7 +130,6 @@ class MyAppState extends State<MyCustomForm>
       children: [
         Text(
           '  ร้านอื่น ๆ ของน้องบุฟ  ',
-          textAlign: TextAlign.start,
           style: TextStyle(
             fontFamily: 'Opun',
             color: Colors.black,
@@ -145,14 +142,7 @@ class MyAppState extends State<MyCustomForm>
     );
 
     final rowRecom = DefaultTextStyle.merge(
-      style: TextStyle(
-        fontFamily: 'Opun',
-        color: Colors.white,
-        fontSize: 15,
-        fontWeight: FontWeight.bold,
-      ),
       child: Container(
-        padding: EdgeInsets.all(10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -160,22 +150,64 @@ class MyAppState extends State<MyCustomForm>
               children: <Widget>[
                 Image.asset('assets/images/rec1.png'),
                 Text(
-                  'hahb',
-                  textAlign: TextAlign.start,
+                  'รสแซ่บ! ทะเลปู',
                   style: TextStyle(
                     fontFamily: 'Opun',
                     color: Colors.black,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
                   ),
-                )
+                ),
+                Text(
+                  'บุฟเฟ่ต์ทะเลเผา',
+                  style: TextStyle(
+                    fontFamily: 'Opun',
+                    color: Colors.black,
+                    fontSize: 12,
+                  ),
+                ),
               ],
             ),
             Column(
-
+              children: <Widget>[
+                Image.asset('assets/images/rec2.png'),
+                Text(
+                  'กิ่งก้านซีฟู้ด',
+                  style: TextStyle(
+                    fontFamily: 'Opun',
+                    color: Colors.black,
+                    fontSize: 12,
+                  ),
+                ),
+                Text(
+                  'หอย ปู ทะเล',
+                  style: TextStyle(
+                    fontFamily: 'Opun',
+                    color: Colors.black,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
             ),
             Column(
-
+              children: <Widget>[
+                Image.asset('assets/images/rec3.png'),
+                Text(
+                  'บุฟเฟ่ต์ขนมจีน',
+                  style: TextStyle(
+                    fontFamily: 'Opun',
+                    color: Colors.black,
+                    fontSize: 12,
+                  ),
+                ),
+                Text(
+                  'เปิดใหม่ใกล้BTS',
+                  style: TextStyle(
+                    fontFamily: 'Opun',
+                    color: Colors.black,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -183,19 +215,11 @@ class MyAppState extends State<MyCustomForm>
     );
 
     final colMore = DefaultTextStyle.merge(
-        style: TextStyle(
-          fontFamily: 'Opun',
-          color: Colors.white,
-          fontSize: 15,
-          fontWeight: FontWeight.bold,
-        ),
         child: Container(
           padding: EdgeInsets.all(10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Column(
-              ),
               Column(
 
               ),

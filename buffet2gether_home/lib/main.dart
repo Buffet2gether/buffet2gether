@@ -217,8 +217,8 @@ class MyAppState extends State<MyCustomForm>
       home: DefaultTabController(
         length: 4,
         child: Scaffold(
-          appBar: AppBar(
-            bottom: TabBar(
+          
+          bottomNavigationBar: TabBar(
               tabs:
               [
                 Tab(icon: Icon(Icons.home),),
@@ -226,9 +226,13 @@ class MyAppState extends State<MyCustomForm>
                 Tab(icon: Icon(Icons.notifications_active),),
                 Tab(icon: Icon(Icons.assignment_ind),),
               ],
+              unselectedLabelColor: Colors.black38,
+              labelColor: Colors.deepOrange,
+              indicatorColor: Colors.deepOrange,
+              indicatorWeight: 3.0,
             ),
-            title: Text('Buffet2Getherr',style: TextStyle(fontFamily: 'Opun'),),backgroundColor: Colors.deepOrange,
-          ),
+            
+
           body: TabBarView(
             children: [
               Container(

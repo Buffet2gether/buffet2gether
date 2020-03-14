@@ -1,60 +1,122 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(new MyApp());
+}
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget
+{
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Retrieve Text Input',
-      home: MyCustomForm(),
+  Widget build(BuildContext context)
+  {
+    return new MaterialApp(
+      title: 'Flutter Demo',
+      theme: new ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: new MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-// Define a custom Form widget.
-class MyCustomForm extends StatefulWidget {
+typedef double GetOffsetMethod();
+typedef void SetOffsetMethod(double offset);
+
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+
+  final String title;
+
   @override
-  _MyCustomFormState createState() => _MyCustomFormState();
+  _MyHomePageState createState() => new _MyHomePageState();
 }
 
-// Define a corresponding State class.
-// This class holds the data related to the Form.
-class _MyCustomFormState extends State<MyCustomForm> {
-  // Create a text controller and use it to retrieve the current value
-  // of the TextField.
-  final myController = TextEditingController();
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  TabController controller;
+  double listViewOffset=0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = new TabController(
+      length: 2,
+      vsync: this,
+    );
+  }
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is disposed.
-    myController.dispose();
+    controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Retrieve Text Input'),),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: TextField(controller: myController,),),
-      floatingActionButton: FloatingActionButton(
-        onPressed: ()
-        {
-          return showDialog(
-            context: context,
-            builder: (context)
-            {
-              return AlertDialog(
-                content: Text(myController.text),
-              );
-            },
-          );
-        },
-        tooltip: 'Show me the value!',
-        child: Icon(Icons.text_fields),
+    var tabs = <Tab>[
+      new Tab(icon: new Icon(Icons.home), text: 'Tab 1'),
+      new Tab(icon: new Icon(Icons.account_box), text: 'Tab 2')
+    ];
+
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text(widget.title),
+      ),
+      body: new TabBarView(
+          controller: controller,
+          children: <Widget>[
+            new StatefulListView(
+              getOffsetMethod: () => listViewOffset,
+              setOffsetMethod: (offset) => this.listViewOffset = offset,
+            ),
+            new Center(child: new Text('Tab 2'))
+          ]),
+      bottomNavigationBar: new Material(
+        color: Colors.deepOrange,
+        child: new TabBar(controller: controller, tabs: tabs),
       ),
     );
   }
 }
+
+class StatefulListView extends StatefulWidget {
+  StatefulListView({Key key, this.getOffsetMethod, this.setOffsetMethod}) : super(key: key);
+
+  final GetOffsetMethod getOffsetMethod;
+  final SetOffsetMethod setOffsetMethod;
+
+  @override
+  _StatefulListViewState createState() => new _StatefulListViewState();
+}
+
+class _StatefulListViewState extends State<StatefulListView> {
+
+  ScrollController scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController = new ScrollController(
+        initialScrollOffset: widget.getOffsetMethod()
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new NotificationListener(
+      child: new ListView.builder(
+        controller: scrollController,
+        itemCount: 50,
+        itemBuilder: (BuildContext context, int index) {
+          return new Text("Data "+index.toString());
+        },
+      ),
+      onNotification: (notification) {
+        if (notification is ScrollNotification) {
+          widget.setOffsetMethod(notification.metrics.pixels);
+        }
+      },
+    );
+  }
+}
+

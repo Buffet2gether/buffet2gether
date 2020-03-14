@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 
 void main() => runApp(MyApp());
 
@@ -60,7 +61,7 @@ class MyAppState extends State<MyCustomForm>
   @override
   Widget build(BuildContext context)
   {
-    if(timer == null)
+    /*if(timer == null)
     {
       timer = Timer.periodic(duration, (Timer t){
         handleTick();
@@ -73,7 +74,7 @@ class MyAppState extends State<MyCustomForm>
     {
       min=0;
     }
-    int hrs = secondsPassed~/(60*60);
+    int hrs = secondsPassed~/(60*60);*/
 
     final rowSearch = Container(
       margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
@@ -214,22 +215,26 @@ class MyAppState extends State<MyCustomForm>
       )
     );
 
+    /*final rowMore = Row(
+
+    );
+
     final colMore = DefaultTextStyle.merge(
         child: Container(
           padding: EdgeInsets.all(10),
-          child: Row(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Column(
+              Row(
 
               ),
-              Column(
+              Row(
 
               ),
             ],
           ),
         )
-    );
+    );*/
 
     final homeColumn = Container(
       //padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
@@ -241,7 +246,7 @@ class MyAppState extends State<MyCustomForm>
           textRecom,
           rowRecom,
           textMore,
-          colMore,
+          //colMore,
         ],
       ),
     );
@@ -268,10 +273,11 @@ class MyAppState extends State<MyCustomForm>
             indicatorWeight: 3.0,
             ),
           body: TabBarView(
+
             children: [
               Container(
                 child: homeColumn,
-              )
+              ),
               /*Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Column(
@@ -300,7 +306,7 @@ class MyAppState extends State<MyCustomForm>
                       ),
                     ],
                   ),
-                )*/,
+                ),*/
               Icon(Icons.fastfood),
               Icon(Icons.notifications_active),
               Icon(Icons.assignment_ind),
@@ -328,7 +334,55 @@ class MyAppState extends State<MyCustomForm>
   }
 }
 
-class CustomTextContainer extends StatelessWidget
+/*class ColMore extends StatelessWidget
+{
+  ColMore();
+
+  final items = List<String>.generate(20, (i) => "Item ${i + 1}");
+
+  @override
+  Widget build(BuildContext context)
+  {
+    final title = 'Dismissing Items';
+
+    return Container(
+      /*margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      padding: EdgeInsets.all(20),
+      decoration: new BoxDecoration(
+        borderRadius: new BorderRadius.circular(10),
+        color: Colors.black87,
+      ),*/
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Container(
+              child: Row(
+                return Dismissible(key: Key(items),);
+          )
+      ),
+          /*Text(
+            '$value',
+            style: TextStyle(
+              fontFamily: 'Opun',
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            '$label',
+            style: TextStyle(
+              fontFamily: 'Opun',
+              color: Colors.white70,
+            ),
+          )*/
+        ],
+      ),
+    );
+  }
+}*/
+
+/*class CustomTextContainer extends StatelessWidget
 {
   CustomTextContainer({this.label, this.value});
 
@@ -367,4 +421,4 @@ class CustomTextContainer extends StatelessWidget
       ),
     );
   }
-}
+}*/

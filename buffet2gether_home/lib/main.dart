@@ -168,7 +168,7 @@ class MyAppState extends State<MyCustomForm>
               ],
             ),
             Column(
-              children: <Widget>[
+              children: [
                 Image.asset('assets/images/rec2.png'),
                 Text(
                   'กิ่งก้านซีฟู้ด',

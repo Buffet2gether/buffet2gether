@@ -74,13 +74,151 @@ class MyAppState extends State<MyCustomForm>
     }
     int hrs = secondsPassed~/(60*60);
 
+    final rowSearch = Container(
+      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
+      decoration: new BoxDecoration(
+        borderRadius: new BorderRadius.circular(10),
+        color: Colors.orangeAccent,),
+      child: TextField(
+        cursorColor: Colors.white,
+        controller: myController,
+        style: TextStyle(
+          fontFamily: 'Opun',
+          color: Colors.white,
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+
+    final textPro = Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          '  โปรโมชั่นจากน้องบุฟ !  ',
+          textAlign: TextAlign.start,
+          style: TextStyle(
+            fontFamily: 'Opun',
+            color: Colors.black,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            backgroundColor: Colors.amberAccent,
+          ),
+        )
+      ],
+    );
+
+    final textRecom = Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          '  น้องบุฟแนะนำ !  ',
+          textAlign: TextAlign.start,
+          style: TextStyle(
+            fontFamily: 'Opun',
+            color: Colors.black,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            backgroundColor: Colors.amberAccent,
+          ),
+        )
+      ],
+    );
+
+    final textMore = Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          '  ร้านอื่น ๆ ของน้องบุฟ  ',
+          textAlign: TextAlign.start,
+          style: TextStyle(
+            fontFamily: 'Opun',
+            color: Colors.black,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            backgroundColor: Colors.amberAccent,
+          ),
+        )
+      ],
+    );
+
+    final rowRecom = DefaultTextStyle.merge(
+      style: TextStyle(
+        fontFamily: 'Opun',
+        color: Colors.white,
+        fontSize: 15,
+        fontWeight: FontWeight.bold,
+      ),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              children: <Widget>[
+                Image.asset('assets/images/rec1.png'),
+                Text('hlgjh')
+              ],
+            ),
+            Column(
+
+            ),
+            Column(
+
+            ),
+          ],
+        ),
+      )
+    );
+
+    final colMore = DefaultTextStyle.merge(
+        style: TextStyle(
+          fontFamily: 'Opun',
+          color: Colors.white,
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+        ),
+        child: Container(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+              ),
+              Column(
+
+              ),
+              Column(
+
+              ),
+            ],
+          ),
+        )
+    );
+
+    final homeColumn = Container(
+      //padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
+      child: Column(
+        children: [
+          rowSearch,
+          textPro,
+          Image.asset('assets/images/pro.jpg', ),
+          textRecom,
+          rowRecom,
+          textMore,
+          colMore,
+        ],
+      ),
+    );
+
     return MaterialApp(
       title: 'Buffet2Gether', //App's name
       home: DefaultTabController(
         length: 4,
         child: Scaffold(
-          appBar: AppBar(
-            bottom: TabBar(
+          
+          bottomNavigationBar: TabBar(
               tabs:
               [
                 Tab(icon: Icon(Icons.home),),
@@ -88,46 +226,24 @@ class MyAppState extends State<MyCustomForm>
                 Tab(icon: Icon(Icons.notifications_active),),
                 Tab(icon: Icon(Icons.assignment_ind),),
               ],
+              unselectedLabelColor: Colors.black38,
+              labelColor: Colors.deepOrange,
+              indicatorColor: Colors.deepOrange,
+              indicatorWeight: 3.0,
             ),
-            title: Text('Buffet2Getherr',style: TextStyle(fontFamily: 'Opun'),),backgroundColor: Colors.deepOrange,
-          ),
+            
+
           body: TabBarView(
             children: [
-              Padding(
+              Container(
+                child: homeColumn,
+              )
+              /*Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.min, // min = center, max = top
                     children: <Widget>
                     [
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: 5),
-                        padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
-                        decoration: new BoxDecoration(
-                          borderRadius: new BorderRadius.circular(10),
-                          color: Colors.orangeAccent,),
-                        child: TextField(
-                            cursorColor: Colors.white,
-                            controller: myController,
-                            style: TextStyle(
-                              fontFamily: 'Opun',
-                              color: Colors.white70,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            )
-                        ),
-                      ),
-                      Container(
-                        //margin: EdgeInsets.only(top: 20),
-                        child: RaisedButton(
-                          child: Text(isActive ? 'STOP' : 'START', style: TextStyle(fontFamily: 'Opun')),
-                          onPressed: () {
-                            setState(() {
-                              isActive = !isActive;
-                            }
-                            );
-                          },
-                        ),
-                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center, //ชิดซ้าย-ขวา
                         children: <Widget>[
@@ -150,7 +266,7 @@ class MyAppState extends State<MyCustomForm>
                       ),
                     ],
                   ),
-                ),
+                )*/,
               Icon(Icons.fastfood),
               Icon(Icons.notifications_active),
               Icon(Icons.assignment_ind),
@@ -188,7 +304,7 @@ class CustomTextContainer extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5),
+      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       padding: EdgeInsets.all(20),
       decoration: new BoxDecoration(
         borderRadius: new BorderRadius.circular(10),

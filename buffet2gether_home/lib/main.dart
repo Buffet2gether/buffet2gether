@@ -7,15 +7,6 @@ import 'package:flutter/foundation.dart';
 
 void main() => runApp(new MyApp());
 
-/*class MyApp extends StatefulWidget
-{
-  @override
-  State<StatefulWidget> createState()
-  {
-    return new MyAppState();
-  }
-}*/
-
 class MyApp extends StatelessWidget
 {
   @override
@@ -116,181 +107,6 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
     }
     int hrs = secondsPassed~/(60*60);*/
 
-    final rowSearch = Container(
-      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-      padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
-      decoration: new BoxDecoration(
-        borderRadius: new BorderRadius.circular(10),
-        color: Colors.orangeAccent,),
-      child: TextField(
-        cursorColor: Colors.white,
-        //controller: myController,
-        style: TextStyle(
-          fontFamily: 'Opun',
-          color: Colors.white,
-          fontSize: 13,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-
-    final textPro = Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Text(
-          '  โปรโมชั่นจากน้องบุฟ !  ',
-          style: TextStyle(
-            fontFamily: 'Opun',
-            color: Colors.black,
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            backgroundColor: Colors.amberAccent,
-          ),
-        )
-      ],
-    );
-
-    final textRecom = Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Text(
-          '  น้องบุฟแนะนำ !  ',
-          style: TextStyle(
-            fontFamily: 'Opun',
-            color: Colors.black,
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            backgroundColor: Colors.amberAccent,
-          ),
-        )
-      ],
-    );
-
-    final textMore = Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Text(
-          '  ร้านอื่น ๆ ของน้องบุฟ  ',
-          style: TextStyle(
-            fontFamily: 'Opun',
-            color: Colors.black,
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            backgroundColor: Colors.amberAccent,
-          ),
-        )
-      ],
-    );
-
-    final rowRecom = DefaultTextStyle.merge(
-        child: Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                children: <Widget>[
-                  Image.asset('assets/images/rec1.png'),
-                  Text(
-                    'รสแซ่บ! ทะเลปู',
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.black,
-                      fontSize: 12,
-                    ),
-                  ),
-                  Text(
-                    'บุฟเฟ่ต์ทะเลเผา',
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.black,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  Image.asset('assets/images/rec2.png'),
-                  Text(
-                    'กิ่งก้านซีฟู้ด',
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.black,
-                      fontSize: 12,
-                    ),
-                  ),
-                  Text(
-                    'หอย ปู ทะเล',
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.black,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  Image.asset('assets/images/rec3.png'),
-                  Text(
-                    'บุฟเฟ่ต์ขนมจีน',
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.black,
-                      fontSize: 12,
-                    ),
-                  ),
-                  Text(
-                    'เปิดใหม่ใกล้BTS',
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.black,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        )
-    );
-
-    /*final rowMore = Row(
-
-    );
-
-    final colMore = DefaultTextStyle.merge(
-        child: Container(
-          padding: EdgeInsets.all(10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Row(
-
-              ),
-              Row(
-
-              ),
-            ],
-          ),
-        )
-    );*/
-
-    final homeColumn = Container(
-      //padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
-      child: Column(
-        children: [
-          rowSearch,
-          textPro,
-          Image.asset('assets/images/pro.jpg', fit: BoxFit.cover ),
-          textRecom,
-          rowRecom,
-          textMore,
-          //colMore,
-        ],
-      ),
-    );
-
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(widget.title, style: TextStyle(fontFamily: 'Opun'),),
@@ -319,10 +135,6 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
           indicatorColor: Colors.deepOrange,
           indicatorWeight: 3.0,
         ),
-        /*unselectedLabelColor: Colors.black38,
-        labelColor: Colors.deepOrange,
-        indicatorColor: Colors.deepOrange,
-        indicatorWeight: 3.0,*/
       ),
       /*TabBarView(
             children: [
@@ -379,9 +191,9 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
             tooltip: 'Show me the value!',
             child: Icon(Icons.search),foregroundColor: Colors.white, splashColor: Colors.white, backgroundColor: Colors.deepOrange,
           ),*/
-    );
+    //)
     //),
-    //);
+    );
   }
 }
 
@@ -609,54 +421,6 @@ class _HomeColumnState extends State<HomeColumn>
     );
   }
 }
-
-/*class ColMore extends StatelessWidget
-{
-  ColMore();
-
-  final items = List<String>.generate(20, (i) => "Item ${i + 1}");
-
-  @override
-  Widget build(BuildContext context)
-  {
-    final title = 'Dismissing Items';
-
-    return Container(
-      /*margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-      padding: EdgeInsets.all(20),
-      decoration: new BoxDecoration(
-        borderRadius: new BorderRadius.circular(10),
-        color: Colors.black87,
-      ),*/
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Container(
-              child: Row(
-                return Dismissible(key: Key(items),);
-          )
-      ),
-          /*Text(
-            '$value',
-            style: TextStyle(
-              fontFamily: 'Opun',
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            '$label',
-            style: TextStyle(
-              fontFamily: 'Opun',
-              color: Colors.white70,
-            ),
-          )*/
-        ],
-      ),
-    );
-  }
-}*/
 
 /*class CustomTextContainer extends StatelessWidget
 {

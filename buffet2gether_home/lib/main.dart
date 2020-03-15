@@ -234,22 +234,22 @@ class _HomeColumnState extends State<HomeColumn>
   {
 
     final rowSearch = Container(
-      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-      padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
-      decoration: new BoxDecoration(
-        borderRadius: new BorderRadius.circular(10),
-        color: Colors.orangeAccent,),
-      child: TextField(
-        cursorColor: Colors.white,
-        //controller: myController,
-        style: TextStyle(
-          fontFamily: 'Opun',
-          color: Colors.white,
-          fontSize: 13,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
+          margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+          padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
+          decoration: new BoxDecoration(
+            borderRadius: new BorderRadius.circular(10),
+            color: Colors.white,),
+          child: TextField(
+            cursorColor: Colors.white,
+            //controller: myController,
+            style: TextStyle(
+              fontFamily: 'Opun',
+              color: Colors.white,
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        );
 
     final textPro = Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -265,6 +265,21 @@ class _HomeColumnState extends State<HomeColumn>
           ),
         )
       ],
+    );
+
+    final picPro = Container(
+        margin: EdgeInsets.only(bottom: 7),
+        padding: EdgeInsets.only(bottom: 5,left: 5,right: 5,top: 5),
+        decoration: new BoxDecoration(
+          borderRadius: new BorderRadius.circular(5),
+          color: Colors.white,),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+        Image.asset('assets/images/pro.jpg', fit: BoxFit.cover)
+      ],
+    )
     );
 
     final textRecom = Row(
@@ -299,99 +314,119 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
-    final rowRecom = DefaultTextStyle.merge(
-        child: Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                children: <Widget>[
-                  Image.asset('assets/images/rec1.png'),
-                  Text(
-                    'รสแซ่บ! ทะเลปู',
-                    style: TextStyle(
+    final rowRecom = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Container(
+            margin: EdgeInsets.only(bottom: 7),
+            decoration: new BoxDecoration(
+              borderRadius: new BorderRadius.circular(10),
+              color: Colors.white,),
+            child: Column(
+              children: <Widget>[
+                Image.asset('assets/images/rec1.png'),
+                Text(
+                  'รสแซ่บ! ทะเลปู',
+                  style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.black,
                       fontSize: 12,
-                        fontWeight: FontWeight.bold
-                    ),
+                      fontWeight: FontWeight.bold
                   ),
-                  Text(
-                    'บุฟเฟ่ต์ทะเลเผา',
-                    style: TextStyle(
+                ),
+                Text(
+                  'บุฟเฟ่ต์ทะเลเผา',
+                  style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.black,
                       fontSize: 12,
-                        fontWeight: FontWeight.bold
-                    ),
+                      fontWeight: FontWeight.bold
                   ),
-                ],
-              ),
-              Column(
-                children: [
-                  Image.asset('assets/images/rec2.png'),
-                  Text(
-                    'กิ่งก้านซีฟู้ด',
-                    style: TextStyle(
+                ),
+              ],
+            )
+        ),
+        Container(
+            margin: EdgeInsets.only(bottom: 7),
+            decoration: new BoxDecoration(
+              borderRadius: new BorderRadius.circular(10),
+              color: Colors.white,),
+            child: Column(
+              children: [
+                Image.asset('assets/images/rec2.png'),
+                Text(
+                  'กิ่งก้านซีฟู้ด',
+                  style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.black,
                       fontSize: 12,
-                        fontWeight: FontWeight.bold
-                    ),
+                      fontWeight: FontWeight.bold
                   ),
-                  Text(
-                    'หอย ปู ทะเล',
-                    style: TextStyle(
+                ),
+                Text(
+                  'หอย ปู ทะเล',
+                  style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.black,
                       fontSize: 12,
-                        fontWeight: FontWeight.bold
-                    ),
+                      fontWeight: FontWeight.bold
                   ),
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  Image.asset('assets/images/rec3.png'),
-                  Text(
-                    'บุฟเฟ่ต์ขนมจีน',
-                    style: TextStyle(
+                ),
+              ],
+            )
+        ),
+        Container(
+            margin: EdgeInsets.only(bottom: 7),
+            decoration: new BoxDecoration(
+              borderRadius: new BorderRadius.circular(10),
+              color: Colors.white,),
+            child: Column(
+              children: <Widget>[
+                Image.asset('assets/images/rec3.png'),
+                Text(
+                  'บุฟเฟ่ต์ขนมจีน',
+                  style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.black,
                       fontSize: 12,
-                        fontWeight: FontWeight.bold
-                    ),
+                      fontWeight: FontWeight.bold
                   ),
-                  Text(
-                    'เปิดใหม่ใกล้BTS',
-                    style: TextStyle(
+                ),
+                Text(
+                  'เปิดใหม่ใกล้BTS',
+                  style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.black,
                       fontSize: 12,
-                        fontWeight: FontWeight.bold
-                    ),
+                      fontWeight: FontWeight.bold
                   ),
-                ],
-              ),
-            ],
-          ),
-        )
+                ),
+              ],
+            )
+        ),
+      ],
     );
 
-    final rowMore1 = Row(
-      children: <Widget>[
-        Image.asset('assets/images/more1.png'),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
+    final rowMore1 = Container(
+        margin: EdgeInsets.only(bottom: 1),
+        padding: EdgeInsets.only(bottom: 5,left: 5,right: 5,top: 5),
+        decoration: new BoxDecoration(
+          borderRadius: new BorderRadius.circular(5),
+          color: Colors.white,),
+        child: Row(
           children: <Widget>[
-            Row(
+            Image.asset('assets/images/more1.png'),
+            Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  'อี๊ดบุฟเฟ่ต์ชาบู',
-                  style: TextStyle(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'อี๊ดบุฟเฟ่ต์ชาบู',
+                      style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.deepOrange,
                       fontSize: 12,
@@ -400,33 +435,34 @@ class _HomeColumnState extends State<HomeColumn>
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Icon(Icons.location_on,size: 11,color: Colors.grey,),
-                Text(
-                  'Lat Krabang Road  ',
-                  style: TextStyle(
-                    fontFamily: 'Opun',
-                    color: Colors.grey,
-                    fontSize: 11,
-                  ),
-                ),
-                Icon(Icons.access_time,size: 11,color: Colors.grey),
-                Text(
-                  ' 09.00 - 20.00',
-                  style: TextStyle(
-                    fontFamily: 'Opun',
-                    color: Colors.grey,
-                    fontSize: 11,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.location_on,size: 11,color: Colors.grey,),
+                    Text(
+                      'Lat Krabang Road  ',
+                      style: TextStyle(
+                        fontFamily: 'Opun',
+                        color: Colors.grey,
+                        fontSize: 11,
+                      ),
+                    ),
+                    Icon(Icons.access_time,size: 11,color: Colors.grey),
+                    Text(
+                      ' 09.00 - 20.00',
+                      style: TextStyle(
+                        fontFamily: 'Opun',
+                        color: Colors.grey,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ],
                 ),
               ],
-            ),
+            )
           ],
         )
-      ],
     );
 
     final rowMore2 = Row(
@@ -494,12 +530,13 @@ class _HomeColumnState extends State<HomeColumn>
     );
 
     final homeColumn = Container(
+      color: Colors.grey,
       //padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
       child: Column(
         children: [
           rowSearch,
           textPro,
-          Image.asset('assets/images/pro.jpg', fit: BoxFit.cover ),
+          picPro,
           textRecom,
           rowRecom,
           textMore,

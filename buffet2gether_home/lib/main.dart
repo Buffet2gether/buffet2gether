@@ -238,15 +238,20 @@ class _HomeColumnState extends State<HomeColumn>
           padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
           decoration: new BoxDecoration(
             borderRadius: new BorderRadius.circular(10),
-            color: Colors.white,),
+            color: Colors.white,
+          ),
           child: TextField(
-            cursorColor: Colors.white,
+            cursorColor: Colors.deepOrange,
             //controller: myController,
             style: TextStyle(
               fontFamily: 'Opun',
               color: Colors.white,
               fontSize: 13,
               fontWeight: FontWeight.bold,
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: 'ค้นหา',
             ),
           ),
         );
@@ -258,7 +263,7 @@ class _HomeColumnState extends State<HomeColumn>
           '  โปรโมชั่นจากน้องบุฟ !  ',
           style: TextStyle(
             fontFamily: 'Opun',
-            color: Colors.black,
+            color: Colors.white,
             fontSize: 15,
             fontWeight: FontWeight.bold,
             backgroundColor: Colors.amberAccent,
@@ -289,10 +294,10 @@ class _HomeColumnState extends State<HomeColumn>
           '  น้องบุฟแนะนำ !  ',
           style: TextStyle(
             fontFamily: 'Opun',
-            color: Colors.black,
+            color: Colors.white,
             fontSize: 15,
             fontWeight: FontWeight.bold,
-            backgroundColor: Colors.amberAccent,
+            backgroundColor: Colors.deepOrange,
           ),
         )
       ],
@@ -305,10 +310,10 @@ class _HomeColumnState extends State<HomeColumn>
           '  ร้านอื่น ๆ ของน้องบุฟ  ',
           style: TextStyle(
             fontFamily: 'Opun',
-            color: Colors.black,
+            color: Colors.deepOrange,
             fontSize: 15,
             fontWeight: FontWeight.bold,
-            backgroundColor: Colors.amberAccent,
+            //backgroundColor: Colors.amberAccent,
           ),
         )
       ],
@@ -408,19 +413,25 @@ class _HomeColumnState extends State<HomeColumn>
     );
 
     final rowMore1 = Container(
-        margin: EdgeInsets.only(bottom: 1),
-        padding: EdgeInsets.only(bottom: 5,left: 5,right: 5,top: 5),
+        margin: EdgeInsets.only(bottom: 1,left: 5,right: 5),
+        padding: EdgeInsets.only(bottom: 15,left: 10,right: 5,top: 15),
         decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.circular(5),
           color: Colors.white,),
         child: Row(
           children: <Widget>[
             Image.asset('assets/images/more1.png'),
             Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Row(
+                Text(
+                  'อี๊ดบุฟเฟ่ต์ชาบู',
+                  style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.deepOrange,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+                /*Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -431,106 +442,106 @@ class _HomeColumnState extends State<HomeColumn>
                       color: Colors.deepOrange,
                       fontSize: 12,
                       fontWeight: FontWeight.bold
-                  ),
-                ),
-              ],
-            ),
+                      ),
+                    ),
+                  ],
+                ),*/
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Icon(Icons.location_on,size: 11,color: Colors.grey,),
+                    Icon(Icons.location_on,size: 25,color: Colors.amber,),
                     Text(
                       'Lat Krabang Road  ',
                       style: TextStyle(
                         fontFamily: 'Opun',
                         color: Colors.grey,
-                        fontSize: 11,
+                        fontSize: 13,
                       ),
                     ),
-                    Icon(Icons.access_time,size: 11,color: Colors.grey),
+                    Icon(Icons.access_time,size: 25,color: Colors.amber),
                     Text(
                       ' 09.00 - 20.00',
                       style: TextStyle(
                         fontFamily: 'Opun',
                         color: Colors.grey,
-                        fontSize: 11,
+                        fontSize: 13,
                       ),
                     ),
                   ],
                 ),
               ],
-            )
+            ),
           ],
         )
     );
 
-    final rowMore2 = Row(
-      children: <Widget>[
-        Image.asset('assets/images/more2.png'),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
+    final rowMore2 = Container(
+        margin: EdgeInsets.only(bottom: 1,left: 5,right: 5),
+        padding: EdgeInsets.only(bottom: 15,left: 10,right: 5,top: 15),
+        decoration: new BoxDecoration(
+          color: Colors.white,),
+        child: Row(
           children: <Widget>[
-            Row(
+            Image.asset('assets/images/more2.png'),
+            Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  'YAMASHITAKEA Shabu',
-                  style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.deepOrange,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'YAMASHITAKEA Shabu',
+                      style: TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.deepOrange,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Icon(Icons.location_on,size: 11,color: Colors.grey,),
-                Text(
-                  'Lat Krabang Road  ',
-                  style: TextStyle(
-                    fontFamily: 'Opun',
-                    color: Colors.grey,
-                    fontSize: 11,
-                  ),
-                ),
-                Icon(Icons.access_time,size: 11,color: Colors.grey),
-                Text(
-                  ' 09.00 - 20.00',
-                  style: TextStyle(
-                    fontFamily: 'Opun',
-                    color: Colors.grey,
-                    fontSize: 11,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.location_on,size: 25,color: Colors.amber,),
+                    Text(
+                      'Lat Krabang Road  ',
+                      style: TextStyle(
+                        fontFamily: 'Opun',
+                        color: Colors.grey,
+                        fontSize: 13,
+                      ),
+                    ),
+                    Icon(Icons.access_time,size: 25,color: Colors.amber),
+                    Text(
+                      ' 09.00 - 20.00',
+                      style: TextStyle(
+                        fontFamily: 'Opun',
+                        color: Colors.grey,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ],
         )
+    );
+
+    final colMore = Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        rowMore1,
+        rowMore2
       ],
     );
 
-    final colMore = DefaultTextStyle.merge(
-        child: Container(
-          padding: EdgeInsets.all(10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              rowMore1,
-              rowMore2
-            ],
-          ),
-        )
-    );
-
     final homeColumn = Container(
-      color: Colors.grey,
+      color: Colors.white10,
       //padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
       child: Column(
         children: [

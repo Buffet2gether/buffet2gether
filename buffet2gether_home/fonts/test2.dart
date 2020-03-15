@@ -1,4 +1,4 @@
-/*------------------- Buffet2Gether ----------------*/
+//------------------------- Buffet2Gether original---------------------------
 
 //import 'dart:html';
 import 'package:flutter/cupertino.dart';

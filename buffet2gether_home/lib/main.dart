@@ -1,4 +1,4 @@
-//------------------- Buffet2Gether ----------------
+//---------------------------- Buffet2Gether adapted-------------------------------------
 //import 'dart:html';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +31,7 @@ class MyCustomForm extends StatefulWidget {
   MyAppState createState() => new MyAppState();
 }
 
+//-------------------------------------main---------------------------------------------
 class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
 {
   TabController controller;
@@ -52,6 +53,17 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
     super.dispose();
   }
 
+  //myController = TextEditingController
+  /*final myController = TextEditingController();
+
+  @override
+  void dispose()
+  {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }*/
+
   static const duration = const Duration(seconds: 1);
 
   int secondsPassed = 0;
@@ -69,17 +81,6 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
     }
   }
 
-  /*final myController = TextEditingController();
-
-  @override
-  void dispose()
-  {
-    // Clean up the controller when the widget is disposed.
-    myController.dispose();
-    super.dispose();
-  }*/
-
-
   @override
   Widget build(BuildContext context)
   {
@@ -92,6 +93,7 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
 
     ];
 
+    //timer
     /*if(timer == null)
     {
       timer = Timer.periodic(duration, (Timer t){
@@ -136,6 +138,8 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
           indicatorWeight: 3.0,
         ),
       ),
+
+      //clock
       /*TabBarView(
             children: [
               Container(
@@ -175,6 +179,8 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
               Icon(Icons.assignment_ind),
             ],
           )*/
+
+      //floatingActionButton
       /*floatingActionButton: FloatingActionButton(
             onPressed: ()
             {
@@ -197,6 +203,7 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
   }
 }
 
+//----------------------------------------HomeColumn------------------------------------
 class HomeColumn extends StatefulWidget
 {
   HomeColumn({Key key, this.getOffsetMethod, this.setOffsetMethod}) : super(key: key);
@@ -365,8 +372,45 @@ class _HomeColumnState extends State<HomeColumn>
         )
     );
 
-    /*final rowMore = Row(
-
+    //colMore
+    final rowMore1 = Row(
+      children: <Widget>[
+        Image.asset('assets/images/more1.png'),
+        Column(
+          children: <Widget>[
+            Text(
+              'อี๊ดบุฟเฟ่ต์ชาบู',
+              style: TextStyle(
+                fontFamily: 'Opun',
+                color: Colors.deepOrange,
+                fontSize: 12,
+              ),
+            ),
+            Row(
+              children: <Widget>[
+                Icon(Icons.location_on),
+                Text(
+                  'Lat Krabang Road',
+                  style: TextStyle(
+                    fontFamily: 'Opun',
+                    color: Colors.grey,
+                    fontSize: 10,
+                  ),
+                ),
+                Icon(Icons.access_time),
+                Text(
+                  '09.00 - 20.00',
+                  style: TextStyle(
+                    fontFamily: 'Opun',
+                    color: Colors.grey,
+                    fontSize: 10,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        )
+      ],
     );
 
     final colMore = DefaultTextStyle.merge(
@@ -375,16 +419,11 @@ class _HomeColumnState extends State<HomeColumn>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Row(
-
-              ),
-              Row(
-
-              ),
+              rowMore1,
             ],
           ),
         )
-    );*/
+    );
 
     final homeColumn = Container(
       //padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
@@ -396,13 +435,15 @@ class _HomeColumnState extends State<HomeColumn>
           textRecom,
           rowRecom,
           textMore,
-          //colMore,
+          colMore,
         ],
       ),
     );
 
     return new NotificationListener(
       child: homeColumn,
+
+      //ListView.builder
       /*ListView.builder(
         controller: scrollController,
         itemCount: 45,
@@ -411,6 +452,7 @@ class _HomeColumnState extends State<HomeColumn>
           return new Text("Data "+index.toString());
         },
       ),*/
+
       onNotification: (notification)
       {
         if (notification is ScrollNotification)
@@ -422,6 +464,7 @@ class _HomeColumnState extends State<HomeColumn>
   }
 }
 
+//--------------------------------------CustomTextContainer------------------------------
 /*class CustomTextContainer extends StatelessWidget
 {
   CustomTextContainer({this.label, this.value});

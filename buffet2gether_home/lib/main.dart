@@ -313,6 +313,7 @@ class _HomeColumnState extends State<HomeColumn>
                       fontFamily: 'Opun',
                       color: Colors.black,
                       fontSize: 12,
+                        fontWeight: FontWeight.bold
                     ),
                   ),
                   Text(
@@ -321,6 +322,7 @@ class _HomeColumnState extends State<HomeColumn>
                       fontFamily: 'Opun',
                       color: Colors.black,
                       fontSize: 12,
+                        fontWeight: FontWeight.bold
                     ),
                   ),
                 ],
@@ -334,6 +336,7 @@ class _HomeColumnState extends State<HomeColumn>
                       fontFamily: 'Opun',
                       color: Colors.black,
                       fontSize: 12,
+                        fontWeight: FontWeight.bold
                     ),
                   ),
                   Text(
@@ -342,6 +345,7 @@ class _HomeColumnState extends State<HomeColumn>
                       fontFamily: 'Opun',
                       color: Colors.black,
                       fontSize: 12,
+                        fontWeight: FontWeight.bold
                     ),
                   ),
                 ],
@@ -355,6 +359,7 @@ class _HomeColumnState extends State<HomeColumn>
                       fontFamily: 'Opun',
                       color: Colors.black,
                       fontSize: 12,
+                        fontWeight: FontWeight.bold
                     ),
                   ),
                   Text(
@@ -363,6 +368,7 @@ class _HomeColumnState extends State<HomeColumn>
                       fontFamily: 'Opun',
                       color: Colors.black,
                       fontSize: 12,
+                        fontWeight: FontWeight.bold
                     ),
                   ),
                 ],
@@ -372,38 +378,99 @@ class _HomeColumnState extends State<HomeColumn>
         )
     );
 
-    //colMore
     final rowMore1 = Row(
       children: <Widget>[
         Image.asset('assets/images/more1.png'),
         Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'อี๊ดบุฟเฟ่ต์ชาบู',
-              style: TextStyle(
-                fontFamily: 'Opun',
-                color: Colors.deepOrange,
-                fontSize: 12,
-              ),
-            ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Icon(Icons.location_on),
                 Text(
-                  'Lat Krabang Road',
+                  'อี๊ดบุฟเฟ่ต์ชาบู',
                   style: TextStyle(
-                    fontFamily: 'Opun',
-                    color: Colors.grey,
-                    fontSize: 10,
+                      fontFamily: 'Opun',
+                      color: Colors.deepOrange,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold
                   ),
                 ),
-                Icon(Icons.access_time),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Icon(Icons.location_on,size: 11,color: Colors.grey,),
                 Text(
-                  '09.00 - 20.00',
+                  'Lat Krabang Road  ',
                   style: TextStyle(
                     fontFamily: 'Opun',
                     color: Colors.grey,
-                    fontSize: 10,
+                    fontSize: 11,
+                  ),
+                ),
+                Icon(Icons.access_time,size: 11,color: Colors.grey),
+                Text(
+                  ' 09.00 - 20.00',
+                  style: TextStyle(
+                    fontFamily: 'Opun',
+                    color: Colors.grey,
+                    fontSize: 11,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        )
+      ],
+    );
+
+    final rowMore2 = Row(
+      children: <Widget>[
+        Image.asset('assets/images/more2.png'),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'YAMASHITAKEA Shabu',
+                  style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.deepOrange,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Icon(Icons.location_on,size: 11,color: Colors.grey,),
+                Text(
+                  'Lat Krabang Road  ',
+                  style: TextStyle(
+                    fontFamily: 'Opun',
+                    color: Colors.grey,
+                    fontSize: 11,
+                  ),
+                ),
+                Icon(Icons.access_time,size: 11,color: Colors.grey),
+                Text(
+                  ' 09.00 - 20.00',
+                  style: TextStyle(
+                    fontFamily: 'Opun',
+                    color: Colors.grey,
+                    fontSize: 11,
                   ),
                 ),
               ],
@@ -420,6 +487,7 @@ class _HomeColumnState extends State<HomeColumn>
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               rowMore1,
+              rowMore2
             ],
           ),
         )
@@ -441,17 +509,14 @@ class _HomeColumnState extends State<HomeColumn>
     );
 
     return new NotificationListener(
-      child: homeColumn,
-
-      //ListView.builder
-      /*ListView.builder(
+      child: new ListView.builder(
         controller: scrollController,
-        itemCount: 45,
+        itemCount: 1,
         itemBuilder: (BuildContext context, int index)
         {
-          return new Text("Data "+index.toString());
+          return homeColumn;
         },
-      ),*/
+      ),
 
       onNotification: (notification)
       {

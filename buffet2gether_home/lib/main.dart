@@ -47,22 +47,15 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
     );
   }
 
+  //myController = TextEditingController
+  final myController = TextEditingController();
+
   @override
   void dispose() {
+    myController.dispose();
     controller.dispose();
     super.dispose();
   }
-
-  //myController = TextEditingController
-  /*final myController = TextEditingController();
-
-  @override
-  void dispose()
-  {
-    // Clean up the controller when the widget is disposed.
-    myController.dispose();
-    super.dispose();
-  }*/
 
   static const duration = const Duration(seconds: 1);
 
@@ -120,6 +113,7 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
           new HomeColumn(
             getOffsetMethod: () => listViewOffset,
             setOffsetMethod: (offset) => this.listViewOffset = offset,
+            mc: myController,
           ),
           new Icon(Icons.fastfood),
           new Icon(Icons.notifications_active),
@@ -180,23 +174,22 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
             ],
           )*/
 
-      //floatingActionButton
-      /*floatingActionButton: FloatingActionButton(
-            onPressed: ()
+      floatingActionButton: FloatingActionButton(
+        onPressed: ()
+        {
+          return showDialog(
+            context: context,
+            builder: (context)
             {
-              return showDialog(
-                context: context,
-                builder: (context)
-                {
-                  return AlertDialog(
-                    content: Text(myController.text),
-                  );
-                },
+              return AlertDialog(
+                content: Text(myController.text),
               );
-            },
+              },
+          );
+          },
             tooltip: 'Show me the value!',
             child: Icon(Icons.search),foregroundColor: Colors.white, splashColor: Colors.white, backgroundColor: Colors.deepOrange,
-          ),*/
+      ),
     //)
     //),
     );
@@ -206,10 +199,11 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
 //----------------------------------------HomeColumn------------------------------------
 class HomeColumn extends StatefulWidget
 {
-  HomeColumn({Key key, this.getOffsetMethod, this.setOffsetMethod}) : super(key: key);
+  HomeColumn({Key key, this.getOffsetMethod, this.setOffsetMethod, this.mc}) : super(key: key);
 
   final GetOffsetMethod getOffsetMethod;
   final SetOffsetMethod setOffsetMethod;
+  final TextEditingController mc;
 
   @override
   _HomeColumnState createState() => new _HomeColumnState();
@@ -242,10 +236,10 @@ class _HomeColumnState extends State<HomeColumn>
           ),
           child: TextField(
             cursorColor: Colors.deepOrange,
-            //controller: myController,
+            controller: widget.mc,
             style: TextStyle(
               fontFamily: 'Opun',
-              color: Colors.white,
+              color: Colors.grey,
               fontSize: 13,
               fontWeight: FontWeight.bold,
             ),

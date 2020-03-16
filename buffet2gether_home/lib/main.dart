@@ -57,22 +57,11 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
     super.dispose();
   }
 
-  static const duration = const Duration(seconds: 1);
+  //static const duration = const Duration(seconds: 1);
 
-  int secondsPassed = 0;
-  bool isActive = false;
+  //int secondsPassed = 0;
 
-  Timer timer;
-
-  void handleTick()
-  {
-    if(isActive)
-    {
-      setState(() {
-        secondsPassed = secondsPassed+1;
-      });
-    }
-  }
+  //Timer timer;
 
   @override
   Widget build(BuildContext context)
@@ -132,48 +121,6 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
           indicatorWeight: 3.0,
         ),
       ),
-
-      //clock
-      /*TabBarView(
-            children: [
-              Container(
-                child: homeColumn,
-              ),
-              /*Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min, // min = center, max = top
-                    children: <Widget>
-                    [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center, //ชิดซ้าย-ขวา
-                        children: <Widget>[
-                          CustomTextContainer(label: 'Hrs', value: hrs.toString().padLeft(2, '0')),
-                          CustomTextContainer(label: 'Min', value: min.toString().padLeft(2, '0')),
-                          CustomTextContainer(label: 'Sec', value: sec.toString().padLeft(2, '0')),
-                        ],
-                      ),
-                      Container(
-                        //margin: EdgeInsets.only(top: 20),
-                        child: RaisedButton(
-                          child: Text(isActive ? 'STOP' : 'START', style: TextStyle(fontFamily: 'Opun')),
-                          onPressed: () {
-                            setState(() {
-                              isActive = !isActive;
-                            }
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),*/
-              Icon(Icons.fastfood),
-              Icon(Icons.notifications_active),
-              Icon(Icons.assignment_ind),
-            ],
-          )*/
-
       floatingActionButton: FloatingActionButton(
         onPressed: ()
         {
@@ -190,8 +137,6 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
             tooltip: 'Show me the value!',
             child: Icon(Icons.search),foregroundColor: Colors.white, splashColor: Colors.white, backgroundColor: Colors.deepOrange,
       ),
-    //)
-    //),
     );
   }
 }
@@ -223,10 +168,22 @@ class _HomeColumnState extends State<HomeColumn>
     );
   }
 
+  /*bool isActive = false;
+
+  void handleTick()
+  {
+    if(isActive)
+    {
+      setState(() {
+        //secondsPassed = secondsPassed+1;
+      }
+      );
+    }
+  }*/
+
   @override
   Widget build(BuildContext context)
   {
-
     final rowSearch = Container(
           margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
           padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
@@ -250,8 +207,32 @@ class _HomeColumnState extends State<HomeColumn>
           ),
         );
 
+    final buttonSearch = Container(
+      child: RaisedButton(
+        child: Text(
+          //isActive ? 'ค้นหา2' : 'ค้นหา',
+          'ค้นหา',
+            style: TextStyle(
+                fontFamily: 'Opun'
+            ),
+        ),
+        onPressed: ()
+        {
+          return showDialog(
+            context: context,
+            builder: (context)
+            {
+              return AlertDialog(
+                content: Text(widget.mc.text),
+              );
+            },
+          );
+        }
+      ),
+    );
+
     final textPro = Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           '  โปรโมชั่นจากน้องบุฟ !  ',
@@ -262,7 +243,8 @@ class _HomeColumnState extends State<HomeColumn>
             fontWeight: FontWeight.bold,
             backgroundColor: Colors.amberAccent,
           ),
-        )
+        ),
+        buttonSearch,
       ],
     );
 

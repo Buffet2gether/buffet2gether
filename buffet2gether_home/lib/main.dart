@@ -272,21 +272,6 @@ class _HomeColumnState extends State<HomeColumn>
         constraints:new BoxConstraints.loose(new Size(350, 220.0))
     );
 
-    /*final picPro = Container(
-        margin: EdgeInsets.only(bottom: 7),
-        padding: EdgeInsets.only(bottom: 5,left: 5,right: 5,top: 5),
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.circular(5),
-          color: Colors.white,),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Image.asset('assets/images/pro.jpg', fit: BoxFit.cover)
-          ],
-        )
-    );*/
-
     final textRecom = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [

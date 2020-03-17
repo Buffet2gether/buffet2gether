@@ -255,28 +255,24 @@ class _HomeColumnState extends State<HomeColumn>
 
     final List listPic = [
       Image.asset('assets/images/pro.jpg'),
-      Image.asset('assets/images/pro1.png'),
-      Image.asset('assets/images/pro2.png'),
+      Image.asset('assets/images/pro1.jpg'),
+      Image.asset('assets/images/pro2.jpg'),
     ];
 
-    /*final picPro = Container(
-        margin: EdgeInsets.only(bottom: 7),
-        padding: EdgeInsets.only(bottom: 5,left: 5,right: 5,top: 5),
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.circular(5),
-          color: Colors.white,),
-        child: Swiper(
-          itemBuilder: (BuildContext context,int index) {
-            return listPic[index];
-          },
-          //autoplay: true,
-          itemCount: listPic.length,
-          pagination: new SwiperPagination(),
-          control: new SwiperControl(),
-        ),
-    );*/
+    final picPro = ConstrainedBox(
+      child: new Swiper(
+        itemBuilder: (BuildContext context,int index)
+        {
+          return listPic[index];
+        },
+        itemCount: listPic.length,
+        pagination: new SwiperPagination(),
+        //control: new SwiperControl(),
+      ),
+        constraints:new BoxConstraints.loose(new Size(350, 220.0))
+    );
 
-    final picPro = Container(
+    /*final picPro = Container(
         margin: EdgeInsets.only(bottom: 7),
         padding: EdgeInsets.only(bottom: 5,left: 5,right: 5,top: 5),
         decoration: new BoxDecoration(
@@ -289,7 +285,7 @@ class _HomeColumnState extends State<HomeColumn>
             Image.asset('assets/images/pro.jpg', fit: BoxFit.cover)
           ],
         )
-    );
+    );*/
 
     final textRecom = Row(
       mainAxisAlignment: MainAxisAlignment.start,

@@ -1,9 +1,10 @@
-//---------------------------- Buffet2Gether adapted-------------------------------------
+//---------------------------- Buffet2Gether adated-------------------------------------
 //import 'dart:html';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 
 void main() => runApp(new MyApp());
 
@@ -104,7 +105,12 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
             setOffsetMethod: (offset) => this.listViewOffset = offset,
             mc: myController,
           ),
-          new Icon(Icons.fastfood),
+          //new Icon(Icons.fastfood),
+          new TableCol(
+            getOffsetMethod: () => listViewOffset,
+            setOffsetMethod: (offset) => this.listViewOffset = offset,
+            mc: myController,
+          ),
           new Icon(Icons.notifications_active),
           new Icon(Icons.assignment_ind),
         ],
@@ -141,7 +147,7 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
   }
 }
 
-//----------------------------------------HomeColumn------------------------------------
+//----------------------------------------Home page------------------------------------
 class HomeColumn extends StatefulWidget
 {
   HomeColumn({Key key, this.getOffsetMethod, this.setOffsetMethod, this.mc}) : super(key: key);
@@ -156,7 +162,6 @@ class HomeColumn extends StatefulWidget
 
 class _HomeColumnState extends State<HomeColumn>
 {
-
   ScrollController scrollController;
 
   @override
@@ -185,49 +190,49 @@ class _HomeColumnState extends State<HomeColumn>
   Widget build(BuildContext context)
   {
     final rowSearch = Container(
-          margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-          padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
-          decoration: new BoxDecoration(
-            borderRadius: new BorderRadius.circular(10),
-            color: Colors.white,
-          ),
-          child: TextField(
-            cursorColor: Colors.deepOrange,
-            controller: widget.mc,
-            style: TextStyle(
-              fontFamily: 'Opun',
-              color: Colors.grey,
-              fontSize: 13,
-              fontWeight: FontWeight.bold,
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: 'ค้นหา',
-            ),
-          ),
-        );
+      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
+      decoration: new BoxDecoration(
+        borderRadius: new BorderRadius.circular(10),
+        color: Colors.white,
+      ),
+      child: TextField(
+        cursorColor: Colors.deepOrange,
+        controller: widget.mc,
+        style: TextStyle(
+          fontFamily: 'Opun',
+          color: Colors.grey,
+          fontSize: 13,
+          fontWeight: FontWeight.bold,
+        ),
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: 'ค้นหา',
+        ),
+      ),
+    );
 
     final buttonSearch = Container(
       child: RaisedButton(
-        child: Text(
-          //isActive ? 'ค้นหา2' : 'ค้นหา',
-          'ค้นหา',
+          child: Text(
+            //isActive ? 'ค้นหา2' : 'ค้นหา',
+            'ค้นหา',
             style: TextStyle(
                 fontFamily: 'Opun'
             ),
-        ),
-        onPressed: ()
-        {
-          return showDialog(
-            context: context,
-            builder: (context)
-            {
-              return AlertDialog(
-                content: Text(widget.mc.text),
-              );
-            },
-          );
-        }
+          ),
+          onPressed: ()
+          {
+            return showDialog(
+              context: context,
+              builder: (context)
+              {
+                return AlertDialog(
+                  content: Text(widget.mc.text),
+                );
+              },
+            );
+          }
       ),
     );
 
@@ -248,19 +253,42 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
+    final List listPic = [
+      Image.asset('assets/images/pro.jpg'),
+      Image.asset('assets/images/pro1.png'),
+      Image.asset('assets/images/pro2.png'),
+    ];
+
+    /*final picPro = Container(
+        margin: EdgeInsets.only(bottom: 7),
+        padding: EdgeInsets.only(bottom: 5,left: 5,right: 5,top: 5),
+        decoration: new BoxDecoration(
+          borderRadius: new BorderRadius.circular(5),
+          color: Colors.white,),
+        child: Swiper(
+          itemBuilder: (BuildContext context,int index) {
+            return listPic[index];
+          },
+          //autoplay: true,
+          itemCount: listPic.length,
+          pagination: new SwiperPagination(),
+          control: new SwiperControl(),
+        ),
+    );*/
+
     final picPro = Container(
         margin: EdgeInsets.only(bottom: 7),
         padding: EdgeInsets.only(bottom: 5,left: 5,right: 5,top: 5),
         decoration: new BoxDecoration(
           borderRadius: new BorderRadius.circular(5),
           color: Colors.white,),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-        Image.asset('assets/images/pro.jpg', fit: BoxFit.cover)
-      ],
-    )
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Image.asset('assets/images/pro.jpg', fit: BoxFit.cover)
+          ],
+        )
     );
 
     final textRecom = Row(
@@ -294,6 +322,116 @@ class _HomeColumnState extends State<HomeColumn>
         )
       ],
     );
+
+    /*final recc1 = Container(
+        margin: EdgeInsets.only(bottom: 7),
+        decoration: new BoxDecoration(
+          borderRadius: new BorderRadius.circular(10),
+          color: Colors.white,),
+        child: Column(
+          children: <Widget>[
+            Image.asset('assets/images/rec1.png'),
+            Text(
+              'รสแซ่บ! ทะเลปู',
+              style: TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.black,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+            Text(
+              'บุฟเฟ่ต์ทะเลเผา',
+              style: TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.black,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+          ],
+        )
+    );
+
+    final recc2 = Container(
+        margin: EdgeInsets.only(bottom: 7),
+        decoration: new BoxDecoration(
+          borderRadius: new BorderRadius.circular(10),
+          color: Colors.white,),
+        child: Column(
+          children: [
+            Image.asset('assets/images/rec2.png'),
+            Text(
+              'กิ่งก้านซีฟู้ด',
+              style: TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.black,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+            Text(
+              'หอย ปู ทะเล',
+              style: TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.black,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+          ],
+        )
+    );
+
+    final recc3 = Container(
+        margin: EdgeInsets.only(bottom: 7),
+        decoration: new BoxDecoration(
+          borderRadius: new BorderRadius.circular(10),
+          color: Colors.white,),
+        child: Column(
+          children: <Widget>[
+            Image.asset('assets/images/rec3.png'),
+            Text(
+              'บุฟเฟ่ต์ขนมจีน',
+              style: TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.black,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+            Text(
+              'เปิดใหม่ใกล้BTS',
+              style: TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.black,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+          ],
+        )
+    );
+
+    final List listRec = [
+      recc1,
+      recc2,
+      recc3
+    ];
+
+    final rowRecom = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Swiper(
+          itemBuilder: (BuildContext context,int index){
+            return listRec[index];
+          },
+          itemCount: 3,
+          pagination: new SwiperPagination(),
+          control: new SwiperControl(),
+        ),
+      ],
+    );*/
 
     final rowRecom = Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -549,6 +687,144 @@ class _HomeColumnState extends State<HomeColumn>
           widget.setOffsetMethod(notification.metrics.pixels);
         }
       },
+    );
+  }
+}
+
+//------------------------------------2nd page-------------------------------------
+class TableCol extends StatefulWidget
+{
+  TableCol({Key key, this.getOffsetMethod, this.setOffsetMethod, this.mc}) : super(key: key);
+
+  final GetOffsetMethod getOffsetMethod;
+  final SetOffsetMethod setOffsetMethod;
+  final TextEditingController mc;
+
+  @override
+  _TableColState createState() => new _TableColState();
+}
+
+class _TableColState extends State<TableCol>
+{
+  ScrollController scrollController;
+
+  @override
+  void initState()
+  {
+    super.initState();
+    scrollController = new ScrollController(
+        initialScrollOffset: widget.getOffsetMethod()
+    );
+  }
+
+  final List listPic = [
+    Image.asset('assets/images/rec1.png'),
+    Image.asset('assets/images/rec2.png'),
+    Image.asset('assets/images/rec3.png'),
+  ];
+
+  final recc1 = Container(
+      margin: EdgeInsets.only(bottom: 7),
+      decoration: new BoxDecoration(
+        borderRadius: new BorderRadius.circular(10),
+        color: Colors.white,),
+      child: Column(
+        children: <Widget>[
+          Image.asset('assets/images/rec1.png'),
+          Text(
+            'รสแซ่บ! ทะเลปู',
+            style: TextStyle(
+                fontFamily: 'Opun',
+                color: Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+          Text(
+            'บุฟเฟ่ต์ทะเลเผา',
+            style: TextStyle(
+                fontFamily: 'Opun',
+                color: Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+        ],
+      )
+  );
+
+  final recc2 = Container(
+      margin: EdgeInsets.only(bottom: 7),
+      decoration: new BoxDecoration(
+        borderRadius: new BorderRadius.circular(10),
+        color: Colors.white,),
+      child: Column(
+        children: [
+          Image.asset('assets/images/rec2.png'),
+          Text(
+            'กิ่งก้านซีฟู้ด',
+            style: TextStyle(
+                fontFamily: 'Opun',
+                color: Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+          Text(
+            'หอย ปู ทะเล',
+            style: TextStyle(
+                fontFamily: 'Opun',
+                color: Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+        ],
+      )
+  );
+
+  final recc3 = Container(
+      margin: EdgeInsets.only(bottom: 7),
+      decoration: new BoxDecoration(
+        borderRadius: new BorderRadius.circular(10),
+        color: Colors.white,),
+      child: Column(
+        children: <Widget>[
+          Image.asset('assets/images/rec3.png'),
+          Text(
+            'บุฟเฟ่ต์ขนมจีน',
+            style: TextStyle(
+                fontFamily: 'Opun',
+                color: Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+          Text(
+            'เปิดใหม่ใกล้BTS',
+            style: TextStyle(
+                fontFamily: 'Opun',
+                color: Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+        ],
+      )
+  );
+
+  @override
+  Widget build(BuildContext context)
+  {
+    return new Scaffold(
+      body:  new Swiper(
+        itemBuilder: (BuildContext context,int index){
+          return listPic[index];
+        },
+        itemCount: 3,
+        pagination: new SwiperPagination(),
+        control: new SwiperControl(),
+      ),
     );
   }
 }

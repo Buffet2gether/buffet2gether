@@ -113,11 +113,6 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
             mc: myController,
           ),
           new Icon(Icons.fastfood),
-          /*new TableCol(
-            getOffsetMethod: () => listViewOffset,
-            setOffsetMethod: (offset) => this.listViewOffset = offset,
-            mc: myController,
-          ),*/
           new Icon(Icons.notifications_active),
           new Icon(Icons.assignment_ind),
         ],

@@ -132,22 +132,6 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
           indicatorWeight: 3.0,
         ),
       ),
-      /*floatingActionButton: FloatingActionButton(
-        onPressed: ()
-        {
-          return showDialog(
-            context: context,
-            builder: (context)
-            {
-              return AlertDialog(
-                content: Text(myController.text),
-              );
-              },
-          );
-          },
-            tooltip: 'Show me the value!',
-            child: Icon(Icons.search),foregroundColor: Colors.white, splashColor: Colors.white, backgroundColor: Colors.deepOrange,
-      ),*/
     );
   }
 }
@@ -386,9 +370,7 @@ class _HomeColumnState extends State<HomeColumn>
                 context: context,
                 builder: (context)
                 {
-                  return AlertDialog(
-                    content: Text('click rec2'),
-                  );
+                  return Rec1();
                   },
               );
               },
@@ -429,9 +411,7 @@ class _HomeColumnState extends State<HomeColumn>
                 context: context,
                 builder: (context)
                 {
-                  return AlertDialog(
-                    content: Text('click rec3'),
-                  );
+                  return Rec1();
                   },
               );
               },
@@ -601,9 +581,7 @@ class _HomeColumnState extends State<HomeColumn>
             context: context,
             builder: (context)
             {
-              return AlertDialog(
-                content: Text('click rowMore1'),
-              );
+              return Rec1();
             },
           );
         },
@@ -617,17 +595,22 @@ class _HomeColumnState extends State<HomeColumn>
             Image.asset('assets/images/more1.png'),
             Column(
               children: <Widget>[
-                Text(
-                  'อี๊ดบุฟเฟ่ต์ชาบู',
-                  style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.deepOrange,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'อี๊ดบุฟเฟ่ต์ชาบู',
+                      style: TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.deepOrange,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ]
                 ),
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Icon(Icons.location_on,size: 25,color: Colors.amber,),
                     Text(
@@ -663,9 +646,7 @@ class _HomeColumnState extends State<HomeColumn>
             context: context,
             builder: (context)
             {
-              return AlertDialog(
-                content: Text('click rowMore2'),
-              );
+              return Rec1();
             },
           );
         },
@@ -734,9 +715,7 @@ class _HomeColumnState extends State<HomeColumn>
             context: context,
             builder: (context)
             {
-              return AlertDialog(
-                content: Text('click rowMore3'),
-              );
+              return Rec1();
             },
           );
         },
@@ -796,9 +775,7 @@ class _HomeColumnState extends State<HomeColumn>
           context: context,
           builder: (context)
           {
-            return AlertDialog(
-              content: Text('click rowMore4'),
-            );
+            return Rec1();
           },
         );
       },
@@ -910,32 +887,41 @@ class _HomeColumnState extends State<HomeColumn>
 //----------------------------Rec1 page รสแซ่บ! ทะเลปู บุฟเฟ่ต์ทะเลเผา------------------------------
 class Rec1 extends StatefulWidget
 {
-  /*Rec1({Key key, this.getOffsetMethod, this.setOffsetMethod, this.mc}) : super(key: key);
-
-  final GetOffsetMethod getOffsetMethod;
-  final SetOffsetMethod setOffsetMethod;
-  final TextEditingController mc;*/
-
   @override
   _Rec1State createState() => new _Rec1State();
 }
 
-class _Rec1State extends State<Rec1>
+class _Rec1State extends State<Rec1> with SingleTickerProviderStateMixin
 {
-  /*ScrollController scrollController;
+  TabController controllerr;
 
   @override
   void initState()
   {
     super.initState();
-    scrollController = new ScrollController(
-        initialScrollOffset: widget.getOffsetMethod()
+    controllerr = new TabController(
+      length: 4,
+      vsync: this,
     );
-  }*/
+  }
+
+  @override
+  void dispose() {
+    controllerr.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context)
   {
+
+    var tabs = <Tab>[
+      new Tab(icon: new Icon(Icons.home),),
+      new Tab(icon: new Icon(Icons.fastfood),),
+      new Tab(icon: new Icon(Icons.notifications_active),),
+      new Tab(icon: new Icon(Icons.assignment_ind),),
+
+    ];
 
     final info = Container(
         margin: EdgeInsets.all(10),
@@ -990,13 +976,147 @@ class _Rec1State extends State<Rec1>
         )
     );
 
-    /*final textPro = Row();
+    final textPro = Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          '  โปรโมชั่นจากน้องบุฟ !  ',
+          style: TextStyle(
+            fontFamily: 'Opun',
+            color: Colors.white,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            backgroundColor: Colors.amberAccent,
+          ),
+        ),
+      ],
+    );
 
-    final textProInfo = Row();
+    final textProInfo = InkWell(
+      onTap: ()
+      {
+        return showDialog(
+          context: context,
+          builder: (context)
+          {
+            return AlertDialog(
+              backgroundColor: Color(0xFFFFE5D4),
+              content: Text('''
+              ฉลองความสุข ส่งท้ายปี “มา 4 จ่าย 3” ที่ชาบูชิ บุฟเฟต์
+              เงื่อนไขโปรโมชั่น
+              • สมาชิก BevFood Application กดรับ e-Coupon “มา 4 จ่าย 3” เพื่อใช้สิทธิ์โปรโมชั่นที่ชาบูชิเท่านั้น
+              • กำหนด 1 คูปองต่อการใช้สิทธิ์ 1 ครั้ง (1 คูปองต่อลูกค้า 4 ท่าน)
+              • ระยะเวลาโปรโมชั่น เฉพาะวันที่ 23 ธ.ค. 62 – 27 ธ.ค. 62 เท่านั้น
+              • โปรโมชั่นเฉพาะร้านชาบูชิสาขาในประเทศไทยเท่านั้น
+              • ช่วง Happy Hour Buffet (ราคา 319 บาท) สาขาสามย่านมิตรทาวน์ไม่ร่วมรายการ
+              • สงวนสิทธิ์เฉพาะราคาปกติสำหรับผู้ใหญ่เท่านั้น ราคาเด็กไม่ร่วมรายการ
+              • ส่วนลดเฉพาะค่าอาหาร ไม่รวมเครื่องดื่มแอลกอฮอล์, สินค้าฝากขาย และโฮมเดลิเวอรี่
+              • สามารถใช้ร่วมกับบัตรกำนัลเงินสด 250 บาท และ 500 บาทของโออิชิกรุ๊ปได้
+              • ไม่สามารถใช้ร่วมกับส่วนลด หรือรายการส่งเสริมการขายอื่นๆ ได้
+              • สมาชิก BevFood Application และ OISHI Pointo Card สามารถใช้คะแนนสะสมแลกเป็นส่วนลดเพิ่มจากโปรโมชั่นได้ และยอดใช้จ่ายหลังหักส่วนลดสามารถสะสมคะแนนได้
+              • บริษัทฯ ขอสงวนสิทธิ์ในการเปลี่ยนแปลงเงื่อนไขโดยไม่ต้องแจ้งให้ทราบล่วงหน้า
+              ''',
+                style: TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.grey,
+                  fontSize: 10,
+                ),
+              )
+            );
+          },
+        );
+      },
+      child: new Container(
+        margin: EdgeInsets.symmetric(horizontal: 15),
+        padding: EdgeInsets.only(bottom: 15,left: 10,right: 5,top: 15),
+        decoration: new BoxDecoration(
+          color: Colors.white,),
+        child: Row(
+            children: <Widget>[
+              Text(
+                'ฉลองความสุข  ส่งท้ายปี  “ มา 4 จ่าย 3 ”  ที่รสแซ่บ !  ทะเล..',
+                style: TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.deepOrange,
+                  fontSize: 13,
+                ),
+              ),
+            ]
+        )
+      )
+    );
 
-    final buttonMatch = InkWell();
+    final buttonMatch = InkWell(
+      onTap: ()
+      {
+        return showDialog(
+            context: context,
+            builder: (context)
+            {
+              return AlertDialog(
+                content: Text('Matching'),
+              );
+              //return Matching();
+            }
+          );
+        },
+      child: new Container(
+        margin: EdgeInsets.only(top: 50),
+        padding: EdgeInsets.all(70),
+        decoration: new BoxDecoration(
+          color: Colors.deepOrange,
+        shape: BoxShape.circle),
+        child: Text(
+            'Matching!',
+            style: TextStyle(
+              fontFamily: 'Opun',
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+        ),
+      )
+    );
 
-    final buttonCreate = InkWell();*/
+    final buttonCreate = InkWell(
+        onTap: ()
+        {
+          return showDialog(
+              context: context,
+              builder: (context)
+              {
+                return AlertDialog(
+                  content: Text('Create table'),
+                );
+                //return Matching();
+              }
+          );
+        },
+        child: new Container(
+          margin: EdgeInsets.only(top: 15,left: 280),
+          padding: EdgeInsets.all(20),
+          decoration: new BoxDecoration(
+              color: Colors.amberAccent,
+              shape: BoxShape.circle),
+          child: Icon(
+            Icons.add,
+            size: 40,
+            color: Colors.white,)
+          ),
+    );
+
+    final rec1Col = Container(
+        color: Colors.white10,
+        child: Column(
+          children: [
+            info,
+            textPro,
+            textProInfo,
+            buttonMatch,
+            buttonCreate
+          ],
+        )
+    );
 
     return new Scaffold(
       appBar: new AppBar(
@@ -1010,17 +1130,27 @@ class _Rec1State extends State<Rec1>
         ),
         backgroundColor: Colors.white70,
       ),
-      body: Container(
-        color: Colors.grey,
-          child: Column(
-            children: [
-              info,
-              /*textPro,
-              buttonMatch,
-              buttonCreate*/
-              ],
-          )
-      )
+      body: new TabBarView(
+        controller: controllerr,
+        children: <Widget>[
+          rec1Col,
+          new Icon(Icons.fastfood),
+          new Icon(Icons.notifications_active),
+          new Icon(Icons.assignment_ind),
+        ],
+      ),
+      bottomNavigationBar: new Material(
+        color: Colors.white,
+        shadowColor: Colors.deepOrange,
+        child: new TabBar(
+          controller: controllerr,
+          tabs: tabs,
+          unselectedLabelColor: Colors.black38,
+          labelColor: Colors.deepOrange,
+          indicatorColor: Colors.deepOrange,
+          indicatorWeight: 3.0,
+        ),
+      ),
     );
   }
 }

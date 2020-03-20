@@ -261,9 +261,51 @@ class _HomeColumnState extends State<HomeColumn>
     );
 
     final List listPic = [
-      Image.asset('assets/images/pro.jpg'),
-      Image.asset('assets/images/pro1.jpg'),
-      Image.asset('assets/images/pro2.jpg'),
+      new InkWell(
+          onTap: ()
+          {
+            return showDialog(
+              context: context,
+              builder: (context)
+              {
+                return AlertDialog(
+                  content: Text('click pic1'),
+                );
+                },
+            );
+            },
+          child: Image.asset('assets/images/pro.jpg')
+      ),
+      new InkWell(
+          onTap: ()
+          {
+            return showDialog(
+              context: context,
+              builder: (context)
+              {
+                return AlertDialog(
+                  content: Text('click pic2'),
+                );
+                },
+            );
+            },
+          child: Image.asset('assets/images/pro1.jpg')
+      ),
+      new InkWell(
+          onTap: ()
+          {
+            return showDialog(
+              context: context,
+              builder: (context)
+              {
+                return AlertDialog(
+                  content: Text('click pic3'),
+                );
+                },
+            );
+            },
+          child: Image.asset('assets/images/pro2.jpg')
+      ),
     ];
 
     final picPro = ConstrainedBox(
@@ -295,19 +337,138 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
-    final textMore = Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+    final rowRecom = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Text(
-          '  ร้านอื่น ๆ ของน้องบุฟ  ',
-          style: TextStyle(
-            fontFamily: 'Opun',
-            color: Colors.deepOrange,
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            //backgroundColor: Colors.amberAccent,
-          ),
-        )
+        new InkWell(
+            onTap: ()
+            {
+              return showDialog(
+                context: context,
+                builder: (context)
+                {
+                  return AlertDialog(
+                    content: Text('click rec1'),
+                  );
+                  },
+              );
+              },
+            child: Container(
+                margin: EdgeInsets.only(bottom: 7),
+                decoration: new BoxDecoration(
+                  borderRadius: new BorderRadius.circular(10),
+                  color: Colors.white,),
+                child: Column(
+                  children: <Widget>[
+                    Image.asset('assets/images/rec1.png'),
+                    Text(
+                      'รสแซ่บ! ทะเลปู',
+                      style: TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    Text(
+                      'บุฟเฟ่ต์ทะเลเผา',
+                      style: TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ],
+                )
+            )
+        ),
+        new InkWell(
+            onTap: ()
+            {
+              return showDialog(
+                context: context,
+                builder: (context)
+                {
+                  return AlertDialog(
+                    content: Text('click rec2'),
+                  );
+                  },
+              );
+              },
+            child: Container(
+                margin: EdgeInsets.only(bottom: 7),
+                decoration: new BoxDecoration(
+                  borderRadius: new BorderRadius.circular(10),
+                  color: Colors.white,),
+                child: Column(
+                  children: [
+                    Image.asset('assets/images/rec2.png'),
+                    Text(
+                      'กิ่งก้านซีฟู้ด',
+                      style: TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    Text(
+                      'หอย ปู ทะเล',
+                      style: TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ],
+                )
+            )
+        ),
+        new InkWell(
+            onTap: ()
+            {
+              return showDialog(
+                context: context,
+                builder: (context)
+                {
+                  return AlertDialog(
+                    content: Text('click rec3'),
+                  );
+                  },
+              );
+              },
+            child: Container(
+                margin: EdgeInsets.only(bottom: 7),
+                decoration: new BoxDecoration(
+                  borderRadius: new BorderRadius.circular(10),
+                  color: Colors.white,),
+                child: Column(
+                  children: <Widget>[
+                    Image.asset('assets/images/rec3.png'),
+                    Text(
+                      'บุฟเฟ่ต์ขนมจีน',
+                      style: TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    Text(
+                      'เปิดใหม่ใกล้BTS',
+                      style: TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ],
+                )
+            )
+        ),
       ],
     );
 
@@ -421,96 +582,19 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );*/
 
-    final rowRecom = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    final textMore = Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Container(
-            margin: EdgeInsets.only(bottom: 7),
-            decoration: new BoxDecoration(
-              borderRadius: new BorderRadius.circular(10),
-              color: Colors.white,),
-            child: Column(
-              children: <Widget>[
-                Image.asset('assets/images/rec1.png'),
-                Text(
-                  'รสแซ่บ! ทะเลปู',
-                  style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold
-                  ),
-                ),
-                Text(
-                  'บุฟเฟ่ต์ทะเลเผา',
-                  style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold
-                  ),
-                ),
-              ],
-            )
-        ),
-        Container(
-            margin: EdgeInsets.only(bottom: 7),
-            decoration: new BoxDecoration(
-              borderRadius: new BorderRadius.circular(10),
-              color: Colors.white,),
-            child: Column(
-              children: [
-                Image.asset('assets/images/rec2.png'),
-                Text(
-                  'กิ่งก้านซีฟู้ด',
-                  style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold
-                  ),
-                ),
-                Text(
-                  'หอย ปู ทะเล',
-                  style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold
-                  ),
-                ),
-              ],
-            )
-        ),
-        Container(
-            margin: EdgeInsets.only(bottom: 7),
-            decoration: new BoxDecoration(
-              borderRadius: new BorderRadius.circular(10),
-              color: Colors.white,),
-            child: Column(
-              children: <Widget>[
-                Image.asset('assets/images/rec3.png'),
-                Text(
-                  'บุฟเฟ่ต์ขนมจีน',
-                  style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold
-                  ),
-                ),
-                Text(
-                  'เปิดใหม่ใกล้BTS',
-                  style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold
-                  ),
-                ),
-              ],
-            )
-        ),
+        Text(
+          '  ร้านอื่น ๆ ของน้องบุฟ  ',
+          style: TextStyle(
+            fontFamily: 'Opun',
+            color: Colors.deepOrange,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            //backgroundColor: Colors.amberAccent,
+          ),
+        )
       ],
     );
 
@@ -576,7 +660,7 @@ class _HomeColumnState extends State<HomeColumn>
       )
     );
 
-    final rowMore2 = new GestureDetector(
+    final rowMore2 = new InkWell(
         onTap: ()
         {
           return showDialog(
@@ -647,7 +731,7 @@ class _HomeColumnState extends State<HomeColumn>
         )
     );
 
-    final rowMore3 = new GestureDetector(
+    final rowMore3 = new InkWell(
         onTap: ()
         {
           return showDialog(
@@ -709,7 +793,7 @@ class _HomeColumnState extends State<HomeColumn>
         )
     );
 
-    final rowMore4 = new GestureDetector(
+    final rowMore4 = new InkWell(
       onTap: ()
       {
         return showDialog(

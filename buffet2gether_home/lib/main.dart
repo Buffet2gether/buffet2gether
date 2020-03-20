@@ -5,8 +5,13 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter/rendering.dart';
 
-void main() => runApp(new MyApp());
+void main()
+{
+  //debugPaintSizeEnabled=true;
+  runApp(new MyApp());
+}
 
 class MyApp extends StatelessWidget
 {
@@ -48,7 +53,6 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
     );
   }
 
-  //myController = TextEditingController
   final myController = TextEditingController();
 
   @override
@@ -94,7 +98,10 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
 
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(widget.title, style: TextStyle(fontFamily: 'Opun'),),
+        title: new Text(
+          widget.title,
+          style: TextStyle(fontFamily: 'Opun'),
+        ),
         backgroundColor: Colors.deepOrange,
       ),
       body: new TabBarView(
@@ -105,12 +112,12 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
             setOffsetMethod: (offset) => this.listViewOffset = offset,
             mc: myController,
           ),
-          //new Icon(Icons.fastfood),
-          new TableCol(
+          new Icon(Icons.fastfood),
+          /*new TableCol(
             getOffsetMethod: () => listViewOffset,
             setOffsetMethod: (offset) => this.listViewOffset = offset,
             mc: myController,
-          ),
+          ),*/
           new Icon(Icons.notifications_active),
           new Icon(Icons.assignment_ind),
         ],
@@ -507,7 +514,20 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
-    final rowMore1 = Container(
+    final rowMore1 = new InkWell(
+      onTap: ()
+        {
+          return showDialog(
+            context: context,
+            builder: (context)
+            {
+              return AlertDialog(
+                content: Text('click rowMore1'),
+              );
+            },
+          );
+        },
+      child: new Container(
         margin: EdgeInsets.only(bottom: 1,left: 5,right: 5),
         padding: EdgeInsets.only(bottom: 15,left: 10,right: 5,top: 15),
         decoration: new BoxDecoration(
@@ -526,112 +546,247 @@ class _HomeColumnState extends State<HomeColumn>
                       fontWeight: FontWeight.bold
                   ),
                 ),
-                /*Row(
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.location_on,size: 25,color: Colors.amber,),
+                    Text(
+                      'Lat Krabang Road  ',
+                      style: TextStyle(
+                        fontFamily: 'Opun',
+                        color: Colors.grey,
+                        fontSize: 13,
+                      ),
+                    ),
+                    Icon(Icons.access_time,size: 25,color: Colors.amber),
+                    Text(
+                      ' 09.00 - 20.00',
+                      style: TextStyle(
+                        fontFamily: 'Opun',
+                        color: Colors.grey,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        )
+      )
+    );
+
+    final rowMore2 = new GestureDetector(
+        onTap: ()
+        {
+          return showDialog(
+            context: context,
+            builder: (context)
+            {
+              return AlertDialog(
+                content: Text('click rowMore2'),
+              );
+            },
+          );
+        },
+        child: new Container(
+            margin: EdgeInsets.only(bottom: 1,left: 5,right: 5),
+            padding: EdgeInsets.only(bottom: 15,left: 10,right: 5,top: 15),
+            decoration: new BoxDecoration(
+              color: Colors.white,),
+            child: Row(
+              children: <Widget>[
+                Image.asset('assets/images/more2.png'),
+                Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'YAMASHITAKEA Shabu',
+                          style: TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.deepOrange,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.location_on,size: 25,color: Colors.amber,),
+                        Text(
+                          'Lat Krabang Road  ',
+                          style: TextStyle(
+                            fontFamily: 'Opun',
+                            color: Colors.grey,
+                            fontSize: 13,
+                          ),
+                        ),
+                        Icon(Icons.access_time,size: 25,color: Colors.amber),
+                        Text(
+                          ' 09.00 - 20.00',
+                          style: TextStyle(
+                            fontFamily: 'Opun',
+                            color: Colors.grey,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            )
+        )
+    );
+
+    final rowMore3 = new GestureDetector(
+        onTap: ()
+        {
+          return showDialog(
+            context: context,
+            builder: (context)
+            {
+              return AlertDialog(
+                content: Text('click rowMore3'),
+              );
+            },
+          );
+        },
+        child: new Container(
+            margin: EdgeInsets.only(bottom: 1,left: 5,right: 5),
+            padding: EdgeInsets.only(bottom: 15,left: 10,right: 5,top: 15),
+            decoration: new BoxDecoration(
+              color: Colors.white,),
+            child: Row(
+              children: <Widget>[
+                Image.asset('assets/images/more1.png'),
+                Column(
                   children: <Widget>[
                     Text(
                       'อี๊ดบุฟเฟ่ต์ชาบู',
                       style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.deepOrange,
-                      fontSize: 12,
+                      fontSize: 15,
                       fontWeight: FontWeight.bold
                       ),
                     ),
-                  ],
-                ),*/
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.location_on,size: 25,color: Colors.amber,),
-                    Text(
-                      'Lat Krabang Road  ',
-                      style: TextStyle(
-                        fontFamily: 'Opun',
-                        color: Colors.grey,
-                        fontSize: 13,
-                      ),
-                    ),
-                    Icon(Icons.access_time,size: 25,color: Colors.amber),
-                    Text(
-                      ' 09.00 - 20.00',
-                      style: TextStyle(
-                        fontFamily: 'Opun',
-                        color: Colors.grey,
-                        fontSize: 13,
-                      ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.location_on,size: 25,color: Colors.amber,),
+                        Text(
+                          'Lat Krabang Road  ',
+                          style: TextStyle(
+                            fontFamily: 'Opun',
+                            color: Colors.grey,
+                            fontSize: 13,
+                          ),
+                        ),
+                        Icon(Icons.access_time,size: 25,color: Colors.amber),
+                        Text(
+                          ' 09.00 - 20.00',
+                          style: TextStyle(
+                            fontFamily: 'Opun',
+                            color: Colors.grey,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ],
-            ),
-          ],
+            )
         )
     );
 
-    final rowMore2 = Container(
-        margin: EdgeInsets.only(bottom: 1,left: 5,right: 5),
-        padding: EdgeInsets.only(bottom: 15,left: 10,right: 5,top: 15),
-        decoration: new BoxDecoration(
-          color: Colors.white,),
-        child: Row(
-          children: <Widget>[
-            Image.asset('assets/images/more2.png'),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'YAMASHITAKEA Shabu',
-                      style: TextStyle(
+    final rowMore4 = new GestureDetector(
+      onTap: ()
+      {
+        return showDialog(
+          context: context,
+          builder: (context)
+          {
+            return AlertDialog(
+              content: Text('click rowMore4'),
+            );
+          },
+        );
+      },
+      child: new Container(
+          margin: EdgeInsets.only(bottom: 1,left: 5,right: 5),
+          padding: EdgeInsets.only(bottom: 15,left: 10,right: 5,top: 15),
+          decoration: new BoxDecoration(
+            color: Colors.white,),
+          child: Row(
+            children: <Widget>[
+              Image.asset('assets/images/more2.png'),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'YAMASHITAKEA Shabu',
+                        style: TextStyle(
+                            fontFamily: 'Opun',
+                            color: Colors.deepOrange,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.location_on,size: 25,color: Colors.amber,),
+                      Text(
+                        'Lat Krabang Road  ',
+                        style: TextStyle(
                           fontFamily: 'Opun',
-                          color: Colors.deepOrange,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold
+                          color: Colors.grey,
+                          fontSize: 13,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.location_on,size: 25,color: Colors.amber,),
-                    Text(
-                      'Lat Krabang Road  ',
-                      style: TextStyle(
-                        fontFamily: 'Opun',
-                        color: Colors.grey,
-                        fontSize: 13,
+                      Icon(Icons.access_time,size: 25,color: Colors.amber),
+                      Text(
+                        ' 09.00 - 20.00',
+                        style: TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.grey,
+                          fontSize: 13,
+                        ),
                       ),
-                    ),
-                    Icon(Icons.access_time,size: 25,color: Colors.amber),
-                    Text(
-                      ' 09.00 - 20.00',
-                      style: TextStyle(
-                        fontFamily: 'Opun',
-                        color: Colors.grey,
-                        fontSize: 13,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        )
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          )
+      )
     );
 
     final colMore = Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         rowMore1,
-        rowMore2
+        rowMore2,
+        rowMore3,
+        rowMore4
       ],
     );
 

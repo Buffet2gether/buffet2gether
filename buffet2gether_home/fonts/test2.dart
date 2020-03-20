@@ -122,7 +122,7 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
           indicatorWeight: 3.0,
         ),
       ),
-      /*floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: ()
         {
           return showDialog(
@@ -137,7 +137,7 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
           },
             tooltip: 'Show me the value!',
             child: Icon(Icons.search),foregroundColor: Colors.white, splashColor: Colors.white, backgroundColor: Colors.deepOrange,
-      ),*/
+      ),
     );
   }
 }

@@ -1,5 +1,7 @@
 //---------------------------- Buffet2Gether adated-------------------------------------
 //import 'dart:html';
+import 'package:buffet2gether_home/services/database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -164,6 +166,44 @@ class _HomeColumnState extends State<HomeColumn>
 {
   ScrollController scrollController;
 
+  /* ----------------------------------- get data from backend ---------------------------------------- */
+  var queryResultSet = [];
+  var tempSearchStore = [];
+
+  initiateSearch(value){   // <----- call this function for search algorithm
+    if(value.length == 0 )
+      setState(() {
+         queryResultSet = [];
+        tempSearchStore = [];
+      });
+
+
+    var capitalizedValue =
+          value.substring(0,1).toUpperCase() + value.substring(1);
+
+    if(queryResultSet.length == 0 && value.length == 1){
+      SearchService().seacrhByName(value).then((QuerySnapshot docs){
+        for(int i=0; i < docs.documents.length; ++i){
+          queryResultSet.add(docs.documents[i].data);
+        }
+
+      });
+    }
+    else{
+      tempSearchStore = [];
+      queryResultSet.forEach((element) {
+        if(element['name'].startsWith(capitalizedValue)){
+          setState(() {
+            tempSearchStore.add(element);
+          });
+        }
+      });
+    }
+  }
+
+  /* ----------------------------------------------------------------------------------------------- */
+
+
   @override
   void initState()
   {
@@ -197,6 +237,9 @@ class _HomeColumnState extends State<HomeColumn>
         color: Colors.white,
       ),
       child: TextField(
+        onChanged:(val){      //when search the first word of restaurant name
+          initiateSearch(val);
+        },
         cursorColor: Colors.deepOrange,
         controller: widget.mc,
         style: TextStyle(

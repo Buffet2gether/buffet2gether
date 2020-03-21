@@ -106,6 +106,11 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
             mc: myController,
           ),
           new Icon(Icons.fastfood),
+          /*new TableCol(
+            getOffsetMethod: () => listViewOffset,
+            setOffsetMethod: (offset) => this.listViewOffset = offset,
+            mc: myController,
+          ),*/
           new Icon(Icons.notifications_active),
           new Icon(Icons.assignment_ind),
         ],
@@ -122,7 +127,7 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
           indicatorWeight: 3.0,
         ),
       ),
-      /*floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: ()
         {
           return showDialog(
@@ -137,7 +142,7 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
           },
             tooltip: 'Show me the value!',
             child: Icon(Icons.search),foregroundColor: Colors.white, splashColor: Colors.white, backgroundColor: Colors.deepOrange,
-      ),*/
+      ),
     );
   }
 }
@@ -550,6 +555,144 @@ class _HomeColumnState extends State<HomeColumn>
           widget.setOffsetMethod(notification.metrics.pixels);
         }
       },
+    );
+  }
+}
+
+//------------------------------------2nd page-------------------------------------
+class TableCol extends StatefulWidget
+{
+  TableCol({Key key, this.getOffsetMethod, this.setOffsetMethod, this.mc}) : super(key: key);
+
+  final GetOffsetMethod getOffsetMethod;
+  final SetOffsetMethod setOffsetMethod;
+  final TextEditingController mc;
+
+  @override
+  _TableColState createState() => new _TableColState();
+}
+
+class _TableColState extends State<TableCol>
+{
+  ScrollController scrollController;
+
+  @override
+  void initState()
+  {
+    super.initState();
+    scrollController = new ScrollController(
+        initialScrollOffset: widget.getOffsetMethod()
+    );
+  }
+
+  final List listPic = [
+    Image.asset('assets/images/rec1.png'),
+    Image.asset('assets/images/rec2.png'),
+    Image.asset('assets/images/rec3.png'),
+  ];
+
+  final recc1 = Container(
+      margin: EdgeInsets.only(bottom: 7),
+      decoration: new BoxDecoration(
+        borderRadius: new BorderRadius.circular(10),
+        color: Colors.white,),
+      child: Column(
+        children: <Widget>[
+          Image.asset('assets/images/rec1.png'),
+          Text(
+            'รสแซ่บ! ทะเลปู',
+            style: TextStyle(
+                fontFamily: 'Opun',
+                color: Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+          Text(
+            'บุฟเฟ่ต์ทะเลเผา',
+            style: TextStyle(
+                fontFamily: 'Opun',
+                color: Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+        ],
+      )
+  );
+
+  final recc2 = Container(
+      margin: EdgeInsets.only(bottom: 7),
+      decoration: new BoxDecoration(
+        borderRadius: new BorderRadius.circular(10),
+        color: Colors.white,),
+      child: Column(
+        children: [
+          Image.asset('assets/images/rec2.png'),
+          Text(
+            'กิ่งก้านซีฟู้ด',
+            style: TextStyle(
+                fontFamily: 'Opun',
+                color: Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+          Text(
+            'หอย ปู ทะเล',
+            style: TextStyle(
+                fontFamily: 'Opun',
+                color: Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+        ],
+      )
+  );
+
+  final recc3 = Container(
+      margin: EdgeInsets.only(bottom: 7),
+      decoration: new BoxDecoration(
+        borderRadius: new BorderRadius.circular(10),
+        color: Colors.white,),
+      child: Column(
+        children: <Widget>[
+          Image.asset('assets/images/rec3.png'),
+          Text(
+            'บุฟเฟ่ต์ขนมจีน',
+            style: TextStyle(
+                fontFamily: 'Opun',
+                color: Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+          Text(
+            'เปิดใหม่ใกล้BTS',
+            style: TextStyle(
+                fontFamily: 'Opun',
+                color: Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+        ],
+      )
+  );
+
+  @override
+  Widget build(BuildContext context)
+  {
+    return new Scaffold(
+      body:  new Swiper(
+        itemBuilder: (BuildContext context,int index){
+          return listPic[index];
+        },
+        itemCount: 3,
+        pagination: new SwiperPagination(),
+        control: new SwiperControl(),
+      ),
     );
   }
 }

@@ -581,7 +581,7 @@ class _HomeColumnState extends State<HomeColumn>
             context: context,
             builder: (context)
             {
-              return Rec1();
+              return More1();
             },
           );
         },

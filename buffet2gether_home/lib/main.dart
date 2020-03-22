@@ -689,7 +689,7 @@ class _HomeColumnState extends State<HomeColumn>
             context: context,
             builder: (context)
             {
-              return Rec1();
+              return More2();
             },
           );
         },
@@ -1776,7 +1776,7 @@ class _More1State extends State<More1> with SingleTickerProviderStateMixin
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('บุฟเฟ่ต์ขนมจีน เปิดใหม่ใกล้BTS',
+                Text('อี๊ดบุฟเฟ่ต์ชาบู',
                   style: TextStyle(
                       fontFamily: 'Opun',
                       fontSize: 15,
@@ -1789,7 +1789,7 @@ class _More1State extends State<More1> with SingleTickerProviderStateMixin
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.asset('assets/images/rec3.png')
+                Image.asset('assets/images/more1.png')
               ],
             ),
             Row(
@@ -1797,7 +1797,7 @@ class _More1State extends State<More1> with SingleTickerProviderStateMixin
               children: <Widget>[
                 Icon(Icons.location_on,size: 25,color: Colors.amber,),
                 Text(
-                  '159/3 Kakingam 3  ',
+                  '463/2 Kaki ngam 1  ',
                   style: TextStyle(
                     fontFamily: 'Opun',
                     color: Colors.grey,
@@ -1806,7 +1806,7 @@ class _More1State extends State<More1> with SingleTickerProviderStateMixin
                 ),
                 Icon(Icons.access_time,size: 25,color: Colors.amber),
                 Text(
-                  ' 8.00 - 16.00',
+                  ' 8.30 - 18.00',
                   style: TextStyle(
                     fontFamily: 'Opun',
                     color: Colors.grey,
@@ -1845,11 +1845,282 @@ class _More1State extends State<More1> with SingleTickerProviderStateMixin
               return AlertDialog(
                   backgroundColor: Color(0xFFFFE5D4),
                   content: Text('''
-                  ฉลองเปิดร้านใหม่!!
-                  พบกับโปรโมชั่นขนมจีน ลด 20% ทุกโต๊ะ ตั้งแต่วันนี้ - 30 ส.ค. 58
-                  แล้วท่านจะกับขนมจีนเส้นสด น้ำยาแสนอร่อย และบุพเฟ่ผักนานาชนิดที่เติมได้ไม่อั้น...
-                  ร้านขนมจีนเส้นสดเพชรลด 3 ร้านอยู่ตรงข้าม รพ.สมเด็จพระยุพราชหล่มเก่า ก่อนถึงปั้ม ปตท. หล่มเก่า
-                  โทร 084-5973594, 085-1263450
+                  อร่อยไม่อั้น กับบุฟเฟต์ราคาพิเศษ เพียงท่านละ 319 บาท ในโปรโมชั่น Happy Hour Buffet 319 ทานบุฟเฟต์ ราคาพิเศษเฉพาะช่วงเวลา 08:00 – 10:00 น. เท่านั้น (เฉพาะสาขาที่ร่วมรายการ)
+                  เงื่อนไขโปรโมชั่น
+                  - เฉพาะสาขาที่ร่วมรายการเท่านั้น
+                  - ราคาผู้ใหญ่ 319 บาทสุทธิ/ท่าน และราคาเด็ก (ส่วนสูง 131 ซม. ขึ้นไป) 319 บาทสุทธิ/ท่าน
+                  - ราคาเด็ก (ส่วนสูง 101 – 130 ซม.) 159 บาทสุทธิ/ท่าน (เด็กที่ส่วนสูงต่ำกว่า 100 ซม. ไม่คิดค่าใช้จ่าย)
+                  - ระยะเวลารับประทาน 1 ชั่วโมง 15 นาที ส่วนเกินทุก 10 นาที คิดค่าบริการ 20 บาท/ท่าน
+                  - ไม่สามารถใช้ร่วมกับส่วนลด หรือรายการส่งเสริมการขายอื่นๆ ได้
+                  - สมาชิก BevFood App และ Eed Pointo Card สามารถใช้คะแนนสะสมแลกเป็นส่วนลดเพิ่มจากโปรโมชั่นได้และยอดใช้จ่ายหลังหักส่วนลดสามารถสะสมคะแนนได้
+                  - บริษัทฯ ขอสงวนสิทธิ์ในการเปลี่ยนแปลงเงื่อนไขโดยไม่ต้องแจ้งให้ทราบล่วงหน้า
+                  ''',
+                    style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.grey,
+                      fontSize: 10,
+                    ),
+                  )
+              );
+            },
+          );
+        },
+        child: new Container(
+            margin: EdgeInsets.symmetric(horizontal: 15),
+            padding: EdgeInsets.only(bottom: 15,left: 10,right: 5,top: 15),
+            decoration: new BoxDecoration(
+              color: Colors.white,),
+            child: Row(
+                children: <Widget>[
+                  Text(
+                    'อร่อยไม่อั้น กับบุฟเฟต์ราคาพิเศษ เพียงท่านละ 319 บาท...',
+                    style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.deepOrange,
+                      fontSize: 13,
+                    ),
+                  ),
+                ]
+            )
+        )
+    );
+
+    final buttonMatch = InkWell(
+        onTap: ()
+        {
+          return showDialog(
+              context: context,
+              builder: (context)
+              {
+                return AlertDialog(
+                  content: Text('Matching'),
+                );
+                //return Matching();
+              }
+          );
+        },
+        child: new Container(
+          margin: EdgeInsets.only(top: 50),
+          padding: EdgeInsets.all(70),
+          decoration: new BoxDecoration(
+              color: Colors.deepOrange,
+              shape: BoxShape.circle),
+          child: Text(
+            'Matching!',
+            style: TextStyle(
+              fontFamily: 'Opun',
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        )
+    );
+
+    final buttonCreate = InkWell(
+      onTap: ()
+      {
+        return showDialog(
+            context: context,
+            builder: (context)
+            {
+              return AlertDialog(
+                content: Text('Create table'),
+              );
+              //return Matching();
+            }
+        );
+      },
+      child: new Container(
+          margin: EdgeInsets.only(top: 15,left: 280),
+          padding: EdgeInsets.all(20),
+          decoration: new BoxDecoration(
+              color: Colors.amberAccent,
+              shape: BoxShape.circle),
+          child: Icon(
+            Icons.add,
+            size: 40,
+            color: Colors.white,)
+      ),
+    );
+
+    final rec1Col = Container(
+        color: Colors.white10,
+        child: Column(
+          children: [
+            info,
+            textPro,
+            textProInfo,
+            buttonMatch,
+            buttonCreate
+          ],
+        )
+    );
+
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text(
+          'ร้านบุฟเฟ่ต์ที่คุณเลือก !',
+          style: TextStyle(
+              fontFamily: 'Opun',
+              color: Colors.deepOrange,
+              fontSize: 17,
+              fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.white70,
+      ),
+      body: new TabBarView(
+        controller: controllerr,
+        children: <Widget>[
+          rec1Col,
+          new Icon(Icons.fastfood),
+          new Icon(Icons.notifications_active),
+          new Icon(Icons.assignment_ind),
+        ],
+      ),
+      bottomNavigationBar: new Material(
+        color: Colors.white,
+        shadowColor: Colors.deepOrange,
+        child: new TabBar(
+          controller: controllerr,
+          tabs: tabs,
+          unselectedLabelColor: Colors.black38,
+          labelColor: Colors.deepOrange,
+          indicatorColor: Colors.deepOrange,
+          indicatorWeight: 3.0,
+        ),
+      ),
+    );
+  }
+}
+
+//----------------------------More2 page YAMASHITAKEA SHANU------------------------------
+class More2 extends StatefulWidget
+{
+  @override
+  _More2State createState() => new _More2State();
+}
+
+class _More2State extends State<More2> with SingleTickerProviderStateMixin
+{
+  TabController controllerr;
+
+  @override
+  void initState()
+  {
+    super.initState();
+    controllerr = new TabController(
+      length: 4,
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    controllerr.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context)
+  {
+
+    var tabs = <Tab>[
+      new Tab(icon: new Icon(Icons.home),),
+      new Tab(icon: new Icon(Icons.fastfood),),
+      new Tab(icon: new Icon(Icons.notifications_active),),
+      new Tab(icon: new Icon(Icons.assignment_ind),),
+
+    ];
+
+    final info = Container(
+        margin: EdgeInsets.all(10),
+        decoration: new BoxDecoration(
+          borderRadius: new BorderRadius.circular(10),
+          color: Colors.white,),
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text('YAMABUSHITAKEA SHABU',
+                  style: TextStyle(
+                      fontFamily: 'Opun',
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepOrange
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset('assets/images/more2.png')
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(Icons.location_on,size: 25,color: Colors.amber,),
+                Text(
+                  '12/96 Kaki ngam 4  ',
+                  style: TextStyle(
+                    fontFamily: 'Opun',
+                    color: Colors.grey,
+                    fontSize: 13,
+                  ),
+                ),
+                Icon(Icons.access_time,size: 25,color: Colors.amber),
+                Text(
+                  ' 11.00 - 23.00',
+                  style: TextStyle(
+                    fontFamily: 'Opun',
+                    color: Colors.grey,
+                    fontSize: 13,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        )
+    );
+
+    final textPro = Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          '  โปรโมชั่นจากน้องบุฟ !  ',
+          style: TextStyle(
+            fontFamily: 'Opun',
+            color: Colors.white,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            backgroundColor: Colors.amberAccent,
+          ),
+        ),
+      ],
+    );
+
+    final textProInfo = InkWell(
+        onTap: ()
+        {
+          return showDialog(
+            context: context,
+            builder: (context)
+            {
+              return AlertDialog(
+                  backgroundColor: Color(0xFFFFE5D4),
+                  content: Text('''
+                  อร่อยไม่อั้น กับบุฟเฟต์ราคาพิเศษ เพียงท่านละ 319 บาท ในโปรโมชั่น Happy Hour Buffet 319 ทานบุฟเฟต์ ราคาพิเศษเฉพาะช่วงเวลา 08:00 – 10:00 น. เท่านั้น (เฉพาะสาขาที่ร่วมรายการ)
+                  เงื่อนไขโปรโมชั่น
+                  - เฉพาะสาขาที่ร่วมรายการเท่านั้น
+                  - ราคาผู้ใหญ่ 319 บาทสุทธิ/ท่าน และราคาเด็ก (ส่วนสูง 131 ซม. ขึ้นไป) 319 บาทสุทธิ/ท่าน
+                  - ราคาเด็ก (ส่วนสูง 101 – 130 ซม.) 159 บาทสุทธิ/ท่าน (เด็กที่ส่วนสูงต่ำกว่า 100 ซม. ไม่คิดค่าใช้จ่าย)
+                  - ระยะเวลารับประทาน 1 ชั่วโมง 15 นาที ส่วนเกินทุก 10 นาที คิดค่าบริการ 20 บาท/ท่าน
+                  - ไม่สามารถใช้ร่วมกับส่วนลด หรือรายการส่งเสริมการขายอื่นๆ ได้
+                  - สมาชิก BevFood App และ Eed Pointo Card สามารถใช้คะแนนสะสมแลกเป็นส่วนลดเพิ่มจากโปรโมชั่นได้และยอดใช้จ่ายหลังหักส่วนลดสามารถสะสมคะแนนได้
+                  - บริษัทฯ ขอสงวนสิทธิ์ในการเปลี่ยนแปลงเงื่อนไขโดยไม่ต้องแจ้งให้ทราบล่วงหน้า
                   ''',
                     style: TextStyle(
                       fontFamily: 'Opun',

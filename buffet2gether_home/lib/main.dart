@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget
 
 typedef double GetOffsetMethod();
 typedef void SetOffsetMethod(double offset);
-
+//-------------------------------------main---------------------------------------------
 class MyCustomForm extends StatefulWidget {
   MyCustomForm({Key key, this.title}) : super(key: key);
 
@@ -39,7 +39,6 @@ class MyCustomForm extends StatefulWidget {
   MyAppState createState() => new MyAppState();
 }
 
-//-------------------------------------main---------------------------------------------
 class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
 {
   TabController controller;

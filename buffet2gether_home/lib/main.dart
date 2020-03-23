@@ -657,7 +657,7 @@ class _HomeColumnState extends State<HomeColumn>
                   children: <Widget>[
                     Icon(Icons.location_on,size: 25,color: Colors.amber,),
                     Text(
-                      'Lat Krabang Road  ',
+                      '463/2 Kaki ngam 1  ',
                       style: TextStyle(
                         fontFamily: 'Opun',
                         color: Colors.grey,
@@ -726,7 +726,7 @@ class _HomeColumnState extends State<HomeColumn>
                       children: <Widget>[
                         Icon(Icons.location_on,size: 25,color: Colors.amber,),
                         Text(
-                          'Lat Krabang Road  ',
+                          '12/96 Kaki ngam 4  ',
                           style: TextStyle(
                             fontFamily: 'Opun',
                             color: Colors.grey,
@@ -735,7 +735,7 @@ class _HomeColumnState extends State<HomeColumn>
                         ),
                         Icon(Icons.access_time,size: 25,color: Colors.amber),
                         Text(
-                          ' 09.00 - 20.00',
+                          ' 11.00 - 23.00',
                           style: TextStyle(
                             fontFamily: 'Opun',
                             color: Colors.grey,
@@ -758,7 +758,7 @@ class _HomeColumnState extends State<HomeColumn>
             context: context,
             builder: (context)
             {
-              return Rec1();
+              return More3();
             },
           );
         },
@@ -769,11 +769,11 @@ class _HomeColumnState extends State<HomeColumn>
               color: Colors.white,),
             child: Row(
               children: <Widget>[
-                Image.asset('assets/images/more1.png'),
+                Image.asset('assets/images/more3.png'),
                 Column(
                   children: <Widget>[
                     Text(
-                      'อี๊ดบุฟเฟ่ต์ชาบู',
+                      'Neta Grill',
                       style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.deepOrange,
@@ -786,7 +786,7 @@ class _HomeColumnState extends State<HomeColumn>
                       children: <Widget>[
                         Icon(Icons.location_on,size: 25,color: Colors.amber,),
                         Text(
-                          'Lat Krabang Road  ',
+                          'MEGA-BANGNA  ',
                           style: TextStyle(
                             fontFamily: 'Opun',
                             color: Colors.grey,
@@ -795,7 +795,7 @@ class _HomeColumnState extends State<HomeColumn>
                         ),
                         Icon(Icons.access_time,size: 25,color: Colors.amber),
                         Text(
-                          ' 09.00 - 20.00',
+                          ' 11.00 - 22.30',
                           style: TextStyle(
                             fontFamily: 'Opun',
                             color: Colors.grey,
@@ -811,82 +811,12 @@ class _HomeColumnState extends State<HomeColumn>
         )
     );
 
-    final rowMore4 = new InkWell(
-      onTap: ()
-      {
-        return showDialog(
-          context: context,
-          builder: (context)
-          {
-            return Rec1();
-          },
-        );
-      },
-      child: new Container(
-          margin: EdgeInsets.only(bottom: 1,left: 5,right: 5),
-          padding: EdgeInsets.only(bottom: 15,left: 10,right: 5,top: 15),
-          decoration: new BoxDecoration(
-            color: Colors.white,),
-          child: Row(
-            children: <Widget>[
-              Image.asset('assets/images/more2.png'),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'YAMASHITAKEA Shabu',
-                        style: TextStyle(
-                            fontFamily: 'Opun',
-                            color: Colors.deepOrange,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.location_on,size: 25,color: Colors.amber,),
-                      Text(
-                        'Lat Krabang Road  ',
-                        style: TextStyle(
-                          fontFamily: 'Opun',
-                          color: Colors.grey,
-                          fontSize: 13,
-                        ),
-                      ),
-                      Icon(Icons.access_time,size: 25,color: Colors.amber),
-                      Text(
-                        ' 09.00 - 20.00',
-                        style: TextStyle(
-                          fontFamily: 'Opun',
-                          color: Colors.grey,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          )
-      )
-    );
-
     final colMore = Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         rowMore1,
         rowMore2,
         rowMore3,
-        rowMore4
       ],
     );
 
@@ -1061,7 +991,7 @@ class _Rec1State extends State<Rec1> with SingleTickerProviderStateMixin
               ''',
                 style: TextStyle(
                   fontFamily: 'Opun',
-                  color: Colors.grey,
+                  color: Colors.black45,
                   fontSize: 10,
                 ),
               )
@@ -1327,7 +1257,7 @@ class _Rec2State extends State<Rec2> with SingleTickerProviderStateMixin
                   ''',
                     style: TextStyle(
                       fontFamily: 'Opun',
-                      color: Colors.grey,
+                      color: Colors.black45,
                       fontSize: 10,
                     ),
                   )
@@ -1590,7 +1520,7 @@ class _Rec3State extends State<Rec3> with SingleTickerProviderStateMixin
                   ''',
                     style: TextStyle(
                       fontFamily: 'Opun',
-                      color: Colors.grey,
+                      color: Colors.black45,
                       fontSize: 10,
                     ),
                   )
@@ -1806,7 +1736,7 @@ class _More1State extends State<More1> with SingleTickerProviderStateMixin
                 ),
                 Icon(Icons.access_time,size: 25,color: Colors.amber),
                 Text(
-                  ' 8.30 - 18.00',
+                  '9.00 - 20.00',
                   style: TextStyle(
                     fontFamily: 'Opun',
                     color: Colors.grey,
@@ -1857,7 +1787,7 @@ class _More1State extends State<More1> with SingleTickerProviderStateMixin
                   ''',
                     style: TextStyle(
                       fontFamily: 'Opun',
-                      color: Colors.grey,
+                      color: Colors.black45,
                       fontSize: 10,
                     ),
                   )
@@ -1994,7 +1924,7 @@ class _More1State extends State<More1> with SingleTickerProviderStateMixin
   }
 }
 
-//----------------------------More2 page YAMASHITAKEA SHANU------------------------------
+//----------------------------More2 page YAMASHITAKEA SHABU------------------------------
 class More2 extends StatefulWidget
 {
   @override
@@ -2112,19 +2042,15 @@ class _More2State extends State<More2> with SingleTickerProviderStateMixin
               return AlertDialog(
                   backgroundColor: Color(0xFFFFE5D4),
                   content: Text('''
-                  อร่อยไม่อั้น กับบุฟเฟต์ราคาพิเศษ เพียงท่านละ 319 บาท ในโปรโมชั่น Happy Hour Buffet 319 ทานบุฟเฟต์ ราคาพิเศษเฉพาะช่วงเวลา 08:00 – 10:00 น. เท่านั้น (เฉพาะสาขาที่ร่วมรายการ)
-                  เงื่อนไขโปรโมชั่น
-                  - เฉพาะสาขาที่ร่วมรายการเท่านั้น
-                  - ราคาผู้ใหญ่ 319 บาทสุทธิ/ท่าน และราคาเด็ก (ส่วนสูง 131 ซม. ขึ้นไป) 319 บาทสุทธิ/ท่าน
-                  - ราคาเด็ก (ส่วนสูง 101 – 130 ซม.) 159 บาทสุทธิ/ท่าน (เด็กที่ส่วนสูงต่ำกว่า 100 ซม. ไม่คิดค่าใช้จ่าย)
-                  - ระยะเวลารับประทาน 1 ชั่วโมง 15 นาที ส่วนเกินทุก 10 นาที คิดค่าบริการ 20 บาท/ท่าน
-                  - ไม่สามารถใช้ร่วมกับส่วนลด หรือรายการส่งเสริมการขายอื่นๆ ได้
-                  - สมาชิก BevFood App และ Eed Pointo Card สามารถใช้คะแนนสะสมแลกเป็นส่วนลดเพิ่มจากโปรโมชั่นได้และยอดใช้จ่ายหลังหักส่วนลดสามารถสะสมคะแนนได้
-                  - บริษัทฯ ขอสงวนสิทธิ์ในการเปลี่ยนแปลงเงื่อนไขโดยไม่ต้องแจ้งให้ทราบล่วงหน้า
+                  คูปองโปรโมชั่น YAMASHITAKEA SHABU มา 4 คน ลด 400.-
+                  อิ่มเต็มร้อยกับ YAMASHITAKEA SHABU Buffet อร่อยยกสายพาน…อิ่มยกก๊วนให้ครบ 4 ท่าน แล้วเซฟคูปองในมือถือมาโชว์ที่หน้าร้าน!! รับราคาพิเศษเลยทันที!!
+                  เฉพาะที่ร้าน “YAMASHITAKEA SHABU” โดยสแกน QR Code ที่จุดแคชเชียร์พร้อมลงทะเบียนรับสิทธิ์
+                  กำหนด 1 ภาพต่อการใช้สิทธิ์ 1 ครั้ง (1 ภาพต่อลูกค้า 4 ท่าน) อร่อยให้สุดกับโปรคุ้มแห่งปี
+                  เริ่มแล้วตั้งแต่ วันนี้ – 26 กรกฏาคม 2562 นี้ (4วันเท่านั้น) อร่อยกันแบบล้นสายพานที่YAMASHITAKEA SHABU
                   ''',
                     style: TextStyle(
                       fontFamily: 'Opun',
-                      color: Colors.grey,
+                      color: Colors.black45,
                       fontSize: 10,
                     ),
                   )
@@ -2140,7 +2066,268 @@ class _More2State extends State<More2> with SingleTickerProviderStateMixin
             child: Row(
                 children: <Widget>[
                   Text(
-                    'ฉลองเปิดร้านใหม่!! พบกับโปรโมชั่นขนมจีน ลด 20% ทุก...',
+                    'คูปองโปรโมชั่น ชาบูชิบุฟเฟ่ต์ มา 4 คน ลด 400.-',
+                    style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.deepOrange,
+                      fontSize: 13,
+                    ),
+                  ),
+                ]
+            )
+        )
+    );
+
+    final buttonMatch = InkWell(
+        onTap: ()
+        {
+          return showDialog(
+              context: context,
+              builder: (context)
+              {
+                return AlertDialog(
+                  content: Text('Matching'),
+                );
+                //return Matching();
+              }
+          );
+        },
+        child: new Container(
+          margin: EdgeInsets.only(top: 50),
+          padding: EdgeInsets.all(70),
+          decoration: new BoxDecoration(
+              color: Colors.deepOrange,
+              shape: BoxShape.circle),
+          child: Text(
+            'Matching!',
+            style: TextStyle(
+              fontFamily: 'Opun',
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        )
+    );
+
+    final buttonCreate = InkWell(
+      onTap: ()
+      {
+        return showDialog(
+            context: context,
+            builder: (context)
+            {
+              return AlertDialog(
+                content: Text('Create table'),
+              );
+              //return Matching();
+            }
+        );
+      },
+      child: new Container(
+          margin: EdgeInsets.only(top: 15,left: 280),
+          padding: EdgeInsets.all(20),
+          decoration: new BoxDecoration(
+              color: Colors.amberAccent,
+              shape: BoxShape.circle),
+          child: Icon(
+            Icons.add,
+            size: 40,
+            color: Colors.white,)
+      ),
+    );
+
+    final rec1Col = Container(
+        color: Colors.white10,
+        child: Column(
+          children: [
+            info,
+            textPro,
+            textProInfo,
+            buttonMatch,
+            buttonCreate
+          ],
+        )
+    );
+
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text(
+          'ร้านบุฟเฟ่ต์ที่คุณเลือก !',
+          style: TextStyle(
+              fontFamily: 'Opun',
+              color: Colors.deepOrange,
+              fontSize: 17,
+              fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.white70,
+      ),
+      body: new TabBarView(
+        controller: controllerr,
+        children: <Widget>[
+          rec1Col,
+          new Icon(Icons.fastfood),
+          new Icon(Icons.notifications_active),
+          new Icon(Icons.assignment_ind),
+        ],
+      ),
+      bottomNavigationBar: new Material(
+        color: Colors.white,
+        shadowColor: Colors.deepOrange,
+        child: new TabBar(
+          controller: controllerr,
+          tabs: tabs,
+          unselectedLabelColor: Colors.black38,
+          labelColor: Colors.deepOrange,
+          indicatorColor: Colors.deepOrange,
+          indicatorWeight: 3.0,
+        ),
+      ),
+    );
+  }
+}
+
+//----------------------------More3 page Neta Grill ------------------------------
+class More3 extends StatefulWidget
+{
+  @override
+  _More3State createState() => new _More3State();
+}
+
+class _More3State extends State<More3> with SingleTickerProviderStateMixin
+{
+  TabController controllerr;
+
+  @override
+  void initState()
+  {
+    super.initState();
+    controllerr = new TabController(
+      length: 4,
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    controllerr.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context)
+  {
+
+    var tabs = <Tab>[
+      new Tab(icon: new Icon(Icons.home),),
+      new Tab(icon: new Icon(Icons.fastfood),),
+      new Tab(icon: new Icon(Icons.notifications_active),),
+      new Tab(icon: new Icon(Icons.assignment_ind),),
+
+    ];
+
+    final info = Container(
+        margin: EdgeInsets.all(10),
+        decoration: new BoxDecoration(
+          borderRadius: new BorderRadius.circular(10),
+          color: Colors.white,),
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text('Neta Grill',
+                  style: TextStyle(
+                      fontFamily: 'Opun',
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepOrange
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset('assets/images/more3.png')
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(Icons.location_on,size: 25,color: Colors.amber,),
+                Text(
+                  'MEGA-BANGNA  ',
+                  style: TextStyle(
+                    fontFamily: 'Opun',
+                    color: Colors.grey,
+                    fontSize: 13,
+                  ),
+                ),
+                Icon(Icons.access_time,size: 25,color: Colors.amber),
+                Text(
+                  ' 11.00 - 22.30',
+                  style: TextStyle(
+                    fontFamily: 'Opun',
+                    color: Colors.grey,
+                    fontSize: 13,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        )
+    );
+
+    final textPro = Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          '  โปรโมชั่นจากน้องบุฟ !  ',
+          style: TextStyle(
+            fontFamily: 'Opun',
+            color: Colors.white,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            backgroundColor: Colors.amberAccent,
+          ),
+        ),
+      ],
+    );
+
+    final textProInfo = InkWell(
+        onTap: ()
+        {
+          return showDialog(
+            context: context,
+            builder: (context)
+            {
+              return AlertDialog(
+                  backgroundColor: Color(0xFFFFE5D4),
+                  content: Text('''
+                  สำหรับราคาถ้าเป็นย่างเอง 499+ บาท(ไม่รวมน้ำและเซอร์วิสชาร์จ 10%) เน็ตประมาณ 600 บาท
+                  ย่างให้ 599+ บาท(ไม่รวมน้ำและเซอร์วิสชาร์จ 10%) เน็ตประมาณ 700 บาท
+                  เด็ก 279+ บาท(ความสูงต่ำกว่า 90 เซนติเมตรทานฟรี)
+                  ''',
+                    style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.black45,
+                      fontSize: 10,
+                    ),
+                  )
+              );
+            },
+          );
+        },
+        child: new Container(
+            margin: EdgeInsets.symmetric(horizontal: 15),
+            padding: EdgeInsets.only(bottom: 15,left: 10,right: 5,top: 15),
+            decoration: new BoxDecoration(
+              color: Colors.white,),
+            child: Row(
+                children: <Widget>[
+                  Text(
+                    'โปรเงินสด ย่างเอง 499+ บาท',
                     style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.deepOrange,

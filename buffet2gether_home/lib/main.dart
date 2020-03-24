@@ -1044,7 +1044,7 @@ class _Rec1State extends State<Rec1> with SingleTickerProviderStateMixin
               fontSize: 17,
               fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xFFF5F5F5),
+        backgroundColor: Colors.white70,
       ),
       body: new TabBarView(
         controller: controllerr,
@@ -1310,7 +1310,7 @@ class _Rec2State extends State<Rec2> with SingleTickerProviderStateMixin
               fontSize: 17,
               fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xFFF5F5F5),
+        backgroundColor: Colors.white70,
       ),
       body: new TabBarView(
         controller: controllerr,
@@ -1573,7 +1573,7 @@ class _Rec3State extends State<Rec3> with SingleTickerProviderStateMixin
               fontSize: 17,
               fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xFFF5F5F5),
+        backgroundColor: Colors.white70,
       ),
       body: new TabBarView(
         controller: controllerr,
@@ -1840,7 +1840,7 @@ class _More1State extends State<More1> with SingleTickerProviderStateMixin
               fontSize: 17,
               fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xFFF5F5F5),
+        backgroundColor: Colors.white70,
       ),
       body: new TabBarView(
         controller: controllerr,
@@ -2103,7 +2103,7 @@ class _More2State extends State<More2> with SingleTickerProviderStateMixin
               fontSize: 17,
               fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xFFF5F5F5),
+        backgroundColor: Colors.white70,
       ),
       body: new TabBarView(
         controller: controllerr,
@@ -2364,7 +2364,7 @@ class _More3State extends State<More3> with SingleTickerProviderStateMixin
               fontSize: 17,
               fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xFFF5F5F5),
+        backgroundColor: Colors.white70,
       ),
       body: new TabBarView(
         controller: controllerr,

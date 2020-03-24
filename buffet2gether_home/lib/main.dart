@@ -362,244 +362,185 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
-    final rowRecom = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        new InkWell(
-            onTap: ()
-            {
-              return showDialog(
-                context: context,
-                builder: (context)
-                {
-                  return Rec1();
-                  },
-              );
-              },
-            child: Container(
-                margin: EdgeInsets.only(bottom: 7),
-                decoration: new BoxDecoration(
-                  borderRadius: new BorderRadius.circular(10),
-                  color: Colors.white,),
-                child: Column(
-                  children: <Widget>[
-                    Image.asset('assets/images/rec1.png'),
-                    Text(
-                      'รสแซ่บ! ทะเลปู',
-                      style: TextStyle(
-                          fontFamily: 'Opun',
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold
-                      ),
-                    ),
-                    Text(
-                      'บุฟเฟ่ต์ทะเลเผา',
-                      style: TextStyle(
-                          fontFamily: 'Opun',
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold
-                      ),
-                    ),
-                  ],
-                )
-            )
-        ),
-        new InkWell(
-            onTap: ()
-            {
-              return showDialog(
-                context: context,
-                builder: (context)
-                {
-                  return Rec2();
-                  },
-              );
-              },
-            child: Container(
-                margin: EdgeInsets.only(bottom: 7),
-                decoration: new BoxDecoration(
-                  borderRadius: new BorderRadius.circular(10),
-                  color: Colors.white,),
-                child: Column(
-                  children: [
-                    Image.asset('assets/images/rec2.png'),
-                    Text(
-                      'กิ่งก้านซีฟู้ด',
-                      style: TextStyle(
-                          fontFamily: 'Opun',
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold
-                      ),
-                    ),
-                    Text(
-                      'หอย ปู ทะเล',
-                      style: TextStyle(
-                          fontFamily: 'Opun',
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold
-                      ),
-                    ),
-                  ],
-                )
-            )
-        ),
-        new InkWell(
-            onTap: ()
-            {
-              return showDialog(
-                context: context,
-                builder: (context)
-                {
-                  return Rec3();
-                  },
-              );
-              },
-            child: Container(
-                margin: EdgeInsets.only(bottom: 7),
-                decoration: new BoxDecoration(
-                  borderRadius: new BorderRadius.circular(10),
-                  color: Colors.white,),
-                child: Column(
-                  children: <Widget>[
-                    Image.asset('assets/images/rec3.png'),
-                    Text(
-                      'บุฟเฟ่ต์ขนมจีน',
-                      style: TextStyle(
-                          fontFamily: 'Opun',
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold
-                      ),
-                    ),
-                    Text(
-                      'เปิดใหม่ใกล้BTS',
-                      style: TextStyle(
-                          fontFamily: 'Opun',
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold
-                      ),
-                    ),
-                  ],
-                )
-            )
-        ),
-      ],
-    );
-
-    /*final recc1 = Container(
-        margin: EdgeInsets.only(bottom: 7),
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.circular(10),
-          color: Colors.white,),
-        child: Column(
-          children: <Widget>[
-            Image.asset('assets/images/rec1.png'),
-            Text(
-              'รสแซ่บ! ทะเลปู',
-              style: TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.black,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold
-              ),
-            ),
-            Text(
-              'บุฟเฟ่ต์ทะเลเผา',
-              style: TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.black,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold
-              ),
-            ),
-          ],
-        )
-    );
-
-    final recc2 = Container(
-        margin: EdgeInsets.only(bottom: 7),
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.circular(10),
-          color: Colors.white,),
-        child: Column(
-          children: [
-            Image.asset('assets/images/rec2.png'),
-            Text(
-              'กิ่งก้านซีฟู้ด',
-              style: TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.black,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold
-              ),
-            ),
-            Text(
-              'หอย ปู ทะเล',
-              style: TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.black,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold
-              ),
-            ),
-          ],
-        )
-    );
-
-    final recc3 = Container(
-        margin: EdgeInsets.only(bottom: 7),
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.circular(10),
-          color: Colors.white,),
-        child: Column(
-          children: <Widget>[
-            Image.asset('assets/images/rec3.png'),
-            Text(
-              'บุฟเฟ่ต์ขนมจีน',
-              style: TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.black,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold
-              ),
-            ),
-            Text(
-              'เปิดใหม่ใกล้BTS',
-              style: TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.black,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold
-              ),
-            ),
-          ],
-        )
-    );
-
     final List listRec = [
-      recc1,
-      recc2,
-      recc3
+      new InkWell(
+          onTap: ()
+          {
+            return showDialog(
+              context: context,
+              builder: (context)
+              {
+                return Rec1();
+              },
+            );
+          },
+          child: Container(
+              margin: EdgeInsets.only(left: 10, bottom: 7),
+              decoration: new BoxDecoration(
+                borderRadius: new BorderRadius.circular(10),
+                color: Colors.white,),
+              child: Column(
+                children: <Widget>[
+                  Image.asset('assets/images/rec1.png'),
+                  Text(
+                    'รสแซ่บ! ทะเลปู',
+                    style: TextStyle(
+                        fontFamily: 'Opun',
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  Text(
+                    'บุฟเฟ่ต์ทะเลเผา',
+                    style: TextStyle(
+                        fontFamily: 'Opun',
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ],
+              )
+          )
+      ),
+      new InkWell(
+          onTap: ()
+          {
+            return showDialog(
+              context: context,
+              builder: (context)
+              {
+                return Rec2();
+              },
+            );
+          },
+          child: Container(
+              margin: EdgeInsets.only(left: 10,bottom: 7),
+              decoration: new BoxDecoration(
+                borderRadius: new BorderRadius.circular(10),
+                color: Colors.white,),
+              child: Column(
+                children: [
+                  Image.asset('assets/images/rec2.png'),
+                  Text(
+                    'กิ่งก้านซีฟู้ด',
+                    style: TextStyle(
+                        fontFamily: 'Opun',
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  Text(
+                    'หอย ปู ทะเล',
+                    style: TextStyle(
+                        fontFamily: 'Opun',
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ],
+              )
+          )
+      ),
+      new InkWell(
+          onTap: ()
+          {
+            return showDialog(
+              context: context,
+              builder: (context)
+              {
+                return Rec3();
+              },
+            );
+          },
+          child: Container(
+              margin: EdgeInsets.only(left: 10, bottom: 7),
+              decoration: new BoxDecoration(
+                borderRadius: new BorderRadius.circular(10),
+                color: Colors.white,),
+              child: Column(
+                children: <Widget>[
+                  Image.asset('assets/images/rec3.png'),
+                  Text(
+                    'บุฟเฟ่ต์ขนมจีน',
+                    style: TextStyle(
+                        fontFamily: 'Opun',
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  Text(
+                    'เปิดใหม่ใกล้BTS',
+                    style: TextStyle(
+                        fontFamily: 'Opun',
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ],
+              )
+          )
+      ),
+      new InkWell(
+          onTap: ()
+          {
+            return showDialog(
+              context: context,
+              builder: (context)
+              {
+                return Rec3();
+              },
+            );
+          },
+          child: Container(
+              margin: EdgeInsets.only(left: 10, bottom: 7),
+              decoration: new BoxDecoration(
+                borderRadius: new BorderRadius.circular(10),
+                color: Colors.white,),
+              child: Column(
+                children: <Widget>[
+                  Image.asset('assets/images/rec3.png'),
+                  Text(
+                    'บุฟเฟ่ต์ขนมจีน',
+                    style: TextStyle(
+                        fontFamily: 'Opun',
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  Text(
+                    'สาขา 2',
+                    style: TextStyle(
+                        fontFamily: 'Opun',
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ],
+              )
+          )
+      ),
     ];
 
-    final rowRecom = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Swiper(
-          itemBuilder: (BuildContext context,int index){
-            return listRec[index];
-          },
-          itemCount: 3,
-          pagination: new SwiperPagination(),
-          control: new SwiperControl(),
-        ),
-      ],
-    );*/
+    final rowRecom = Container(
+      height: 155,
+      color: Color(0xFFF5F5F5),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: listRec.length,
+        itemBuilder: (BuildContext context,int index)
+        {
+          return listRec[index];
+        },
+      )
+    );
 
     final textMore = Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -821,7 +762,7 @@ class _HomeColumnState extends State<HomeColumn>
     );
 
     final homeColumn = Container(
-      color: Colors.white10,
+      color: Color(0xFFF5F5F5),
       //padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
       child: Column(
         children: [
@@ -879,7 +820,8 @@ class _Rec1State extends State<Rec1> with SingleTickerProviderStateMixin
   }
 
   @override
-  void dispose() {
+  void dispose()
+  {
     controllerr.dispose();
     super.dispose();
   }
@@ -1022,7 +964,8 @@ class _Rec1State extends State<Rec1> with SingleTickerProviderStateMixin
     final buttonMatch = InkWell(
       onTap: ()
       {
-        return showDialog(
+        return MatchingPage();
+          /*showDialog(
             context: context,
             builder: (context)
             {
@@ -1031,7 +974,7 @@ class _Rec1State extends State<Rec1> with SingleTickerProviderStateMixin
               );
               //return Matching();
             }
-          );
+          );*/
         },
       child: new Container(
         margin: EdgeInsets.only(top: 50),
@@ -1079,7 +1022,7 @@ class _Rec1State extends State<Rec1> with SingleTickerProviderStateMixin
     );
 
     final rec1Col = Container(
-        color: Colors.white10,
+        color: Color(0xFFF5F5F5),
         child: Column(
           children: [
             info,
@@ -1101,7 +1044,7 @@ class _Rec1State extends State<Rec1> with SingleTickerProviderStateMixin
               fontSize: 17,
               fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.white70,
+        backgroundColor: Color(0xFFF5F5F5),
       ),
       body: new TabBarView(
         controller: controllerr,
@@ -1345,7 +1288,7 @@ class _Rec2State extends State<Rec2> with SingleTickerProviderStateMixin
     );
 
     final rec1Col = Container(
-        color: Colors.white10,
+        color: Color(0xFFF5F5F5),
         child: Column(
           children: [
             info,
@@ -1367,7 +1310,7 @@ class _Rec2State extends State<Rec2> with SingleTickerProviderStateMixin
               fontSize: 17,
               fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.white70,
+        backgroundColor: Color(0xFFF5F5F5),
       ),
       body: new TabBarView(
         controller: controllerr,
@@ -1608,7 +1551,7 @@ class _Rec3State extends State<Rec3> with SingleTickerProviderStateMixin
     );
 
     final rec1Col = Container(
-        color: Colors.white10,
+        color: Color(0xFFF5F5F5),
         child: Column(
           children: [
             info,
@@ -1630,7 +1573,7 @@ class _Rec3State extends State<Rec3> with SingleTickerProviderStateMixin
               fontSize: 17,
               fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.white70,
+        backgroundColor: Color(0xFFF5F5F5),
       ),
       body: new TabBarView(
         controller: controllerr,
@@ -1875,7 +1818,7 @@ class _More1State extends State<More1> with SingleTickerProviderStateMixin
     );
 
     final rec1Col = Container(
-        color: Colors.white10,
+        color: Color(0xFFF5F5F5),
         child: Column(
           children: [
             info,
@@ -1897,7 +1840,7 @@ class _More1State extends State<More1> with SingleTickerProviderStateMixin
               fontSize: 17,
               fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.white70,
+        backgroundColor: Color(0xFFF5F5F5),
       ),
       body: new TabBarView(
         controller: controllerr,
@@ -2138,7 +2081,7 @@ class _More2State extends State<More2> with SingleTickerProviderStateMixin
     );
 
     final rec1Col = Container(
-        color: Colors.white10,
+        color: Color(0xFFF5F5F5),
         child: Column(
           children: [
             info,
@@ -2160,7 +2103,7 @@ class _More2State extends State<More2> with SingleTickerProviderStateMixin
               fontSize: 17,
               fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.white70,
+        backgroundColor: Color(0xFFF5F5F5),
       ),
       body: new TabBarView(
         controller: controllerr,
@@ -2399,7 +2342,7 @@ class _More3State extends State<More3> with SingleTickerProviderStateMixin
     );
 
     final rec1Col = Container(
-        color: Colors.white10,
+        color: Color(0xFFF5F5F5),
         child: Column(
           children: [
             info,
@@ -2421,12 +2364,100 @@ class _More3State extends State<More3> with SingleTickerProviderStateMixin
               fontSize: 17,
               fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.white70,
+        backgroundColor: Color(0xFFF5F5F5),
       ),
       body: new TabBarView(
         controller: controllerr,
         children: <Widget>[
           rec1Col,
+          new Icon(Icons.fastfood),
+          new Icon(Icons.notifications_active),
+          new Icon(Icons.assignment_ind),
+        ],
+      ),
+      bottomNavigationBar: new Material(
+        color: Colors.white,
+        shadowColor: Colors.deepOrange,
+        child: new TabBar(
+          controller: controllerr,
+          tabs: tabs,
+          unselectedLabelColor: Colors.black38,
+          labelColor: Colors.deepOrange,
+          indicatorColor: Colors.deepOrange,
+          indicatorWeight: 3.0,
+        ),
+      ),
+    );
+  }
+}
+
+//------------------- Matching page Nong Bufffffff------------------------------
+class MatchingPage extends StatefulWidget
+{
+  @override
+  _MatchingPageState createState() => new _MatchingPageState();
+}
+
+class _MatchingPageState extends State<MatchingPage> with SingleTickerProviderStateMixin
+{
+  TabController controllerr;
+
+  @override
+  void initState()
+  {
+    super.initState();
+    controllerr = new TabController(
+      length: 4,
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    controllerr.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context)
+  {
+
+    var tabs = <Tab>[
+      new Tab(icon: new Icon(Icons.home),),
+      new Tab(icon: new Icon(Icons.fastfood),),
+      new Tab(icon: new Icon(Icons.notifications_active),),
+      new Tab(icon: new Icon(Icons.assignment_ind),),
+
+    ];
+
+    final matchingPage = Container(
+      margin: EdgeInsets.all(10),
+      decoration: new BoxDecoration(
+        borderRadius: new BorderRadius.circular(10),
+        color: Color(0xFFF5F5F5),),
+      child: Column(
+          children: <Widget>[
+            Image.asset('assets/images/Buffet.png',fit: BoxFit.cover,)
+          ]
+      )
+    );
+
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text(
+          'Matching !',
+          style: TextStyle(
+              fontFamily: 'Opun',
+              color: Colors.deepOrange,
+              fontSize: 17,
+              fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.deepOrange,
+      ),
+      body: new TabBarView(
+        controller: controllerr,
+        children: <Widget>[
+          new Icon(Icons.android),
           new Icon(Icons.fastfood),
           new Icon(Icons.notifications_active),
           new Icon(Icons.assignment_ind),

@@ -233,226 +233,97 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
-    /*final List listRec = [
-      new InkWell(
-          onTap: ()
-          {
-            return showDialog(
-              context: context,
-              builder: (context)
-              {
-                return Rec1();
-              },
-            );
-          },
-          child: Container(
-              margin: EdgeInsets.only(left: 10, bottom: 7),
-              decoration: new BoxDecoration(
-                borderRadius: new BorderRadius.circular(10),
-                color: Colors.white,),
-              child: Column(
-                children: <Widget>[
-                  Image.asset('assets/images/rec1.png'),
-                  Text(
-                    'รสแซ่บ! ทะเลปู',
-                    style: TextStyle(
-                        fontFamily: 'Opun',
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                  Text(
-                    'บุฟเฟ่ต์ทะเลเผา',
-                    style: TextStyle(
-                        fontFamily: 'Opun',
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                ],
-              )
-          )
-      ),
-      new InkWell(
-          onTap: ()
-          {
-            return showDialog(
-              context: context,
-              builder: (context)
-              {
-                return Rec2();
-              },
-            );
-          },
-          child: Container(
-              margin: EdgeInsets.only(left: 10,bottom: 7),
-              decoration: new BoxDecoration(
-                borderRadius: new BorderRadius.circular(10),
-                color: Colors.white,),
-              child: Column(
-                children: [
-                  Image.asset('assets/images/rec2.png'),
-                  Text(
-                    'กิ่งก้านซีฟู้ด',
-                    style: TextStyle(
-                        fontFamily: 'Opun',
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                  Text(
-                    'หอย ปู ทะเล',
-                    style: TextStyle(
-                        fontFamily: 'Opun',
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                ],
-              )
-          )
-      ),
-      new InkWell(
-          onTap: ()
-          {
-            return showDialog(
-              context: context,
-              builder: (context)
-              {
-                return Rec3();
-              },
-            );
-          },
-          child: Container(
-              margin: EdgeInsets.only(left: 10, bottom: 7),
-              decoration: new BoxDecoration(
-                borderRadius: new BorderRadius.circular(10),
-                color: Colors.white,),
-              child: Column(
-                children: <Widget>[
-                  Image.asset('assets/images/rec3.png'),
-                  Text(
-                    'บุฟเฟ่ต์ขนมจีน',
-                    style: TextStyle(
-                        fontFamily: 'Opun',
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                  Text(
-                    'เปิดใหม่ใกล้BTS',
-                    style: TextStyle(
-                        fontFamily: 'Opun',
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                ],
-              )
-          )
-      ),
-      new InkWell(
-          onTap: ()
-          {
-            return showDialog(
-              context: context,
-              builder: (context)
-              {
-                return Rec3();
-              },
-            );
-          },
-          child: Container(
-              margin: EdgeInsets.only(left: 10, bottom: 7),
-              decoration: new BoxDecoration(
-                borderRadius: new BorderRadius.circular(10),
-                color: Colors.white,),
-              child: Column(
-                children: <Widget>[
-                  Image.asset('assets/images/rec3.png'),
-                  Text(
-                    'บุฟเฟ่ต์ขนมจีน',
-                    style: TextStyle(
-                        fontFamily: 'Opun',
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                  Text(
-                    'สาขา 2',
-                    style: TextStyle(
-                        fontFamily: 'Opun',
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                ],
-              )
-          )
-      ),
-    ];*/
-
     final rowRecom = Container(
         height: 155,
-        color: Colors.blue,
+        color: Color(0xFFF5F5F5),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: listRec.length,
           itemBuilder: (BuildContext context,int index)
           {
             Recom rec = listRec[index];
-            return Container(
-              margin: EdgeInsets.only(left: 10, bottom: 7),
-              decoration: new BoxDecoration(
-                borderRadius: new BorderRadius.circular(10),
-                color: Colors.red,),
-              width: 210,
-              child: Stack(
-                children: <Widget>[
-                  Container(
-                    height: 120,
-                    width: 200,
-                    decoration: new BoxDecoration(
-                      borderRadius: new BorderRadius.circular(10),
-                      color: Colors.white,),
-                    child: Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            rec.name1,
-                            style: TextStyle(
-                                fontFamily: 'Opun',
-                                color: Colors.black,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold
+            return InkWell(
+                onTap: ()
+                {
+                  return showDialog(
+                    context: context,
+                    builder: (context)
+                    {
+                      return rec.action;
+                    },
+                  );
+                },
+                child: Container(
+                  margin: EdgeInsets.only(left: 10, bottom: 7),
+                  decoration: new BoxDecoration(
+                    borderRadius: new BorderRadius.circular(10),
+                    color: Colors.white,),
+                  width: 140,
+                  child: Stack(
+                    alignment: Alignment.topCenter,
+                    children: <Widget>[
+                      Positioned(
+                          bottom: 1,
+                          child: Container(
+                            height: 150,
+                            width: 140,
+                            decoration: new BoxDecoration(
+                              borderRadius: new BorderRadius.circular(10),
+                              color: Colors.white,),
+                            child: Padding(
+                              padding: EdgeInsets.all(1),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    rec.name1,
+                                    style: TextStyle(
+                                        fontFamily: 'Opun',
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  ),
+                                  Text(
+                                    rec.name2,
+                                    style: TextStyle(
+                                        fontFamily: 'Opun',
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Text(
-                            rec.name2,
-                            style: TextStyle(
-                                fontFamily: 'Opun',
-                                color: Colors.black,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold
-                            ),
-                          ),
-                        ],
+                          )
                       ),
-                    ),
-                  )
-                ],
-              ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black26,
+                                offset: Offset(0,2),
+                                blurRadius: 6,
+                              )
+                            ]),
+                        child: Stack(
+                          children: <Widget>[
+                            ClipRect(
+                                child: Image(
+                                  image: AssetImage(rec.imageUrl),
+                                  fit: BoxFit.cover,
+                                )
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                )
             );
           },
         )

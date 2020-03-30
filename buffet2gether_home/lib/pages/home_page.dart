@@ -1,3 +1,4 @@
+import 'package:buffet2gether_home/models/more_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -539,14 +540,14 @@ class _HomeColumnState extends State<HomeColumn>
         )
     );
 
-    final colMore = Column(
+    /*final colMore1 = Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         rowMore1,
         rowMore2,
         rowMore3,
       ],
-    );
+    );*/
 
     final homeColumn = Container(
       color: Color(0xFFF5F5F5),

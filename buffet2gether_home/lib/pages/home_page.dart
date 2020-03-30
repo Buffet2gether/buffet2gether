@@ -130,8 +130,8 @@ class _HomeColumnState extends State<HomeColumn>
               builder: (context)
               {
                 return AlertDialog(
-                    content: //Text(widget.mc.text)
-                    Text(initiateSearch(widget.mc.text))
+                    content: Text(widget.mc.text)
+                    //Text(initiateSearch(widget.mc.text))
                 );
               },
             );

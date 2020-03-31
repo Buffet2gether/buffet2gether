@@ -540,6 +540,39 @@ class _HomeColumnState extends State<HomeColumn>
         )
     );
 
+    final colMore = Expanded(
+        child: ListView.builder(
+          itemCount: listMore.length,
+          itemBuilder: (BuildContext context,int index){
+            More more = listMore[index];
+            return Stack(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.fromLTRB(40, 5, 20, 5),
+                  height: 170,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20)
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(more.name),
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              ],
+            );
+            },
+        )
+    );
+
     /*final colMore1 = Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [

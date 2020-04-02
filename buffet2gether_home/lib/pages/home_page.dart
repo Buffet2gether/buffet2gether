@@ -346,14 +346,18 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
-    final rowMore1 = new InkWell(
+    More m0 =listMore[0];
+    More m1 =listMore[1];
+    More m2 =listMore[2];
+
+    final rowMore0 = new InkWell(
         onTap: ()
         {
           return showDialog(
             context: context,
             builder: (context)
             {
-              return More1();
+              return m0.action;
             },
           );
         },
@@ -364,14 +368,14 @@ class _HomeColumnState extends State<HomeColumn>
               color: Colors.white,),
             child: Row(
               children: <Widget>[
-                Image.asset('assets/images/more1.png'),
+                Image.asset(m0.imageUrl),
                 Column(
                   children: <Widget>[
                     Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            'อี๊ดบุฟเฟ่ต์ชาบู',
+                            m0.name,
                             style: TextStyle(
                                 fontFamily: 'Opun',
                                 color: Colors.deepOrange,
@@ -386,7 +390,7 @@ class _HomeColumnState extends State<HomeColumn>
                       children: <Widget>[
                         Icon(Icons.location_on,size: 25,color: Colors.amber,),
                         Text(
-                          '463/2 Kaki ngam 1  ',
+                          m0.location,
                           style: TextStyle(
                             fontFamily: 'Opun',
                             color: Colors.grey,
@@ -395,7 +399,76 @@ class _HomeColumnState extends State<HomeColumn>
                         ),
                         Icon(Icons.access_time,size: 25,color: Colors.amber),
                         Text(
-                          ' 09.00 - 20.00',
+                          m0.time,
+                          style: TextStyle(
+                            fontFamily: 'Opun',
+                            color: Colors.grey,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            )
+        )
+    );
+
+    final rowMore1 = new InkWell(
+        onTap: ()
+        {
+          return showDialog(
+            context: context,
+            builder: (context)
+            {
+              return m1.action;
+            },
+          );
+        },
+        child: new Container(
+            margin: EdgeInsets.only(bottom: 1,left: 5,right: 5),
+            padding: EdgeInsets.only(bottom: 15,left: 10,right: 5,top: 15),
+            decoration: new BoxDecoration(
+              color: Colors.white,),
+            child: Row(
+              children: <Widget>[
+                Image.asset(m1.imageUrl),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          m1.name,
+                          style: TextStyle(
+                              fontFamily: 'Opun',
+                              color: Colors.deepOrange,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.location_on,size: 25,color: Colors.amber,),
+                        Text(
+                          m1.location,
+                          style: TextStyle(
+                            fontFamily: 'Opun',
+                            color: Colors.grey,
+                            fontSize: 13,
+                          ),
+                        ),
+                        Icon(Icons.access_time,size: 25,color: Colors.amber),
+                        Text(
+                          m1.time,
                           style: TextStyle(
                             fontFamily: 'Opun',
                             color: Colors.grey,
@@ -418,7 +491,7 @@ class _HomeColumnState extends State<HomeColumn>
             context: context,
             builder: (context)
             {
-              return More2();
+              return m2.action;
             },
           );
         },
@@ -429,80 +502,11 @@ class _HomeColumnState extends State<HomeColumn>
               color: Colors.white,),
             child: Row(
               children: <Widget>[
-                Image.asset('assets/images/more2.png'),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'YAMASHITAKEA Shabu',
-                          style: TextStyle(
-                              fontFamily: 'Opun',
-                              color: Colors.deepOrange,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.location_on,size: 25,color: Colors.amber,),
-                        Text(
-                          '12/96 Kaki ngam 4  ',
-                          style: TextStyle(
-                            fontFamily: 'Opun',
-                            color: Colors.grey,
-                            fontSize: 13,
-                          ),
-                        ),
-                        Icon(Icons.access_time,size: 25,color: Colors.amber),
-                        Text(
-                          ' 11.00 - 23.00',
-                          style: TextStyle(
-                            fontFamily: 'Opun',
-                            color: Colors.grey,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            )
-        )
-    );
-
-    final rowMore3 = new InkWell(
-        onTap: ()
-        {
-          return showDialog(
-            context: context,
-            builder: (context)
-            {
-              return More3();
-            },
-          );
-        },
-        child: new Container(
-            margin: EdgeInsets.only(bottom: 1,left: 5,right: 5),
-            padding: EdgeInsets.only(bottom: 15,left: 10,right: 5,top: 15),
-            decoration: new BoxDecoration(
-              color: Colors.white,),
-            child: Row(
-              children: <Widget>[
-                Image.asset('assets/images/more3.png'),
+                Image.asset(m2.imageUrl),
                 Column(
                   children: <Widget>[
                     Text(
-                      'Neta Grill',
+                      m2.name,
                       style: TextStyle(
                           fontFamily: 'Opun',
                           color: Colors.deepOrange,
@@ -515,7 +519,7 @@ class _HomeColumnState extends State<HomeColumn>
                       children: <Widget>[
                         Icon(Icons.location_on,size: 25,color: Colors.amber,),
                         Text(
-                          'MEGA-BANGNA  ',
+                          m2.location,
                           style: TextStyle(
                             fontFamily: 'Opun',
                             color: Colors.grey,
@@ -524,7 +528,7 @@ class _HomeColumnState extends State<HomeColumn>
                         ),
                         Icon(Icons.access_time,size: 25,color: Colors.amber),
                         Text(
-                          ' 11.00 - 22.30',
+                          m2.time,
                           style: TextStyle(
                             fontFamily: 'Opun',
                             color: Colors.grey,
@@ -540,51 +544,19 @@ class _HomeColumnState extends State<HomeColumn>
         )
     );
 
-    final colMore = Expanded(
-        child: ListView.builder(
-          itemCount: listMore.length,
-          itemBuilder: (BuildContext context,int index){
-            More more = listMore[index];
-            return Stack(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.fromLTRB(40, 5, 20, 5),
-                  height: 170,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20)
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(more.name),
-                        ],
-                      )
-                    ],
-                  ),
-                )
-              ],
-            );
-            },
-        )
-    );
 
-    /*final colMore1 = Column(
+
+    final colMore = Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
+        rowMore0,
         rowMore1,
         rowMore2,
-        rowMore3,
       ],
-    );*/
+    );
 
     final homeColumn = Container(
-      color: Color(0xFFF5F5F5),
-      //padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
+      color: Color(0XFFF5F5F5),
       child: Column(
         children: [
           rowSearch,

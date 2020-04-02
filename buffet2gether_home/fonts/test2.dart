@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:buffet2gether_home/pages/info_page.dart';
+//import 'package:buffet2gether_home/pages/info_page.dart';
 import 'package:buffet2gether_home/models/recommend_model.dart';
 
 typedef double GetOffsetMethod();

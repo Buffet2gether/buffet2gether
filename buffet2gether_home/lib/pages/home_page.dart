@@ -1,10 +1,9 @@
-import 'package:buffet2gether_home/models/more_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:buffet2gether_home/pages/info_page.dart';
+import 'package:buffet2gether_home/models/more_model.dart';
 import 'package:buffet2gether_home/models/recommend_model.dart';
 
 typedef double GetOffsetMethod();
@@ -62,7 +61,6 @@ class _HomeColumnState extends State<HomeColumn>
   }
 
   /* ----------------------------------------------------------------------------------------------- */
-
 
   @override
   void initState()
@@ -346,9 +344,9 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
-    More m0 =listMore[0];
-    More m1 =listMore[1];
-    More m2 =listMore[2];
+    More m0 = listMore[0];
+    More m1 = listMore[1];
+    More m2 = listMore[2];
 
     final rowMore0 = new InkWell(
         onTap: ()
@@ -375,7 +373,7 @@ class _HomeColumnState extends State<HomeColumn>
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            m0.name,
+                            m0.name1,
                             style: TextStyle(
                                 fontFamily: 'Opun',
                                 color: Colors.deepOrange,
@@ -443,7 +441,7 @@ class _HomeColumnState extends State<HomeColumn>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          m1.name,
+                          m1.name1,
                           style: TextStyle(
                               fontFamily: 'Opun',
                               color: Colors.deepOrange,
@@ -506,7 +504,7 @@ class _HomeColumnState extends State<HomeColumn>
                 Column(
                   children: <Widget>[
                     Text(
-                      m2.name,
+                      m2.name1,
                       style: TextStyle(
                           fontFamily: 'Opun',
                           color: Colors.deepOrange,
@@ -543,8 +541,6 @@ class _HomeColumnState extends State<HomeColumn>
             )
         )
     );
-
-
 
     final colMore = Column(
       mainAxisAlignment: MainAxisAlignment.start,

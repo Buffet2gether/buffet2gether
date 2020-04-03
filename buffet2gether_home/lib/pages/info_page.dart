@@ -269,7 +269,7 @@ class _InfoPageState extends State<InfoPage>
     }
 }
 
-/*
+
 //----------------------------Rec1 page รสแซ่บ ! ทะเลปู บุฟเฟ่ต์ทะเลเผา------------------------------
 class Rec1 extends StatefulWidget
 {
@@ -1862,7 +1862,7 @@ class _More3State extends State<More3> with SingleTickerProviderStateMixin
     );
   }
 }
-*/
+
 
 //------------------- Matching page Nong Bufffffff------------------------------
 class MatchingPage extends StatefulWidget

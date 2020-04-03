@@ -47,7 +47,8 @@ List<Recom> listRec = [
               • สมาชิก BevFood Application และ Roszab Pointo Card สามารถใช้คะแนนสะสมแลกเป็นส่วนลดเพิ่มจากโปรโมชั่นได้ และยอดใช้จ่ายหลังหักส่วนลดสามารถสะสมคะแนนได้
               • บริษัทฯ ขอสงวนสิทธิ์ในการเปลี่ยนแปลงเงื่อนไขโดยไม่ต้องแจ้งให้ทราบล่วงหน้า
               ''',
-    action: InfoPage(
+    action: Rec1()
+    /*InfoPage(
       name1: listRec[0].name1,
       name2: listRec[0].name2,
       image: listRec[0].imageUrl,
@@ -55,7 +56,7 @@ List<Recom> listRec = [
       time: listRec[0].time,
       promotion: listRec[0].promotion,
       promotionInfo: listRec[0].promotionInfo,
-    ),
+    ),*/
   ),
   Recom(
     imageUrl: 'assets/images/rec2.png',
@@ -72,7 +73,8 @@ List<Recom> listRec = [
               • โทร : 0-2266-0123
               • เว็บไซต์ : www.facebook.com/royalorchidsheratonhotel
               ''',
-    action: InfoPage(
+    action: Rec1()
+    /*InfoPage(
       name1: listRec[1].name1,
       name2: listRec[1].name2,
       image: listRec[1].imageUrl,
@@ -80,7 +82,7 @@ List<Recom> listRec = [
       time: listRec[1].time,
       promotion: listRec[1].promotion,
       promotionInfo: listRec[1].promotionInfo,
-    ),
+    ),*/
   ),
   Recom(
     imageUrl: 'assets/images/rec3.png',
@@ -94,7 +96,8 @@ List<Recom> listRec = [
               ร้านขนมจีนเส้นสดเพชรลด 3 ร้านอยู่ตรงข้าม รพ.สมเด็จพระยุพราชหล่มเก่า ก่อนถึงปั้ม ปตท. หล่มเก่า
               โทร 084-5973594, 085-1263450
               ''',
-    action: InfoPage(
+    action: Rec3()
+    /*InfoPage(
       name1: listRec[2].name1,
       name2: listRec[2].name2,
       image: listRec[2].imageUrl,
@@ -102,7 +105,7 @@ List<Recom> listRec = [
       time: listRec[2].time,
       promotion: listRec[2].promotion,
       promotionInfo: listRec[2].promotionInfo,
-    ),
+    ),*/
   ),
   Recom(
     imageUrl: 'assets/images/rec3.png',
@@ -116,7 +119,8 @@ List<Recom> listRec = [
               ร้านขนมจีนเส้นสดเพชรลด 3 ร้านอยู่ตรงข้าม รพ.สมเด็จพระยุพราชหล่มเก่า ก่อนถึงปั้ม ปตท. หล่มเก่า
               โทร 084-5973594, 085-1263450
               ''',
-    action: InfoPage(
+    action: Rec3()
+    /*InfoPage(
       name1: listRec[3].name1,
       name2: listRec[3].name2,
       image: listRec[3].imageUrl,
@@ -124,6 +128,6 @@ List<Recom> listRec = [
       time: listRec[3].time,
       promotion: listRec[3].promotion,
       promotionInfo: listRec[3].promotionInfo,
-    ),
+    ),*/
   ),
 ];

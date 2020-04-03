@@ -237,7 +237,7 @@ class _HomeColumnState extends State<HomeColumn>
         color: Color(0xFFF5F5F5),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: listRec.length,
+          itemCount: 4,
           itemBuilder: (BuildContext context,int index)
           {
             Recom rec = listRec[index];
@@ -344,7 +344,7 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
-    More m0 = listMore[0];
+    /*More m0 = listMore[0];
     More m1 = listMore[1];
     More m2 = listMore[2];
 
@@ -549,7 +549,7 @@ class _HomeColumnState extends State<HomeColumn>
         rowMore1,
         rowMore2,
       ],
-    );
+    );*/
 
     final homeColumn = Container(
       color: Color(0XFFF5F5F5),
@@ -561,7 +561,7 @@ class _HomeColumnState extends State<HomeColumn>
           textRecom,
           rowRecom,
           textMore,
-          colMore,
+          //colMore,
         ],
       ),
     );

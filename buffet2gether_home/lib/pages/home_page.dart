@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-//import 'package:buffet2gether_home/models/more_model.dart';
-import 'package:buffet2gether_home/models/recommend_model.dart';
+import 'package:buffet2gether_home/models/info_model.dart';
 
 typedef double GetOffsetMethod();
 typedef void SetOffsetMethod(double offset);
@@ -240,7 +239,7 @@ class _HomeColumnState extends State<HomeColumn>
           itemCount: 4,
           itemBuilder: (BuildContext context,int index)
           {
-            Recom rec = listRec[index];
+            Info rec = listRec[index];
             return InkWell(
                 onTap: ()
                 {
@@ -344,9 +343,9 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
-    /*More m0 = listMore[0];
-    More m1 = listMore[1];
-    More m2 = listMore[2];
+    Info m0 = listMore[0];
+    Info m1 = listMore[1];
+    Info m2 = listMore[2];
 
     final rowMore0 = new InkWell(
         onTap: ()
@@ -355,7 +354,7 @@ class _HomeColumnState extends State<HomeColumn>
             context: context,
             builder: (context)
             {
-              return listMore[0].action;
+              return m0.action;
             },
           );
         },
@@ -366,14 +365,14 @@ class _HomeColumnState extends State<HomeColumn>
               color: Colors.white,),
             child: Row(
               children: <Widget>[
-                Image.asset(listMore[0].imageUrl),
+                Image.asset(m0.imageUrl),
                 Column(
                   children: <Widget>[
                     Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            listMore[0].name1,
+                            m0.name1,
                             style: TextStyle(
                                 fontFamily: 'Opun',
                                 color: Colors.deepOrange,
@@ -388,7 +387,7 @@ class _HomeColumnState extends State<HomeColumn>
                       children: <Widget>[
                         Icon(Icons.location_on,size: 25,color: Colors.amber,),
                         Text(
-                          listMore[0].location,
+                          m0.location,
                           style: TextStyle(
                             fontFamily: 'Opun',
                             color: Colors.grey,
@@ -397,7 +396,7 @@ class _HomeColumnState extends State<HomeColumn>
                         ),
                         Icon(Icons.access_time,size: 25,color: Colors.amber),
                         Text(
-                          listMore[0].time,
+                          m0.time,
                           style: TextStyle(
                             fontFamily: 'Opun',
                             color: Colors.grey,
@@ -546,10 +545,10 @@ class _HomeColumnState extends State<HomeColumn>
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         rowMore0,
-        //rowMore1,
-        //rowMore2,
+        rowMore1,
+        rowMore2,
       ],
-    );*/
+    );
 
     final homeColumn = Container(
       color: Color(0XFFF5F5F5),
@@ -561,7 +560,7 @@ class _HomeColumnState extends State<HomeColumn>
           textRecom,
           rowRecom,
           textMore,
-          //colMore,
+          colMore,
         ],
       ),
     );

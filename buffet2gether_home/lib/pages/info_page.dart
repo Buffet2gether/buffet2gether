@@ -148,10 +148,10 @@ class _InfoPageState extends State<InfoPage>
             context: context,
             builder: (context)
             {
-              return AlertDialog(
-                content: Text('Matching'),
-              );
-              //return Matching();
+              return //Matching();
+                AlertDialog(
+                  content: Text('Matching'),
+                );
             }
           );
           },

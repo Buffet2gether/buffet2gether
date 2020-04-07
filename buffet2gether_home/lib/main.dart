@@ -1,8 +1,8 @@
 //---------------------------- Buffet2Gether adated-------------------------------------
 //import 'dart:html';
+//import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:buffet2gether_home/pages/home_page.dart';
@@ -63,9 +63,7 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
   }
 
   //static const duration = const Duration(seconds: 1);
-
   //int secondsPassed = 0;
-
   //Timer timer;
 
   @override
@@ -94,7 +92,8 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
     {
       min=0;
     }
-    int hrs = secondsPassed~/(60*60);*/
+    int hrs = secondsPassed~/(60*60);
+    */
 
     return new Scaffold(
       appBar: new AppBar(

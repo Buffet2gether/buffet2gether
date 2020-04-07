@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/pages/info_page.dart';
 
 class More
@@ -101,4 +101,4 @@ List<More> listMore = [
       promotionInfo: listMore[2].promotionInfo,
     ),
   ),
-];
+];*/

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:buffet2gether_home/models/more_model.dart';
+//import 'package:buffet2gether_home/models/more_model.dart';
 import 'package:buffet2gether_home/models/recommend_model.dart';
 
 typedef double GetOffsetMethod();
@@ -355,7 +355,7 @@ class _HomeColumnState extends State<HomeColumn>
             context: context,
             builder: (context)
             {
-              return m0.action;
+              return listMore[0].action;
             },
           );
         },
@@ -366,14 +366,14 @@ class _HomeColumnState extends State<HomeColumn>
               color: Colors.white,),
             child: Row(
               children: <Widget>[
-                Image.asset(m0.imageUrl),
+                Image.asset(listMore[0].imageUrl),
                 Column(
                   children: <Widget>[
                     Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            m0.name1,
+                            listMore[0].name1,
                             style: TextStyle(
                                 fontFamily: 'Opun',
                                 color: Colors.deepOrange,
@@ -388,7 +388,7 @@ class _HomeColumnState extends State<HomeColumn>
                       children: <Widget>[
                         Icon(Icons.location_on,size: 25,color: Colors.amber,),
                         Text(
-                          m0.location,
+                          listMore[0].location,
                           style: TextStyle(
                             fontFamily: 'Opun',
                             color: Colors.grey,
@@ -397,7 +397,7 @@ class _HomeColumnState extends State<HomeColumn>
                         ),
                         Icon(Icons.access_time,size: 25,color: Colors.amber),
                         Text(
-                          m0.time,
+                          listMore[0].time,
                           style: TextStyle(
                             fontFamily: 'Opun',
                             color: Colors.grey,
@@ -546,8 +546,8 @@ class _HomeColumnState extends State<HomeColumn>
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         rowMore0,
-        rowMore1,
-        rowMore2,
+        //rowMore1,
+        //rowMore2,
       ],
     );*/
 
@@ -566,23 +566,13 @@ class _HomeColumnState extends State<HomeColumn>
       ),
     );
 
-    return new NotificationListener(
-      child: new ListView.builder(
+    return new ListView.builder(
         controller: scrollController,
         itemCount: 1,
         itemBuilder: (BuildContext context, int index)
         {
           return homeColumn;
         },
-      ),
-
-      onNotification: (notification)
-      {
-        if (notification is ScrollNotification)
-        {
-          widget.setOffsetMethod(notification.metrics.pixels);
-        }
-      },
-    );
+      );
   }
 }

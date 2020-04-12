@@ -30,7 +30,7 @@ class _MatchingPageState extends State<MatchingPage>
   @override
   Widget build(BuildContext context)
   {
-    
+
     if(timer == null)
     {
       timer = Timer.periodic(

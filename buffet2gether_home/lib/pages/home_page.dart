@@ -307,7 +307,8 @@ class _HomeColumnState extends State<HomeColumn>
                                 offset: Offset(0,2),
                                 blurRadius: 6,
                               )
-                            ]),
+                            ]
+                        ),
                         child: Stack(
                           children: <Widget>[
                             ClipRect(

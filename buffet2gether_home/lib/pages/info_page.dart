@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/pages/matching_page.dart';
-
-typedef double GetOffsetMethod();
-typedef void SetOffsetMethod(double offset);
+import 'package:buffet2gether_home/pages/createTable_page.dart';
 
 class InfoPage extends StatefulWidget
 {
@@ -27,10 +25,19 @@ class _InfoPageState extends State<InfoPage>
     {
 
       final info = Container(
-          margin: EdgeInsets.all(10),
+          margin: EdgeInsets.only(top: 25, left: 10,right: 10,bottom: 25),
           decoration: new BoxDecoration(
             borderRadius: new BorderRadius.circular(10),
-            color: Colors.white,),
+            color: Colors.white,
+              boxShadow:
+              [
+                BoxShadow(
+                  color: Colors.black26,
+                  offset: Offset(0,2),
+                  blurRadius: 3,
+                )
+              ]
+          ),
           child: Column(
             children: <Widget>[
               Row(
@@ -39,7 +46,7 @@ class _InfoPageState extends State<InfoPage>
                   Text(widget.name1,
                     style: TextStyle(
                         fontFamily: 'Opun',
-                        fontSize: 15,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.deepOrange
                     ),
@@ -47,7 +54,7 @@ class _InfoPageState extends State<InfoPage>
                   Text(widget.name2,
                     style: TextStyle(
                         fontFamily: 'Opun',
-                        fontSize: 15,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.deepOrange
                     ),
@@ -69,7 +76,7 @@ class _InfoPageState extends State<InfoPage>
                     style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.grey,
-                      fontSize: 13,
+                      fontSize: 15,
                     ),
                   ),
                   Icon(Icons.access_time,size: 25,color: Colors.amber),
@@ -78,7 +85,7 @@ class _InfoPageState extends State<InfoPage>
                     style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.grey,
-                      fontSize: 13,
+                      fontSize: 15,
                     ),
                   ),
                 ],
@@ -184,10 +191,16 @@ class _InfoPageState extends State<InfoPage>
               context: context,
               builder: (context)
               {
-                return AlertDialog(
-                  content: Text('Create table'),
+                return CreateTablePage(
+                  name1: widget.name1,
+                  name2: widget.name2,
+                  image: widget.image,
+                  location: widget.location,
+                  time: widget.time,
                 );
-                //return Matching();
+                  /*AlertDialog(
+                  content: Text('Create table'),
+                );*/
               }
           );
         },
@@ -204,7 +217,7 @@ class _InfoPageState extends State<InfoPage>
         ),
       );
 
-      final rec1Col = Container(
+      final allInPage = Container(
           color: Color(0xFFF5F5F5),
           child: Column(
             children: [
@@ -229,19 +242,7 @@ class _InfoPageState extends State<InfoPage>
           ),
           backgroundColor: Colors.white70,
         ),
-        body: rec1Col
-        /*bottomNavigationBar: new Material(
-          color: Colors.white,
-          shadowColor: Colors.deepOrange,
-          child: new TabBar(
-            controller: controllerr,
-            tabs: tabs,
-            unselectedLabelColor: Colors.black38,
-            labelColor: Colors.deepOrange,
-            indicatorColor: Colors.deepOrange,
-            indicatorWeight: 3.0,
-          ),
-        ),*/
+        body: allInPage
       );
     }
 }

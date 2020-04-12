@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:buffet2gether_home/pages/matching_page.dart';
+
+typedef double GetOffsetMethod();
+typedef void SetOffsetMethod(double offset);
 
 class InfoPage extends StatefulWidget
 {
-  InfoPage({Key key, this.name1, this.name2, this.image, this.location, this.time, this.promotion, this.promotionInfo}) : super(key: key);
+  InfoPage({Key key, this.name1, this.name2, this.image, this.location, this.time, this.promotion, this.promotionInfo,}) : super(key: key);
 
   final String image;
   final String name1;
@@ -148,10 +152,10 @@ class _InfoPageState extends State<InfoPage>
             context: context,
             builder: (context)
             {
-              return //Matching();
-                AlertDialog(
+              return MatchingPage();
+                /*AlertDialog(
                   content: Text('Matching'),
-                );
+                );*/
             }
           );
           },

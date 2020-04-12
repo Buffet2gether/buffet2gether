@@ -1,6 +1,5 @@
 //---------------------------- Buffet2Gether adated-------------------------------------
 //import 'dart:html';
-//import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -62,10 +61,6 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
     super.dispose();
   }
 
-  //static const duration = const Duration(seconds: 1);
-  //int secondsPassed = 0;
-  //Timer timer;
-
   @override
   Widget build(BuildContext context)
   {
@@ -77,23 +72,6 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
       new Tab(icon: new Icon(Icons.assignment_ind),),
 
     ];
-
-    //timer
-    /*if(timer == null)
-    {
-      timer = Timer.periodic(duration, (Timer t){
-        handleTick();
-      });
-    }
-
-    int sec = secondsPassed%60;
-    int min = secondsPassed~/60;
-    if(min == 60)
-    {
-      min=0;
-    }
-    int hrs = secondsPassed~/(60*60);
-    */
 
     return new Scaffold(
       appBar: new AppBar(

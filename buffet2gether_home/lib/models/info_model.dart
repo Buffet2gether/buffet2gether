@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/pages/info_page.dart';
 
+typedef double GetOffsetMethod();
+typedef void SetOffsetMethod(double offset);
+
 class Info
 {
   String imageUrl;
@@ -49,8 +52,7 @@ List<Info> listRec = [
               • สมาชิก BevFood Application และ Roszab Pointo Card สามารถใช้คะแนนสะสมแลกเป็นส่วนลดเพิ่มจากโปรโมชั่นได้ และยอดใช้จ่ายหลังหักส่วนลดสามารถสะสมคะแนนได้
               • บริษัทฯ ขอสงวนสิทธิ์ในการเปลี่ยนแปลงเงื่อนไขโดยไม่ต้องแจ้งให้ทราบล่วงหน้า
               ''',
-    action: //Rec1()
-    InfoPage(
+    action: InfoPage(
       image: 'assets/images/rec1.png',
       name1: 'รสแซ่บ ! ทะเลปู',
       name2: ' บุฟเฟ่ต์ทะเลเผา',
@@ -91,8 +93,7 @@ List<Info> listRec = [
               • โทร : 0-2266-0123
               • เว็บไซต์ : www.facebook.com/royalorchidsheratonhotel
               ''',
-    action: //Rec2()
-    InfoPage(
+    action: InfoPage(
       image: 'assets/images/rec2.png',
       name1: 'กิ่งก้านซีฟู้ด',
       name2: ' หอย ปู ทะเล',
@@ -125,8 +126,7 @@ List<Info> listRec = [
               ร้านขนมจีนเส้นสดเพชรลด 3 ร้านอยู่ตรงข้าม รพ.สมเด็จพระยุพราชหล่มเก่า ก่อนถึงปั้ม ปตท. หล่มเก่า
               โทร 084-5973594, 085-1263450
               ''',
-    action: //Rec3()
-    InfoPage(
+    action: InfoPage(
       image: 'assets/images/rec3.png',
       name1: 'บุฟเฟ่ต์ขนมจีน',
       name2: ' เปิดใหม่ใกล้BTS',
@@ -156,8 +156,7 @@ List<Info> listRec = [
               ร้านขนมจีนเส้นสดเพชรลด 3 ร้านอยู่ตรงข้าม รพ.สมเด็จพระยุพราชหล่มเก่า ก่อนถึงปั้ม ปตท. หล่มเก่า
               โทร 084-5973594, 085-1263450
               ''',
-    action: //Rec3()
-    InfoPage(
+    action: InfoPage(
       image: 'assets/images/rec3.png',
       name1: 'บุฟเฟ่ต์ขนมจีน',
       name2: ' สาขา 2',

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-//import 'dart:async';
-
-typedef double GetOffsetMethod();
-typedef void SetOffsetMethod(double offset);
+import 'dart:async';
 
 class MatchingPage extends StatefulWidget
 {
@@ -13,54 +10,71 @@ class MatchingPage extends StatefulWidget
 class _MatchingPageState extends State<MatchingPage>
 {
 
-  //static const duration = const Duration(seconds: 1);
-  //int secondsPassed = 0;
-  //Timer timer;
+  static const duration = const Duration(seconds: 1);
+  int secondsPassed = 0;
+  bool isActive = true;
+  Timer timer;
+
+  void handleTick()
+  {
+    if (isActive)
+    {
+      setState(()
+      {
+        secondsPassed = secondsPassed + 1;
+      }
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context)
   {
-
-    //timer
-    /*if(timer == null)
+    
+    if(timer == null)
     {
-      timer = Timer.periodic(duration, (Timer t){
-        handleTick();
-      });
+      timer = Timer.periodic(
+          duration,(Timer t)
+          {
+            handleTick();
+          }
+          );
     }
 
-    int sec = secondsPassed%60;
-    int min = secondsPassed~/60;
-    if(min == 60)
+    if(secondsPassed==3)
     {
-      min=0;
+      isActive = false;
+      return //NotificationPage();
+        AlertDialog(
+          content: Text('3 sec')
+        );
     }
-    int hrs = secondsPassed~/(60*60);
-    */
-
-    return Scaffold(
-        appBar: new AppBar(
-          title: new Text(
-            'Matching !',
-            style: TextStyle(
-                fontFamily: 'Opun',
-                color: Colors.deepOrange,
-                fontSize: 17,
-                fontWeight: FontWeight.bold),
-          ),
-          backgroundColor: Colors.white70,
-        ),
-        body: SafeArea(
-          child: Container(
-            color: Colors.white,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Image.asset('assets/images/Buffet.png')
-              ],
+    else
+      {
+        return Scaffold(
+            appBar: new AppBar(
+              title: new Text(
+                'Matching !',
+                style: TextStyle(
+                    fontFamily: 'Opun',
+                    color: Colors.deepOrange,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold),
+              ),
+              backgroundColor: Colors.white70,
+            ),
+            body: SafeArea(
+              child: Container(
+                  color: Colors.white,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Image.asset('assets/images/Buffet.png'),
+                    ],
+                  )
+              ),
             )
-          ),
-        )
-    );
+        );
+      }
   }
 }

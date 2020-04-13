@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:buffet2gether_home/pages/home_page.dart';
+import 'package:buffet2gether_home/pages/profile_screen.dart';
 
 void main()
 {
@@ -19,6 +20,11 @@ class MyApp extends StatelessWidget
   {
     return new MaterialApp(
       title: 'Buffet2Gether',
+      theme: ThemeData(
+        primaryColor: Colors.deepOrange,
+        accentColor: Colors.deepOrangeAccent,
+        scaffoldBackgroundColor: Color(0xFFF3F5F7),
+        ),
       home: new MyCustomForm(title: 'Buffet2Getherr'),
     );
   }
@@ -95,7 +101,7 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
             ),
             new Icon(Icons.fastfood),
             new Icon(Icons.notifications_active),
-            new Icon(Icons.assignment_ind),
+            new ProfileScreen(),
           ],
         )
       ),

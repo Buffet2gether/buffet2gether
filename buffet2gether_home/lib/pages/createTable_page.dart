@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -44,13 +46,19 @@ class _CreateTablePageState extends State<CreateTablePage>
   GenderItem selectedGender;
 
   TimeOfDay time = TimeOfDay.now();
+  TimeOfDay timePicked;
 
   Future<Null> selectTime(BuildContext context) async
   {
-    time = await showTimePicker(
-        context: context,
-        initialTime: time
-    );
+    timePicked = await showTimePicker(
+      context: context,
+      initialTime: time,
+  );
+
+  setState(() {
+    time = timePicked;
+    print(time);
+  });
   }
 
   @override
@@ -248,7 +256,7 @@ class _CreateTablePageState extends State<CreateTablePage>
                     return selectTime(context);
                     },
                   child: Text(
-                    'dueTime',
+                    DateFormat('h:mm a').format(DateTime(newDateOfDue.year, newDateOfDue.month, newDateOfDue.day, time.hour, time.minute)),
                     style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.deepOrange,

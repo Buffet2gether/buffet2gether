@@ -47,7 +47,10 @@ class _CreateTablePageState extends State<CreateTablePage>
 
   Future<Null> selectTime(BuildContext context) async
   {
-
+    time = await showTimePicker(
+        context: context,
+        initialTime: time
+    );
   }
 
   @override
@@ -242,13 +245,7 @@ class _CreateTablePageState extends State<CreateTablePage>
               InkWell(
                   onTap: ()
                   {
-                    return showDialog(
-                      context: context,
-                      builder: (context)
-                      {
-                        return selectTime(context);
-                        },
-                    );
+                    return selectTime(context);
                     },
                   child: Text(
                     'dueTime',

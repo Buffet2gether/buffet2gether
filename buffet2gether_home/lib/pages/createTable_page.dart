@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
+import 'package:intl/intl.dart';
 
 class GenderItem {
   final genderName;
@@ -31,12 +32,23 @@ class CreateTablePage extends StatefulWidget
 
 class _CreateTablePageState extends State<CreateTablePage>
 {
-  String newGender;
-  DateTime newDateOfDue;
+  Icon newGender = Icon(
+    FontAwesomeIcons.venusMars,
+    size: 23,
+    color: Colors.deepOrange,
+  );
+  DateTime newDateOfDue = DateTime.now();
 
   final _formKey = GlobalKey<FormState>();
 
   GenderItem selectedGender;
+
+  TimeOfDay time = TimeOfDay.now();
+
+  Future<Null> selectTime(BuildContext context) async
+  {
+
+  }
 
   @override
   Widget build(BuildContext context)
@@ -167,7 +179,7 @@ class _CreateTablePageState extends State<CreateTablePage>
                       fontSize: 18,
                     ),
                   )
-              ),
+              ),  //age
               InkWell(
                   onTap: ()
                   {
@@ -189,51 +201,44 @@ class _CreateTablePageState extends State<CreateTablePage>
                       fontSize: 18,
                     ),
                   )
-              ),
+              ), //num
               InkWell(
                   onTap: ()
                   {
-                    return showDialog(
-                      context: context,
-                      builder: (context)
-                      {
-                        return AlertDialog(
-                          content: OutlineButton(
-                            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                            child: Text('Edit your due date'),
-                            onPressed: ()
-                            {
-                              DatePicker.showDatePicker(
-                                context,
-                                showTitleActions: true,
-                                minTime: DateTime.now(),
-                                maxTime: DateTime.now().add(new Duration(days: 30)),
-                                onChanged: (date) {
-                                  print('change $date');
-                                  },
-                                onConfirm: (date) {
-                                  print('confirm $date');
-                                  newDateOfDue = date;
-                                  print(date.toString());
-                                  },
-                                currentTime: myProfile.dateofBirth,
-                                locale: LocaleType.th,
-                              );
-                              },
-                          ),
-                        );
-                        },
+                    return DatePicker.showDatePicker(
+                      context,
+                      showTitleActions: true,
+                      minTime: DateTime.now(),
+                      maxTime: DateTime.now().add(new Duration(days: 30)),
+                      onChanged: (date) {
+                        print('change $date');
+                      },
+                      onConfirm: (date) {
+                        print('confirm $date');
+                        newDateOfDue = date;
+                        print(date.toString());
+                      },
+                      //currentTime: newDateOfDue,
+                      locale: LocaleType.th,
                     );
                     },
                   child: Text(
+                    DateFormat('dd-MM-yyyy').format(newDateOfDue),
+                    style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.deepOrange,
+                      fontSize: 15,
+                    ),
+                  ),
+                  /*Text(
                     'dueDate',
                     style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.deepOrange,
                       fontSize: 18,
                     ),
-                  )
-              ),
+                  )*/
+              ), //date
               InkWell(
                   onTap: ()
                   {
@@ -241,9 +246,7 @@ class _CreateTablePageState extends State<CreateTablePage>
                       context: context,
                       builder: (context)
                       {
-                        return AlertDialog(
-                          content: Text('Time'),
-                        );
+                        return selectTime(context);
                         },
                     );
                     },
@@ -255,7 +258,7 @@ class _CreateTablePageState extends State<CreateTablePage>
                       fontSize: 18,
                     ),
                   )
-              ),
+              ), //time
               InkWell(
                   onTap: ()
                   {
@@ -272,7 +275,11 @@ class _CreateTablePageState extends State<CreateTablePage>
                               setState(()
                               {
                                 selectedGender = value;
-                                newGender = selectedGender.genderIcon;
+                                newGender = Icon(
+                                  selectedGender.genderIcon,
+                                  size: 23,
+                                  color: Colors.deepOrange,
+                                );
                               });
                               },
                             items: genderList.map<DropdownMenuItem<GenderItem>>((value)
@@ -297,7 +304,7 @@ class _CreateTablePageState extends State<CreateTablePage>
                         },
                     );
                     },
-                  child: FontAwesomeIcons(),
+                  child: newGender,
                   /*Text(
                     newGender,
                     style: TextStyle(
@@ -306,7 +313,7 @@ class _CreateTablePageState extends State<CreateTablePage>
                       fontSize: 18,
                     ),
                   )*/
-              ),
+              ), //gender
             ],
           ),
         )

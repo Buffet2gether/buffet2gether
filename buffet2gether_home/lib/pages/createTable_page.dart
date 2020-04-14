@@ -1,9 +1,12 @@
 import 'dart:io';
+import 'dart:typed_data';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:intl/intl.dart';
+import 'package:buffet2gether_home/pages/editInterestingTable_page.dart';
+import 'package:buffet2gether_home/models/table_model.dart';
 
 class GenderItem {
   final genderName;
@@ -35,6 +38,8 @@ class CreateTablePage extends StatefulWidget
 
 class _CreateTablePageState extends State<CreateTablePage>
 {
+  int isSelecting = 0;
+
   Icon newGender = Icon(
     FontAwesomeIcons.venusMars,
     size: 23,
@@ -47,6 +52,8 @@ class _CreateTablePageState extends State<CreateTablePage>
   GenderItem selectedGender;
 
   int num=2;
+
+  RangeValues selectedRange = RangeValues(35,72);
 
   @override
   Widget build(BuildContext context)
@@ -154,20 +161,14 @@ class _CreateTablePageState extends State<CreateTablePage>
               ]
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               InkWell(
                   onTap: ()
                   {
-                    return showDialog(
-                      context: context,
-                      builder: (context)
-                      {
-                        return AlertDialog(
-                          content: Text('age'),
-                        );
-                        },
-                    );
+                    setState(() {
+                      isSelecting = 0;
+                    });
                     },
                   child: Text(
                     'age',
@@ -177,11 +178,14 @@ class _CreateTablePageState extends State<CreateTablePage>
                       fontSize: 18,
                     ),
                   )
-              ),  //age
+              ),//age
               InkWell(
                   onTap: ()
                   {
-                    return showDialog(
+                    setState(() {
+                      isSelecting = 1;
+                    });
+                    /*return showDialog(
                       context: context,
                       builder: (context)
                       {
@@ -212,20 +216,34 @@ class _CreateTablePageState extends State<CreateTablePage>
                           ),
                         );
                       },
-                    );
+                    );*/
                   },
-                  child: Text(
-                    '1 / $num',
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.deepOrange,
-                      fontSize: 18,
+                  child: Container(
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          '1 / $num',
+                          style: TextStyle(
+                            fontFamily: 'Opun',
+                            color: Colors.deepOrange,
+                            fontSize: 18,
+                          ),
+                        ),
+                        Icon(
+                          Icons.people,
+                          color: Colors.deepOrange,
+                          size: 25,
+                        )
+                      ],
                     ),
-                  )
-              ), //num
+                  ),
+              ),//num
               InkWell(
                   onTap: ()
                   {
+                    setState(() {
+                      isSelecting = 2;
+                    });
                     return DatePicker.showDateTimePicker(
                       context,
                       showTitleActions: true,
@@ -254,59 +272,13 @@ class _CreateTablePageState extends State<CreateTablePage>
                       fontSize: 15,
                     ),
                   ),
-                  /*Text(
-                    'dueDate',
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.deepOrange,
-                      fontSize: 18,
-                    ),
-                  )*/
               ), //date and time
               InkWell(
                   onTap: ()
                   {
-                    return showDialog(
-                      context: context,
-                      builder: (context)
-                      {
-                        return AlertDialog(
-                          content: DropdownButton<GenderItem>(
-                            isDense: true,
-                            isExpanded: true,
-                            value: selectedGender,
-                            onChanged: (GenderItem value){
-                              setState(()
-                              {
-                                selectedGender = value;
-                                newGender = Icon(
-                                  selectedGender.genderIcon,
-                                  size: 23,
-                                  color: Colors.deepOrange,
-                                );
-                              });
-                              },
-                            items: genderList.map<DropdownMenuItem<GenderItem>>((value)
-                            {
-                              return DropdownMenuItem<GenderItem>(
-                                value: value,
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      value.genderIcon,
-                                      color: Colors.black38,
-                                    ),
-                                    SizedBox(width: 10),
-                                    Text(value.genderName),
-                                  ],
-                                ),
-                              );
-                            }
-                            ).toList(),
-                          ),
-                        );
-                        },
-                    );
+                    setState(() {
+                      isSelecting = 3;
+                    });
                     },
                   child: newGender,
               ), //gender
@@ -315,13 +287,160 @@ class _CreateTablePageState extends State<CreateTablePage>
         )
     );
 
+    WhichProp() {
+      return IndexedStack(
+          index: isSelecting,
+          alignment: Alignment.center,
+          children: [
+            RangeSlider(
+              activeColor: Colors.pink,
+                  inactiveColor: Colors.amberAccent,
+                  values: selectedRange,
+                  min: 20,
+                  max: 100,
+                  divisions: 80,
+                  labels: RangeLabels(
+                      '${selectedRange.start}',
+                      '${selectedRange.end}'
+                  ),
+                  onChanged: (value)
+                  {
+                    setState(() {
+                      print('start = ${selectedRange.start}');
+                      print('end = ${selectedRange.end}');
+                    /*if(value.start != selectedRange.start){
+                      print('Left thumb');
+                    }
+                    if(value.end != selectedRange.end){
+                      print('Right thumb');
+                    }*/
+                      selectedRange = value;
+                    });
+                  },
+            ),
+            Container(
+              color: Colors.deepOrange,
+              width: 50,
+              height: 50,
+            ),
+            Container(
+              color: Color(0xfff5f5f5),
+              width: 1,
+              height: 1,
+            ),
+            DropdownButton<GenderItem>(
+              isDense: true,
+              isExpanded: true,
+              value: selectedGender,
+              onChanged: (GenderItem value){
+                setState(()
+                {
+                  selectedGender = value;
+                  newGender = Icon(
+                    selectedGender.genderIcon,
+                    size: 23,
+                    color: Colors.deepOrange,
+                  );
+                });
+              },
+              items: genderList.map<DropdownMenuItem<GenderItem>>((value)
+              {
+                return DropdownMenuItem<GenderItem>(
+                  value: value,
+                  child: Row(
+                    children: <Widget>[
+                      Icon(
+                        value.genderIcon,
+                        color: Colors.black38,
+                      ),
+                      SizedBox(width: 10),
+                      Text(value.genderName),
+                    ],
+                  ),
+                );
+              }
+              ).toList(),
+            ),
+          ]
+      );
+    }
+
+    final interest = Container(
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Text(
+            'Interesting',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 0.5,
+            ),
+          ),
+          GestureDetector(
+            child: Text(
+              'Edit',
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => InterestingInTable()
+                  )
+              );
+              },
+          ),
+        ],
+      )
+    );
+
+    final interestList = Container(
+      margin: EdgeInsets.symmetric(horizontal: 40),
+      height: 50,
+      child: ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          itemCount: myTable.interestingIconUrl.length,
+          itemBuilder: (BuildContext context, int index)
+          {
+            if (myTable.interestingBool[index])
+            {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Icon(
+                  myTable.interestingIconUrl[index],
+                  color: Theme.of(context).accentColor,
+                ),
+              );
+            }
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Icon(
+                myTable.interestingIconUrl[index],
+                color: Theme.of(context).buttonColor,
+              ),
+            );
+          }
+          ),
+    );
+
     final allInPage = Container(
         color: Color(0xFFF5F5F5),
         child: Column(
           children: [
             info,
             textPro,
-            properties
+            properties,
+            SizedBox(height: 60,),
+            WhichProp(),
+            SizedBox(height: 110,),
+            interest,
+            interestList
           ],
         )
     );

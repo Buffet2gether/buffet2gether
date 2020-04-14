@@ -154,15 +154,11 @@ class _InfoPageState extends State<InfoPage>
       final buttonMatch = InkWell(
           onTap: ()
           {
-            return //MatchingPage();
-            showDialog(
+            return showDialog(
             context: context,
             builder: (context)
             {
               return MatchingPage();
-                /*AlertDialog(
-                  content: Text('Matching'),
-                );*/
             }
           );
           },

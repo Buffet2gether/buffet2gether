@@ -70,6 +70,10 @@ class _MatchingPageState extends State<MatchingPage>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Image.asset('assets/images/Buffet.png'),
+                      LinearProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color> (Colors.amberAccent),
+                        backgroundColor: Colors.deepOrange,
+                      ),
                     ],
                   )
               ),

@@ -21,10 +21,10 @@ class DetailEditingScreen extends StatefulWidget {
 }
 
 class _DetailEditingScreenState extends State<DetailEditingScreen> {
-  String newName;
-  String newGender;
-  String newBio;
-  DateTime newDateOfBirth;
+  String newName = myProfile.name;
+  String newGender = myProfile.gender;
+  String newBio = myProfile.bio;
+  DateTime newDateOfBirth = myProfile.dateofBirth;
 
   final _formKey = GlobalKey<FormState>();
   GenderItem selectedGender;

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,6 +16,8 @@ List genderList = <GenderItem>[
   const GenderItem(FontAwesomeIcons.venus, 'Female'),
   const GenderItem(FontAwesomeIcons.venusMars, 'Not specified'),
 ];
+
+//List numList = <>
 
 class CreateTablePage extends StatefulWidget
 {
@@ -45,21 +46,7 @@ class _CreateTablePageState extends State<CreateTablePage>
 
   GenderItem selectedGender;
 
-  TimeOfDay time = TimeOfDay.now();
-  TimeOfDay timePicked;
-
-  Future<Null> selectTime(BuildContext context) async
-  {
-    timePicked = await showTimePicker(
-      context: context,
-      initialTime: time,
-  );
-
-  setState(() {
-    time = timePicked;
-    print(time);
-  });
-  }
+  int num=2;
 
   @override
   Widget build(BuildContext context)
@@ -199,13 +186,36 @@ class _CreateTablePageState extends State<CreateTablePage>
                       builder: (context)
                       {
                         return AlertDialog(
-                          content: Text('num'),
+                          content: ListWheelScrollView.useDelegate(
+                            itemExtent: 150,
+                            diameterRatio: 1.4,
+                            childDelegate: ListWheelChildLoopingListDelegate(
+                              children: List<Widget>.generate(
+                                10, (index) =>
+                                Container(
+                                    color: Colors.orangeAccent,
+                                    width: 200,
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        '${index + 1}',
+                                        style: TextStyle(
+                                          fontFamily: 'Opun',
+                                          color: Colors.black,
+                                          fontSize: 30,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ),
+                            ),
+                          ),
                         );
-                        },
+                      },
                     );
-                    },
+                  },
                   child: Text(
-                    'num',
+                    '1 / $num',
                     style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.deepOrange,
@@ -216,7 +226,7 @@ class _CreateTablePageState extends State<CreateTablePage>
               InkWell(
                   onTap: ()
                   {
-                    return DatePicker.showDatePicker(
+                    return DatePicker.showDateTimePicker(
                       context,
                       showTitleActions: true,
                       minTime: DateTime.now(),
@@ -227,6 +237,9 @@ class _CreateTablePageState extends State<CreateTablePage>
                       onConfirm: (date) {
                         print('confirm $date');
                         newDateOfDue = date;
+                        setState(() {
+
+                        });
                         print(date.toString());
                       },
                       //currentTime: newDateOfDue,
@@ -234,7 +247,7 @@ class _CreateTablePageState extends State<CreateTablePage>
                     );
                     },
                   child: Text(
-                    DateFormat('dd-MM-yyyy').format(newDateOfDue),
+                    DateFormat('dd-MM-yyyy   h:mm a').format(newDateOfDue),
                     style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.deepOrange,
@@ -249,21 +262,7 @@ class _CreateTablePageState extends State<CreateTablePage>
                       fontSize: 18,
                     ),
                   )*/
-              ), //date
-              InkWell(
-                  onTap: ()
-                  {
-                    return selectTime(context);
-                    },
-                  child: Text(
-                    DateFormat('h:mm a').format(DateTime(newDateOfDue.year, newDateOfDue.month, newDateOfDue.day, time.hour, time.minute)),
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.deepOrange,
-                      fontSize: 18,
-                    ),
-                  )
-              ), //time
+              ), //date and time
               InkWell(
                   onTap: ()
                   {
@@ -310,14 +309,6 @@ class _CreateTablePageState extends State<CreateTablePage>
                     );
                     },
                   child: newGender,
-                  /*Text(
-                    newGender,
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.deepOrange,
-                      fontSize: 18,
-                    ),
-                  )*/
               ), //gender
             ],
           ),

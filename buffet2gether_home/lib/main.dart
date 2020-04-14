@@ -6,6 +6,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:buffet2gether_home/pages/home_page.dart';
 import 'package:buffet2gether_home/pages/profile_screen.dart';
+import 'package:buffet2gether_home/pages/Table_page.dart';
+import 'package:buffet2gether_home/pages/getstarted_page.dart';
 
 void main()
 {
@@ -30,9 +32,6 @@ class MyApp extends StatelessWidget
   }
 }
 
-typedef double GetOffsetMethod();
-typedef void SetOffsetMethod(double offset);
-
 //-------------------------------------main---------------------------------------------
 class MyCustomForm extends StatefulWidget {
   MyCustomForm({Key key, this.title}) : super(key: key);
@@ -46,7 +45,6 @@ class MyCustomForm extends StatefulWidget {
 class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
 {
   TabController controller;
-  double listViewOffset=0.0;
 
   @override
   void initState()
@@ -96,11 +94,9 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
           controller: controller,
           children: <Widget>[
             new HomeColumn(
-              getOffsetMethod: () => listViewOffset,
-              setOffsetMethod: (offset) => this.listViewOffset = offset,
               mc: myController,
             ),
-            new Icon(Icons.fastfood),
+            new GetStartedColumn(),
             new Icon(Icons.notifications_active),
             new ProfileScreen(),
           ],

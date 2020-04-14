@@ -5,15 +5,10 @@ import 'package:buffet2gether_home/services/database.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:buffet2gether_home/models/info_model.dart';
 
-typedef double GetOffsetMethod();
-typedef void SetOffsetMethod(double offset);
-
 class HomeColumn extends StatefulWidget
 {
-  HomeColumn({Key key, this.getOffsetMethod, this.setOffsetMethod, this.mc}) : super(key: key);
+  HomeColumn({Key key, this.mc}) : super(key: key);
 
-  final GetOffsetMethod getOffsetMethod;
-  final SetOffsetMethod setOffsetMethod;
   final TextEditingController mc;
 
   @override
@@ -65,23 +60,7 @@ class _HomeColumnState extends State<HomeColumn>
   void initState()
   {
     super.initState();
-    scrollController = new ScrollController(
-        initialScrollOffset: widget.getOffsetMethod()
-    );
   }
-
-  /*bool isActive = false;
-
-  void handleTick()
-  {
-    if(isActive)
-    {
-      setState(() {
-        //secondsPassed = secondsPassed+1;
-      }
-      );
-    }
-  }*/
 
   @override
   Widget build(BuildContext context)

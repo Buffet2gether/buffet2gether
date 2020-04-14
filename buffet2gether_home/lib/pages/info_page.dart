@@ -228,6 +228,7 @@ class _InfoPageState extends State<InfoPage>
 
       return new Scaffold(
         appBar: new AppBar(
+          centerTitle: true,
           title: new Text(
             'ร้านบุฟเฟ่ต์ที่คุณเลือก !!',
             style: TextStyle(

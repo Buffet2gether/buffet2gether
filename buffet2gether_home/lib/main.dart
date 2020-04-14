@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget
         accentColor: Colors.deepOrangeAccent,
         scaffoldBackgroundColor: Color(0xFFF3F5F7),
         ),
-      home: new MyCustomForm(title: 'Buffet2Getherr'),
+      home: new MyCustomForm(title: 'Buffet2Gether'),
     );
   }
 }
@@ -81,6 +81,7 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
 
     return new Scaffold(
       appBar: new AppBar(
+        centerTitle: true,
         title: new Text(
           widget.title,
           style: TextStyle(

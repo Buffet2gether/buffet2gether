@@ -53,6 +53,7 @@ class _MatchingPageState extends State<MatchingPage>
       {
         return Scaffold(
             appBar: new AppBar(
+              centerTitle: true,
               title: new Text(
                 'Matching !',
                 style: TextStyle(

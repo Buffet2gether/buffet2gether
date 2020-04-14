@@ -60,7 +60,7 @@ class _CreateTablePageState extends State<CreateTablePage>
   {
 
     final info = Container(
-        margin: EdgeInsets.only(top: 25, left: 10,right: 10,bottom: 25),
+        margin: EdgeInsets.only(top: 25, left: 10,right: 10,bottom: 20),
         decoration: new BoxDecoration(
             borderRadius: new BorderRadius.circular(10),
             color: Colors.white,
@@ -129,16 +129,18 @@ class _CreateTablePageState extends State<CreateTablePage>
         )
     );
 
-    final textPro = Row(
+    final textMatch = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
+        SizedBox(width: 15,),
         Text(
-          '  Matching with  ',
+          'Matching with',
           style: TextStyle(
             fontFamily: 'Opun',
-            color: Colors.deepOrange,
+            color: Colors.red,
             fontSize: 19,
             fontWeight: FontWeight.bold,
+            letterSpacing: 0.5,
           ),
         ),
       ],
@@ -374,7 +376,9 @@ class _CreateTablePageState extends State<CreateTablePage>
           Text(
             'Interesting',
             style: TextStyle(
-              fontSize: 20,
+              fontFamily: 'Opun',
+              color: Colors.red,
+              fontSize: 19,
               fontWeight: FontWeight.bold,
               letterSpacing: 0.5,
             ),
@@ -434,7 +438,7 @@ class _CreateTablePageState extends State<CreateTablePage>
         child: Column(
           children: [
             info,
-            textPro,
+            textMatch,
             properties,
             SizedBox(height: 60,),
             WhichProp(),
@@ -447,6 +451,7 @@ class _CreateTablePageState extends State<CreateTablePage>
 
     return new Scaffold(
         appBar: new AppBar(
+          centerTitle: true,
           title: new Text(
             '+ เพิ่มโต๊ะของคุณ',
             style: TextStyle(
@@ -456,6 +461,38 @@ class _CreateTablePageState extends State<CreateTablePage>
                 fontWeight: FontWeight.bold),
           ),
           backgroundColor: Colors.white70,
+          actions: <Widget>[
+            InkWell(
+              onTap: ()
+              {
+                return showDialog(
+                    context: context,
+                    builder: (context)
+                    {
+                      return //NotificationPageOwner();
+                        AlertDialog(
+                            content: Text(
+                              'Create table successful',
+                              style: TextStyle(
+                                fontFamily: 'Opun',
+                                color: Colors.black45,
+                                fontSize: 10,
+                              ),
+                            )
+                        );
+                    }
+                );
+              },
+              child: Text(
+                'Post   ',
+                style: TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.orange,
+                  fontSize: 20,
+                ),
+              ),
+            )
+          ],
         ),
         body: allInPage
     );

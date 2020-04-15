@@ -76,10 +76,7 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
 
     return new Scaffold(
       appBar: new AppBar(
-        leading: new IconButton(
-            icon: new Icon(Icons.ac_unit),
-            onPressed: () => Navigator.of(context).pop(),
-        ),
+        leading: new Container(),
         centerTitle: true,
         title: new Text(
           'Buffet2Gether',

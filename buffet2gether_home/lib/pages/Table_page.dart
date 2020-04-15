@@ -1,11 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-typedef double GetOffsetMethod();
-typedef void SetOffsetMethod(double offset);
-
-
 class MemberBarList
 {
   String imageUrl;
@@ -54,11 +49,6 @@ List<MemberBarList> listMember = [
 /////////////////////////////////////////////Table group1///////////////////////////////////////////////
 class Table1 extends StatefulWidget
 {
-  Table1({Key key, this.getOffsetMethod, this.setOffsetMethod, this.mc}) : super(key: key);
-
-  final GetOffsetMethod getOffsetMethod;
-  final SetOffsetMethod setOffsetMethod;
-  final TextEditingController mc;
   @override
   _Table1State createState() => new _Table1State();
 }

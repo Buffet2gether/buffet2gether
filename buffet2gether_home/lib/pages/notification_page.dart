@@ -5,12 +5,6 @@ import 'package:flutter/material.dart';
 //import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:buffet2gether_home/pages/inviteTogroup_page.dart';
 
-
-
-typedef double GetOffsetMethod();
-typedef void SetOffsetMethod(double offset);
-
-
 ////---------------------------------------BAR list ทั้งหมด notifBarและgroupBar----------------------------//////
 abstract class BarList {
   
@@ -132,30 +126,18 @@ class CreateGroupBar implements BarList{
 //----------------------------------------Notification page------------------------------------
 class NotifColumn extends StatefulWidget
 {
-  NotifColumn({Key key, this.getOffsetMethod, this.setOffsetMethod, this.mc}) : super(key: key);
+  NotifColumn({Key key, this.mc}) : super(key: key);
 
-  final GetOffsetMethod getOffsetMethod;
-  final SetOffsetMethod setOffsetMethod;
   final TextEditingController mc;
-  
-  
+
   @override
   _NotifColumnState createState() => new _NotifColumnState();
 }
+
 class _NotifColumnState extends State<NotifColumn>
 {
   ScrollController scrollController;
 
-  
- 
-  @override
-  void initState()
-  { 
-    super.initState();
-    scrollController = new ScrollController(
-        initialScrollOffset: widget.getOffsetMethod()
-    );
-  }
   @override
   Widget build(BuildContext context)
   {

@@ -76,6 +76,7 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
 
     return new Scaffold(
       appBar: new AppBar(
+        leading: new Container(),
         centerTitle: true,
         title: new Text(
           'Buffet2Gether',

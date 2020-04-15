@@ -49,7 +49,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return /*loading ? Loading() :*/ Scaffold(
+    return loading ? Loading() : Scaffold(
       body: SafeArea(
         child: ListView.builder(
             controller: scrollController,
@@ -139,28 +139,28 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                             borderRadius: new BorderRadius.all(Radius.circular(10))),
                         onPressed: () async
                         {
-                          if (_formkey.currentState.validate())
-                          {
-                            setState(() => loading = true);
-                            dynamic result = await _auth.signInWithEmailAndPassword(
+                          if (_formkey.currentState.validate()) {
+                            //setState(() => loading = true);
+                            dynamic result = await _auth
+                                .signInWithEmailAndPassword(
                                 email, password);
-                            if (result == null)
-                            {
-                              setState(()
-                              {
+                            if (result == null) {
+                              setState(() {
                                 loading = false;
-                                error = 'Could not sign in ,Please check your email or password';
+                                error =
+                                'Could not sign in ,Please check your email or password';
                               });
                             }
                           }
-                          return showDialog(
-                              context: context,
-                              builder: (context)
-                              {
-                                return MyCustomForm();
-                              }
-                              );
-                          },
+                          else {
+                            return showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return MyCustomForm();
+                                }
+                            );
+                          }
+                        },
                         child: new Container(
                           width: 380,
                           height: 50,

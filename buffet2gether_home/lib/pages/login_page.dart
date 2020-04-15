@@ -139,7 +139,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                             borderRadius: new BorderRadius.all(Radius.circular(10))),
                         onPressed: () async
                         {
-                          if (_formkey.currentState.validate()) {
+                          if (_formkey.currentState.validate())
+                          {
                             //setState(() => loading = true);
                             dynamic result = await _auth
                                 .signInWithEmailAndPassword(
@@ -152,15 +153,17 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                               });
                             }
                           }
-                          else {
-                            return showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return MyCustomForm();
-                                }
-                            );
-                          }
-                        },
+                          else
+                            {
+                              return showDialog(
+                                  context: context,
+                                  builder: (context)
+                                  {
+                                    return MyCustomForm();
+                                  }
+                                  );
+                            }
+                          },
                         child: new Container(
                           width: 380,
                           height: 50,

@@ -29,7 +29,7 @@ class _GetStartedColumnState extends State<GetStartedColumn>
           builder: (context)
           {
             return Login();
-            },
+          },
         );
         },
       child:new Container(
@@ -51,6 +51,9 @@ class _GetStartedColumnState extends State<GetStartedColumn>
         ),
       ),
     );
+
+
+
     final getStartedColumn = Container(
       decoration: BoxDecoration(
         color:Colors.white

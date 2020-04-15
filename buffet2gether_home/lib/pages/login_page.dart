@@ -22,7 +22,10 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin
                 context: context,
                 builder: (context)
                 {
-                  return Login();
+                  return AlertDialog(
+                    content: Text('aa'),
+                  );
+                  // Login();
                 },
               );
             },
@@ -47,7 +50,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin
           );
 
     final loginColumn = Container(
-      padding: EdgeInsets.only(left: 20,right: 20),
+      color: Colors.orange,
+      //padding: EdgeInsets.only(left: 20,right: 20),
       child:Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -149,7 +153,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin
       itemCount: 1,
       itemBuilder: (BuildContext context, int index)
       {
-        return loginColumn;
+        return Container(
+          child: loginColumn,
+        );
       },
     );
 

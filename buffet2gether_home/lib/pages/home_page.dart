@@ -20,7 +20,7 @@ class _HomeColumnState extends State<HomeColumn>
   ScrollController scrollController;
 
   /* ----------------------------------- get data from backend ---------------------------------------- */
-  var queryResultSet = [];
+  /*var queryResultSet = [];
   var tempSearchStore = [];
 
   initiateSearch(value){   // <----- call this function for search algorithm
@@ -52,7 +52,7 @@ class _HomeColumnState extends State<HomeColumn>
         }
       });
     }
-  }
+  }*/
 
   /* ----------------------------------------------------------------------------------------------- */
 
@@ -73,9 +73,9 @@ class _HomeColumnState extends State<HomeColumn>
         color: Colors.white,
       ),
       child: TextField(
-        onChanged:(val){      //when search the first word of restaurant name
+        /*onChanged:(val){      //when search the first word of restaurant name
           initiateSearch(val);
-        },
+        },*/
         cursorColor: Colors.deepOrange,
         controller: widget.mc,
         style: TextStyle(
@@ -545,13 +545,17 @@ class _HomeColumnState extends State<HomeColumn>
       ),
     );
 
-    return new ListView.builder(
+    return Scaffold(
+      body: SafeArea(
+        child: ListView.builder(
         controller: scrollController,
         itemCount: 1,
         itemBuilder: (BuildContext context, int index)
         {
           return homeColumn;
         },
+      )
+      )
       );
   }
 }

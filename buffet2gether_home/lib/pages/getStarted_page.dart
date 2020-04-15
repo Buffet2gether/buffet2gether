@@ -59,6 +59,7 @@ class _GetStartedColumnState extends State<GetStartedColumn>
         color:Colors.white
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children:[
           SizedBox(height: 62,),
           Text(
@@ -70,7 +71,9 @@ class _GetStartedColumnState extends State<GetStartedColumn>
               fontSize: 30,fontWeight: FontWeight.bold,
             ),
           ),
+          SizedBox(height: 38,),
           Image.asset('assets/images/Buffet.png',width: 230,height: 250,),
+          SizedBox(height: 37,),
           Stack(
             children: <Widget>[
               Container(
@@ -112,21 +115,16 @@ class _GetStartedColumnState extends State<GetStartedColumn>
                   ]
                 ),
               ),
-             
             ],
           )
-         
         ]
       ) ,
     );
 
-    return ListView.builder(
-        controller: scrollController,
-        itemCount: 1,
-        itemBuilder: (BuildContext context, int index)
-        {
-          return getStartedColumn;
-        },
+    return Scaffold(
+      body: SafeArea(
+        child: getStartedColumn
+      )
     );
   }
 }

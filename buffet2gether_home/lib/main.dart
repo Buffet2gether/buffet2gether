@@ -27,16 +27,13 @@ class MyApp extends StatelessWidget
         accentColor: Colors.deepOrangeAccent,
         scaffoldBackgroundColor: Color(0xFFF3F5F7),
         ),
-      home: new MyCustomForm(title: 'Buffet2Gether'),
+      home: GetStartedColumn(),
     );
   }
 }
 
 //-------------------------------------main---------------------------------------------
 class MyCustomForm extends StatefulWidget {
-  MyCustomForm({Key key, this.title}) : super(key: key);
-
-  final String title;
 
   @override
   MyAppState createState() => new MyAppState();
@@ -81,7 +78,7 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
       appBar: new AppBar(
         centerTitle: true,
         title: new Text(
-          widget.title,
+          'Buffet2Gether',
           style: TextStyle(
               fontFamily: 'Opun',
               fontSize: 20,
@@ -96,7 +93,7 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
             new HomeColumn(
               mc: myController,
             ),
-            new GetStartedColumn(),
+            new Icon(Icons.fastfood),
             new Icon(Icons.notifications_active),
             new ProfileScreen(),
           ],

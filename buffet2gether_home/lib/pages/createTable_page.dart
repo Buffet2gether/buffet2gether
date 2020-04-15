@@ -20,8 +20,6 @@ List genderList = <GenderItem>[
   const GenderItem(FontAwesomeIcons.venusMars, 'Not specified'),
 ];
 
-//List numList = <>
-
 class CreateTablePage extends StatefulWidget
 {
   CreateTablePage({Key key, this.name1, this.name2, this.image, this.location, this.time}) : super(key: key);
@@ -51,9 +49,11 @@ class _CreateTablePageState extends State<CreateTablePage>
 
   GenderItem selectedGender;
 
-  int num=2;
+  double selectedNumm = 2;
+  //int selectedNum = 2;
+  //int newNum;
 
-  RangeValues selectedRange = RangeValues(35,72);
+  RangeValues selectedRange = RangeValues(35,50);
 
   @override
   Widget build(BuildContext context)
@@ -173,73 +173,57 @@ class _CreateTablePageState extends State<CreateTablePage>
                     });
                     },
                   child: Text(
-                    'age',
+                    '${selectedRange.start.round()} - ${selectedRange.end.round()}',
                     style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.deepOrange,
-                      fontSize: 18,
+                      fontSize: 15,
                     ),
                   )
               ),//age
+              Text(
+                '|',
+                style:  TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.amberAccent,
+                  fontSize: 25,
+                ),
+              ),
               InkWell(
                   onTap: ()
                   {
                     setState(() {
                       isSelecting = 1;
                     });
-                    /*return showDialog(
-                      context: context,
-                      builder: (context)
-                      {
-                        return AlertDialog(
-                          content: ListWheelScrollView.useDelegate(
-                            itemExtent: 150,
-                            diameterRatio: 1.4,
-                            childDelegate: ListWheelChildLoopingListDelegate(
-                              children: List<Widget>.generate(
-                                10, (index) =>
-                                Container(
-                                    color: Colors.orangeAccent,
-                                    width: 200,
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        '${index + 1}',
-                                        style: TextStyle(
-                                          fontFamily: 'Opun',
-                                          color: Colors.black,
-                                          fontSize: 30,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    );*/
                   },
                   child: Container(
                     child: Row(
                       children: <Widget>[
                         Text(
-                          '1 / $num',
+                          '1 / ${selectedNumm.round()}',
                           style: TextStyle(
                             fontFamily: 'Opun',
                             color: Colors.deepOrange,
-                            fontSize: 18,
+                            fontSize: 15,
                           ),
                         ),
                         Icon(
                           Icons.people,
                           color: Colors.deepOrange,
-                          size: 25,
+                          size: 23,
                         )
                       ],
                     ),
                   ),
               ),//num
+              Text(
+                '|',
+                style:  TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.amberAccent,
+                  fontSize: 25,
+                ),
+              ),
               InkWell(
                   onTap: ()
                   {
@@ -252,29 +236,37 @@ class _CreateTablePageState extends State<CreateTablePage>
                       minTime: DateTime.now(),
                       maxTime: DateTime.now().add(new Duration(days: 30)),
                       onChanged: (date) {
-                        print('change $date');
+                        //print('change $date');
                       },
                       onConfirm: (date) {
-                        print('confirm $date');
+                        //print('confirm $date');
                         newDateOfDue = date;
                         setState(() {
 
                         });
-                        print(date.toString());
+                        //print(date.toString());
                       },
                       //currentTime: newDateOfDue,
                       locale: LocaleType.th,
                     );
                     },
                   child: Text(
-                    DateFormat('dd-MM-yyyy   h:mm a').format(newDateOfDue),
+                    DateFormat('dd-MM-yyyy  h:mm a').format(newDateOfDue),
                     style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.deepOrange,
                       fontSize: 15,
                     ),
                   ),
-              ), //date and time
+              ),//date and time
+              Text(
+                '|',
+                style:  TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.amberAccent,
+                  fontSize: 25,
+                ),
+              ),
               InkWell(
                   onTap: ()
                   {
@@ -296,72 +288,108 @@ class _CreateTablePageState extends State<CreateTablePage>
           children: [
             RangeSlider(
               activeColor: Colors.pink,
-                  inactiveColor: Colors.amberAccent,
-                  values: selectedRange,
-                  min: 20,
-                  max: 100,
-                  divisions: 80,
-                  labels: RangeLabels(
-                      '${selectedRange.start}',
-                      '${selectedRange.end}'
-                  ),
-                  onChanged: (value)
-                  {
-                    setState(() {
-                      print('start = ${selectedRange.start}');
-                      print('end = ${selectedRange.end}');
-                    /*if(value.start != selectedRange.start){
+              inactiveColor: Colors.amberAccent,
+              values: selectedRange,
+              min: 10,
+              max: 60,
+              divisions: 50,
+              labels: RangeLabels(
+                  '${selectedRange.start.round()}',
+                  '${selectedRange.end.round()}'
+              ),
+              onChanged: (value)
+              {
+                setState(()
+                {
+                  //print('start = ${selectedRange.start}');
+                  //print('end = ${selectedRange.end}');
+                  /*if(value.start != selectedRange.start){
                       print('Left thumb');
                     }
                     if(value.end != selectedRange.end){
                       print('Right thumb');
                     }*/
-                      selectedRange = value;
-                    });
-                  },
+                  selectedRange = value;
+                });
+                },
             ),
-            Container(
-              color: Colors.deepOrange,
-              width: 50,
-              height: 50,
+            Slider(
+              activeColor: Colors.pink,
+              inactiveColor: Colors.amberAccent,
+              value: selectedNumm,
+              min: 2,
+              max: 10,
+              divisions: 8,
+              label: '${selectedNumm.round()}',
+              onChanged: (value)
+              {
+                setState(()
+                {
+                  //print('start = ${selectedRange.start}');
+                  //print('end = ${selectedRange.end}');
+                  /*if(value.start != selectedRange.start){
+                      print('Left thumb');
+                    }
+                    if(value.end != selectedRange.end){
+                      print('Right thumb');
+                    }*/
+                  selectedNumm = value;
+                });
+              },
             ),
             Container(
               color: Color(0xfff5f5f5),
               width: 1,
               height: 1,
             ),
-            DropdownButton<GenderItem>(
-              isDense: true,
-              isExpanded: true,
-              value: selectedGender,
-              onChanged: (GenderItem value){
-                setState(()
+            Container(
+              height: 50,
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              child:DropdownButton<GenderItem>(
+                hint: Text('select gender'),
+                isDense: true,
+                isExpanded: true,
+                style: TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.black,
+                  fontSize: 13,
+                ),
+                underline: Container(
+                  height: 1,
+                  color: Colors.black12,
+                ),
+                value: selectedGender,
+                onChanged: (GenderItem value)
                 {
-                  selectedGender = value;
-                  newGender = Icon(
-                    selectedGender.genderIcon,
-                    size: 23,
-                    color: Colors.deepOrange,
+                  setState(()
+                  {
+                    selectedGender = value;
+                    newGender = Icon(
+                      selectedGender.genderIcon,
+                      size: 23,
+                      color: Colors.deepOrange,
+                    );
+                  }
                   );
-                });
-              },
-              items: genderList.map<DropdownMenuItem<GenderItem>>((value)
-              {
-                return DropdownMenuItem<GenderItem>(
-                  value: value,
-                  child: Row(
-                    children: <Widget>[
-                      Icon(
-                        value.genderIcon,
-                        color: Colors.black38,
-                      ),
-                      SizedBox(width: 10),
-                      Text(value.genderName),
-                    ],
-                  ),
-                );
-              }
-              ).toList(),
+                  },
+                items: genderList.map<DropdownMenuItem<GenderItem>>((value)
+                {
+                  return DropdownMenuItem<GenderItem>(
+                    value: value,
+                    child: Row(
+                      children: <Widget>[
+                        Icon(
+                          value.genderIcon,
+                          color: Colors.black38,
+                        ),
+                        SizedBox(width: 10),
+                        Text(value.genderName),
+                      ],
+                    ),
+                  );
+                }
+                ).toList(),
+              ),
             ),
           ]
       );
@@ -442,7 +470,7 @@ class _CreateTablePageState extends State<CreateTablePage>
             properties,
             SizedBox(height: 60,),
             WhichProp(),
-            SizedBox(height: 110,),
+            SizedBox(height: 90,),
             interest,
             interestList
           ],

@@ -67,7 +67,32 @@ class _MatchingPageState extends State<MatchingPage>
             body: SafeArea(
               child: Container(
                   color: Colors.white,
-                  child: Column(
+                  child: Center(
+                    child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            right: 20,
+                            top: 5,
+                            child: Image.asset(
+                              'assets/images/Buffet.png',
+                              height: 300,
+                              width: 300,
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.all(10),
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color> (Colors.amberAccent),
+                              backgroundColor: Colors.deepOrange,
+                              strokeWidth: 5,
+                            ),
+                            height: 320,
+                            width: 320,
+                          )
+                        ],
+                      )
+                  )
+                  /*Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Image.asset('assets/images/Buffet.png'),
@@ -76,7 +101,7 @@ class _MatchingPageState extends State<MatchingPage>
                         backgroundColor: Colors.deepOrange,
                       ),
                     ],
-                  )
+                  )*/
               ),
             )
         );

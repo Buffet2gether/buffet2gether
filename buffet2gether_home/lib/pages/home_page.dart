@@ -66,7 +66,7 @@ class _HomeColumnState extends State<HomeColumn>
   Widget build(BuildContext context)
   {
     final rowSearch = Container(
-      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
       decoration: new BoxDecoration(
         borderRadius: new BorderRadius.circular(10),
@@ -86,50 +86,59 @@ class _HomeColumnState extends State<HomeColumn>
         ),
         decoration: InputDecoration(
           border: InputBorder.none,
+          icon: Icon(Icons.search),
           hintText: 'ค้นหา',
         ),
       ),
     );
 
-    final buttonSearch = Container(
-      child: RaisedButton(
-          child: Text(
-            //isActive ? 'ค้นหา2' : 'ค้นหา',
-            'ค้นหา',
-            style: TextStyle(
-                fontFamily: 'Opun'
-            ),
-          ),
-          onPressed: ()
-          {
-            return showDialog(
-              context: context,
-              builder: (context)
+    final buttonSearch = Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        Container(
+          child: RaisedButton(
+              child: Text(
+                'ค้นหา',
+                style: TextStyle(
+                    fontFamily: 'Opun'
+                ),
+              ),
+              onPressed: ()
               {
-                return AlertDialog(
-                    content: Text(widget.mc.text)
-                    //Text(initiateSearch(widget.mc.text))
+                return showDialog(
+                  context: context,
+                  builder: (context)
+                  {
+                    return AlertDialog(
+                        content: Text(widget.mc.text)
+                    );
+                    },
                 );
-              },
-            );
-          }
-      ),
+              }
+              ),
+        ),
+      ]
     );
 
     final textPro = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text(
-          '  โปรโมชั่นจากน้องบุฟ !  ',
-          style: TextStyle(
-            fontFamily: 'Opun',
-            color: Colors.white,
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            backgroundColor: Colors.amberAccent,
+        Container(
+          decoration: new BoxDecoration(
+            borderRadius: new BorderRadius.circular(5),
+            color: Colors.amberAccent,
           ),
-        ),
-        buttonSearch,
+          margin: EdgeInsets.only(left: 10),
+          child: Text(
+            '  โปรโมชั่นจากน้องบุฟ !  ',
+            style: TextStyle(
+              fontFamily: 'Opun',
+              color: Colors.white,
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        )
       ],
     );
 
@@ -189,23 +198,36 @@ class _HomeColumnState extends State<HomeColumn>
           },
           itemCount: listPic.length,
           pagination: new SwiperPagination(),
-          //control: new SwiperControl(),
         ),
         constraints:new BoxConstraints.loose(new Size(350, 220.0))
+    );
+
+    final promotion = Stack(
+      alignment: Alignment.topCenter,
+      children: <Widget>[
+        picPro,
+        textPro
+      ],
     );
 
     final textRecom = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text(
-          '  น้องบุฟแนะนำ !  ',
-          style: TextStyle(
-            fontFamily: 'Opun',
-            color: Colors.white,
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            backgroundColor: Colors.deepOrange,
-          ),
+        Container(
+            decoration: new BoxDecoration(
+              borderRadius: new BorderRadius.circular(5),
+              color: Colors.deepOrange,
+            ),
+            margin: EdgeInsets.only(left: 10),
+            child:Text(
+              '  น้องบุฟแนะนำ !  ',
+              style: TextStyle(
+                fontFamily: 'Opun',
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),
+            )
         )
       ],
     );
@@ -234,15 +256,16 @@ class _HomeColumnState extends State<HomeColumn>
                   margin: EdgeInsets.only(left: 10, bottom: 7),
                   decoration: new BoxDecoration(
                     borderRadius: new BorderRadius.circular(10),
-                    color: Colors.white,),
+                    //color: Colors.orangeAccent,
+                  ),
                   width: 140,
                   child: Stack(
                     alignment: Alignment.topCenter,
                     children: <Widget>[
                       Positioned(
-                          bottom: 1,
+                          bottom: 0,
                           child: Container(
-                            height: 150,
+                            height: 100,
                             width: 140,
                             decoration: new BoxDecoration(
                               borderRadius: new BorderRadius.circular(10),
@@ -278,7 +301,7 @@ class _HomeColumnState extends State<HomeColumn>
                       ),
                       Container(
                         decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Colors.grey,
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
                               BoxShadow(
@@ -294,6 +317,7 @@ class _HomeColumnState extends State<HomeColumn>
                                 child: Image(
                                   image: AssetImage(rec.imageUrl),
                                   fit: BoxFit.cover,
+                                  width: 120,
                                 )
                             )
                           ],
@@ -534,11 +558,14 @@ class _HomeColumnState extends State<HomeColumn>
       color: Color(0XFFF5F5F5),
       child: Column(
         children: [
+          SizedBox(height: 20,),
           rowSearch,
-          textPro,
-          picPro,
+          buttonSearch,
+          promotion,
           textRecom,
+          SizedBox(height: 5,),
           rowRecom,
+          SizedBox(height: 10,),
           textMore,
           colMore,
         ],

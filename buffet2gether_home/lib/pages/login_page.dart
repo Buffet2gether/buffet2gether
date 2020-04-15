@@ -2,6 +2,7 @@ import 'package:buffet2gether_home/main.dart';
 import 'package:buffet2gether_home/pages/home_page.dart';
 import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/shared/loading.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/pages/createAccount_page.dart';
 
@@ -63,10 +64,11 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                 child: Form(
                   key: _formkey,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       SizedBox(
-                        height: 20,
+                        height: 80,
                       ),
                       Text(
                         'Log in',

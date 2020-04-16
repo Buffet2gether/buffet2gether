@@ -155,19 +155,20 @@ class _InfoPageState extends State<InfoPage>
       final buttonMatch = InkWell(
           onTap: ()
           {
-            return Navigator.push(
+            return
+              /*Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => MatchingPage()
                 )
-            );
-              /*showDialog(
+            );*/
+              showDialog(
             context: context,
             builder: (context)
             {
-              return MatchingPage(tabController: widget.tabController,); // ได้รับอะไรมาส่งจริงๆรึเปล่า ??????????
+              return MatchingPage(); // ได้รับอะไรมาส่งจริงๆรึเปล่า ??????????
             }
-          );*/
+          );
           },
           child: new Container(
             margin: EdgeInsets.only(top: 50),

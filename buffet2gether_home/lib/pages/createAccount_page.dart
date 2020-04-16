@@ -157,11 +157,14 @@ class _SignUpState extends State<SignUp>
                   shape: RoundedRectangleBorder(
                       borderRadius:
                       new BorderRadius.all(Radius.circular(10))),
-                  onPressed: () {
-                    if (_formkey.currentState.validate()) {
+                  onPressed: ()
+                  {
+                    if (_formkey.currentState.validate())
+                    {
                       return showDialog(
                         context: context,
-                        builder: (context) {
+                        builder: (context)
+                        {
                           return CreateProfile();
                         },
                       );
@@ -431,12 +434,18 @@ class _CreateProfileState extends State<CreateProfile>
                         error = 'information error';
                       });
                     } else {
-                      return showDialog(
+                      return Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Login()
+                          )
+                      );
+                        /*showDialog(
                         context: context,
                         builder: (context) {
                           return Login();
                         },
-                      );
+                      );*/
                     }
                   }
                 },

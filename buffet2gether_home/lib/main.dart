@@ -9,6 +9,7 @@ import 'package:buffet2gether_home/pages/profile_screen.dart';
 import 'package:buffet2gether_home/pages/Table_page.dart';
 import 'package:buffet2gether_home/pages/getstarted_page.dart';
 import 'package:buffet2gether_home/pages/notification_page.dart';
+import 'package:buffet2gether_home/pages/test.dart';
 
 void main()
 {
@@ -91,7 +92,7 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
           controller: controller,
           children: <Widget>[
             new HomeColumn(tabControll: controller,),
-            new Table1(),
+            new MainPage(),
             new NotifColumn(),
             new ProfileScreen(),
           ],

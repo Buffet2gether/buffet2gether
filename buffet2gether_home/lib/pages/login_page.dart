@@ -158,12 +158,11 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                               });
                             } else
                               {
-                                return showDialog(
-                                  context: context,
-                                  builder: (context)
-                                  {
-                                    return MyCustomForm();
-                                    },
+                                return Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MyCustomForm()
+                                    )
                                 );
                               }
                           }

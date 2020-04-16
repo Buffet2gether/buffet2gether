@@ -240,8 +240,6 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
-    Info(tabControll: widget.tabControll); // แล้วยังไง ????????
-
     final rowRecom = Container(
         height: 155,
         color: Color(0xFFF5F5F5),
@@ -255,13 +253,20 @@ class _HomeColumnState extends State<HomeColumn>
             return InkWell(
                 onTap: ()
                 {
-                  rec.tabControll = widget.tabControll;
-                  return Navigator.push(
+                  return
+                    showDialog(
+                  context: context,
+                  builder: (context)
+                  {
+                    return rec.action;
+                  }
+                  );
+                    /*Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => rec.action
                       )
-                  );
+                  );*/
                 },
                 child: Container(
                   margin: EdgeInsets.only(left: 10, bottom: 7),

@@ -155,13 +155,19 @@ class _InfoPageState extends State<InfoPage>
       final buttonMatch = InkWell(
           onTap: ()
           {
-            return showDialog(
+            return Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MatchingPage()
+                )
+            );
+              /*showDialog(
             context: context,
             builder: (context)
             {
               return MatchingPage(tabController: widget.tabController,); // ได้รับอะไรมาส่งจริงๆรึเปล่า ??????????
             }
-          );
+          );*/
           },
           child: new Container(
             margin: EdgeInsets.only(top: 50),
@@ -184,22 +190,28 @@ class _InfoPageState extends State<InfoPage>
       final buttonCreate = InkWell(
         onTap: ()
         {
-          return showDialog(
+          return Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => CreateTablePage(
+                    name1: widget.name1,
+                    name2: widget.name2,
+                    image: widget.image,
+                    location: widget.location,
+                    time: widget.time,
+                  )
+              )
+          );
+            /*showDialog(
               context: context,
               builder: (context)
               {
-                return CreateTablePage(
-                  name1: widget.name1,
-                  name2: widget.name2,
-                  image: widget.image,
-                  location: widget.location,
-                  time: widget.time,
-                );
+                return
                   /*AlertDialog(
                   content: Text('Create table'),
                 );*/
               }
-          );
+          );*/
         },
         child: new Container(
             margin: EdgeInsets.only(top: 15,left: 280),

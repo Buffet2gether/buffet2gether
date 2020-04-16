@@ -187,8 +187,7 @@ class _NotifColumnState extends State<NotifColumn>
         );
       }
     );
-    
-      
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Container(

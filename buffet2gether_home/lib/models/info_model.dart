@@ -39,7 +39,6 @@ class _InfoState extends State<Info>
   @override
   Widget build(BuildContext context) => null;
 
-
 }
 
 
@@ -66,6 +65,7 @@ List<Info> listRec = [
               • สมาชิก BevFood Application และ Roszab Pointo Card สามารถใช้คะแนนสะสมแลกเป็นส่วนลดเพิ่มจากโปรโมชั่นได้ และยอดใช้จ่ายหลังหักส่วนลดสามารถสะสมคะแนนได้
               • บริษัทฯ ขอสงวนสิทธิ์ในการเปลี่ยนแปลงเงื่อนไขโดยไม่ต้องแจ้งให้ทราบล่วงหน้า
               ''',
+    tabControll: null,
     action: InfoPage(
       image: 'assets/images/rec1.png',
       name1: 'รสแซ่บ ! ทะเลปู',

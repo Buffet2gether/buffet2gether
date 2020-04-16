@@ -255,12 +255,12 @@ class _HomeColumnState extends State<HomeColumn>
             return InkWell(
                 onTap: ()
                 {
-                  return showDialog(
-                    context: context,
-                    builder: (context)
-                    {
-                      return rec.action;
-                    },
+                  rec.tabControll = widget.tabControll;
+                  return Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => rec.action
+                      )
                   );
                 },
                 child: Container(
@@ -365,12 +365,11 @@ class _HomeColumnState extends State<HomeColumn>
     final rowMore0 = new InkWell(
         onTap: ()
         {
-          return showDialog(
-            context: context,
-            builder: (context)
-            {
-              return m0.action;
-            },
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => m0.action
+              )
           );
         },
         child: new Container(
@@ -430,12 +429,11 @@ class _HomeColumnState extends State<HomeColumn>
     final rowMore1 = new InkWell(
         onTap: ()
         {
-          return showDialog(
-            context: context,
-            builder: (context)
-            {
-              return m1.action;
-            },
+          return Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => m1.action
+              )
           );
         },
         child: new Container(
@@ -499,12 +497,11 @@ class _HomeColumnState extends State<HomeColumn>
     final rowMore2 = new InkWell(
         onTap: ()
         {
-          return showDialog(
-            context: context,
-            builder: (context)
-            {
-              return m2.action;
-            },
+          return Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => m2.action
+              )
           );
         },
         child: new Container(

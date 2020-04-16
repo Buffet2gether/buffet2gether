@@ -1,22 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/pages/info_page.dart';
 
-typedef double GetOffsetMethod();
-typedef void SetOffsetMethod(double offset);
-
-class Info
+class Info extends StatefulWidget
 {
-  String imageUrl;
-  String name1;
-  String name2;
-  String location;
-  String time;
-  String promotion;
-  String promotionInfo;
-  Widget action;
-
   Info(
       {
+        Key key,
         this.imageUrl,
         this.name1,
         this.name2,
@@ -25,9 +14,34 @@ class Info
         this.promotion,
         this.promotionInfo,
         this.action,
+        this.tabControll
       }
-      );
+      ) : super(key: key);
+
+  String imageUrl;
+  String name1;
+  String name2;
+  String location;
+  String time;
+  String promotion;
+  String promotionInfo;
+  Widget action;
+  TabController tabControll;
+
+
+  @override
+  _InfoState createState() => new _InfoState();
 }
+
+class _InfoState extends State<Info>
+{
+
+  @override
+  Widget build(BuildContext context) => null;
+
+
+}
+
 
 List<Info> listRec = [
   Info(
@@ -52,6 +66,7 @@ List<Info> listRec = [
               • สมาชิก BevFood Application และ Roszab Pointo Card สามารถใช้คะแนนสะสมแลกเป็นส่วนลดเพิ่มจากโปรโมชั่นได้ และยอดใช้จ่ายหลังหักส่วนลดสามารถสะสมคะแนนได้
               • บริษัทฯ ขอสงวนสิทธิ์ในการเปลี่ยนแปลงเงื่อนไขโดยไม่ต้องแจ้งให้ทราบล่วงหน้า
               ''',
+    tabControll: ,
     action: InfoPage(
       image: 'assets/images/rec1.png',
       name1: 'รสแซ่บ ! ทะเลปู',
@@ -74,6 +89,7 @@ List<Info> listRec = [
               • สมาชิก BevFood Application และ Roszab Pointo Card สามารถใช้คะแนนสะสมแลกเป็นส่วนลดเพิ่มจากโปรโมชั่นได้ และยอดใช้จ่ายหลังหักส่วนลดสามารถสะสมคะแนนได้
               • บริษัทฯ ขอสงวนสิทธิ์ในการเปลี่ยนแปลงเงื่อนไขโดยไม่ต้องแจ้งให้ทราบล่วงหน้า
               ''',
+      tabController: ,
     ),
   ),
   Info(

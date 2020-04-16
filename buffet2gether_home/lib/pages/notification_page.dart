@@ -126,10 +126,6 @@ class CreateGroupBar implements BarList{
 //----------------------------------------Notification page------------------------------------
 class NotifColumn extends StatefulWidget
 {
-  NotifColumn({Key key, this.mc}) : super(key: key);
-
-  final TextEditingController mc;
-
   @override
   _NotifColumnState createState() => new _NotifColumnState();
 }

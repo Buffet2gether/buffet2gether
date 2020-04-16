@@ -7,9 +7,9 @@ import 'package:buffet2gether_home/models/info_model.dart';
 
 class HomeColumn extends StatefulWidget
 {
-  HomeColumn({Key key, this.mc}) : super(key: key);
+  HomeColumn({Key key, this.tabControll,}) : super(key: key);
 
-  final TextEditingController mc;
+  final TabController tabControll;
 
   @override
   _HomeColumnState createState() => new _HomeColumnState();
@@ -18,6 +18,14 @@ class HomeColumn extends StatefulWidget
 class _HomeColumnState extends State<HomeColumn>
 {
   ScrollController scrollController;
+
+  final textController = TextEditingController();
+
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
 
   /* ----------------------------------- get data from backend ---------------------------------------- */
   /*var queryResultSet = [];
@@ -77,7 +85,7 @@ class _HomeColumnState extends State<HomeColumn>
           initiateSearch(val);
         },*/
         cursorColor: Colors.deepOrange,
-        controller: widget.mc,
+        controller: textController,
         style: TextStyle(
           fontFamily: 'Opun',
           color: Colors.grey,
@@ -110,7 +118,7 @@ class _HomeColumnState extends State<HomeColumn>
                   builder: (context)
                   {
                     return AlertDialog(
-                        content: Text(widget.mc.text)
+                        content: Text(textController.text)
                     );
                     },
                 );
@@ -231,6 +239,8 @@ class _HomeColumnState extends State<HomeColumn>
         )
       ],
     );
+
+    Info(tabControll: widget.tabControll);
 
     final rowRecom = Container(
         height: 155,

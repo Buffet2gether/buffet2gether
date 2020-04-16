@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:buffet2gether_home/pages/notification_page.dart';
 
 class MatchingPage extends StatefulWidget
 {
+
+  MatchingPage({Key key,  this.tabController}) : super(key: key);
+
+  final TabController tabController;
+
   @override
   _MatchingPageState createState() => new _MatchingPageState();
 }
@@ -44,10 +50,7 @@ class _MatchingPageState extends State<MatchingPage>
     if(secondsPassed==3)
     {
       isActive = false;
-      return //NotificationPage();
-        AlertDialog(
-          content: Text('3 sec')
-        );
+      return
     }
     else
       {
@@ -92,16 +95,6 @@ class _MatchingPageState extends State<MatchingPage>
                         ],
                       )
                   )
-                  /*Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Image.asset('assets/images/Buffet.png'),
-                      LinearProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color> (Colors.amberAccent),
-                        backgroundColor: Colors.deepOrange,
-                      ),
-                    ],
-                  )*/
               ),
             )
         );

@@ -18,6 +18,7 @@ void main()
 
 class MyApp extends StatelessWidget
 {
+
   @override
   Widget build(BuildContext context)
   {
@@ -54,11 +55,8 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
     );
   }
 
-  final myController = TextEditingController();
-
   @override
   void dispose() {
-    myController.dispose();
     controller.dispose();
     super.dispose();
   }
@@ -92,9 +90,7 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
         child: new TabBarView(
           controller: controller,
           children: <Widget>[
-            new HomeColumn(
-              mc: myController,
-            ),
+            new HomeColumn(tabControll: controller,),
             new Table1(),
             new NotifColumn(),
             new ProfileScreen(),

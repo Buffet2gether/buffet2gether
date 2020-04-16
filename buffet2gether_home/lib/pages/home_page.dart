@@ -240,7 +240,7 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
-    Info(tabControll: widget.tabControll);
+    Info(tabControll: widget.tabControll); // แล้วยังไง ????????
 
     final rowRecom = Container(
         height: 155,
@@ -251,6 +251,7 @@ class _HomeColumnState extends State<HomeColumn>
           itemBuilder: (BuildContext context,int index)
           {
             Info rec = listRec[index];
+            rec.tabControll = widget.tabControll; // แล้ว ???????
             return InkWell(
                 onTap: ()
                 {

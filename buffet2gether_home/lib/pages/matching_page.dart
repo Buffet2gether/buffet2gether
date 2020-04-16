@@ -50,7 +50,7 @@ class _MatchingPageState extends State<MatchingPage>
     if(secondsPassed==3)
     {
       isActive = false;
-      return
+      return NotifColumn(); //แบบไม่อยู่ใน tab
     }
     else
       {

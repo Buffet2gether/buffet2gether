@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:buffet2gether_home/pages/notification_page.dart';
 import 'package:buffet2gether_home/main.dart';
 
 class MatchingPage extends StatefulWidget

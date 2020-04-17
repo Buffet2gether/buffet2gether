@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:buffet2gether_home/pages/editInterestingTable_page.dart';
 import 'package:buffet2gether_home/models/table_model.dart';
+import 'package:buffet2gether_home/main.dart';
 
 class GenderItem {
   final genderName;
@@ -50,8 +51,6 @@ class _CreateTablePageState extends State<CreateTablePage>
   GenderItem selectedGender;
 
   double selectedNumm = 2;
-  //int selectedNum = 2;
-  //int newNum;
 
   RangeValues selectedRange = RangeValues(35,50);
 
@@ -497,8 +496,8 @@ class _CreateTablePageState extends State<CreateTablePage>
                     context: context,
                     builder: (context)
                     {
-                      return //NotificationPageOwner();
-                        AlertDialog(
+                      return MyCustomForm(tabsIndex: 1,);
+                        /*AlertDialog(
                             content: Text(
                               'Create table successful',
                               style: TextStyle(
@@ -507,7 +506,7 @@ class _CreateTablePageState extends State<CreateTablePage>
                                 fontSize: 10,
                               ),
                             )
-                        );
+                        );*/
                     }
                 );
               },

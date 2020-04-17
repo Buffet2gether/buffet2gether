@@ -7,9 +7,6 @@ import 'package:buffet2gether_home/models/info_model.dart';
 
 class HomeColumn extends StatefulWidget
 {
-  HomeColumn({Key key, this.tabControll,}) : super(key: key);
-
-  final TabController tabControll;
 
   @override
   _HomeColumnState createState() => new _HomeColumnState();
@@ -249,7 +246,6 @@ class _HomeColumnState extends State<HomeColumn>
           itemBuilder: (BuildContext context,int index)
           {
             Info rec = listRec[index];
-            rec.tabControll = widget.tabControll; // แล้ว ???????
             return InkWell(
                 onTap: ()
                 {
@@ -261,12 +257,6 @@ class _HomeColumnState extends State<HomeColumn>
                     return rec.action;
                   }
                   );
-                    /*Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => rec.action
-                      )
-                  );*/
                 },
                 child: Container(
                   margin: EdgeInsets.only(left: 10, bottom: 7),

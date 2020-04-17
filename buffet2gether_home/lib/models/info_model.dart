@@ -14,7 +14,6 @@ class Info extends StatefulWidget
         this.promotion,
         this.promotionInfo,
         this.action,
-        this.tabControll
       }
       ) : super(key: key);
 
@@ -26,8 +25,6 @@ class Info extends StatefulWidget
   String promotion;
   String promotionInfo;
   Widget action;
-  TabController tabControll;
-
 
   @override
   _InfoState createState() => new _InfoState();
@@ -65,7 +62,6 @@ List<Info> listRec = [
               • สมาชิก BevFood Application และ Roszab Pointo Card สามารถใช้คะแนนสะสมแลกเป็นส่วนลดเพิ่มจากโปรโมชั่นได้ และยอดใช้จ่ายหลังหักส่วนลดสามารถสะสมคะแนนได้
               • บริษัทฯ ขอสงวนสิทธิ์ในการเปลี่ยนแปลงเงื่อนไขโดยไม่ต้องแจ้งให้ทราบล่วงหน้า
               ''',
-    tabControll: null,
     action: InfoPage(
       image: 'assets/images/rec1.png',
       name1: 'รสแซ่บ ! ทะเลปู',

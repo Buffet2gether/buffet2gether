@@ -6,10 +6,6 @@ import 'package:buffet2gether_home/main.dart';
 class MatchingPage extends StatefulWidget
 {
 
-  MatchingPage({Key key,  this.tabController}) : super(key: key);
-
-  final TabController tabController;
-
   @override
   _MatchingPageState createState() => new _MatchingPageState();
 }
@@ -51,8 +47,7 @@ class _MatchingPageState extends State<MatchingPage>
     if(secondsPassed==3)
     {
       isActive = false;
-      Navigator.pop(context);
-      //widget.tabController.animateTo(widget.tabController.index + 2);
+      return MyCustomForm(tabsIndex: 2,);
     }
     else
       {

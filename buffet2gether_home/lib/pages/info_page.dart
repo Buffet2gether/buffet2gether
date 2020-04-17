@@ -4,7 +4,7 @@ import 'package:buffet2gether_home/pages/createTable_page.dart';
 
 class InfoPage extends StatefulWidget
 {
-  InfoPage({Key key, this.name1, this.name2, this.image, this.location, this.time, this.promotion, this.promotionInfo,this.tabController}) : super(key: key);
+  InfoPage({Key key, this.name1, this.name2, this.image, this.location, this.time, this.promotion, this.promotionInfo}) : super(key: key);
 
   final String image;
   final String name1;
@@ -13,7 +13,6 @@ class InfoPage extends StatefulWidget
   final String time;
   final String promotion;
   final String promotionInfo;
-  final TabController tabController;
 
   @override
   _InfoPageState createState() => new _InfoPageState();
@@ -166,7 +165,7 @@ class _InfoPageState extends State<InfoPage>
             context: context,
             builder: (context)
             {
-              return MatchingPage(); // ได้รับอะไรมาส่งจริงๆรึเปล่า ??????????
+              return MatchingPage();
             }
           );
           },

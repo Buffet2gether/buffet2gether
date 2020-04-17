@@ -1,5 +1,6 @@
 //---------------------------- Buffet2Gether adated-------------------------------------
 //import 'dart:html';
+import 'package:buffet2gether_home/pages/createTable_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -38,6 +39,10 @@ class MyApp extends StatelessWidget
 //-------------------------------------main---------------------------------------------
 class MyCustomForm extends StatefulWidget {
 
+  MyCustomForm({this.tabsIndex});
+
+  int tabsIndex;
+
   @override
   MyAppState createState() => new MyAppState();
 }
@@ -53,6 +58,7 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
     controller = new TabController(
       length: 4,
       vsync: this,
+      initialIndex: widget.tabsIndex
     );
   }
 
@@ -91,8 +97,8 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
         child: new TabBarView(
           controller: controller,
           children: <Widget>[
-            new HomeColumn(tabControll: controller,),
-            new MainPage(),
+            new HomeColumn(),
+            new Table1(),
             new NotifColumn(),
             new ProfileScreen(),
           ],

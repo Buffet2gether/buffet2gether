@@ -28,7 +28,6 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp>
     with SingleTickerProviderStateMixin //<=== register page
     {
-  TabController controllerr;
 
   final AuthService _auth = AuthService();
   final _formkey = GlobalKey<FormState>();
@@ -38,21 +37,6 @@ class _SignUpState extends State<SignUp>
   static String password = '';
   bool pass = false;
   String error = '';
-
-  @override
-  void initState() {
-    super.initState();
-    controllerr = new TabController(
-      length: 4,
-      vsync: this,
-    );
-  }
-
-  @override
-  void dispose() {
-    controllerr.dispose();
-    super.dispose();
-  }
 
   bool isEmail(String em) {
 
@@ -203,7 +187,6 @@ class CreateProfile extends StatefulWidget {
 class _CreateProfileState extends State<CreateProfile>
     with SingleTickerProviderStateMixin // <=== Profile page
     {
-  TabController controllerr;
 
   final AuthService _auth = AuthService();
   final _formkey = GlobalKey<FormState>();
@@ -218,24 +201,6 @@ class _CreateProfileState extends State<CreateProfile>
   DateTime dateOfBirth;
   String error = "";
   GenderItem selectedGender;
-
-
-
-
-  @override
-  void initState() {
-    super.initState();
-    controllerr = new TabController(
-      length: 4,
-      vsync: this,
-    );
-  }
-
-  @override
-  void dispose() {
-    controllerr.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

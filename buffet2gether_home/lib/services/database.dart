@@ -1,6 +1,10 @@
 import 'package:buffet2gether_home/models/userInfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:buffet2gether_home/pages/notification/bar_model.dart';
+import 'package:buffet2gether_home/pages/notification/infoInGroup_model.dart';
+import 'package:buffet2gether_home/pages/notification/memberBarListInGroup_model.dart';
+import 'package:buffet2gether_home/pages/table/infoInTable_model.dart';
+import 'package:buffet2gether_home/pages/table/memberBarListInTable_model.dart';
 
 class DatabaseService {
 
@@ -11,7 +15,133 @@ class DatabaseService {
   final CollectionReference userCollection = Firestore.instance.collection('Users');
   
   final CollectionReference tableCollection = Firestore.instance.collection('Groups');
- 
+
+  /// set path ของ Collection ใน firebase ที่จะเอามาใช้
+  final CollectionReference notificationCollection = Firestore.instance.collection('Notification');
+  final CollectionReference memberInTableCollection = Firestore.instance.collection('Table/Member/memberList');
+  final CollectionReference infoInTableCollection = Firestore.instance.collection('Table/Infomation/info');
+  final CollectionReference memberInGroupCollection = Firestore.instance.collection('InviteToGroup/Member/memberList');
+  final CollectionReference infoInGroupCollection = Firestore.instance.collection('InviteToGroup/Infomation/info');
+
+  /// ฟังก์ชันเอาไว้เพิ่ม document ใน firebase ส่วนที่เป็น notification (เพิ่มแถบแจ้งเตือน)
+  Future updateNotifData(String imageUrl,String membername,String info,String action,String number ,bool group) async{
+    return await notificationCollection.document(uid).setData({
+      'imageUrl': imageUrl,      ///รูปโปรไฟล์ user (ถ้าเป็น groupbar จะเป็นของหัวหน้ากลุ่ม)
+      'membername': membername,  ///ชื่อ user (ถ้าเป็น groupbar จะเป็นของหัวหน้ากลุ่ม)
+      'info': info,              ///ข้อมูล user (ถ้าเป็น groupbar จะเป็นของหัวหน้ากลุ่ม)
+      'action': action,          ///นำไปใช้เฉพาะ groupbar เป็น ID ไปยังหน้ารายละเอียดกลุ่ม
+      'number': number,          ///นำไปใช้เฉพาะ groupbar เป็นเลขของกลุ่ม
+      'group' : group,           ///นำไปใช้เฉพาะ groupbar เป็น true
+    });
+  }
+
+  Future deleteNotifData(String documentID){
+    notificationCollection.document(documentID).delete();
+    print(documentID);
+  }
+
+  /// map แถบการแจ้งเตือนจาก document ใน Notification ทั้ง 2 แบบ ให้อยู่ใน list เดียวกัน
+  List<Bar> _notificationListFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.documents.map((doc){
+      if(doc.data['group']??false){   ///ถ้า group เป็น true จะสร้าง group bar
+        return CreateGroupBar(
+            imageUrl: doc.data['imageUrl']??'',
+            membername: doc.data['membername']??'',
+            info: doc.data['info']??'',
+            action: doc.data['action']??'',
+            number: doc.data['number']??'',
+            id: doc.documentID
+        );
+      }else{                        ///ถ้า group เป็น false จะสร้าง notif bar
+        return CreateNotifBar(
+            imageUrl: doc.data['imageUrl']??'',
+            membername: doc.data['membername']??'',
+            info: doc.data['info']??'',
+            id: doc.documentID
+        );
+      }
+    }).toList();
+  }
+
+  Stream<List<Bar>>get notifications{
+    return notificationCollection.snapshots()
+        .map(_notificationListFromSnapshot);
+  }
+
+  /// map สมาชิกที่อยู่ในโต๊ะ ในหน้า Table
+  List<MemberBarListInTable> _memberInTableFromSnapshot(QuerySnapshot snapshot){
+
+    return snapshot.documents.map((doc){
+      return MemberBarListInTable(
+        imageUrl: doc.data['imageUrl']??'',
+        membername: doc.data['membername']??'',
+        info: doc.data['info']??'',
+
+      );
+
+    }).toList();
+  }
+
+  Stream<List<MemberBarListInTable>>get memberInTable{
+    return memberInTableCollection.snapshots()
+        .map(_memberInTableFromSnapshot);
+  }
+
+  /// map ข้อมูลรายละเอียดร้านอาหาร ในหน้า Table
+  List<InfoInTable> _infoInTableFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.documents.map((doc){
+      return InfoInTable(
+          number: doc.data['number']??'',
+          name: doc.data['name']??'',
+          location: doc.data['location']??'',
+          time: doc.data['time']??'',
+          imageUrl: doc.data['imageUrl']??''
+
+      );
+
+    }).toList();
+  }
+  Stream<List<InfoInTable>>get infoInTable{
+    return infoInTableCollection.snapshots()
+        .map(_infoInTableFromSnapshot);
+  }
+
+  /// map สมาชิกที่อยู่ในโต๊ะ ในแถบรายละเอียดกลุ่มเมื่อกดแถบ group bar
+  List<MemberBarListInGroup> _memberInGroupFromSnapshot(QuerySnapshot snapshot){
+
+    return snapshot.documents.map((doc){
+      return MemberBarListInGroup(
+        imageUrl: doc.data['imageUrl']??'',
+        membername: doc.data['membername']??'',
+        info: doc.data['info']??'',
+
+      );
+
+    }).toList();
+  }
+  Stream<List<MemberBarListInGroup>>get memberInGroup{
+    return memberInGroupCollection.snapshots()
+        .map(_memberInGroupFromSnapshot);
+  }
+
+  /// map ข้อมูลรายละเอียดร้านอาหาร ในแถบรายละเอียดกลุ่มเมื่อกดแถบ group bar
+  List<InfoInGroup> _infoInGroupFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.documents.map((doc){
+      return InfoInGroup(
+          number: doc.data['number']??'',
+          name: doc.data['name']??'',
+          location: doc.data['location']??'',
+          time: doc.data['time']??'',
+          imageUrl: doc.data['imageUrl']??''
+
+      );
+
+    }).toList();
+  }
+  Stream<List<InfoInGroup>>get infoInGroup{
+    return infoInGroupCollection.snapshots()
+        .map(_infoInGroupFromSnapshot);
+  }
 
   Future<void> updateUserData(String name, String gender,DateTime dateOfBirth, bool sport,bool pet,bool technology,bool political,bool beauty,bool entertainment) async {
     return await userCollection.document(uid).setData({
@@ -50,7 +180,6 @@ class DatabaseService {
     return userCollection.snapshots()
       .map(_userListFromSnapshot);
   }
-
 
   Future<void> creatTable(String master,String member1,String member2,String member3) async{
         return await userCollection.document(uid).setData({

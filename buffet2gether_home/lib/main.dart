@@ -1,16 +1,18 @@
 //---------------------------- Buffet2Gether adated-------------------------------------
 //import 'dart:html';
-import 'package:buffet2gether_home/pages/createTable_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:buffet2gether_home/pages/home_page.dart';
 import 'package:buffet2gether_home/pages/profile_screen.dart';
-import 'package:buffet2gether_home/pages/Table_page.dart';
 import 'package:buffet2gether_home/pages/getstarted_page.dart';
-import 'package:buffet2gether_home/pages/notification_page.dart';
-import 'package:buffet2gether_home/pages/test.dart';
+import 'package:buffet2gether_home/pages/table/infoInTable_model.dart';
+import 'package:buffet2gether_home/pages/table/memberBarListInTable_model.dart';
+import 'package:buffet2gether_home/pages/notification/notification_page.dart';
+import 'package:buffet2gether_home/pages/table/table_page.dart';
+import 'package:buffet2gether_home/services/database.dart';
+import 'package:provider/provider.dart';
 
 void main()
 {
@@ -98,7 +100,13 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
           controller: controller,
           children: <Widget>[
             new HomeColumn(),
-            new Table1(),
+          StreamProvider<List<InfoInTable>>.value(
+            value: DatabaseService().infoInTable,
+            child: StreamProvider<List<MemberBarListInTable>>.value(
+              value: DatabaseService().memberInTable,
+              child: new Table1(),
+            ),
+          ),
             new NotifColumn(),
             new ProfileScreen(),
           ],
@@ -116,6 +124,10 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
           indicatorWeight: 3.0,
         ),
       ),
+      /*floatingActionButton: new FloatingActionButton(
+        onPressed: () => controller.animateTo(2), // Switch tabs
+        child: new Icon(Icons.swap_horiz),
+      ),*/
     );
   }
 }

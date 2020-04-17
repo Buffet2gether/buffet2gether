@@ -59,8 +59,6 @@ class _GetStartedColumnState extends State<GetStartedColumn>
       ),
     );
 
-
-
     final getStartedColumn = Container(
       decoration: BoxDecoration(
         color:Colors.white

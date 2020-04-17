@@ -1,5 +1,4 @@
 import 'package:buffet2gether_home/main.dart';
-import 'package:buffet2gether_home/pages/home_page.dart';
 import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/shared/loading.dart';
 import 'package:flutter/cupertino.dart';

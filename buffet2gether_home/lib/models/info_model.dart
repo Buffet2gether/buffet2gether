@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:buffet2gether_home/pages/info_page.dart';
+//import 'package:buffet2gether_home/pages/info_page.dart';
+import 'package:buffet2gether_home/services/database.dart';
+import 'package:provider/provider.dart';
 
-class Info extends StatefulWidget
+class Info
 {
-  Info(
-      {
-        Key key,
-        this.imageUrl,
-        this.name1,
-        this.name2,
-        this.location,
-        this.time,
-        this.promotion,
-        this.promotionInfo,
-        this.action,
-      }
-      ) : super(key: key);
+  Info({
+    this.imageUrl,
+    this.name1,
+    this.name2,
+    this.location,
+    this.time,
+    this.promotion,
+    this.promotionInfo,
+        //this.action,
+  });
 
   String imageUrl;
   String name1;
@@ -24,21 +23,10 @@ class Info extends StatefulWidget
   String time;
   String promotion;
   String promotionInfo;
-  Widget action;
-
-  @override
-  _InfoState createState() => new _InfoState();
+  //Widget action;
 }
 
-class _InfoState extends State<Info>
-{
-
-  @override
-  Widget build(BuildContext context) => null;
-
-}
-
-
+/*
 List<Info> listRec = [
   Info(
     imageUrl: 'assets/images/rec1.png',
@@ -280,3 +268,4 @@ List<Info> listMore = [
     ),
   ),
 ];
+ */

@@ -13,6 +13,7 @@ import 'package:buffet2gether_home/pages/notification/notification_page.dart';
 import 'package:buffet2gether_home/pages/table/table_page.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:provider/provider.dart';
+import 'package:buffet2gether_home/pages/wrapper.dart';
 
 void main()
 {
@@ -33,7 +34,8 @@ class MyApp extends StatelessWidget
         accentColor: Colors.deepOrangeAccent,
         scaffoldBackgroundColor: Color(0xFFF3F5F7),
         ),
-      home: GetStartedColumn(),
+      home: Wrapper()
+      //GetStartedColumn(),
     );
   }
 }
@@ -83,7 +85,7 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
     ];
 
     return new Scaffold(
-      appBar: new AppBar(
+      /*appBar: new AppBar(
         leading: new Container(),
         centerTitle: true,
         title: new Text(
@@ -94,7 +96,7 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
               fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.deepOrange,
-      ),
+      ),*/
       body: SafeArea(
         child: new TabBarView(
           controller: controller,
@@ -124,10 +126,6 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
           indicatorWeight: 3.0,
         ),
       ),
-      /*floatingActionButton: new FloatingActionButton(
-        onPressed: () => controller.animateTo(2), // Switch tabs
-        child: new Icon(Icons.swap_horiz),
-      ),*/
     );
   }
 }

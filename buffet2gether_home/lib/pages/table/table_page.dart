@@ -308,11 +308,21 @@ class _Table1State extends State<Table1>
     );
     
     return new Scaffold(
-          
-                body: stackMatchCol,
-              
-          );
-    
+      appBar: new AppBar(
+        leading: new Container(),
+        centerTitle: true,
+        title: new Text(
+          'โต๊ะของคุณ',
+          style: TextStyle(
+              color: Colors.deepOrange,
+              fontFamily: 'Opun',
+              fontSize: 20,
+              fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Color(0xfff5f5f5),
+      ),
+      body: stackMatchCol,
+    );
   }
 }
 

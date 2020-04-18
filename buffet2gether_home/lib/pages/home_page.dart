@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:buffet2gether_home/models/info_model.dart';
+import 'package:provider/provider.dart';
+import 'package:buffet2gether_home/pages/info_page.dart';
 
 class HomeColumn extends StatefulWidget
 {
@@ -237,15 +239,17 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
-    final rowRecom = Container(
+    final recs = Provider.of<List<Info>>(context);
+
+    /*final rowRecom = Container(
         height: 155,
         color: Color(0xFFF5F5F5),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: 4,
+          itemCount: recs.length,
           itemBuilder: (BuildContext context,int index)
           {
-            Info rec = listRec[index];
+            final rec = recs[index];
             return InkWell(
                 onTap: ()
                 {
@@ -254,7 +258,15 @@ class _HomeColumnState extends State<HomeColumn>
                   context: context,
                   builder: (context)
                   {
-                    return rec.action;
+                    return InfoPage(
+                      image: rec.imageUrl,
+                      name1: rec.name1,
+                      name2: rec.name2,
+                      location: rec.location,
+                      time: rec.time,
+                      promotion:  rec.promotion,
+                      promotionInfo: rec.promotionInfo,
+                    );
                   }
                   );
                 },
@@ -320,11 +332,11 @@ class _HomeColumnState extends State<HomeColumn>
                         child: Stack(
                           children: <Widget>[
                             ClipRect(
-                                child: Image(
-                                  image: AssetImage(rec.imageUrl),
+                                child: Image.network(
+                                  rec.imageUrl,
                                   fit: BoxFit.cover,
                                   width: 120,
-                                )
+                                ),
                             )
                           ],
                         ),
@@ -335,7 +347,7 @@ class _HomeColumnState extends State<HomeColumn>
             );
           },
         )
-    );
+    );*/
 
     final textMore = Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -353,7 +365,7 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
-    Info m0 = listMore[0];
+    /*Info m0 = listMore[0];
     Info m1 = listMore[1];
     Info m2 = listMore[2];
 
@@ -548,6 +560,7 @@ class _HomeColumnState extends State<HomeColumn>
         )
     );
 
+
     final colMore = Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -555,7 +568,7 @@ class _HomeColumnState extends State<HomeColumn>
         rowMore1,
         rowMore2,
       ],
-    );
+    );*/
 
     final homeColumn = Container(
       color: Color(0XFFF5F5F5),
@@ -567,25 +580,41 @@ class _HomeColumnState extends State<HomeColumn>
           promotion,
           textRecom,
           SizedBox(height: 5,),
-          rowRecom,
+          //rowRecom,
           SizedBox(height: 10,),
           textMore,
-          colMore,
+          //colMore,
         ],
       ),
     );
 
-    return Scaffold(
-      body: SafeArea(
-        child: ListView.builder(
-        controller: scrollController,
-        itemCount: 1,
-        itemBuilder: (BuildContext context, int index)
-        {
-          return homeColumn;
-        },
-      )
-      )
-      );
+    return StreamProvider<List<Info>>.value(
+        value: DatabaseService().recInRes,
+        child: Scaffold(
+        appBar: new AppBar(
+          leading: new Container(),
+          centerTitle: true,
+          title: new Text(
+            'Buffet2Gether',
+            style: TextStyle(
+                color: Colors.deepOrange,
+                fontFamily: 'Opun',
+                fontSize: 20,
+                fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: Color(0xfff5f5f5),
+        ),
+        body: SafeArea(
+            child: ListView.builder(
+              controller: scrollController,
+              itemCount: 1,
+              itemBuilder: (BuildContext context, int index)
+              {
+                return homeColumn;
+                },
+            )
+        )
+  )
+    );
   }
 }

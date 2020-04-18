@@ -1,5 +1,5 @@
-import 'dart:io';
-import 'dart:typed_data';
+//import 'dart:io';
+//import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -98,7 +98,7 @@ class _CreateTablePageState extends State<CreateTablePage>
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.asset(widget.image)
+                Image.network(widget.image)
               ],
             ),
             Row(

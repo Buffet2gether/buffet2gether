@@ -9,16 +9,17 @@ class BarList extends StatefulWidget {
   _BarListState createState() => _BarListState();
 }
 
-class _BarListState extends State<BarList> {
-
+class _BarListState extends State<BarList>
+{
   @override
-  Widget build(BuildContext context) {
-
+  Widget build(BuildContext context)
+  {
     final bars = Provider.of<List<Bar>>(context);
     
     return ListView.builder(
       itemCount: bars.length,
-      itemBuilder: (context,index){
+      itemBuilder: (context,index)
+      {
         final bar = bars[index];
         return Dismissible(   ////Dismission คือให้มันปัดซ้ายปัดขวาได้
           secondaryBackground: Container(
@@ -51,8 +52,9 @@ class _BarListState extends State<BarList> {
             subtitle: bar.buildGroupBar(context),
             )
           ),
-           key:UniqueKey(),
-          onDismissed: (DismissDirection direction){
+          key:UniqueKey(),
+          onDismissed: (DismissDirection direction)
+          {
             setState((){
               bars.removeAt(index);
             });
@@ -60,7 +62,6 @@ class _BarListState extends State<BarList> {
             Scaffold.of(context).showSnackBar(SnackBar(content: 
               Text(direction == DismissDirection.startToEnd?'accept':'delete')));
           },
-          
         );
       }
     );

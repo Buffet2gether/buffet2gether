@@ -4,27 +4,32 @@ import 'package:buffet2gether_home/pages/notification/memberBarListInGroup_model
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:buffet2gether_home/services/database.dart';
+
 /// คลาสรวม แถบแจ้งเตือนทั้ง 2 แบบ
-abstract class Bar {
-  
+abstract class Bar
+{
   Widget buildNotifBar(BuildContext context);
   Widget buildGroupBar(BuildContext context);
   @override
   String toString() ;
 }
 /// สร้าง แถบแจ้งเตือนที่มีคนมา match กับกลุ่มที่เราสร้าง
-class CreateNotifBar implements Bar{
+class CreateNotifBar implements Bar
+{
   final String imageUrl;
   final String membername;
   final String info; 
   final String id; 
 
   CreateNotifBar({this.imageUrl,this.membername,this.info,this.id});
+
   @override
-  String toString() {
+  String toString()
+  {
     return id;
   }
-  Widget buildNotifBar(BuildContext context){
+  Widget buildNotifBar(BuildContext context)
+  {
     final notifBar =new ListTile(
                   leading: Image.network(imageUrl),
                   title: Text(
@@ -58,9 +63,9 @@ class CreateNotifBar implements Bar{
   }
 
   Widget buildGroupBar(BuildContext context) => null;
-
- 
 }
+
+
 /// สร้าง แถบแจ้งเตือนกลุ่มที่มาเชิญเราไปเข้าร่วม
 class CreateGroupBar implements Bar{
   final String imageUrl;

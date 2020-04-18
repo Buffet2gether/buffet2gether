@@ -5,23 +5,65 @@ import 'package:buffet2gether_home/pages/notification/infoInGroup_model.dart';
 import 'package:buffet2gether_home/pages/notification/memberBarListInGroup_model.dart';
 import 'package:buffet2gether_home/pages/table/infoInTable_model.dart';
 import 'package:buffet2gether_home/pages/table/memberBarListInTable_model.dart';
+import 'package:buffet2gether_home/models/info_model.dart';
 
-class DatabaseService {
-
+class DatabaseService
+{
   final String uid;
-  DatabaseService({ this.uid });
+  final String numberGroup;
+  DatabaseService({ this.uid,this.numberGroup });
 
-  // collection reference
-  final CollectionReference userCollection = Firestore.instance.collection('Users');
-  
-  final CollectionReference tableCollection = Firestore.instance.collection('Groups');
+  final CollectionReference recInResCollection = Firestore.instance.collection('Restaurants/recommend/recList');
+  //final CollectionReference moreInResCollection = Firestore.instance.collection('Restaurants/more/moreList');
 
+  List<Info> _recListFromSnapshot(QuerySnapshot snapshot)
+  {
+    return snapshot.documents.map((doc)
+    {
+      return Info(
+        imageUrl: doc.data['imageUrl']??'',
+        name1: doc.data['name1']??'',
+        name2: doc.data['name2']??'',
+        location: doc.data['location']??'',
+        promotion: doc.data['promotion']??'',
+        promotionInfo: doc.data['promotionInfo']??'',
+        time: doc.data['time']??'',
+      );
+    }).toList();
+  }
+  Stream<List<Info>>get recInRes
+  {
+    return recInResCollection.snapshots().map(_recListFromSnapshot);
+  }
+
+  /*List<Info> _moreListFromSnapshot(QuerySnapshot snapshot)
+  {
+    return snapshot.documents.map((doc)
+    {
+      return Info(
+        imageUrl: doc.data['imageUrl']??'',
+        name1: doc.data['name1']??'',
+        name2: doc.data['name2']??'',
+        location: doc.data['location']??'',
+        promotion: doc.data['promotion']??'',
+        promotionInfo: doc.data['promotionInfo']??'',
+        time: doc.data['time']??'',
+      );
+    }).toList();
+  }
+  Stream<List<Info>>get moreInRes
+  {
+    return moreInResCollection.snapshots().map(_moreListFromSnapshot);
+  }*/
+
+  //----------------------------- NOTIFACATION -----------------------------------------------------------
   /// set path ของ Collection ใน firebase ที่จะเอามาใช้
   final CollectionReference notificationCollection = Firestore.instance.collection('Notification');
   final CollectionReference memberInTableCollection = Firestore.instance.collection('Table/Member/memberList');
   final CollectionReference infoInTableCollection = Firestore.instance.collection('Table/Infomation/info');
-  final CollectionReference memberInGroupCollection = Firestore.instance.collection('InviteToGroup/Member/memberList');
-  final CollectionReference infoInGroupCollection = Firestore.instance.collection('InviteToGroup/Infomation/info');
+  // final CollectionReference memberInGroupCollection = Firestore.instance.collection('InviteToGroup/456');
+  final CollectionReference infoInGroupCollection = Firestore.instance.collection('InviteToGroup');
+
 
   /// ฟังก์ชันเอาไว้เพิ่ม document ใน firebase ส่วนที่เป็น notification (เพิ่มแถบแจ้งเตือน)
   Future updateNotifData(String imageUrl,String membername,String info,String action,String number ,bool group) async{
@@ -39,7 +81,6 @@ class DatabaseService {
     notificationCollection.document(documentID).delete();
     print(documentID);
   }
-
   /// map แถบการแจ้งเตือนจาก document ใน Notification ทั้ง 2 แบบ ให้อยู่ใน list เดียวกัน
   List<Bar> _notificationListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.documents.map((doc){
@@ -62,7 +103,6 @@ class DatabaseService {
       }
     }).toList();
   }
-
   Stream<List<Bar>>get notifications{
     return notificationCollection.snapshots()
         .map(_notificationListFromSnapshot);
@@ -81,12 +121,10 @@ class DatabaseService {
 
     }).toList();
   }
-
   Stream<List<MemberBarListInTable>>get memberInTable{
     return memberInTableCollection.snapshots()
         .map(_memberInTableFromSnapshot);
   }
-
   /// map ข้อมูลรายละเอียดร้านอาหาร ในหน้า Table
   List<InfoInTable> _infoInTableFromSnapshot(QuerySnapshot snapshot){
     return snapshot.documents.map((doc){
@@ -105,7 +143,6 @@ class DatabaseService {
     return infoInTableCollection.snapshots()
         .map(_infoInTableFromSnapshot);
   }
-
   /// map สมาชิกที่อยู่ในโต๊ะ ในแถบรายละเอียดกลุ่มเมื่อกดแถบ group bar
   List<MemberBarListInGroup> _memberInGroupFromSnapshot(QuerySnapshot snapshot){
 
@@ -120,10 +157,10 @@ class DatabaseService {
     }).toList();
   }
   Stream<List<MemberBarListInGroup>>get memberInGroup{
+    final CollectionReference memberInGroupCollection = Firestore.instance.collection('InviteToGroup/456/$numberGroup');
     return memberInGroupCollection.snapshots()
         .map(_memberInGroupFromSnapshot);
   }
-
   /// map ข้อมูลรายละเอียดร้านอาหาร ในแถบรายละเอียดกลุ่มเมื่อกดแถบ group bar
   List<InfoInGroup> _infoInGroupFromSnapshot(QuerySnapshot snapshot){
     return snapshot.documents.map((doc){
@@ -139,11 +176,16 @@ class DatabaseService {
     }).toList();
   }
   Stream<List<InfoInGroup>>get infoInGroup{
-    return infoInGroupCollection.snapshots()
+    return infoInGroupCollection.document(numberGroup).collection('Infomation').snapshots()
         .map(_infoInGroupFromSnapshot);
   }
+  //------------------------------- USER -----------------------------------------------------------
+// collection reference
+  final CollectionReference userCollection = Firestore.instance.collection('Users');
+  final CollectionReference tableCollection = Firestore.instance.collection('Groups');
 
-  Future<void> updateUserData(String name, String gender,DateTime dateOfBirth, bool sport,bool pet,bool technology,bool political,bool beauty,bool entertainment) async {
+  Future<void> updateUserData(String name, String gender,DateTime dateOfBirth, bool sport,bool pet,bool technology,bool political,bool beauty,bool entertainment) async
+  {
     return await userCollection.document(uid).setData({
       'Name': name,
       'BirthDate' : dateOfBirth,
@@ -159,7 +201,8 @@ class DatabaseService {
   }
 
   // user list from snapshot
-  List<UserInformation> _userListFromSnapshot(QuerySnapshot snapshot) {
+  List<UserInformation> _userListFromSnapshot(QuerySnapshot snapshot)
+  {
     return snapshot.documents.map((doc){
       return UserInformation(
         name: doc.data['Name'] ?? '',
@@ -174,20 +217,20 @@ class DatabaseService {
       );
     }).toList();
   }
-
   // get brews stream
-  Stream<List<UserInformation>> get users {
-    return userCollection.snapshots()
-      .map(_userListFromSnapshot);
+  Stream<List<UserInformation>> get users
+  {
+    return userCollection.snapshots().map(_userListFromSnapshot);
   }
 
-  Future<void> creatTable(String master,String member1,String member2,String member3) async{
-        return await userCollection.document(uid).setData({
-          'Master' : userCollection.document(uid).documentID,
-          'Member1' : member1,
-          'Member2' : member2,
-          'Member3' : member3,
-        });
+  Future<void> creatTable(String master,String member1,String member2,String member3) async
+  {
+    return await userCollection.document(uid).setData({
+      'Master' : userCollection.document(uid).documentID,
+      'Member1' : member1,
+      'Member2' : member2,
+      'Member3' : member3,
+    });
   }
 
 /*

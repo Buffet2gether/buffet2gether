@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/pages/matching_page.dart';
 import 'package:buffet2gether_home/pages/createTable_page.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:buffet2gether_home/services/database.dart';
+import 'package:provider/provider.dart';
+import 'package:buffet2gether_home/models/info_model.dart';
 
 class InfoPage extends StatefulWidget
 {
@@ -64,7 +68,7 @@ class _InfoPageState extends State<InfoPage>
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset(widget.image)
+                  Image.network(widget.image)
                 ],
               ),
               Row(
@@ -239,20 +243,21 @@ class _InfoPageState extends State<InfoPage>
           )
       );
 
-      return new Scaffold(
-        appBar: new AppBar(
-          centerTitle: true,
-          title: new Text(
-            'ร้านบุฟเฟ่ต์ที่คุณเลือก !!',
-            style: TextStyle(
-                fontFamily: 'Opun',
-                color: Colors.deepOrange,
-                fontSize: 17,
+      return Scaffold(
+              appBar: new AppBar(
+                centerTitle: true,
+                title: new Text(
+                  'ร้านบุฟเฟ่ต์ที่คุณเลือก !!',
+                  style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.deepOrange,
+                      fontSize: 17,
                 fontWeight: FontWeight.bold),
-          ),
-          backgroundColor: Colors.white70,
-        ),
-        body: allInPage
+                ),
+                backgroundColor: Colors.white70,
+              ),
+              body: allInPage
+
       );
     }
 }

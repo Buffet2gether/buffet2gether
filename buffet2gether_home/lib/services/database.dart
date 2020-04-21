@@ -91,7 +91,7 @@ class DatabaseService
 
   ///เพิ่มข้อมูลคนหากลุ่มใน Groups/ชื่อร้าน(resID)/UserFindGroup/... ใน 1 ร้านมีคนหากลุ่มมหลายคน
   Future updateUserFindGroup(String resID, String name1, String name2, String image, String location, String time,
-      String userName,String gender, int age, String userID,bool fashion, bool sports, bool technology, bool politics, bool entertainment, bool books, bool pet,) async{
+      String userName,String profilePic, String gender, int age, String userID,bool fashion, bool sports, bool technology, bool politics, bool entertainment, bool books, bool pet,) async{
     return await GroupsCollection.document(resID).collection('UserFindGroup').document(uid).setData({
       'resID' : resID,                  /// ข้อมูลร้าน
       'name1' : name1,
@@ -100,6 +100,7 @@ class DatabaseService
       'location': location,
       'time': time,
       'userName' : userName,            /// ข้อมูล user
+      'profilePic' : profilePic,
       'gender' : gender,
       'age' : age,
       'userID' : userID,

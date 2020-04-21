@@ -179,6 +179,8 @@ class _InfoPageState extends State<InfoPage>
                   widget.time,
                   ///ข้อมูล user
                   myProfile.name,
+                  //มันคือ profilePic แต่ว่า profile model ที่เค้ามีมันเป็น version ที่ใช้รูปใน ui ไม่ใช่ใน firebase เลยใส่เป็น link รูปใน firebase ให้แทนนะ จริงๆต้องเขียนเป็น myProfile.profilePicture ตามใน profile model
+                  'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/profile_pictures%2Fuser_9rPrOGhAZqXNZDvYvqrLFYaiICy1?alt=media&token=e897249c-cf45-40f4-afee-a4ebf109d24c',
                   myProfile.gender,
                   (DateTime.now().difference(myProfile.dateofBirth).inDays/365).floor(),
                   myProfile.id,

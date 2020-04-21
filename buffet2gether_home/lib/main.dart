@@ -14,6 +14,8 @@ import 'package:buffet2gether_home/pages/table/table_page.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:buffet2gether_home/pages/wrapper.dart';
+import 'package:buffet2gether_home/models/rec_model.dart';
+import 'package:buffet2gether_home/models/more_model.dart';
 
 void main()
 {
@@ -101,7 +103,13 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
         child: new TabBarView(
           controller: controller,
           children: <Widget>[
-            new HomeColumn(),
+            StreamProvider<List<Recom>>.value(
+              value: DatabaseService().recInRes,
+              child: StreamProvider<List<More>>.value(
+                value: DatabaseService().moreInRes,
+                child: new HomeColumn(),
+              ),
+            ),
           StreamProvider<List<InfoInTable>>.value(
             value: DatabaseService().infoInTable,
             child: StreamProvider<List<MemberBarListInTable>>.value(

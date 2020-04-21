@@ -1,5 +1,6 @@
 //import 'dart:io';
 //import 'dart:typed_data';
+import 'package:buffet2gether_home/services/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -23,8 +24,9 @@ List genderList = <GenderItem>[
 
 class CreateTablePage extends StatefulWidget
 {
-  CreateTablePage({Key key, this.name1, this.name2, this.image, this.location, this.time}) : super(key: key);
+  CreateTablePage({Key key, this.resID, this.name1, this.name2, this.image, this.location, this.time}) : super(key: key);
 
+  final String resID;
   final String image;
   final String name1;
   final String name2;
@@ -145,9 +147,7 @@ class _CreateTablePageState extends State<CreateTablePage>
       ],
     );
 
-    final properties = Form(
-        key: _formKey,
-        child: Container(
+    final properties = Container(
           height: 80,
           margin: EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
@@ -277,7 +277,6 @@ class _CreateTablePageState extends State<CreateTablePage>
               ), //gender
             ],
           ),
-        )
     );
 
     WhichProp() {
@@ -492,12 +491,13 @@ class _CreateTablePageState extends State<CreateTablePage>
             InkWell(
               onTap: ()
               {
+                DatabaseService().updateGroups(widget.resID, widget.name1, widget.name2, widget.image, widget.location, widget.time, selectedRange.start.round(), selectedRange.end.round(), selectedNumm, newDateOfDue, selectedGender.genderName);
                 return showDialog(
                     context: context,
                     builder: (context)
                     {
-                      return MyCustomForm(tabsIndex: 1,);
-                        /*AlertDialog(
+                      return //MyCustomForm(tabsIndex: 1,);
+                        AlertDialog(
                             content: Text(
                               'Create table successful',
                               style: TextStyle(
@@ -506,7 +506,7 @@ class _CreateTablePageState extends State<CreateTablePage>
                                 fontSize: 10,
                               ),
                             )
-                        );*/
+                        );
                     }
                 );
               },

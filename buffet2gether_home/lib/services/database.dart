@@ -5,7 +5,8 @@ import 'package:buffet2gether_home/pages/notification/infoInGroup_model.dart';
 import 'package:buffet2gether_home/pages/notification/memberBarListInGroup_model.dart';
 import 'package:buffet2gether_home/pages/table/infoInTable_model.dart';
 import 'package:buffet2gether_home/pages/table/memberBarListInTable_model.dart';
-import 'package:buffet2gether_home/models/info_model.dart';
+import 'package:buffet2gether_home/models/rec_model.dart';
+import 'package:buffet2gether_home/models/more_model.dart';
 
 class DatabaseService
 {
@@ -13,14 +14,18 @@ class DatabaseService
   final String numberGroup;
   DatabaseService({ this.uid,this.numberGroup });
 
-  final CollectionReference recInResCollection = Firestore.instance.collection('Restaurants/recommend/recList');
-  //final CollectionReference moreInResCollection = Firestore.instance.collection('Restaurants/more/moreList');
 
-  List<Info> _recListFromSnapshot(QuerySnapshot snapshot)
+  //----------------------------- Restaurants -----------------------------------------------------------
+  final CollectionReference recInResCollection = Firestore.instance.collection('Restaurants/recommend/recList');
+  final CollectionReference moreInResCollection = Firestore.instance.collection('Restaurants/more/moreList');
+  final CollectionReference GroupsCollection = Firestore.instance.collection('Groups');
+
+  List<Recom> _recListFromSnapshot(QuerySnapshot snapshot)
   {
     return snapshot.documents.map((doc)
     {
-      return Info(
+      return Recom(
+        resID: doc.data['resID']??'',
         imageUrl: doc.data['imageUrl']??'',
         name1: doc.data['name1']??'',
         name2: doc.data['name2']??'',
@@ -31,16 +36,17 @@ class DatabaseService
       );
     }).toList();
   }
-  Stream<List<Info>>get recInRes
+  Stream<List<Recom>>get recInRes
   {
     return recInResCollection.snapshots().map(_recListFromSnapshot);
   }
 
-  /*List<Info> _moreListFromSnapshot(QuerySnapshot snapshot)
+  List<More> _moreListFromSnapshot(QuerySnapshot snapshot)
   {
     return snapshot.documents.map((doc)
     {
-      return Info(
+      return More(
+        resID: doc.data['resID']??'',
         imageUrl: doc.data['imageUrl']??'',
         name1: doc.data['name1']??'',
         name2: doc.data['name2']??'',
@@ -51,10 +57,26 @@ class DatabaseService
       );
     }).toList();
   }
-  Stream<List<Info>>get moreInRes
+  Stream<List<More>>get moreInRes
   {
     return moreInResCollection.snapshots().map(_moreListFromSnapshot);
-  }*/
+  }
+
+  Future updateGroups(String resID, String name1, String name2, String image, String location, String time, int ageStart, int ageEnd, double num, DateTime dueTime, String gender) async{
+    return await GroupsCollection.document(resID).collection('GroupsInRes').document(uid).setData({
+      'resID' : resID,
+      'name1' : name1,
+      'name2' : name2,
+      'image': image,
+      'location': location,
+      'time': time,
+      'ageStart': ageStart,
+      'ageEnd': ageEnd,
+      'num' : num,
+      'dueTime' : dueTime,
+      'gender' : gender,
+    });
+  }
 
   //----------------------------- NOTIFACATION -----------------------------------------------------------
   /// set path ของ Collection ใน firebase ที่จะเอามาใช้

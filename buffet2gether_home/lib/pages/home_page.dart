@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:buffet2gether_home/models/info_model.dart';
+import 'package:buffet2gether_home/models/rec_model.dart';
+import 'package:buffet2gether_home/models/more_model.dart';
 import 'package:provider/provider.dart';
 import 'package:buffet2gether_home/pages/info_page.dart';
 
@@ -239,9 +240,9 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
-    final recs = Provider.of<List<Info>>(context);
+    final recs = Provider.of<List<Recom>>(context);
 
-    /*final rowRecom = Container(
+    final rowRecom = Container(
         height: 155,
         color: Color(0xFFF5F5F5),
         child: ListView.builder(
@@ -258,7 +259,9 @@ class _HomeColumnState extends State<HomeColumn>
                   context: context,
                   builder: (context)
                   {
+                    print(rec.resID);
                     return InfoPage(
+                      resID: rec.resID,
                       image: rec.imageUrl,
                       name1: rec.name1,
                       name2: rec.name2,
@@ -347,7 +350,7 @@ class _HomeColumnState extends State<HomeColumn>
             );
           },
         )
-    );*/
+    );
 
     final textMore = Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -365,210 +368,90 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
-    /*Info m0 = listMore[0];
-    Info m1 = listMore[1];
-    Info m2 = listMore[2];
+    final more = Provider.of<List<More>>(context);
 
-    final rowMore0 = new InkWell(
-        onTap: ()
-        {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => m0.action
-              )
-          );
-        },
-        child: new Container(
-            margin: EdgeInsets.only(bottom: 1,left: 5,right: 5),
-            padding: EdgeInsets.only(bottom: 15,left: 10,right: 5,top: 15),
-            decoration: new BoxDecoration(
-              color: Colors.white,),
-            child: Row(
-              children: <Widget>[
-                Image.asset(m0.imageUrl),
-                Column(
-                  children: <Widget>[
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            m0.name1,
-                            style: TextStyle(
-                                fontFamily: 'Opun',
-                                color: Colors.deepOrange,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold
-                            ),
+    final colMore = Container(
+        height: 400,
+        color: Color(0xFFF5F5F5),
+        child: ListView.builder(
+            itemCount: more.length,
+            itemBuilder: (BuildContext context,int index)
+            {
+              final m = more[index];
+              return InkWell(
+                  onTap: ()
+                  {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => InfoPage(
+                              image: m.imageUrl,
+                              name1: m.name1,
+                              name2: m.name2,
+                              location: m.location,
+                              time: m.time,
+                              promotion: m.promotion,
+                              promotionInfo: m.promotionInfo,
+                            )
+                        )
+                    );
+                    },
+                  child: new Container(
+                      margin: EdgeInsets.only(bottom: 1, left: 5, right: 5),
+                      padding: EdgeInsets.only(bottom: 15, left: 10, right: 5, top: 15),
+                      decoration: new BoxDecoration(
+                        color: Colors.white,),
+                      child: Row(
+                        children: <Widget>[
+                          Image.network(m.imageUrl),
+                          Column(
+                            children: <Widget>[
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      m.name1,
+                                      style: TextStyle(
+                                          fontFamily: 'Opun',
+                                          color: Colors.deepOrange,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                  ]
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Icon(Icons.location_on, size: 25, color: Colors.amber,),
+                                  Text(
+                                    m.location,
+                                    style: TextStyle(
+                                      fontFamily: 'Opun',
+                                      color: Colors.grey,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                  Icon(Icons.access_time, size: 25, color: Colors.amber),
+                                  Text(
+                                    m.time,
+                                    style: TextStyle(
+                                      fontFamily: 'Opun',
+                                      color: Colors.grey,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                        ]
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Icon(Icons.location_on,size: 25,color: Colors.amber,),
-                        Text(
-                          m0.location,
-                          style: TextStyle(
-                            fontFamily: 'Opun',
-                            color: Colors.grey,
-                            fontSize: 13,
-                          ),
-                        ),
-                        Icon(Icons.access_time,size: 25,color: Colors.amber),
-                        Text(
-                          m0.time,
-                          style: TextStyle(
-                            fontFamily: 'Opun',
-                            color: Colors.grey,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+                        ],
+                      )
+                  )
+              );
+            }
             )
-        )
     );
-
-    final rowMore1 = new InkWell(
-        onTap: ()
-        {
-          return Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => m1.action
-              )
-          );
-        },
-        child: new Container(
-            margin: EdgeInsets.only(bottom: 1,left: 5,right: 5),
-            padding: EdgeInsets.only(bottom: 15,left: 10,right: 5,top: 15),
-            decoration: new BoxDecoration(
-              color: Colors.white,),
-            child: Row(
-              children: <Widget>[
-                Image.asset(m1.imageUrl),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          m1.name1,
-                          style: TextStyle(
-                              fontFamily: 'Opun',
-                              color: Colors.deepOrange,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.location_on,size: 25,color: Colors.amber,),
-                        Text(
-                          m1.location,
-                          style: TextStyle(
-                            fontFamily: 'Opun',
-                            color: Colors.grey,
-                            fontSize: 13,
-                          ),
-                        ),
-                        Icon(Icons.access_time,size: 25,color: Colors.amber),
-                        Text(
-                          m1.time,
-                          style: TextStyle(
-                            fontFamily: 'Opun',
-                            color: Colors.grey,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            )
-        )
-    );
-
-    final rowMore2 = new InkWell(
-        onTap: ()
-        {
-          return Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => m2.action
-              )
-          );
-        },
-        child: new Container(
-            margin: EdgeInsets.only(bottom: 1,left: 5,right: 5),
-            padding: EdgeInsets.only(bottom: 15,left: 10,right: 5,top: 15),
-            decoration: new BoxDecoration(
-              color: Colors.white,),
-            child: Row(
-              children: <Widget>[
-                Image.asset(m2.imageUrl),
-                Column(
-                  children: <Widget>[
-                    Text(
-                      m2.name1,
-                      style: TextStyle(
-                          fontFamily: 'Opun',
-                          color: Colors.deepOrange,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold
-                      ),
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.location_on,size: 25,color: Colors.amber,),
-                        Text(
-                          m2.location,
-                          style: TextStyle(
-                            fontFamily: 'Opun',
-                            color: Colors.grey,
-                            fontSize: 13,
-                          ),
-                        ),
-                        Icon(Icons.access_time,size: 25,color: Colors.amber),
-                        Text(
-                          m2.time,
-                          style: TextStyle(
-                            fontFamily: 'Opun',
-                            color: Colors.grey,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            )
-        )
-    );
-
-
-    final colMore = Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        rowMore0,
-        rowMore1,
-        rowMore2,
-      ],
-    );*/
 
     final homeColumn = Container(
       color: Color(0XFFF5F5F5),
@@ -580,41 +463,44 @@ class _HomeColumnState extends State<HomeColumn>
           promotion,
           textRecom,
           SizedBox(height: 5,),
-          //rowRecom,
+          rowRecom,
           SizedBox(height: 10,),
           textMore,
-          //colMore,
+          colMore,
         ],
       ),
     );
 
-    return StreamProvider<List<Info>>.value(
-        value: DatabaseService().recInRes,
+    return StreamProvider<List<Recom>>.value(
+      value: DatabaseService().recInRes,
+      child: StreamProvider<List<More>>.value(
+        value: DatabaseService().moreInRes,
         child: Scaffold(
-        appBar: new AppBar(
-          leading: new Container(),
-          centerTitle: true,
-          title: new Text(
-            'Buffet2Gether',
-            style: TextStyle(
-                color: Colors.deepOrange,
-                fontFamily: 'Opun',
-                fontSize: 20,
-                fontWeight: FontWeight.bold),
-          ),
-          backgroundColor: Color(0xfff5f5f5),
-        ),
-        body: SafeArea(
-            child: ListView.builder(
-              controller: scrollController,
-              itemCount: 1,
-              itemBuilder: (BuildContext context, int index)
-              {
-                return homeColumn;
-                },
+            appBar: new AppBar(
+              leading: new Container(),
+              centerTitle: true,
+              title: new Text(
+                'Buffet2Gether',
+                style: TextStyle(
+                    color: Colors.deepOrange,
+                    fontFamily: 'Opun',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              backgroundColor: Color(0xfff5f5f5),
+            ),
+            body: SafeArea(
+                child: ListView.builder(
+                  controller: scrollController,
+                  itemCount: 1,
+                  itemBuilder: (BuildContext context, int index)
+                  {
+                    return homeColumn;
+                    },
+                )
             )
         )
-  )
+      )
     );
   }
 }

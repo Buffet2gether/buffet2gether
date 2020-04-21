@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/pages/matching_page.dart';
 import 'package:buffet2gether_home/pages/createTable_page.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:buffet2gether_home/services/database.dart';
-import 'package:provider/provider.dart';
-import 'package:buffet2gether_home/models/info_model.dart';
 
 class InfoPage extends StatefulWidget
 {
-  InfoPage({Key key, this.name1, this.name2, this.image, this.location, this.time, this.promotion, this.promotionInfo}) : super(key: key);
+  InfoPage({Key key, this.resID, this.name1, this.name2, this.image, this.location, this.time, this.promotion, this.promotionInfo}) : super(key: key);
 
+  final String resID;
   final String image;
   final String name1;
   final String name2;
@@ -198,6 +196,7 @@ class _InfoPageState extends State<InfoPage>
               context,
               MaterialPageRoute(
                   builder: (context) => CreateTablePage(
+                    resID: widget.resID,
                     name1: widget.name1,
                     name2: widget.name2,
                     image: widget.image,
@@ -206,16 +205,6 @@ class _InfoPageState extends State<InfoPage>
                   )
               )
           );
-            /*showDialog(
-              context: context,
-              builder: (context)
-              {
-                return
-                  /*AlertDialog(
-                  content: Text('Create table'),
-                );*/
-              }
-          );*/
         },
         child: new Container(
             margin: EdgeInsets.only(top: 15,left: 280),

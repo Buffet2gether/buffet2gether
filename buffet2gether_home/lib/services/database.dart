@@ -62,7 +62,8 @@ class DatabaseService
     return moreInResCollection.snapshots().map(_moreListFromSnapshot);
   }
 
-  Future updateGroups(String resID, String name1, String name2, String image, String location, String time, int ageStart, int ageEnd, double num, DateTime dueTime, String gender) async{
+  Future updateGroups(String resID, String name1, String name2, String image, String location, String time, int ageStart, int ageEnd, double num, DateTime dueTime, String gender,
+      bool fashion, bool sports, bool technology, bool politics, bool entertainment, bool books, bool pet,) async{
     return await GroupsCollection.document(resID).collection('GroupsInRes').document(uid).setData({
       'resID' : resID,
       'name1' : name1,
@@ -75,6 +76,13 @@ class DatabaseService
       'num' : num,
       'dueTime' : dueTime,
       'gender' : gender,
+      'fashion' : fashion,
+      'sports' : sports,
+      'technology' : technology,
+      'politics' : politics,
+      'entertainment' : entertainment,
+      'books' : books,
+      'pet' : pet,
     });
   }
 

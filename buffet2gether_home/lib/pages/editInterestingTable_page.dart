@@ -9,6 +9,7 @@ class InterestingInTable extends StatefulWidget {
 
 class _InterestingInTableState extends State<InterestingInTable> {
   List<bool> _tempInteresting = myTable.interestingBool;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

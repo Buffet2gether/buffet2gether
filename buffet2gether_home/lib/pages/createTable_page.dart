@@ -491,27 +491,48 @@ class _CreateTablePageState extends State<CreateTablePage>
             InkWell(
               onTap: ()
               {
-                DatabaseService().updateGroups(widget.resID, widget.name1, widget.name2, widget.image, widget.location, widget.time, selectedRange.start.round(), selectedRange.end.round(), selectedNumm, newDateOfDue, selectedGender.genderName);
-                return showDialog(
-                    context: context,
-                    builder: (context)
-                    {
-                      return //MyCustomForm(tabsIndex: 1,);
-                        AlertDialog(
-                            content: Text(
-                              'Create table successful',
-                              style: TextStyle(
-                                fontFamily: 'Opun',
-                                color: Colors.black45,
-                                fontSize: 10,
-                              ),
-                            )
-                        );
-                    }
-                );
-              },
+                if(selectedGender.genderName == null)
+                {
+                  return showDialog(
+                  context: context,
+                  builder: (context)
+                  {
+                    return AlertDialog(
+                        content: Text(
+                          'Please select gender',
+                          style: TextStyle(
+                            fontFamily: 'Opun',
+                            color: Colors.black45,
+                            fontSize: 10,
+                          ),
+                        )
+                    );
+                  });
+                }
+                else
+                  {
+                    DatabaseService().updateGroups(widget.resID, widget.name1, widget.name2, widget.image, widget.location, widget.time, selectedRange.start.round(), selectedRange.end.round(), selectedNumm, newDateOfDue, selectedGender.genderName,
+                      myTable.interestingBool[0], myTable.interestingBool[1], myTable.interestingBool[2], myTable.interestingBool[3], myTable.interestingBool[4], myTable.interestingBool[5], myTable.interestingBool[6],);
+                    return //MyCustomForm(tabsIndex: 1,);
+                    showDialog(
+                        context: context,
+                        builder: (context)
+                        {
+                          return AlertDialog(
+                              content: Text(
+                                'Create table successful',
+                                style: TextStyle(
+                                  fontFamily: 'Opun',
+                                  color: Colors.black45,
+                                  fontSize: 10,
+                                ),
+                              )
+                          );
+                        });
+                  }
+                },
               child: Text(
-                'Post   ',
+                'Post    ',
                 style: TextStyle(
                   fontFamily: 'Opun',
                   color: Colors.orange,

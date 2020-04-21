@@ -147,14 +147,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Row(
                                   children: <Widget>[
                                     Text(
-                                      (DateTime.now()
-                                                      .difference(
-                                                          myProfile.dateofBirth)
-                                                      .inDays /
-                                                  365)
-                                              .floor()
-                                              .toString() +
-                                          ' | ',
+                                      (DateTime.now().difference(myProfile.dateofBirth).inDays/365).floor().toString() + ' | ',
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 20.0,

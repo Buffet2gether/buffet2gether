@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/pages/matching_page.dart';
 import 'package:buffet2gether_home/pages/createTable_page.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:buffet2gether_home/services/database.dart';
+import 'package:buffet2gether_home/models/table_model.dart';
+import 'package:buffet2gether_home/models/profile_model.dart';
 
 class InfoPage extends StatefulWidget
 {
+  ///รับข้อมูลร้านมาจากหน้า home, หน้า home ดึงมาจาก firebase
   InfoPage({Key key, this.resID, this.name1, this.name2, this.image, this.location, this.time, this.promotion, this.promotionInfo}) : super(key: key);
 
   final String resID;
@@ -26,6 +30,7 @@ class _InfoPageState extends State<InfoPage>
     Widget build(BuildContext context)
     {
 
+      ///ข้อมูลร้าน
       final info = Container(
           margin: EdgeInsets.only(top: 25, left: 10,right: 10,bottom: 25),
           decoration: new BoxDecoration(
@@ -96,6 +101,7 @@ class _InfoPageState extends State<InfoPage>
           )
       );
 
+      ///ข้อมูล Promotion
       final textPro = Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -153,20 +159,39 @@ class _InfoPageState extends State<InfoPage>
           )
       );
 
+      ///ปุ่ม Matching
       final buttonMatch = InkWell(
           onTap: ()
           {
-            return
-              /*Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => MatchingPage()
-                )
-            );*/
-              showDialog(
+            return showDialog(
             context: context,
             builder: (context)
             {
+
+              ///ส่งข้อมูลร้านและข้อมูล user ไปเก็บใน Groups/ชื่อร้าน(resID)/UserFindGroup/...
+              DatabaseService().updateUserFindGroup(
+                ///ข้อมูลร้าน
+                  widget.resID,
+                  widget.name1,
+                  widget.name2,
+                  widget.image,
+                  widget.location,
+                  widget.time,
+                  ///ข้อมูล user
+                  myProfile.name,
+                  myProfile.gender,
+                  (DateTime.now().difference(myProfile.dateofBirth).inDays/365).floor(),
+                  myProfile.id,
+                  ///interest ของ user
+                  myProfile.interestingBool[0],
+                  myProfile.interestingBool[1],
+                  myProfile.interestingBool[2],
+                  myProfile.interestingBool[3],
+                  myProfile.interestingBool[4],
+                  myProfile.interestingBool[5],
+                  myProfile.interestingBool[6]
+            );
+              ///แล้วแสดงหน้าน้องบุฟ 3 วิแล้วไปหน้า Notification
               return MatchingPage();
             }
           );
@@ -189,9 +214,11 @@ class _InfoPageState extends State<InfoPage>
           )
       );
 
+      ///ปุ่ม Create Table
       final buttonCreate = InkWell(
         onTap: ()
         {
+          ///ส่งข้อมูลร้านและไปที่หน้า CreateTable
           return Navigator.push(
               context,
               MaterialPageRoute(

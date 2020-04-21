@@ -20,6 +20,7 @@ class DatabaseService
   final CollectionReference moreInResCollection = Firestore.instance.collection('Restaurants/more/moreList');
   final CollectionReference GroupsCollection = Firestore.instance.collection('Groups');
 
+  ///ดึงข้อมูลร้านใน Recommend
   List<Recom> _recListFromSnapshot(QuerySnapshot snapshot)
   {
     return snapshot.documents.map((doc)
@@ -41,6 +42,7 @@ class DatabaseService
     return recInResCollection.snapshots().map(_recListFromSnapshot);
   }
 
+  ///ดึงข้อมูลร้านใน More
   List<More> _moreListFromSnapshot(QuerySnapshot snapshot)
   {
     return snapshot.documents.map((doc)
@@ -62,21 +64,46 @@ class DatabaseService
     return moreInResCollection.snapshots().map(_moreListFromSnapshot);
   }
 
+  ///เพิ่มข้อมูลกลุ่มที่สร้างใน Groups/ชื่อร้าน(resID)/GroupsInRes/... ใน 1 ร้านมีหลายกลุ่ม
   Future updateGroups(String resID, String name1, String name2, String image, String location, String time, int ageStart, int ageEnd, double num, DateTime dueTime, String gender,
       bool fashion, bool sports, bool technology, bool politics, bool entertainment, bool books, bool pet,) async{
     return await GroupsCollection.document(resID).collection('GroupsInRes').document(uid).setData({
-      'resID' : resID,
+      'resID' : resID,                  /// ข้อมูลร้าน
       'name1' : name1,
       'name2' : name2,
       'image': image,
       'location': location,
       'time': time,
-      'ageStart': ageStart,
+      'ageStart': ageStart,             /// คุณสมบัติ
       'ageEnd': ageEnd,
       'num' : num,
       'dueTime' : dueTime,
       'gender' : gender,
-      'fashion' : fashion,
+      'fashion' : fashion,              /// ความชอบของกลุ่ม
+      'sports' : sports,
+      'technology' : technology,
+      'politics' : politics,
+      'entertainment' : entertainment,
+      'books' : books,
+      'pet' : pet,
+    });
+  }
+
+  ///เพิ่มข้อมูลคนหากลุ่มใน Groups/ชื่อร้าน(resID)/UserFindGroup/... ใน 1 ร้านมีคนหากลุ่มมหลายคน
+  Future updateUserFindGroup(String resID, String name1, String name2, String image, String location, String time,
+      String userName,String gender, int age, String userID,bool fashion, bool sports, bool technology, bool politics, bool entertainment, bool books, bool pet,) async{
+    return await GroupsCollection.document(resID).collection('UserFindGroup').document(uid).setData({
+      'resID' : resID,                  /// ข้อมูลร้าน
+      'name1' : name1,
+      'name2' : name2,
+      'image': image,
+      'location': location,
+      'time': time,
+      'userName' : userName,            /// ข้อมูล user
+      'gender' : gender,
+      'age' : age,
+      'userID' : userID,
+      'fashion' : fashion,              /// ความชอบของ user
       'sports' : sports,
       'technology' : technology,
       'politics' : politics,

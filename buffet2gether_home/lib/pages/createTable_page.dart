@@ -1,5 +1,6 @@
 //import 'dart:io';
 //import 'dart:typed_data';
+import 'package:buffet2gether_home/main.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,14 +9,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:buffet2gether_home/pages/editInterestingTable_page.dart';
 import 'package:buffet2gether_home/models/table_model.dart';
-import 'package:buffet2gether_home/main.dart';
 
+///ส่วนที่ใช้เลือกเพศ จะมี Name กับ Icon
 class GenderItem {
-  final genderName;
   final genderIcon;
+  final genderName;
+
   const GenderItem(this.genderIcon, this.genderName);
 }
 
+/// list เพศที่มีให้เลือก
 List genderList = <GenderItem>[
   const GenderItem(FontAwesomeIcons.mars, 'Male'),
   const GenderItem(FontAwesomeIcons.venus, 'Female'),
@@ -24,6 +27,7 @@ List genderList = <GenderItem>[
 
 class CreateTablePage extends StatefulWidget
 {
+  ///รับข้อมูลร้านมาจากหน้า Info page
   CreateTablePage({Key key, this.resID, this.name1, this.name2, this.image, this.location, this.time}) : super(key: key);
 
   final String resID;
@@ -39,27 +43,36 @@ class CreateTablePage extends StatefulWidget
 
 class _CreateTablePageState extends State<CreateTablePage>
 {
+  ///ใช้แสดงคุณสมบัติต่างกันไป เช่นกดอายุขึ้นให้เลือกช่วงอายุ กดจำนวนขึ้นขึ้นให้เลือกจำนวนคน กดวันเวลาขึ้นให้เลือกวันเวลา กดเพศขึ้นให้เลือกเพศ
+  ///ค่าเริ่มต้นเป็นอายุ
   int isSelecting = 0;
 
+  ///เอาไว้แสดง gender ที่ถูกเลือก เป็น icon ในแถบคุณสมบัติ
+  ///ค่าเริ่มต้น icon เป็น not specific แต่ genderName ที่เป็น string เป็น null
+  ///ดังนั้น ต้อง เลือก เพศ ก่อน กด post
   Icon newGender = Icon(
     FontAwesomeIcons.venusMars,
     size: 23,
     color: Colors.deepOrange,
   );
+
+  ///เอาไว้แสดงวันเวลาที่ถูกเลือกในแถบคุณสมบัติ
+  ///ค่าเริ่มต้นเป็นวันเวลาปัจจุบัน
   DateTime newDateOfDue = DateTime.now();
 
-  final _formKey = GlobalKey<FormState>();
-
+  ///ใช้เป็นชนิด GenderItem จาก class ข้างบนเพื่อเก็บเป็น icon คู่ name(string)
   GenderItem selectedGender;
 
+  /// จำนวนคนในห้อง ค่าเริ่มต้นเป็น 2
   double selectedNumm = 2;
 
+  ///ช่วงอายุ ค่าเริ่มค้นเป็น 35-50 เป็นชนิด double เวลาจะใช้เป็น Int ต้องใส่ .round() ต่อท้าย
   RangeValues selectedRange = RangeValues(35,50);
 
   @override
   Widget build(BuildContext context)
   {
-
+    ///ข้อมูลร้าน
     final info = Container(
         margin: EdgeInsets.only(top: 25, left: 10,right: 10,bottom: 20),
         decoration: new BoxDecoration(
@@ -130,6 +143,7 @@ class _CreateTablePageState extends State<CreateTablePage>
         )
     );
 
+    /// Matching with
     final textMatch = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -147,6 +161,7 @@ class _CreateTablePageState extends State<CreateTablePage>
       ],
     );
 
+    ///คุณสมบัติต่างๆ
     final properties = Container(
           height: 80,
           margin: EdgeInsets.symmetric(horizontal: 10),
@@ -164,14 +179,17 @@ class _CreateTablePageState extends State<CreateTablePage>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
+              ///age
               InkWell(
                   onTap: ()
                   {
                     setState(() {
+                      /// กดแล้วแสดงให้เลือกอายุ
                       isSelecting = 0;
                     });
                     },
                   child: Text(
+                    ///ค่าอายุเริ่ม - ค่าอายุจบ
                     '${selectedRange.start.round()} - ${selectedRange.end.round()}',
                     style: TextStyle(
                       fontFamily: 'Opun',
@@ -179,7 +197,7 @@ class _CreateTablePageState extends State<CreateTablePage>
                       fontSize: 15,
                     ),
                   )
-              ),//age
+              ),
               Text(
                 '|',
                 style:  TextStyle(
@@ -188,10 +206,12 @@ class _CreateTablePageState extends State<CreateTablePage>
                   fontSize: 25,
                 ),
               ),
+              ///maxNum
               InkWell(
                   onTap: ()
                   {
                     setState(() {
+                      /// กดจำนวนคน ขึ้นให้เลือกจำนวนคน
                       isSelecting = 1;
                     });
                   },
@@ -199,6 +219,7 @@ class _CreateTablePageState extends State<CreateTablePage>
                     child: Row(
                       children: <Widget>[
                         Text(
+                          /// 1/จำนวนคนที่เลือก
                           '1 / ${selectedNumm.round()}',
                           style: TextStyle(
                             fontFamily: 'Opun',
@@ -214,7 +235,7 @@ class _CreateTablePageState extends State<CreateTablePage>
                       ],
                     ),
                   ),
-              ),//num
+              ),
               Text(
                 '|',
                 style:  TextStyle(
@@ -223,29 +244,25 @@ class _CreateTablePageState extends State<CreateTablePage>
                   fontSize: 25,
                 ),
               ),
+              ///Date and time
               InkWell(
                   onTap: ()
                   {
                     setState(() {
+                      /// กดวันเวลา ขึ้นให้เลือกวันเวลา
                       isSelecting = 2;
                     });
                     return DatePicker.showDateTimePicker(
                       context,
                       showTitleActions: true,
                       minTime: DateTime.now(),
-                      maxTime: DateTime.now().add(new Duration(days: 30)),
-                      onChanged: (date) {
-                        //print('change $date');
-                      },
+                      maxTime: DateTime.now().add(new Duration(days: 30)), ///นับจากเวลาปัจจุบันไปอีก 30 วัน
                       onConfirm: (date) {
-                        //print('confirm $date');
                         newDateOfDue = date;
+                        /// ใส่ setState ว่างๆไว้ให้มัน Update auto
                         setState(() {
-
                         });
-                        //print(date.toString());
                       },
-                      //currentTime: newDateOfDue,
                       locale: LocaleType.th,
                     );
                     },
@@ -257,7 +274,7 @@ class _CreateTablePageState extends State<CreateTablePage>
                       fontSize: 15,
                     ),
                   ),
-              ),//date and time
+              ),
               Text(
                 '|',
                 style:  TextStyle(
@@ -266,32 +283,36 @@ class _CreateTablePageState extends State<CreateTablePage>
                   fontSize: 25,
                 ),
               ),
+              ///gender
               InkWell(
                   onTap: ()
                   {
                     setState(() {
+                      /// กดเพศ ขึ้นให้เลือกเพศ
                       isSelecting = 3;
                     });
                     },
                   child: newGender,
-              ), //gender
+              ),
             ],
           ),
     );
 
+    /// จาก isSelecting ใน properties กดอะไรขึ้นอันนั้น
     WhichProp() {
       return IndexedStack(
           index: isSelecting,
           alignment: Alignment.center,
           children: [
+            ///ให้เลือก age
             RangeSlider(
-              activeColor: Colors.pink,
-              inactiveColor: Colors.amberAccent,
+              activeColor: Colors.pink, ///สีช่วงเลือก
+              inactiveColor: Colors.amberAccent, ///สีช่วงธรรมดา
               values: selectedRange,
-              min: 10,
-              max: 60,
-              divisions: 50,
-              labels: RangeLabels(
+              min: 10, ///อายุต่ำสุด
+              max: 60, ///อายุสูงสุด
+              divisions: 50, ///ช่วง 50 ช่วง(60-10=50) ห่างกันช่วงละ 1
+              labels: RangeLabels( ///ป้ายบอกเลข
                   '${selectedRange.start.round()}',
                   '${selectedRange.end.round()}'
               ),
@@ -299,19 +320,12 @@ class _CreateTablePageState extends State<CreateTablePage>
               {
                 setState(()
                 {
-                  //print('start = ${selectedRange.start}');
-                  //print('end = ${selectedRange.end}');
-                  /*if(value.start != selectedRange.start){
-                      print('Left thumb');
-                    }
-                    if(value.end != selectedRange.end){
-                      print('Right thumb');
-                    }*/
                   selectedRange = value;
                 });
                 },
             ),
-            Slider(
+            ///ให้เลือก maxNum
+            Slider( ///เหมือน RangeSlider
               activeColor: Colors.pink,
               inactiveColor: Colors.amberAccent,
               value: selectedNumm,
@@ -323,23 +337,18 @@ class _CreateTablePageState extends State<CreateTablePage>
               {
                 setState(()
                 {
-                  //print('start = ${selectedRange.start}');
-                  //print('end = ${selectedRange.end}');
-                  /*if(value.start != selectedRange.start){
-                      print('Left thumb');
-                    }
-                    if(value.end != selectedRange.end){
-                      print('Right thumb');
-                    }*/
                   selectedNumm = value;
                 });
               },
             ),
+            ///ให้เลือก Date and time
             Container(
+              /// Date and time มันขึ้นอัตโนมัติอยู่แล้ว อันนี้เลยทำไว้ให้มันมี Index 2 เฉย ๆ
               color: Color(0xfff5f5f5),
               width: 1,
               height: 1,
             ),
+            ///ให้เลือก gender
             Container(
               height: 50,
               margin: EdgeInsets.symmetric(horizontal: 20),
@@ -361,8 +370,8 @@ class _CreateTablePageState extends State<CreateTablePage>
                 {
                   setState(()
                   {
-                    selectedGender = value;
-                    newGender = Icon(
+                    selectedGender = value; ///เก็บเพศที่เลือกทั้ง icon และ name(string)
+                    newGender = Icon( ///เอาแค่ icon ที่เลือกไปแสดง
                       selectedGender.genderIcon,
                       size: 23,
                       color: Colors.deepOrange,
@@ -370,7 +379,7 @@ class _CreateTablePageState extends State<CreateTablePage>
                   }
                   );
                   },
-                items: genderList.map<DropdownMenuItem<GenderItem>>((value)
+                items: genderList.map<DropdownMenuItem<GenderItem>>((value) ///list ให้เลือก
                 {
                   return DropdownMenuItem<GenderItem>(
                     value: value,
@@ -393,6 +402,7 @@ class _CreateTablePageState extends State<CreateTablePage>
       );
     }
 
+    ///Text interest
     final interest = Container(
       margin: EdgeInsets.symmetric(horizontal: 10),
       child: Row(
@@ -417,6 +427,7 @@ class _CreateTablePageState extends State<CreateTablePage>
               ),
             ),
             onTap: () {
+              /// กด edit ไปหน้า edit interesting table
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -429,16 +440,18 @@ class _CreateTablePageState extends State<CreateTablePage>
       )
     );
 
+    /// แสดง interest ตามที่เลือกจากหน้า edit interesting table
     final interestList = Container(
       margin: EdgeInsets.symmetric(horizontal: 40),
       height: 50,
       child: ListView.builder(
           physics: NeverScrollableScrollPhysics(),
           scrollDirection: Axis.horizontal,
+          /// myTable มาจาก table model จะมี list bool interest อยู่
           itemCount: myTable.interestingIconUrl.length,
           itemBuilder: (BuildContext context, int index)
           {
-            if (myTable.interestingBool[index])
+            if (myTable.interestingBool[index]) ///ถ้าถูกเลือกขึ้นสีส้ม
             {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -448,7 +461,7 @@ class _CreateTablePageState extends State<CreateTablePage>
                 ),
               );
             }
-            return Padding(
+            return Padding( ///ไม่เลือกขึ้นเเทา
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Icon(
                 myTable.interestingIconUrl[index],
@@ -491,7 +504,7 @@ class _CreateTablePageState extends State<CreateTablePage>
             InkWell(
               onTap: ()
               {
-                if(selectedGender.genderName == null)
+                if(selectedGender.genderName == null) ///ถ้าไม่เลือก gender จะกด post ไม่ได้ เลยทำอันนี้ไว้เตือน แต่มันไม่ขึ้น...แงงงงง
                 {
                   return showDialog(
                   context: context,
@@ -509,16 +522,18 @@ class _CreateTablePageState extends State<CreateTablePage>
                     );
                   });
                 }
-                else
+                else ///กด post ได้
                   {
-                    DatabaseService().updateGroups(widget.resID, widget.name1, widget.name2, widget.image, widget.location, widget.time, selectedRange.start.round(), selectedRange.end.round(), selectedNumm, newDateOfDue, selectedGender.genderName,
-                      myTable.interestingBool[0], myTable.interestingBool[1], myTable.interestingBool[2], myTable.interestingBool[3], myTable.interestingBool[4], myTable.interestingBool[5], myTable.interestingBool[6],);
+                    DatabaseService().updateGroups(widget.resID, widget.name1, widget.name2, widget.image, widget.location, widget.time, selectedRange.start.round(), selectedRange.end.round(), selectedNumm, newDateOfDue, selectedGender.genderName, ///ข้อมูลร้าน
+                      myTable.interestingBool[0], myTable.interestingBool[1], myTable.interestingBool[2], myTable.interestingBool[3], myTable.interestingBool[4], myTable.interestingBool[5], myTable.interestingBool[6],); ///หัวข้อที่สนใจ
                     return //MyCustomForm(tabsIndex: 1,);
                     showDialog(
                         context: context,
                         builder: (context)
                         {
-                          return AlertDialog(
+                          ///เปลี่ยน AlertDialog เป็นหน้า table หรือ MyCustomForm(tabsIndex: 1,);
+                          return //MyCustomForm(tabsIndex: 1,);
+                            AlertDialog(
                               content: Text(
                                 'Create table successful',
                                 style: TextStyle(

@@ -46,10 +46,12 @@ class _MatchingPageState extends State<MatchingPage>
     if(secondsPassed==3)
     {
       isActive = false;
+      ///พอครบ 3 วิส่งต่อไปหน้า Notification
       return MyCustomForm(tabsIndex: 2,);
     }
     else
       {
+        ///แสดงหน้าน้องบุฟ 3 วิ
         return Scaffold(
             appBar: new AppBar(
               centerTitle: true,
@@ -72,8 +74,8 @@ class _MatchingPageState extends State<MatchingPage>
                           Positioned(
                             right: 20,
                             top: 5,
-                            child: Image.asset(
-                              'assets/images/Buffet.png',
+                            child: Image.network(
+                              'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2FBuffet.png?alt=media&token=243356b5-0a56-4a00-92cf-4a79f30b22cc',
                               height: 300,
                               width: 300,
                             ),

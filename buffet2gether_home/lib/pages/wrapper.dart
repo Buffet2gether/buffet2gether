@@ -5,6 +5,7 @@ import 'package:buffet2gether_home/services/message.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:buffet2gether_home/pages/getStarted_page.dart';
 
 
 class Wrapper extends StatefulWidget {
@@ -83,6 +84,6 @@ class _WrapperState extends State<Wrapper> {
 
   @override
   Widget build(BuildContext context) {
-    return MyCustomForm(tabsIndex: 0);
+    return GetStartedColumn();
   }
 }

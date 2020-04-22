@@ -60,6 +60,7 @@ class MyAppState extends State<MyCustomForm>
   @override
   Widget build(BuildContext context)
   {
+<<<<<<< Updated upstream
     if(timer == null)
     {
       timer = Timer.periodic(duration, (Timer t){
@@ -324,6 +325,17 @@ class MyAppState extends State<MyCustomForm>
           ),
         ),
       ),
+=======
+    return new MaterialApp(
+      title: 'Buffet2Gether',
+      theme: ThemeData(
+        primaryColor: Colors.deepOrange,
+        accentColor: Colors.deepOrangeAccent,
+        scaffoldBackgroundColor: Color(0xFFF3F5F7),
+        ),
+      home: Wrapper()
+      //GetStartedColumn(),
+>>>>>>> Stashed changes
     );
   }
 }

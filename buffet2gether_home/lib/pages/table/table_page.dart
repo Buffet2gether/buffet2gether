@@ -3,7 +3,23 @@ import 'package:buffet2gether_home/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:buffet2gether_home/models/infoInTable_model.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
+///ส่วนที่ใช้เลือกเพศ จะมี Name กับ Icon
+class GenderItem {
+  final genderIcon;
+  final genderName;
+
+  const GenderItem(this.genderIcon, this.genderName);
+}
+
+/// list เพศที่มีให้เลือก
+List genderList = <GenderItem>[
+  const GenderItem(FontAwesomeIcons.mars, 'Male'),
+  const GenderItem(FontAwesomeIcons.venus, 'Female'),
+  const GenderItem(FontAwesomeIcons.venusMars, 'Not specified'),
+];
 
 
 /////////////////////////////////////////////Table page///////////////////////////////////////////////
@@ -61,11 +77,22 @@ class _Table1State extends State<Table1>
     final listMember = Provider.of<List<MemberBarListInTable>>(context);
     final infoFromTables = Provider.of<List<InfoInTable>>(context);
     InfoInTable infoFromTable = infoFromTables[0];
+    
+    
     final info = Container(
         margin: EdgeInsets.all(10),
         decoration: new BoxDecoration(
           borderRadius: new BorderRadius.circular(10),
-          color: Colors.white,),
+          color: Colors.white,
+          boxShadow:
+            [
+              BoxShadow(
+                color: Colors.black26,
+                offset: Offset(0,2),
+                blurRadius: 3,
+              )
+            ]
+          ),
         child: Column(
           children: <Widget>[
             Text('No.'+infoFromTable.number,
@@ -112,130 +139,114 @@ class _Table1State extends State<Table1>
         )
     );
 
+
+    ///คุณสมบัติต่างๆ
+    // แปลง time stamp ให้เป็น date Time
+    int getDueTime(){
+      String stringDueTime = infoFromTable.dueTime.substring(18,28);
+      return int.parse(stringDueTime);
+    }
+    DateTime newDueTime = new DateTime.fromMillisecondsSinceEpoch(getDueTime()*1000);
+   // แปลง string gender ให้เป็น icon เพศทีเลือกไว้
+    int getGender(){
+      int index = 0;
+      for (var item in genderList) {
+        if (infoFromTable.gender == item.genderName){
+          return index;
+        }
+        index += 1;
+      }
+    }
     final properties = Container(
-      height: 80,
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          InkWell(
-              onTap: ()
-              {
-                return showDialog(
-                  context: context,
-                  builder: (context)
-                  {
-                    return AlertDialog(
-                      content: Text('age'),
-                    );
-                  },
-                );
-              },
-              child: Text(
-                'age',
-                style: TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.deepOrange,
-                  fontSize: 18,
-                ),
-              )
+          height: 80,
+          margin: EdgeInsets.symmetric(horizontal: 10),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  offset: Offset(0,4),
+                  blurRadius: 5,
+                )
+              ]
           ),
-          InkWell(
-              onTap: ()
-              {
-                return showDialog(
-                  context: context,
-                  builder: (context)
-                  {
-                    return AlertDialog(
-                      content: Text('num'),
-                    );
-                  },
-                );
-              },
-              child: Text(
-                'num',
-                style: TextStyle(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              ///age
+              Text(
+                    ///ค่าอายุเริ่ม - ค่าอายุจบ
+                    '${infoFromTable.ageStart.toString()} - ${infoFromTable.ageEnd.toString()}',
+                    style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.deepOrange,
+                      fontSize: 15,
+                    ),
+                  ),
+              Text(
+                '|',
+                style:  TextStyle(
                   fontFamily: 'Opun',
-                  color: Colors.deepOrange,
-                  fontSize: 18,
+                  color: Colors.amberAccent,
+                  fontSize: 25,
                 ),
-              )
-          ),
-          InkWell(
-              onTap: ()
-              {
-                return showDialog(
-                  context: context,
-                  builder: (context)
-                  {
-                    return AlertDialog(
-                      content: Text('Date'),
-                    );
-                  },
-                );
-              },
-              child: Text(
-                'dueDate',
-                style: TextStyle(
+              ),
+              ///maxNum
+              Container(
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          /// 1/จำนวนคนที่เลือก
+                          '1 / ${infoFromTable.people.toString()}',
+                          style: TextStyle(
+                            fontFamily: 'Opun',
+                            color: Colors.deepOrange,
+                            fontSize: 15,
+                          ),
+                        ),
+                        Icon(
+                          Icons.people,
+                          color: Colors.deepOrange,
+                          size: 23,
+                        )
+                      ],
+                    ),
+                  ),
+              Text(
+                '|',
+                style:  TextStyle(
                   fontFamily: 'Opun',
-                  color: Colors.deepOrange,
-                  fontSize: 18,
+                  color: Colors.amberAccent,
+                  fontSize: 25,
                 ),
-              )
-          ),
-          InkWell(
-              onTap: ()
-              {
-                return showDialog(
-                  context: context,
-                  builder: (context)
-                  {
-                    return AlertDialog(
-                      content: Text('Time'),
-                    );
-                  },
-                );
-              },
-              child: Text(
-                'dueTime',
-                style: TextStyle(
+              ),
+              ///Date and time
+             Text(
+                    DateFormat('dd-MM-yyyy  h:mm a').format(newDueTime),
+                    style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.deepOrange,
+                      fontSize: 15,
+                    ),
+                  ),
+              Text(
+                '|',
+                style:  TextStyle(
                   fontFamily: 'Opun',
-                  color: Colors.deepOrange,
-                  fontSize: 18,
+                  color: Colors.amberAccent,
+                  fontSize: 25,
                 ),
-              )
+              ),
+              ///gender
+              Icon(
+                genderList[getGender()].genderIcon,
+                size: 23,
+                color: Colors.deepOrange,),
+              
+            ],
           ),
-          InkWell(
-              onTap: ()
-              {
-                return showDialog(
-                  context: context,
-                  builder: (context)
-                  {
-                    return AlertDialog(
-                      content: Text('gender'),
-                    );
-                  },
-                );
-              },
-              child: Text(
-                'gender',
-                style: TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.deepOrange,
-                  fontSize: 18,
-                ),
-              )
-          ),
-        ],
-      ),
-    );
+    ); 
     
     final memberBar = ListView.builder(
           scrollDirection: Axis.vertical,
@@ -244,7 +255,7 @@ class _Table1State extends State<Table1>
           {
             MemberBarListInTable member = listMember[index];
             String interesting(){
-              List<bool> interest= [member.sport,member.pet,member.technology,member.political,member.beauty,
+              List<bool> interest= [member.sport,member.pet,member.technology,member.political,member.fashion,
               member.entertainment];
               String infomation = '';
               if(interest[0]){
@@ -260,7 +271,7 @@ class _Table1State extends State<Table1>
                 infomation += '#political';
               }
               if(interest[4]){
-                infomation += '#beauty';
+                infomation += '#fashion';
               }
               if(interest[5]){
                 infomation += '#entertainment';
@@ -285,23 +296,41 @@ class _Table1State extends State<Table1>
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
-              subtitle: Text(
-                  member.age.toString()+'|'+member.gender+'|'+interesting(),
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    fontFamily: 'Opun',
-                    color: Colors.grey,
-                    fontSize: 12,
-                    fontWeight: FontWeight.normal,
-                    ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
+              subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                            Text(
+                                  'Age: '+member.age.toString()+' | '+member.gender,
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontFamily: 'Opun',
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.normal,
+                                    ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                            Text(
+                                  interesting(),
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontFamily: 'Opun',
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.normal,
+                                    ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                    ],
+                  ),
             )
               
             );
           },
       );
+    
     
       
     final matchCol = Container(
@@ -336,6 +365,7 @@ class _Table1State extends State<Table1>
               ],
             )
           );
+       
        
     final stackMatchCol = Stack(
       children: [

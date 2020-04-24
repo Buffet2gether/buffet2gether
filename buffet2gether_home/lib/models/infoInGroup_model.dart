@@ -6,6 +6,11 @@ class InfoInGroup
   String location;
   String time;
   String imageUrl;
+  int ageStart;
+  int ageEnd;
+  int people;
+  String dueTime;
+  String gender;
  
  
   InfoInGroup(
@@ -15,7 +20,11 @@ class InfoInGroup
       this.location,
       this.time,
       this.imageUrl,
-     
+      this.ageStart,
+      this.ageEnd,
+      this.dueTime,
+      this.gender,
+      this.people,
     }
   );
 }

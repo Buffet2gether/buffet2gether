@@ -72,7 +72,7 @@ class _BarListState extends State<BarList> {
                 );
               }else{
                DatabaseService().updateMemberInGroup(bar.getImageUrl(), bar.getMemberName(), widget.numberTable, bar.getGender()
-               ,bar.getAge(),bar.getSport(), bar.getPet(),bar.getTechnology(),bar.getPolitical(),bar.getBeauty(), bar.getEntertainment());
+               ,bar.getAge(),bar.getSport(), bar.getPet(),bar.getTechnology(),bar.getPolitical(),bar.getFashion(), bar.getEntertainment());
               }
             }
           },

@@ -9,7 +9,7 @@ class MemberBarListInTable
   bool pet;
   bool technology;
   bool political;
-  bool beauty;
+  bool fashion;
   bool entertainment;
  
  
@@ -23,7 +23,7 @@ class MemberBarListInTable
       this.pet,
       this.technology,
       this.political,
-      this.beauty,
+      this.fashion,
       this.entertainment,
     }
   );

@@ -20,7 +20,7 @@ abstract class Bar {
   bool getPet();
   bool getTechnology();
   bool getPolitical();
-  bool getBeauty();
+  bool getFashion();
   bool getEntertainment();
 }
 /// สร้าง แถบแจ้งเตือนที่มีคนมา match กับกลุ่มที่เราสร้าง
@@ -34,12 +34,12 @@ class CreateNotifBar implements Bar{
   final bool pet;
   final bool technology;
   final bool political;
-  final bool beauty;
+  final bool fashion;
   final bool entertainment;
 
-  CreateNotifBar({this.gender, this.age, this.sport, this.pet, this.technology, this.political, this.beauty, this.entertainment, this.imageUrl,this.membername,this.id});
+  CreateNotifBar({this.gender, this.age, this.sport, this.pet, this.technology, this.political, this.fashion, this.entertainment, this.imageUrl,this.membername,this.id});
   String interesting(){
-    List<bool> interest= [sport,pet,technology,political,beauty,entertainment];
+    List<bool> interest= [sport,pet,technology,political,fashion,entertainment];
     String infomation = '';
     if(interest[0]){
       infomation += '#sport';
@@ -54,7 +54,7 @@ class CreateNotifBar implements Bar{
       infomation += '#political';
     }
     if(interest[4]){
-      infomation += '#beauty';
+      infomation += '#fashion';
     }
     if(interest[5]){
       infomation += '#entertainment';
@@ -80,18 +80,35 @@ class CreateNotifBar implements Bar{
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                   ),
-                  subtitle: Text(
-                              age.toString()+'|'+gender+'|'+interesting(),
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontFamily: 'Opun',
-                                color: Colors.grey,
-                                fontSize: 12,
-                                fontWeight: FontWeight.normal,
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                            Text(
+                                  'Age: '+age.toString()+' | '+gender,
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontFamily: 'Opun',
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.normal,
+                                    ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
                                 ),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
+                            Text(
+                                  interesting(),
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontFamily: 'Opun',
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.normal,
+                                    ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                    ],
+                  ),
             );
         
     return 
@@ -126,8 +143,8 @@ class CreateNotifBar implements Bar{
   }
 
   @override
-  bool getBeauty() {
-    return beauty;
+  bool getFashion() {
+    return fashion;
   }
 
   @override
@@ -174,13 +191,13 @@ class CreateGroupBar implements Bar{
   final bool pet;
   final bool technology;
   final bool political;
-  final bool beauty;
+  final bool fashion;
   final bool entertainment;
 
-  CreateGroupBar({this.gender, this.age, this.sport, this.pet, this.technology, this.political, this.beauty, this.entertainment,this.imageUrl,this.membername,this.number,this.id});
+  CreateGroupBar({this.gender, this.age, this.sport, this.pet, this.technology, this.political, this.fashion, this.entertainment,this.imageUrl,this.membername,this.number,this.id});
   
   String interesting(){
-    List<bool> interest= [sport,pet,technology,political,beauty,entertainment];
+    List<bool> interest= [sport,pet,technology,political,fashion,entertainment];
     String infomation = '';
     if(interest[0]){
       infomation += '#sport';
@@ -195,7 +212,7 @@ class CreateGroupBar implements Bar{
       infomation += '#political';
     }
     if(interest[4]){
-      infomation += '#beauty';
+      infomation += '#fashion';
     }
     if(interest[5]){
       infomation += '#entertainment';
@@ -238,18 +255,35 @@ class CreateGroupBar implements Bar{
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                   ),
-                  subtitle: Text(
-                              age.toString()+'|'+gender+'|'+interesting(),
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontFamily: 'Opun',
-                                color: Colors.grey,
-                                fontSize: 12,
-                                fontWeight: FontWeight.normal,
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                            Text(
+                                  'Age: '+age.toString()+' | '+gender,
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontFamily: 'Opun',
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.normal,
+                                    ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
                                 ),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
+                            Text(
+                                  interesting(),
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontFamily: 'Opun',
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.normal,
+                                    ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                    ],
+                  ),
                   trailing: Text(
                             'No.'+number,
                             textAlign: TextAlign.start,
@@ -260,6 +294,7 @@ class CreateGroupBar implements Bar{
                               fontWeight: FontWeight.normal,
                             ),
                           ),
+                  
                 ),
               );
            
@@ -291,7 +326,7 @@ class CreateGroupBar implements Bar{
   }
 
   @override
-  bool getBeauty() {
+  bool getFashion() {
     return null;
   }
 

@@ -30,7 +30,7 @@ class ProfileInfo {
 }
 
 final myProfile = new ProfileInfo(
-    profilePicture: 'assets/images/profile.jpg',
+    profilePicture:'assets/images/profile.jpg',// 'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/profile_pictures%2Fuser_9rPrOGhAZqXNZDvYvqrLFYaiICy1?alt=media&token=e897249c-cf45-40f4-afee-a4ebf109d24c',
     name: 'Tanapon',
     bio:
     'I love meat and steak! seafood too! The dessert is also a must have, especially the ice-cream',

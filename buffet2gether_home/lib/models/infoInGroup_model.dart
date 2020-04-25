@@ -8,7 +8,7 @@ class InfoInGroup
   String imageUrl;
   int ageStart;
   int ageEnd;
-  int people;
+  double people;
   String dueTime;
   String gender;
  

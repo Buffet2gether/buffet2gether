@@ -7,14 +7,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:buffet2gether_home/models/userInfo.dart';
 import 'package:buffet2gether_home/models/rec_model.dart';
 import 'package:buffet2gether_home/models/more_model.dart';
-import 'dart:math';
-import 'package:intl/intl.dart';
+
 class DatabaseService{
   final String uid;
   final String numberGroup;
   final String numberTable;
+  final String resID;
 
-  DatabaseService({this.uid,this.numberGroup,this.numberTable});
+  DatabaseService({this.uid,this.numberGroup,this.numberTable,this.resID});
   //----------------------------- Restaurants -----------------------------------------------------------
   final CollectionReference recInResCollection = Firestore.instance.collection('Restaurants/recommend/recList');
   final CollectionReference moreInResCollection = Firestore.instance.collection('Restaurants/more/moreList');
@@ -66,9 +66,10 @@ class DatabaseService{
 
   ///เพิ่มข้อมูลกลุ่มที่สร้างใน Groups/ชื่อร้าน(resID)/GroupsInRes/... ใน 1 ร้านมีหลายกลุ่ม
   Future updateGroups(String resID, String name1, String name2, String image, String location, String time, int ageStart, int ageEnd, double num, DateTime dueTime, String gender,
-      bool fashion, bool sports, bool technology, bool politics, bool entertainment, bool books, bool pet,) async{
-      int id =  new Random().nextInt(100);
-    return await GroupsCollection.document(resID).collection('GroupsInRes').document(id.toString()).collection('info').document().setData({
+      bool fashion, bool sports, bool technology, bool politics, bool entertainment, bool books, bool pet,String numberTable) async{
+      
+    return await GroupsCollection.document(resID).collection('GroupsInRes').document(numberTable)
+    .collection('info').document().setData({
       'resID' : resID,                  /// ข้อมูลร้าน
       'name1' : name1,
       'name2' : name2,
@@ -118,8 +119,8 @@ class DatabaseService{
   //----------------------------- NOTIFACATION -----------------------------------------------------------
   /// set path ของ Collection ใน firebase ที่จะเอามาใช้
   final CollectionReference notificationCollection = Firestore.instance.collection('Notification');
-  final CollectionReference memberInGroupCollection = Firestore.instance.collection('Groups/rec1/GroupsInRes');
-  final CollectionReference infoInGroupCollection = Firestore.instance.collection('Groups/rec1/GroupsInRes');
+  final CollectionReference memberInGroupCollection = Firestore.instance.collection('Groups');
+  final CollectionReference infoInGroupCollection = Firestore.instance.collection('Groups');
   
   
   /// ฟังก์ชันเอาไว้เพิ่ม document ใน firebase ส่วนที่เป็น notification (เพิ่มแถบแจ้งเตือน)
@@ -143,9 +144,9 @@ class DatabaseService{
   
 
   /// ฟังก์ชันเอาไว้เพิ่ม document ใน firebase ส่วนที่รับ member เข้ากลุ่ม
-  Future updateMemberInGroup(String imageUrl,String membername,String numberTable,String gender,int age,
-  bool sport,bool pet,bool technology,bool political,bool fashion,bool entertainment) async{
-    return await GroupsCollection.document('rec1').collection('GroupsInRes').document(numberTable).collection('member').document().setData({
+  Future updateMemberInGroup(String resID,String imageUrl,String membername,String numberTable,String gender,int age,
+  bool sport,bool pet,bool technology,bool political,bool fashion,bool entertainment,String statusMember) async{
+    return await GroupsCollection.document(resID).collection('GroupsInRes').document(numberTable).collection('member').document(statusMember).setData({
       'imageUrl': imageUrl,
       'membername':membername, 
       'gender': gender,
@@ -162,7 +163,7 @@ class DatabaseService{
 
   void deleteNotifData(String documentID){
     notificationCollection.document(documentID).delete();
-    print(documentID);
+   
   }
  /// map แถบการแจ้งเตือนจาก document ใน Notification ทั้ง 2 แบบ ให้อยู่ใน list เดียวกัน
  List<Bar> _notificationListFromSnapshot(QuerySnapshot snapshot){
@@ -180,7 +181,8 @@ class DatabaseService{
           political:doc.data['political']??false,
           fashion:doc.data['fashion']??false,
           entertainment:doc.data['entertainment']??false,
-          id: doc.documentID
+          id: doc.documentID,
+          resID: doc.data['resID']??''
         );
       }else{                        ///ถ้า group เป็น false จะสร้าง notif bar
         return CreateNotifBar(
@@ -224,7 +226,7 @@ class DatabaseService{
    }).toList();
  }
   Stream<List<MemberBarListInTable>>get memberInTable{
-    return memberInGroupCollection.document(numberTable).collection('member').snapshots()
+    return memberInGroupCollection.document(resID).collection('GroupsInRes').document(numberTable).collection('member').snapshots()
     .map(_memberInTableFromSnapshot);
   }
 /// map ข้อมูลรายละเอียดร้านอาหาร ในหน้า Table
@@ -238,22 +240,20 @@ class DatabaseService{
         imageUrl: doc.data['image']??'',
         ageStart: doc.data['ageStart']??0,
         ageEnd: doc.data['ageEnd']??0,
-        people: doc.data['num']??0,
+        people: doc.data['num']??0.0,
         dueTime: doc.data['dueTime'].toString(),
         gender:doc.data['gender']??'',
         );
-     
    }).toList();
  }
   Stream<List<InfoInTable>>get infoInTable{
-    return infoInGroupCollection.document(numberTable).collection('info').snapshots()
+    return infoInGroupCollection.document(resID).collection('GroupsInRes').document(numberTable).collection('info').snapshots()
     .map(_infoInTableFromSnapshot);
   }
 /// map สมาชิกที่อยู่ในโต๊ะ ในแถบรายละเอียดกลุ่มเมื่อกดแถบ group bar
   List<MemberBarListInGroup> _memberInGroupFromSnapshot(QuerySnapshot snapshot){
     
    return snapshot.documents.map((doc){
-   
        return MemberBarListInGroup(
         imageUrl: doc.data['imageUrl']??'',
         membername: doc.data['membername']??'',
@@ -265,15 +265,12 @@ class DatabaseService{
         political:doc.data['political']??false,
         fashion:doc.data['fashion']??false,
         entertainment:doc.data['entertainment']??false,
-        
         );
-    
-       
    }).toList();
  }
   Stream<List<MemberBarListInGroup>>get memberInGroup{
    // final CollectionReference memberInGroupCollection = Firestore.instance.collection('InviteToGroup/456/$numberGroup');
-    return memberInGroupCollection.document(numberGroup).collection('member').snapshots()
+    return memberInGroupCollection.document(resID).collection('GroupsInRes').document(numberGroup).collection('member').snapshots()
     .map(_memberInGroupFromSnapshot);
   }
 /// map ข้อมูลรายละเอียดร้านอาหาร ในแถบรายละเอียดกลุ่มเมื่อกดแถบ group bar
@@ -287,14 +284,14 @@ class DatabaseService{
         imageUrl: doc.data['image']??'',
         ageStart: doc.data['ageStart']??0,
         ageEnd: doc.data['ageEnd']??0,
-        people: doc.data['num']??0,
+        people: doc.data['num']??0.0,
         dueTime: doc.data['dueTime'].toString(),
         gender:doc.data['gender']??'',
         );
    }).toList();
  }
   Stream<List<InfoInGroup>>get infoInGroup{
-    return infoInGroupCollection.document(numberGroup).collection('info').snapshots()
+    return infoInGroupCollection.document(resID).collection('GroupsInRes').document(numberGroup).collection('info').snapshots()
     .map(_infoInGroupFromSnapshot);
   }
 

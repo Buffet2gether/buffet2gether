@@ -10,6 +10,7 @@ abstract class Bar {
   Widget buildNotifBar(BuildContext context);
   Widget buildGroupBar(BuildContext context);
   String getID() ;
+  String getResID();
 
   String getImageUrl() ;
   String getMemberName() ;
@@ -36,7 +37,7 @@ class CreateNotifBar implements Bar{
   final bool political;
   final bool fashion;
   final bool entertainment;
-
+  
   CreateNotifBar({this.gender, this.age, this.sport, this.pet, this.technology, this.political, this.fashion, this.entertainment, this.imageUrl,this.membername,this.id});
   String interesting(){
     List<bool> interest= [sport,pet,technology,political,fashion,entertainment];
@@ -66,8 +67,19 @@ class CreateNotifBar implements Bar{
     return id;
   }
   Widget buildNotifBar(BuildContext context){
-    final notifBar =new ListTile(
-                  leading: Image.network(imageUrl),
+    final notifBar =new ListTile( /////เอาไฟล์รูปที่เป็นสี่เหลี่ยม มาใส่ในContainerให้เป็นวงกลม
+                  leading: Container(
+                    width: 55.0,
+                    height: 55.0,
+                    decoration: new BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: new DecorationImage(
+                            fit: BoxFit.cover,
+                            image: new NetworkImage(imageUrl)
+                        )
+                        
+                    ),
+                  ),
                   title: Text(
                           membername+' อยากไปกินบุฟเฟ่ต์กับคุณ!',
                           textAlign: TextAlign.start,
@@ -84,7 +96,7 @@ class CreateNotifBar implements Bar{
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                             Text(
-                                  'Age: '+age.toString()+' | '+gender,
+                                  'Age: '+age.toString()+' | '+gender, // บรรทัดกลาง อายุ เพศ
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     fontFamily: 'Opun',
@@ -96,7 +108,7 @@ class CreateNotifBar implements Bar{
                                   maxLines: 1,
                                 ),
                             Text(
-                                  interesting(),
+                                  interesting(),    //บรรทัดที่ 3 ความชอบ
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     fontFamily: 'Opun',
@@ -177,6 +189,12 @@ class CreateNotifBar implements Bar{
     return technology;
   }
 
+  @override
+  String getResID() {
+    // TODO: implement getResID
+    return null;
+  }
+
  
 }
 /// สร้าง แถบแจ้งเตือนกลุ่มที่มาเชิญเราไปเข้าร่วม
@@ -193,8 +211,9 @@ class CreateGroupBar implements Bar{
   final bool political;
   final bool fashion;
   final bool entertainment;
+  final String resID;
 
-  CreateGroupBar({this.gender, this.age, this.sport, this.pet, this.technology, this.political, this.fashion, this.entertainment,this.imageUrl,this.membername,this.number,this.id});
+  CreateGroupBar({this.gender, this.age, this.sport, this.pet, this.technology, this.political, this.fashion, this.entertainment,this.imageUrl,this.membername,this.number,this.id,this.resID});
   
   String interesting(){
     List<bool> interest= [sport,pet,technology,political,fashion,entertainment];
@@ -231,10 +250,10 @@ class CreateGroupBar implements Bar{
                   context: context,
                   builder: (context)
                   {
-                    return StreamProvider<List<MemberBarListInGroup>>.value(
-                            value: DatabaseService(numberGroup: number).memberInGroup,
+                    return StreamProvider<List<MemberBarListInGroup>>.value( 
+                            value: DatabaseService(numberGroup: number,resID: resID).memberInGroup,
                             child: StreamProvider<List<InfoInGroup>>.value(
-                        value: DatabaseService(numberGroup: number).infoInGroup,
+                        value: DatabaseService(numberGroup: number,resID: resID).infoInGroup,
                         child: Group1()     ///กดที่แถบแล้วให้ไปที่หน้า InviteToGroup
                       ),
                     );
@@ -242,7 +261,18 @@ class CreateGroupBar implements Bar{
                 );
               },
               child: new ListTile(
-                  leading: Image.network(imageUrl),
+                  leading: Container(
+                    width: 55.0,
+                    height: 55.0,
+                    decoration: new BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: new DecorationImage(
+                            fit: BoxFit.cover,
+                            image: new NetworkImage(imageUrl)
+                        )
+                        
+                    ),
+                  ),
                   title: Text(
                           membername+' เชิญคุณเข้าร่วมกลุ่มบุฟเฟต์!',
                           textAlign: TextAlign.start,
@@ -358,5 +388,11 @@ class CreateGroupBar implements Bar{
   @override
   bool getTechnology() {
     return null;
+  }
+
+  @override
+  String getResID() {
+    // TODO: implement getResID
+    return resID;
   }
 }

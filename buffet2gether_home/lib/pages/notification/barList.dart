@@ -7,8 +7,8 @@ import 'package:buffet2gether_home/models/bar_model.dart';
 /// คลาสที่นำ list ของแถบแจ้งเตือนมาสร้างเป็น ListView.builder เพื่อไปแสดงในหน้า Notification
 class BarList extends StatefulWidget {
   final String numberTable;
-
-  BarList({Key key, this.numberTable}) : super(key: key);
+  final String resID;
+  BarList({Key key, this.numberTable,this.resID}) : super(key: key);
   @override
   _BarListState createState() => _BarListState();
 }
@@ -67,12 +67,12 @@ class _BarListState extends State<BarList> {
               if(bar.getNumber()!= null){
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (BuildContext context) => 
-                  Entire(tabsIndex: 1,numberTable: bar.getNumber())
+                  Entire(tabsIndex: 1,numberTable: bar.getNumber(),resID: bar.getResID(),)
                   )
                 );
               }else{
-               DatabaseService().updateMemberInGroup(bar.getImageUrl(), bar.getMemberName(), widget.numberTable, bar.getGender()
-               ,bar.getAge(),bar.getSport(), bar.getPet(),bar.getTechnology(),bar.getPolitical(),bar.getFashion(), bar.getEntertainment());
+               DatabaseService().updateMemberInGroup(widget.resID,bar.getImageUrl(), bar.getMemberName(), widget.numberTable, bar.getGender()
+               ,bar.getAge(),bar.getSport(), bar.getPet(),bar.getTechnology(),bar.getPolitical(),bar.getFashion(), bar.getEntertainment(),'user');
               }
             }
           },

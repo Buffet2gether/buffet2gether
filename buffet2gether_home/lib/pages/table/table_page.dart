@@ -62,9 +62,9 @@ class _Table1State extends State<Table1>
             onPressed:(){
               DatabaseService().updateNotifData(
                // 'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/notificationAndTable_test%2Fboy.png?alt=media&token=a4d76e52-ba43-44bd-baa8-e026d5d3b157', 
-               'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/notificationAndTable_test%2Fbright.png?alt=media&token=94eecc30-b17d-46ba-ae6e-979e8cf3f014',
-             // 'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/notificationAndTable_test%2Ffirst.png?alt=media&token=88328f42-0900-4e19-a187-b886d4e4ff01', 
-              'bright', null, false,'Male',20,true,false,false,false,true,false);
+              // 'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/notificationAndTable_test%2Fbright.png?alt=media&token=94eecc30-b17d-46ba-ae6e-979e8cf3f014',
+              'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/notificationAndTable_test%2Ffirst.png?alt=media&token=88328f42-0900-4e19-a187-b886d4e4ff01', 
+              'First', null, false,'Male',20,true,false,false,false,true,false);
             } ,
             child:Icon(Icons.person_add),
             backgroundColor: Colors.blue,
@@ -77,7 +77,6 @@ class _Table1State extends State<Table1>
     final listMember = Provider.of<List<MemberBarListInTable>>(context);
     final infoFromTables = Provider.of<List<InfoInTable>>(context);
     InfoInTable infoFromTable = infoFromTables[0];
-    
     
     final info = Container(
         margin: EdgeInsets.all(10),
@@ -198,7 +197,7 @@ class _Table1State extends State<Table1>
                       children: <Widget>[
                         Text(
                           /// 1/จำนวนคนที่เลือก
-                          '1 / ${infoFromTable.people.toString()}',
+                          '1 / ${infoFromTable.people.round().toString()}',
                           style: TextStyle(
                             fontFamily: 'Opun',
                             color: Colors.deepOrange,
@@ -283,7 +282,18 @@ class _Table1State extends State<Table1>
               color:Colors.deepOrange[50]
             ),
             child:new ListTile(
-              leading: Image.network(member.imageUrl),
+              leading: Container(
+                    width: 55.0,
+                    height: 55.0,
+                    decoration: new BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: new DecorationImage(
+                            fit: BoxFit.cover,
+                            image: new NetworkImage(member.imageUrl)
+                        )
+                        
+                    ),
+                  ),
               title: Text(
                   member.membername+' เข้าร่วมกลุ่มนี้แล้ว!',
                   textAlign: TextAlign.start,

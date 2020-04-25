@@ -1,5 +1,7 @@
 //import 'dart:io';
 //import 'dart:typed_data';
+import 'package:buffet2gether_home/models/profile_model.dart';
+import 'package:buffet2gether_home/pages/home/matching_page.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:buffet2gether_home/pages/profile/editInterestingTable_page.dart';
 import 'package:buffet2gether_home/models/table_model.dart';
+import 'dart:math';
+import 'package:buffet2gether_home/pages/entire_page.dart';
 
 ///ส่วนที่ใช้เลือกเพศ จะมี Name กับ Icon
 class GenderItem {
@@ -522,27 +526,43 @@ class _CreateTablePageState extends State<CreateTablePage>
                   });
                 }
                 else ///กด post ได้
-                  {
-                    DatabaseService().updateGroups(widget.resID, widget.name1, widget.name2, widget.image, widget.location, widget.time, selectedRange.start.round(), selectedRange.end.round(), selectedNumm, newDateOfDue, selectedGender.genderName, ///ข้อมูลร้าน
-                      myTable.interestingBool[0], myTable.interestingBool[1], myTable.interestingBool[2], myTable.interestingBool[3], myTable.interestingBool[4], myTable.interestingBool[5], myTable.interestingBool[6],); ///หัวข้อที่สนใจ
-                    return //MyCustomForm(tabsIndex: 1,);
-                    showDialog(
-                        context: context,
-                        builder: (context)
-                        {
-                          ///เปลี่ยน AlertDialog เป็นหน้า table หรือ MyCustomForm(tabsIndex: 1,);
-                          return //MyCustomForm(tabsIndex: 1,);
-                            AlertDialog(
-                              content: Text(
-                                'Create table successful',
-                                style: TextStyle(
-                                  fontFamily: 'Opun',
-                                  color: Colors.black45,
-                                  fontSize: 10,
-                                ),
-                              )
-                          );
-                        });
+                  { int numberTable =  new Random().nextInt(100);
+                    DatabaseService().updateGroups(
+                      widget.resID, 
+                      widget.name1,
+                       widget.name2, 
+                       widget.image, 
+                       widget.location, 
+                       widget.time, 
+                       selectedRange.start.round(), 
+                       selectedRange.end.round(), 
+                       selectedNumm, newDateOfDue, 
+                       selectedGender.genderName, ///ข้อมูลร้าน
+                      myTable.interestingBool[0], myTable.interestingBool[1], myTable.interestingBool[2], myTable.interestingBool[3], myTable.interestingBool[4], myTable.interestingBool[5], myTable.interestingBool[6],numberTable.toString()); ///หัวข้อที่สนใจ
+                    ///เพิ่มข้อมูลของตัวเจ้าของห้องให้เป็นสมาชิกในกลุ่มคนแรก
+                    DatabaseService().updateMemberInGroup(
+                      widget.resID,
+                      'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/profile_pictures%2Fuser_9rPrOGhAZqXNZDvYvqrLFYaiICy1?alt=media&token=e897249c-cf45-40f4-afee-a4ebf109d24c',
+                      myProfile.name, 
+                      numberTable.toString(),
+                      myProfile.gender,
+                      (DateTime.now().difference(myProfile.dateofBirth).inDays/365).floor(),
+                      myProfile.interestingBool[0],
+                      myProfile.interestingBool[1],
+                      myProfile.interestingBool[2],
+                      myProfile.interestingBool[3],
+                      myProfile.interestingBool[4],
+                      myProfile.interestingBool[5],
+                      'master');/*
+                    Scaffold.of(context).showSnackBar(SnackBar(content: 
+                      Text('Create table successful!')));*/
+                    //// ไปหมุนหน้าน้องบุฟ 3 วิ ละค่อยไปหน้า Table
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (BuildContext context) => 
+                        MatchingPage(numberTable: numberTable.toString(),resID: widget.resID)
+                        
+                      )
+                    );
                   }
                 },
               child: Text(

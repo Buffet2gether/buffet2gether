@@ -20,10 +20,11 @@ typedef void SetOffsetMethod(double offset);
 //-------------------------------------main---------------------------------------------
 class Entire extends StatefulWidget {
 
-  Entire({this.tabsIndex,this.numberTable});
+  Entire({this.tabsIndex,this.numberTable,this.resID});
 
   int tabsIndex;
   String numberTable;
+  String resID;
 
   @override
   EntireState createState() => new EntireState();
@@ -71,7 +72,7 @@ class EntireState extends State<Entire> with SingleTickerProviderStateMixin
       new Tab(icon: new Icon(Icons.assignment_ind),),
 
     ];
-    print(widget.numberTable);
+    
     if(widget.numberTable == null){
       return new Scaffold(
       body: SafeArea(
@@ -149,13 +150,13 @@ class EntireState extends State<Entire> with SingleTickerProviderStateMixin
               ),
             ),
               StreamProvider<List<InfoInTable>>.value(
-                value: DatabaseService(numberTable: widget.numberTable).infoInTable,
+                value: DatabaseService(numberTable: widget.numberTable,resID: widget.resID).infoInTable,
                 child: StreamProvider<List<MemberBarListInTable>>.value(
-                  value: DatabaseService(numberTable: widget.numberTable).memberInTable,
-                              child: new Table1(),
+                  value: DatabaseService(numberTable: widget.numberTable,resID: widget.resID).memberInTable,
+                  child: new Table1(),
                 ),
               ),
-              new NotifColumn(numberTable: widget.numberTable,),
+              new NotifColumn(numberTable: widget.numberTable,resID: widget.resID,),
               new ProfileScreen(),
             ],
             

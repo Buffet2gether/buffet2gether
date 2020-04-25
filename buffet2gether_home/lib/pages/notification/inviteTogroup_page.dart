@@ -157,7 +157,7 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
                       children: <Widget>[
                         Text(
                           /// 1/จำนวนคนที่เลือก
-                          '1 / ${infoFromGroup.people.toString()}',
+                          '1 / ${infoFromGroup.people.round().toString()}',
                           style: TextStyle(
                             fontFamily: 'Opun',
                             color: Colors.deepOrange,
@@ -242,7 +242,18 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
               color:Colors.deepOrange[50]
             ),
             child:new ListTile(
-              leading: Image.network(member.imageUrl),
+              leading: Container(
+                    width: 55.0,
+                    height: 55.0,
+                    decoration: new BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: new DecorationImage(
+                            fit: BoxFit.cover,
+                            image: new NetworkImage(member.imageUrl)
+                        )
+                        
+                    ),
+                  ),
               title: Text(
                   member.membername+' เข้าร่วมกลุ่มนี้แล้ว!',
                   textAlign: TextAlign.start,

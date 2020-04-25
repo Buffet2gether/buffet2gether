@@ -10,8 +10,9 @@ import 'package:provider/provider.dart';
 //----------------------------------------Notification page------------------------------------
 class NotifColumn extends StatefulWidget
 {
-  NotifColumn({Key key, this.numberTable}) : super(key: key);
+  NotifColumn({Key key, this.numberTable,this.resID}) : super(key: key);
   final String numberTable;
+  final String resID;
   
   @override
   _NotifColumnState createState() => new _NotifColumnState();
@@ -42,7 +43,7 @@ class _NotifColumnState extends State<NotifColumn>
             ),
             backgroundColor: Colors.white,
           ),
-        body: BarList(numberTable: widget.numberTable)
+        body: BarList(numberTable: widget.numberTable, resID: widget.resID)
       ),
     );
   }

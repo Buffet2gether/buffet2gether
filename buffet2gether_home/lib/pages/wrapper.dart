@@ -1,11 +1,11 @@
 import 'package:buffet2gether_home/main.dart';
-import 'package:buffet2gether_home/pages/notification/bar_model.dart';
+import 'package:buffet2gether_home/models/bar_model.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:buffet2gether_home/services/message.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:buffet2gether_home/pages/getStarted_page.dart';
+import 'package:buffet2gether_home/pages/login/getStarted_page.dart';
 
 
 class Wrapper extends StatefulWidget {

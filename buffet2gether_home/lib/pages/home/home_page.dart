@@ -6,7 +6,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:buffet2gether_home/models/rec_model.dart';
 import 'package:buffet2gether_home/models/more_model.dart';
 import 'package:provider/provider.dart';
-import 'package:buffet2gether_home/pages/info_page.dart';
+import 'package:buffet2gether_home/pages/home/info_page.dart';
 
 class HomeColumn extends StatefulWidget
 {

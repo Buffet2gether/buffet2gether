@@ -1,6 +1,5 @@
 import 'package:buffet2gether_home/main.dart';
-import 'package:buffet2gether_home/pages/notification/barList.dart';
-import 'package:buffet2gether_home/pages/notification/bar_model.dart';
+import 'package:buffet2gether_home/models/bar_model.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:buffet2gether_home/services/message.dart';
 import 'package:buffet2gether_home/services/messaging.dart';

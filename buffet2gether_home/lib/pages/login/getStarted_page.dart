@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:buffet2gether_home/pages/login_page.dart';
+import 'package:buffet2gether_home/pages/login/login_page.dart';
 
 class GetStartedColumn extends StatefulWidget
 {

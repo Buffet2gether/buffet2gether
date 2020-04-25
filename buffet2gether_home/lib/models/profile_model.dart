@@ -1,4 +1,47 @@
-//import 'dart:io';
+class User {
+  String userId;
+  User({this.userId});
+}
+
+class UserData
+{
+  String profilePicture;
+  String userId;
+  String bio;
+  String name;
+  String password;
+  String gender;
+  String history;
+  DateTime dateofBirth;
+  bool fashion;
+  bool sport;
+  bool technology;
+  bool politic;
+  bool entertainment;
+  bool book;
+  bool pet;
+  bool isOwner;
+
+  UserData(
+      {this.profilePicture,
+        this.userId,
+        this.isOwner,
+        this.name,
+        this.bio,
+        this.password,
+        this.gender,
+        this.dateofBirth,
+        this.fashion,
+        this.sport,
+        this.technology,
+        this.politic,
+        this.entertainment,
+        this.book,
+        this.pet,
+        this.history});
+}
+
+/*
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -69,3 +112,4 @@ final myProfile = new ProfileInfo(
       'Lopburi',
       'Bangkok',
     ]);
+*/

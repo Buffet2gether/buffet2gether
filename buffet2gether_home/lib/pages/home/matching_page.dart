@@ -4,6 +4,10 @@ import 'package:buffet2gether_home/main.dart';
 
 class MatchingPage extends StatefulWidget
 {
+  final String resID;
+  final String numberTable;
+
+  MatchingPage({Key key, this.resID, this.numberTable});
 
   @override
   _MatchingPageState createState() => new _MatchingPageState();
@@ -47,7 +51,13 @@ class _MatchingPageState extends State<MatchingPage>
     {
       isActive = false;
       ///พอครบ 3 วิส่งต่อไปหน้า Notification
-      return MyCustomForm(tabsIndex: 2,);
+      if(widget.numberTable == null){
+        /// ถ้ามาจากการ Matching
+        return MyCustomForm(tabsIndex: 2,);
+      }else{
+        ///ถ้ามาจากการสร้างโต๊ะ
+        return MyCustomForm(tabsIndex: 1,numberTable: widget.numberTable,resID: widget.resID);
+      }
     }
     else
       {

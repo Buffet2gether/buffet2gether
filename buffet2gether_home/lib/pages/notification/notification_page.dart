@@ -1,14 +1,17 @@
-import 'package:buffet2gether_home/pages/notification/bar_model.dart';
+import 'package:buffet2gether_home/models/bar_model.dart';
 import 'package:buffet2gether_home/pages/notification/barList.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:provider/provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 //----------------------------------------Notification page------------------------------------
 class NotifColumn extends StatefulWidget
 {
+  NotifColumn({Key key, this.numberTable,this.resID}) : super(key: key);
+  final String numberTable;
+  final String resID;
+
   @override
   _NotifColumnState createState() => new _NotifColumnState();
 }
@@ -37,7 +40,7 @@ class _NotifColumnState extends State<NotifColumn>
             ),
             backgroundColor: Colors.white,
           ),
-          body: BarList()
+          body: BarList(numberTable: widget.numberTable, resID: widget.resID)
       ),
     );
   }

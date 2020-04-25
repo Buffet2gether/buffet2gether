@@ -7,6 +7,10 @@ import 'package:buffet2gether_home/models/profile_model.dart';
 import 'dart:ui';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:buffet2gether_home/models/rec_model.dart';
+import 'package:buffet2gether_home/models/more_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:buffet2gether_home/services/auth.dart';
 
 class InfoPage extends StatefulWidget
 {
@@ -233,13 +237,16 @@ class _InfoPageState extends State<InfoPage>
           return Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => CreateTablePage(
-                    resID: widget.resID,
-                    name1: widget.name1,
-                    name2: widget.name2,
-                    image: widget.image,
-                    location: widget.location,
-                    time: widget.time,
+                  builder: (context) => StreamProvider<User>.value(
+                      value: AuthService().user,
+                      child: CreateTablePage(
+                        resID: widget.resID,
+                        name1: widget.name1,
+                        name2: widget.name2,
+                        image: widget.image,
+                        location: widget.location,
+                        time: widget.time,
+                      )
                   )
               )
           );
@@ -270,8 +277,7 @@ class _InfoPageState extends State<InfoPage>
           )
       );
 
-      return
-        Scaffold(
+      return Scaffold(
               appBar: new AppBar(
                 centerTitle: true,
                 title: new Text(

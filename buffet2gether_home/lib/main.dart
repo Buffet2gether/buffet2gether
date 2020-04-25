@@ -132,7 +132,10 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
                   value: DatabaseService().recInRes,
                   child: StreamProvider<List<More>>.value(
                     value: DatabaseService().moreInRes,
-                    child: new HomeColumn(),
+                    child: StreamProvider<User>.value(
+                      value: AuthService().user,
+                      child: new HomeColumn(),
+                    )
                   ),
                 ),
                 tablePageDefault,
@@ -185,7 +188,6 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
                     child:ProfileScreen(),
                   )
                 ],
-
               )
           ),
           bottomNavigationBar: new Material(

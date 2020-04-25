@@ -7,6 +7,8 @@ import 'package:buffet2gether_home/models/rec_model.dart';
 import 'package:buffet2gether_home/models/more_model.dart';
 import 'package:provider/provider.dart';
 import 'package:buffet2gether_home/pages/home/info_page.dart';
+import 'package:buffet2gether_home/services/auth.dart';
+import 'package:buffet2gether_home/models/profile_model.dart';
 
 class HomeColumn extends StatefulWidget
 {
@@ -254,21 +256,22 @@ class _HomeColumnState extends State<HomeColumn>
             return InkWell(
                 onTap: ()
                 {
-                  return
-                    showDialog(
+                  return showDialog(
                   context: context,
                   builder: (context)
                   {
-                    print(rec.resID);
-                    return InfoPage(
-                      resID: rec.resID,
-                      image: rec.imageUrl,
-                      name1: rec.name1,
-                      name2: rec.name2,
-                      location: rec.location,
-                      time: rec.time,
-                      promotion:  rec.promotion,
-                      promotionInfo: rec.promotionInfo,
+                    return StreamProvider<User>.value(
+                        value: AuthService().user,
+                        child: InfoPage(
+                          resID: rec.resID,
+                          image: rec.imageUrl,
+                          name1: rec.name1,
+                          name2: rec.name2,
+                          location: rec.location,
+                          time: rec.time,
+                          promotion:  rec.promotion,
+                          promotionInfo: rec.promotionInfo,
+                        )
                     );
                   }
                   );
@@ -384,14 +387,17 @@ class _HomeColumnState extends State<HomeColumn>
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => InfoPage(
-                              image: m.imageUrl,
-                              name1: m.name1,
-                              name2: m.name2,
-                              location: m.location,
-                              time: m.time,
-                              promotion: m.promotion,
-                              promotionInfo: m.promotionInfo,
+                            builder: (context) => StreamProvider<User>.value(
+                                value: AuthService().user,
+                                child: InfoPage(
+                                  image: m.imageUrl,
+                                  name1: m.name1,
+                                  name2: m.name2,
+                                  location: m.location,
+                                  time: m.time,
+                                  promotion: m.promotion,
+                                  promotionInfo: m.promotionInfo,
+                                )
                             )
                         )
                     );

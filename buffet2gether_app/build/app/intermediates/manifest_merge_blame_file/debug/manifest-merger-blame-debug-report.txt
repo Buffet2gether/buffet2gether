@@ -12,14 +12,14 @@
 12         to allow setting breakpoints, to provide hot reload, etc.
 13    -->
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\debug\AndroidManifest.xml:6:5-66
-14-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\debug\AndroidManifest.xml:6:22-64
+14-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\debug\AndroidManifest.xml:6:5-66
+14-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\debug\AndroidManifest.xml:6:22-64
 15    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-15-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-80
-15-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-77
+15-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-80
+15-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-77
 16    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
-16-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-81
-16-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:8:22-78
+16-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-81
+16-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:8:22-78
 17    <!-- <uses-sdk android:minSdkVersion="14" /> -->
 18    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 18-->[com.google.firebase:firebase-firestore:21.3.0] C:\Users\nud_k\.gradle\caches\transforms-2\files-2.1\1f99579e02be2af1bceef6b30da9a301\jetified-firebase-firestore-21.3.0\AndroidManifest.xml:13:5-79
@@ -38,39 +38,39 @@
 26         FlutterApplication and put your custom class here.
 27    -->
 28    <application
-28-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\main\AndroidManifest.xml:8:5-29:19
+28-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\main\AndroidManifest.xml:8:5-29:19
 29        android:name="io.flutter.app.FlutterApplication"
-29-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\main\AndroidManifest.xml:9:9-57
+29-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\main\AndroidManifest.xml:9:9-57
 30        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 30-->[androidx.core:core:1.0.2] C:\Users\nud_k\.gradle\caches\transforms-2\files-2.1\8b62755b4f01fbb6e1af8ab6bdf5d473\core-1.0.2\AndroidManifest.xml:22:18-86
 31        android:debuggable="true"
 32        android:icon="@mipmap/ic_launcher"
-32-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\main\AndroidManifest.xml:11:9-43
+32-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\main\AndroidManifest.xml:11:9-43
 33        android:label="buffet2gether_home" >
-33-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\main\AndroidManifest.xml:10:9-43
+33-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\main\AndroidManifest.xml:10:9-43
 34        <activity
-34-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\main\AndroidManifest.xml:12:9-23:20
+34-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\main\AndroidManifest.xml:12:9-23:20
 35            android:name="com.buffet2gether.buffet2gether_home.MainActivity"
-35-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\main\AndroidManifest.xml:13:13-41
+35-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\main\AndroidManifest.xml:13:13-41
 36            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-36-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\main\AndroidManifest.xml:16:13-163
+36-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\main\AndroidManifest.xml:16:13-163
 37            android:hardwareAccelerated="true"
-37-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\main\AndroidManifest.xml:17:13-47
+37-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\main\AndroidManifest.xml:17:13-47
 38            android:launchMode="singleTop"
-38-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\main\AndroidManifest.xml:14:13-43
+38-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\main\AndroidManifest.xml:14:13-43
 39            android:theme="@style/LaunchTheme"
-39-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\main\AndroidManifest.xml:15:13-47
+39-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\main\AndroidManifest.xml:15:13-47
 40            android:windowSoftInputMode="adjustResize" >
-40-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\main\AndroidManifest.xml:18:13-55
+40-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\main\AndroidManifest.xml:18:13-55
 41            <intent-filter>
-41-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\main\AndroidManifest.xml:19:13-22:29
+41-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\main\AndroidManifest.xml:19:13-22:29
 42                <action android:name="android.intent.action.MAIN" />
-42-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\main\AndroidManifest.xml:20:17-68
-42-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\main\AndroidManifest.xml:20:25-66
+42-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\main\AndroidManifest.xml:20:17-68
+42-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\main\AndroidManifest.xml:20:25-66
 43
 44                <category android:name="android.intent.category.LAUNCHER" />
-44-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\main\AndroidManifest.xml:21:17-76
-44-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\main\AndroidManifest.xml:21:27-74
+44-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\main\AndroidManifest.xml:21:17-76
+44-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\main\AndroidManifest.xml:21:27-74
 45            </intent-filter>
 46        </activity>
 47        <!--
@@ -78,50 +78,50 @@
 49             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
 50        -->
 51        <meta-data
-51-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\main\AndroidManifest.xml:26:9-28:33
+51-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\main\AndroidManifest.xml:26:9-28:33
 52            android:name="flutterEmbedding"
-52-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\main\AndroidManifest.xml:27:13-44
+52-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\main\AndroidManifest.xml:27:13-44
 53            android:value="2" />
-53-->C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\android\app\src\main\AndroidManifest.xml:28:13-30
+53-->C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\android\app\src\main\AndroidManifest.xml:28:13-30
 54
 55        <service
-55-->[:firebase_auth] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
+55-->[:firebase_auth] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
 56            android:name="com.google.firebase.components.ComponentDiscoveryService"
-56-->[:firebase_auth] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:8:18-89
+56-->[:firebase_auth] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:8:18-89
 57            android:directBootAware="true"
 57-->[com.google.firebase:firebase-common:19.3.0] C:\Users\nud_k\.gradle\caches\transforms-2\files-2.1\a05f80c403e1ef78cd1b3037c97ce58d\jetified-firebase-common-19.3.0\AndroidManifest.xml:34:13-43
 58            android:exported="false" >
 58-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\nud_k\.gradle\caches\transforms-2\files-2.1\92c09833c4b9f5f47a3793b6845c5fa4\jetified-firebase-auth-17.0.0\AndroidManifest.xml:35:13-37
 59            <meta-data
-59-->[:firebase_auth] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
+59-->[:firebase_auth] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
 60                android:name="com.google.firebase.components:io.flutter.plugins.firebaseauth.FlutterFirebaseAppRegistrar"
-60-->[:firebase_auth] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-122
+60-->[:firebase_auth] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-122
 61                android:value="com.google.firebase.components.ComponentRegistrar" />
-61-->[:firebase_auth] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
+61-->[:firebase_auth] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
 62            <meta-data
-62-->[:cloud_firestore] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
+62-->[:cloud_firestore] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
 63                android:name="com.google.firebase.components:io.flutter.plugins.firebase.cloudfirestore.FlutterFirebaseAppRegistrar"
-63-->[:cloud_firestore] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-133
+63-->[:cloud_firestore] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-133
 64                android:value="com.google.firebase.components.ComponentRegistrar" />
-64-->[:cloud_firestore] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
+64-->[:cloud_firestore] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
 65            <meta-data
-65-->[:firebase_storage] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_storage\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
+65-->[:firebase_storage] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_storage\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
 66                android:name="com.google.firebase.components:io.flutter.plugins.firebase.storage.FlutterFirebaseAppRegistrar"
-66-->[:firebase_storage] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_storage\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-126
+66-->[:firebase_storage] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_storage\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-126
 67                android:value="com.google.firebase.components.ComponentRegistrar" />
-67-->[:firebase_storage] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_storage\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
+67-->[:firebase_storage] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_storage\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
 68            <meta-data
-68-->[:firebase_core] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
+68-->[:firebase_core] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
 69                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseAppRegistrar"
-69-->[:firebase_core] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-123
+69-->[:firebase_core] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-123
 70                android:value="com.google.firebase.components.ComponentRegistrar" />
-70-->[:firebase_core] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
+70-->[:firebase_core] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
 71            <meta-data
-71-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-16:85
+71-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-16:85
 72                android:name="com.google.firebase.components:io.flutter.plugins.firebasemessaging.FlutterFirebaseAppRegistrar"
-72-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:15:17-127
+72-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:15:17-127
 73                android:value="com.google.firebase.components.ComponentRegistrar" />
-73-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:16:17-82
+73-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:16:17-82
 74            <meta-data
 74-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\nud_k\.gradle\caches\transforms-2\files-2.1\92c09833c4b9f5f47a3793b6845c5fa4\jetified-firebase-auth-17.0.0\AndroidManifest.xml:36:13-38:85
 75                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
@@ -148,32 +148,32 @@
 85-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\nud_k\.gradle\caches\transforms-2\files-2.1\71dc868852144548b68266a076cea9c7\firebase-iid-20.0.1\AndroidManifest.xml:34:17-82
 86        </service>
 87        <service android:name="io.flutter.plugins.firebasemessaging.FlutterFirebaseMessagingService" >
-87-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
-87-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:8:18-101
+87-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
+87-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:8:18-101
 88            <intent-filter>
-88-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:29
+88-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:29
 89                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-89-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-78
-89-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:25-75
+89-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-78
+89-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:25-75
 90            </intent-filter>
 91        </service>
 92
 93        <provider
-93-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:11:9-19:20
+93-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:11:9-19:20
 94            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
-94-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-82
+94-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-82
 95            android:authorities="com.buffet2gether.buffet2gether_home.flutter.image_provider"
-95-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-74
+95-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-74
 96            android:exported="false"
-96-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-37
+96-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-37
 97            android:grantUriPermissions="true" >
-97-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-47
+97-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-47
 98            <meta-data
-98-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-18:75
+98-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-18:75
 99                android:name="android.support.FILE_PROVIDER_PATHS"
-99-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:17:17-67
+99-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:17:17-67
 100                android:resource="@xml/flutter_image_picker_file_paths" />
-100-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:18:17-72
+100-->[:image_picker] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:18:17-72
 101        </provider>
 102
 103        <activity
@@ -201,10 +201,10 @@
 116            android:exported="false" >
 116-->[com.google.firebase:firebase-messaging:20.0.1] C:\Users\nud_k\.gradle\caches\transforms-2\files-2.1\1110c36e0314b6488762c318b80aa09a\jetified-firebase-messaging-20.0.1\AndroidManifest.xml:30:13-37
 117            <intent-filter android:priority="-500" >
-117-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:29
+117-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:29
 118                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-118-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-78
-118-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether\buffet2gether_home\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:25-75
+118-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-78
+118-->[:firebase_messaging] C:\Users\nud_k\Documents\GitHub\buffet2gether_Master\buffet2gether_app\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:25-75
 119            </intent-filter>
 120        </service>
 121

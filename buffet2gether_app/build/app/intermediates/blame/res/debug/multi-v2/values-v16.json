@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\nud_k\\Documents\\GitHub\\buffet2gether\\buffet2gether_home\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v16\\values-v16.xml",
+            "outputFile": "C:\\Users\\nud_k\\Documents\\GitHub\\buffet2gether_Master\\buffet2gether_app\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v16\\values-v16.xml",
             "map": [
                 {
                     "source": "C:\\Users\\nud_k\\.gradle\\caches\\transforms-2\\files-2.1\\8b62755b4f01fbb6e1af8ab6bdf5d473\\core-1.0.2\\res\\values-v16\\values-v16.xml",

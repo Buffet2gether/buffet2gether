@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\nud_k\\Documents\\GitHub\\buffet2gether\\buffet2gether_home\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+            "outputFile": "C:\\Users\\nud_k\\Documents\\GitHub\\buffet2gether_Master\\buffet2gether_app\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
                     "source": "C:\\Users\\nud_k\\.gradle\\caches\\transforms-2\\files-2.1\\dfda874e59ae708b9dea8d783cda1c4f\\play-services-base-17.0.0\\res\\values\\values.xml",
@@ -42,6 +42,23 @@
                     }
                 },
                 {
+                    "source": "C:\\Users\\nud_k\\Documents\\GitHub\\buffet2gether_Master\\buffet2gether_app\\build\\app\\generated\\res\\google-services\\debug\\values\\values.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,199,307,389,493,602,722,819",
+                        "endColumns": "143,107,81,103,108,119,96,73",
+                        "endOffsets": "194,302,384,488,597,717,814,888"
+                    },
+                    "to": {
+                        "startLines": "67,69,70,71,72,73,74,75",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "5528,5754,5862,5944,6048,6157,6277,6374",
+                        "endColumns": "143,107,81,103,108,119,96,73",
+                        "endOffsets": "5667,5857,5939,6043,6152,6272,6369,6443"
+                    }
+                },
+                {
                     "source": "C:\\Users\\nud_k\\.gradle\\caches\\transforms-2\\files-2.1\\e43c68f3251d3a0d0cb930babfcb3873\\jetified-play-services-basement-17.0.0\\res\\values\\values.xml",
                     "from": {
                         "startLines": "4,7",
@@ -76,26 +93,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\nud_k\\.gradle\\caches\\transforms-2\\files-2.1\\4516e940d4be20e1967b4b0168e35841\\coordinatorlayout-1.0.0\\res\\values\\values.xml",
-                    "from": {
-                        "startLines": "2,102,3,13",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "55,5935,116,724",
-                        "endLines": "2,104,12,101",
-                        "endColumns": "60,12,24,24",
-                        "endOffsets": "111,6075,719,5930"
-                    },
-                    "to": {
-                        "startLines": "2,95,105,115",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "105,7713,8156,8764",
-                        "endLines": "2,97,114,203",
-                        "endColumns": "60,12,24,24",
-                        "endOffsets": "161,7853,8759,13970"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\nud_k\\Documents\\GitHub\\buffet2gether\\buffet2gether_home\\android\\app\\src\\main\\res\\values\\styles.xml",
+                    "source": "C:\\Users\\nud_k\\Documents\\GitHub\\buffet2gether_Master\\buffet2gether_app\\android\\app\\src\\main\\res\\values\\styles.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -114,20 +112,22 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\nud_k\\Documents\\GitHub\\buffet2gether\\buffet2gether_home\\build\\app\\generated\\res\\google-services\\debug\\values\\values.xml",
+                    "source": "C:\\Users\\nud_k\\.gradle\\caches\\transforms-2\\files-2.1\\4516e940d4be20e1967b4b0168e35841\\coordinatorlayout-1.0.0\\res\\values\\values.xml",
                     "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,199,307,389,493,602,722,819",
-                        "endColumns": "143,107,81,103,108,119,96,73",
-                        "endOffsets": "194,302,384,488,597,717,814,888"
+                        "startLines": "2,102,3,13",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,5935,116,724",
+                        "endLines": "2,104,12,101",
+                        "endColumns": "60,12,24,24",
+                        "endOffsets": "111,6075,719,5930"
                     },
                     "to": {
-                        "startLines": "67,69,70,71,72,73,74,75",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "5528,5754,5862,5944,6048,6157,6277,6374",
-                        "endColumns": "143,107,81,103,108,119,96,73",
-                        "endOffsets": "5667,5857,5939,6043,6152,6272,6369,6443"
+                        "startLines": "2,95,105,115",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "105,7713,8156,8764",
+                        "endLines": "2,97,114,203",
+                        "endColumns": "60,12,24,24",
+                        "endOffsets": "161,7853,8759,13970"
                     }
                 }
             ]

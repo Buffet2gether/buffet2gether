@@ -3,7 +3,6 @@
 import 'package:buffet2gether_home/models/infoInTable_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:buffet2gether_home/pages/home/home_page.dart';
 import 'package:buffet2gether_home/pages/profile/profile_screen.dart';

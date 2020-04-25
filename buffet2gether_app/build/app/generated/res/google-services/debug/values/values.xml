@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">995699540738-6k7nqeb2rkjfm7caoi2dc8jss52r7t9p.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://buffet2gether.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">995699540738</string>
+    <string name="google_api_key" translatable="false">AIzaSyDJJ4Y7wcggQGtouPXn0KAbj5_t-gKRgAI</string>
+    <string name="google_app_id" translatable="false">1:995699540738:android:65317164eb3b6783a3b81b</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDJJ4Y7wcggQGtouPXn0KAbj5_t-gKRgAI</string>
+    <string name="google_storage_bucket" translatable="false">buffet2gether.appspot.com</string>
+    <string name="project_id" translatable="false">buffet2gether</string>
+</resources>

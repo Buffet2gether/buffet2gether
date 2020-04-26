@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:buffet2gether_home/models/profile_model.dart';
+import 'package:buffet2gether_home/pages/login/login_page.dart';
 import 'package:buffet2gether_home/pages/profile/detail_editing_screen.dart';
 import 'package:buffet2gether_home/pages/profile/interesting_editing_screen.dart';
 import 'package:buffet2gether_home/pages/login/reset_password_screen.dart';
@@ -24,6 +25,7 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
+    final AuthService _auth = AuthService();
     return Scaffold(
       body: SafeArea(
         child: StreamBuilder<UserData>(
@@ -433,7 +435,8 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                         Divider(height: 30),
                         Row(
                           children: <Widget>[
-                            Text(
+                            GestureDetector(
+                            child :Text(
                               'Log out',
                               style: TextStyle(
                                 color: Colors.grey,
@@ -441,6 +444,14 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 0.5,
                               ),
+                            ),
+                            onTap: () async {
+                                await _auth.signOut();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => Login()));
+                              },
                             ),
                           ],
                         )

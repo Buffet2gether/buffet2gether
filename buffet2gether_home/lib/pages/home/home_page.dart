@@ -390,6 +390,7 @@ class _HomeColumnState extends State<HomeColumn>
                             builder: (context) => StreamProvider<User>.value(
                                 value: AuthService().user,
                                 child: InfoPage(
+                                  resID: m.resID,
                                   image: m.imageUrl,
                                   name1: m.name1,
                                   name2: m.name2,

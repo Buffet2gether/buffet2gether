@@ -67,8 +67,28 @@ class DatabaseService
   }
 
   ///เพิ่มข้อมูลกลุ่มที่สร้างใน Groups/ชื่อร้าน(resID)/GroupsInRes/... ใน 1 ร้านมีหลายกลุ่ม
-  Future updateGroups(String resID, String name1, String name2, String image, String location, String time, int ageStart, int ageEnd, double num, DateTime dueTime, String gender,
-      bool fashion, bool sports, bool technology, bool politics, bool entertainment, bool books, bool pet,String numberTable) async{
+  Future updateGroups(
+      String resID,
+      String name1,
+      String name2,
+      String image,
+      String location,
+      String time,
+      int ageStart,
+      int ageEnd,
+      double num,
+      DateTime dueTime,
+      String gender,
+      bool fashion,
+      bool sports,
+      bool technology,
+      bool politics,
+      bool entertainment,
+      bool books,
+      bool pet,
+      String numberTable
+      ) async
+  {
     return await GroupsCollection.document(resID).collection('GroupsInRes').document(numberTable).collection('info').document().setData({
       'resID' : resID,                  /// ข้อมูลร้าน
       'name1' : name1,

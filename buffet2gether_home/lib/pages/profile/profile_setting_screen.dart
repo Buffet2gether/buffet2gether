@@ -34,7 +34,6 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 UserData userData = snapshot.data;
-
                 Future getImageFromGalleryAndUpload() async {
                   await ImagePicker.pickImage(source: ImageSource.gallery)
                       .then((image) {
@@ -62,7 +61,6 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                     });
                   }
                 }
-
                 /*Future getImageFromCameraAndUpload() async {
                   await ImagePicker.pickImage(source: ImageSource.camera)
                       .then((image) {
@@ -72,10 +70,8 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                   });
                   uploadPicture();
                 }*/
-
                 return ListView(
-                  padding:
-                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                  padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(20.0),

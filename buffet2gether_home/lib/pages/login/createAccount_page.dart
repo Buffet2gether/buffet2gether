@@ -4,6 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/pages/login/login_page.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:buffet2gether_home/services/database.dart';
+import 'package:buffet2gether_home/shared/loading.dart';
+import 'package:buffet2gether_home/models/profile_model.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class GenderItem {
   final genderName;
@@ -147,7 +154,10 @@ class _SignUpState extends State<SignUp>
                         context: context,
                         builder: (context)
                         {
-                          return CreateProfile();
+                          return StreamProvider<User>.value(
+                              value: AuthService().user,
+                              child:CreateProfile()
+                          );
                         },
                       );
                     }
@@ -185,6 +195,8 @@ class CreateProfile extends StatefulWidget
 
 class _CreateProfileState extends State<CreateProfile> with SingleTickerProviderStateMixin // <=== Profile page
 {
+  File _tempImage;
+  String _uploadedImageURL;
 
   final AuthService _auth = AuthService();
   final _formkey = GlobalKey<FormState>();
@@ -205,233 +217,287 @@ class _CreateProfileState extends State<CreateProfile> with SingleTickerProvider
     /*print(email);
     print(password);
     print(_formkey);*/
+    final user = Provider.of<User>(context);
     return loading ? Loading() : Scaffold(
-      body: Container(
-        padding: EdgeInsets.only(left: 20, right: 20),
-        child: Form(
-          key: _formkey,
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                'Create your profile',
-                style: TextStyle(
-                    fontFamily: 'Opun',
-                    color: Colors.deepOrange,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold),
-              ),
-              Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(100))),
-              ),
-              Icon(Icons.add_circle, color: Colors.deepOrange),
-              SizedBox(            //Box for input username    <==== Start at this line
-                height: 20,
-              ),
-              Container(
-                width: 380,
-                decoration: new BoxDecoration(
-                  borderRadius: new BorderRadius.circular(10),
-                  color: Colors.white,
-                ),
-                child: TextFormField(
-                  cursorColor: Colors.deepOrange,
-                  style: TextStyle(
-                    fontFamily: 'Opun',
-                    color: Colors.grey,
-                    fontSize: 15,
-                    fontWeight: FontWeight.normal,
-                  ),
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Username',
-                      prefixIcon: Icon(Icons.person)),
-                  validator: (val) => val.length < 4 ? "Enter a username more than 4 character" : null,
-                  onChanged: (val) {
-                    setState(() => username = val); //save username to textfield
-                  },
-                ),
-              ),
-              SizedBox(    //Box select gender
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Row(
-                  children: <Widget>[
-                    Icon(
-                      FontAwesomeIcons.venusMars,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text(
-                      'Gender',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: 17,
-                        letterSpacing: 0.5,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              DropdownButton<GenderItem>(
-                isDense: true,
-                isExpanded: true,
-                value: selectedGender,
-                onChanged: (GenderItem value) {
-                  setState(() {
-                    selectedGender = value;
-                    gender = selectedGender.genderName;
-                    print('select ' + selectedGender.genderName);
+      body: SafeArea(
+        child: StreamBuilder<UserData>(
+            stream: DatabaseService(uid: user.userId).userData,
+            builder: (context, snapshot)
+            {
+              if (snapshot.hasData)
+              {
+                UserData userData = snapshot.data;
+                Future getImageFromGalleryAndUpload() async {
+                  await ImagePicker.pickImage(source: ImageSource.gallery).then((image)
+                  {
+                    setState(()
+                    {
+                      _tempImage = image;
+                    });
                   });
-                },
-                items: genderList
-                    .map<DropdownMenuItem<GenderItem>>((value) {
-                  return DropdownMenuItem<GenderItem>(
-                    value: value,
-                    child: Row(
+                  if (_tempImage != null)
+                  {
+                    StorageReference storageReference = FirebaseStorage.instance.ref().child('profile_pictures/user_' + userData.userId);
+                    StorageUploadTask uploadTask = storageReference.putFile(_tempImage);
+                    await uploadTask.onComplete;
+                    print('File Uploaded');
+                    storageReference.getDownloadURL().then((fileURL)
+                    {
+                      setState(()
+                      {
+                        _uploadedImageURL = fileURL;
+                        DatabaseService(uid: user.userId).updateUserProfilePicture(_uploadedImageURL);
+                      });
+                    });
+                  }
+                }
+                return Container(
+                  padding: EdgeInsets.only(left: 20, right: 20),
+                  child: Form(
+                    key: _formkey,
+                    child: Column(
                       children: <Widget>[
-                        Icon(
-                          value.genderIcon,
-                          color: Colors.black38,
+                        SizedBox(
+                          height: 20,
                         ),
-                        SizedBox(width: 10),
-                        Text(value.genderName),
+                        Text(
+                          'Create your profile',
+                          style: TextStyle(
+                              fontFamily: 'Opun',
+                              color: Colors.deepOrange,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Container(
+                          width: 100,
+                          height: 100,
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white,
+                          ),
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                                _uploadedImageURL ?? userData.profilePicture),
+                            //FileImage(_tempImage),
+                            radius: 70,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () async
+                          {
+                            getImageFromGalleryAndUpload();
+                            },
+                          icon: Icon(Icons.add),
+                        ),
+                        SizedBox( //Box for input username    <==== Start at this line
+                          height: 20,
+                        ),
+                        Container(
+                          width: 380,
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.circular(10),
+                            color: Colors.white,
+                          ),
+                          child: TextFormField(
+                            cursorColor: Colors.deepOrange,
+                            style: TextStyle(
+                              fontFamily: 'Opun',
+                              color: Colors.grey,
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal,
+                            ),
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Username',
+                                prefixIcon: Icon(Icons.person)),
+                            validator: (val) => val.length < 4 ? "Enter a username more than 4 character" : null,
+                            onChanged: (val)
+                            {
+                              setState(() => username = val); //save username to textfield
+                            },
+                          ),
+                        ),
+                        SizedBox( //Box select gender
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(
+                                FontAwesomeIcons.venusMars,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Text(
+                                'Gender',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  letterSpacing: 0.5,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        DropdownButton<GenderItem>(
+                          isDense: true,
+                          isExpanded: true,
+                          value: selectedGender,
+                          onChanged: (GenderItem value)
+                          {
+                            setState(()
+                            {
+                              selectedGender = value;
+                              gender = selectedGender.genderName;
+                              print('select ' + selectedGender.genderName);
+                            });
+                            },
+                          items: genderList.map<DropdownMenuItem<GenderItem>>((value)
+                          {
+                            return DropdownMenuItem<GenderItem>(
+                              value: value,
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    value.genderIcon,
+                                    color: Colors.black38,
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(value.genderName),
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                        SizedBox( // Box For input Age    <==== Start at this line
+                          height: 10,
+                        ),
+                        SizedBox(height: 10),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(
+                                FontAwesomeIcons.birthdayCake,
+                                color: Theme.of(context).primaryColor,),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Text(
+                                'Date of Birth',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  letterSpacing: 0.5,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: OutlineButton(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 10
+                                ),
+                                child: Text('Edit your date of birth'),
+                                onPressed: ()
+                                {
+                                  DatePicker.showDatePicker(
+                                    context,
+                                    showTitleActions: true,
+                                    minTime: DateTime(1950),
+                                    maxTime: DateTime.now(),
+                                    onConfirm: (date)
+                                    {
+                                      print('confirm $date');
+                                      dateOfBirth = date;
+                                      },
+                                    currentTime: dateOfBirth,
+                                    locale: LocaleType.th,
+                                  );
+                                  },
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox( // Button is here  <==== Start at this line
+                          height: 20,
+                        ),
+                        RaisedButton(
+                          color: Colors.yellow[600],
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(10.0)),
+                          onPressed: () async
+                          {
+                            // if press
+                            if (_formkey.currentState.validate())
+                            {
+                              dynamic result = await _auth.registerWithEmailAndPassword(
+                                  email,
+                                  password,
+                                  _uploadedImageURL,
+                                  username,
+                                  gender,
+                                  dateOfBirth
+                              ); // <=== pass arguement to register    [function is in service/auth  ]
+                              if (result == null)
+                              {
+                                setState(()
+                                {
+                                  loading = false;
+                                  error = 'information error';
+                                });
+                              }
+                              else
+                                {
+                                  return Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Login()
+                                      )
+                                  );
+                                }
+                            }
+                            },
+                          child: new Container(
+                            width: 380,
+                            height: 50,
+                            child: Text(
+                              'Done',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'Opun',
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 12.0),
+                        Text(
+                          error,
+                          style: TextStyle(color: Colors.red, fontSize: 14.0),
+                        ),
                       ],
                     ),
-                  );
-                }).toList(),
-              ),
-
-              SizedBox(
-                // Box For input Age    <==== Start at this line
-                height: 10,
-              ),
-              SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Row(
-                  children: <Widget>[
-                    Icon(
-                      FontAwesomeIcons.birthdayCake,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text(
-                      'Date of Birth',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: 17,
-                        letterSpacing: 0.5,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: OutlineButton(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 10),
-                      child: Text('Edit your date of birth'),
-                      onPressed: () {
-                        DatePicker.showDatePicker(
-                          context,
-                          showTitleActions: true,
-                          minTime: DateTime(1950),
-                          maxTime: DateTime.now(),
-                          onChanged: (date) {
-                            print('change $date');
-                          },
-                          onConfirm: (date) {
-                            print('confirm $date');
-                            dateOfBirth = date;
-                            print(date.toString());
-                          },
-                          currentTime: dateOfBirth,
-                          locale: LocaleType.th,
-                        );
-                      },
-                    ),
                   ),
-                ],
-              ),
-              SizedBox(   // Button is here  <==== Start at this line
-                height: 20,
-              ),
-              RaisedButton(
-                color: Colors.yellow[600],
-                shape: RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(10.0)),
-                onPressed: () async {
-                  // if press
-                  if (_formkey.currentState.validate()) {
-                    dynamic result = await _auth.registerWithEmailAndPassword(
-                        email,
-                        password,
-                        username,
-                        gender,
-                        dateOfBirth); // <=== pass arguement to register    [function is in service/auth  ]
-
-                    if (result == null) {
-                      setState(() {
-                        loading = false;
-                        error = 'information error';
-                      });
-                    } else {
-                      return Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Login()
-                          )
-                      );
-                        /*showDialog(
-                        context: context,
-                        builder: (context) {
-                          return Login();
-                        },
-                      );*/
-                    }
-                  }
-                },
-                child: new Container(
-                  width: 380,
-                  height: 50,
-                  child: Text(
-                    'Done',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 12.0),
-              Text(
-                error,
-                style: TextStyle(color: Colors.red, fontSize: 14.0),
-              ),
-            ],
-          ),
-        ),
-      ),
+                );
+              }
+              else
+              {
+                return Loading();
+              }
+            })
+      )
     );
   }
 }

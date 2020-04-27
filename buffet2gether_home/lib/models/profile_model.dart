@@ -1,71 +1,42 @@
-//import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+class User {
+  String userId;
+  User({this.userId});
+}
 
-class ProfileInfo {
+class UserData
+{
   String profilePicture;
-  String id;
+  String userId;
   String bio;
   String name;
   String password;
   String gender;
+  String history;
   DateTime dateofBirth;
-  List<bool> interestingBool;
-  List<String> interestingText;
-  List<IconData> interestingIconUrl;
-  List<String> history;
+  bool fashion;
+  bool sport;
+  bool technology;
+  bool politic;
+  bool entertainment;
+  bool book;
+  bool pet;
+  bool isOwner;
 
-  ProfileInfo(
+  UserData(
       {this.profilePicture,
-        this.id,
+        this.userId,
+        this.isOwner,
         this.name,
         this.bio,
         this.password,
         this.gender,
         this.dateofBirth,
-        this.interestingBool,
-        this.interestingText,
-        this.interestingIconUrl,
+        this.fashion,
+        this.sport,
+        this.technology,
+        this.politic,
+        this.entertainment,
+        this.book,
+        this.pet,
         this.history});
 }
-
-final myProfile = new ProfileInfo(
-    profilePicture:'assets/images/profile.jpg',// 'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/profile_pictures%2Fuser_9rPrOGhAZqXNZDvYvqrLFYaiICy1?alt=media&token=e897249c-cf45-40f4-afee-a4ebf109d24c',
-    name: 'Tanapon',
-    bio:
-    'I love meat and steak! seafood too! The dessert is also a must have, especially the ice-cream',
-    password: '123456',
-    gender: 'Male',
-    dateofBirth: DateTime.utc(1999, 6, 27),
-    interestingBool: [
-      true, // 0 fasion
-      true, // 1 sport
-      true, // 2 technology
-      true, // 3 politic
-      true, // 4 entertainment
-      true, // 5 book
-      true, // 6 pet
-    ],
-    interestingText: [
-      'Fashion',
-      'Sports',
-      'Technology',
-      'Politics',
-      'Entertainment',
-      'Books',
-      'Pet',
-    ],
-    interestingIconUrl: [
-      FontAwesomeIcons.hatCowboySide,
-      FontAwesomeIcons.footballBall,
-      FontAwesomeIcons.laptop,
-      FontAwesomeIcons.balanceScale,
-      FontAwesomeIcons.dice,
-      FontAwesomeIcons.book,
-      FontAwesomeIcons.cat,
-    ],
-    history: [
-      'Ayutthaya',
-      'Lopburi',
-      'Bangkok',
-    ]);

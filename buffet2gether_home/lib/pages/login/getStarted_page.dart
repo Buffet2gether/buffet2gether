@@ -83,8 +83,8 @@ class _GetStartedColumnState extends State<GetStartedColumn>
             children: <Widget>[
               Container(
                 width: 450,
-                height:175,
-                margin: EdgeInsets.only(top:100.0),
+                height:165,
+                margin: EdgeInsets.only(top:110.0),
                 decoration: BoxDecoration(
                   color:Colors.deepOrange
                 ),

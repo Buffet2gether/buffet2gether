@@ -1,5 +1,6 @@
 
 import 'package:buffet2gether_home/models/bar_model.dart';
+import 'package:buffet2gether_home/models/mytable_model.dart';
 import 'package:buffet2gether_home/pages/entire_page.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:buffet2gether_home/services/message.dart';
@@ -72,9 +73,8 @@ class _WrapperState extends State<Wrapper> {
         print('///////////////////////////////');
         Navigator.of(context).push(
             MaterialPageRoute(builder: (BuildContext context) => 
-            StreamProvider<List<Bar>>.value(
-              value: DatabaseService().notifications,
-                
+            StreamProvider<Mytable>.value(
+              value: DatabaseService().mytable,
                 child: Entire(tabsIndex: 2)),
             )
           );

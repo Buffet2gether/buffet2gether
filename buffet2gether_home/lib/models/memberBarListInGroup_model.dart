@@ -11,7 +11,8 @@ class MemberBarListInGroup
   bool political;
   bool fashion;
   bool entertainment;
- 
+  bool book;
+  String userID;
  
   MemberBarListInGroup(
     {
@@ -25,7 +26,8 @@ class MemberBarListInGroup
       this.political,
       this.fashion,
       this.entertainment,
-      
+      this.book,
+      this.userID
     }
   );
   

@@ -17,8 +17,6 @@ List genderList = <GenderItem>[
   const GenderItem(FontAwesomeIcons.venusMars, 'Not specified'),
 ];
 
-
-
 /////////////////////////////////////////////Sign Up///////////////////////////////////////////////
 class SignUp extends StatefulWidget {
   @override
@@ -176,7 +174,8 @@ class _SignUpState extends State<SignUp>
   }
 }
 /////////////////////////////////////////////////////////////////////////////profile //////////////////////////////////////////////////////////////////////////////////
-class CreateProfile extends StatefulWidget {
+class CreateProfile extends StatefulWidget
+{
   final Function toggleView;
   CreateProfile({this.toggleView});
 
@@ -184,9 +183,8 @@ class CreateProfile extends StatefulWidget {
   _CreateProfileState createState() => new _CreateProfileState();
 }
 
-class _CreateProfileState extends State<CreateProfile>
-    with SingleTickerProviderStateMixin // <=== Profile page
-    {
+class _CreateProfileState extends State<CreateProfile> with SingleTickerProviderStateMixin // <=== Profile page
+{
 
   final AuthService _auth = AuthService();
   final _formkey = GlobalKey<FormState>();
@@ -208,9 +206,6 @@ class _CreateProfileState extends State<CreateProfile>
     print(password);
     print(_formkey);*/
     return loading ? Loading() : Scaffold(
-      appBar: new AppBar(
-        backgroundColor: Colors.white70,
-      ),
       body: Container(
         padding: EdgeInsets.only(left: 20, right: 20),
         child: Form(
@@ -258,7 +253,6 @@ class _CreateProfileState extends State<CreateProfile>
                       hintText: 'Username',
                       prefixIcon: Icon(Icons.person)),
                   validator: (val) => val.length < 4 ? "Enter a username more than 4 character" : null,
-
                   onChanged: (val) {
                     setState(() => username = val); //save username to textfield
                   },
@@ -441,4 +435,3 @@ class _CreateProfileState extends State<CreateProfile>
     );
   }
 }
-

@@ -11,6 +11,8 @@ class MemberBarListInTable
   bool political;
   bool fashion;
   bool entertainment;
+  bool book;
+  String userID;
  
  
   MemberBarListInTable(
@@ -25,6 +27,8 @@ class MemberBarListInTable
       this.political,
       this.fashion,
       this.entertainment,
+      this.book,
+      this.userID
     }
   );
   

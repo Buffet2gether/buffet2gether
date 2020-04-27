@@ -1,9 +1,12 @@
-import 'package:buffet2gether_home/models/infoInGroup_model.dart';
-import 'package:buffet2gether_home/models/memberBarListInGroup_model.dart';
+import 'package:buffet2gether_home/models/memberBarListInTable_model.dart';
+import 'package:buffet2gether_home/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:buffet2gether_home/models/infoInTable_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:buffet2gether_home/models/profile_model.dart';
+import 'package:buffet2gether_home/models/mytable_model.dart';
 
 ///ส่วนที่ใช้เลือกเพศ จะมี Name กับ Icon
 class GenderItem {
@@ -20,23 +23,53 @@ List genderList = <GenderItem>[
   const GenderItem(FontAwesomeIcons.venusMars, 'Not specified'),
 ];
 
-///////////////////////////////////////////// group1///////////////////////////////////////////////
-class Group1 extends StatefulWidget
+
+/////////////////////////////////////////////Table page///////////////////////////////////////////////
+class MyTable1 extends StatefulWidget
 {
-  
   @override
-  _Group1State createState() => new _Group1State();
+  _MyTable1State createState() => new _MyTable1State();
 }
 
-class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
+class _MyTable1State extends State<MyTable1> 
 {
-
   @override
   Widget build(BuildContext context)
   {
-    final listMember = Provider.of<List<MemberBarListInGroup>>(context);
-    final infoFromGroup = Provider.of<InfoInGroup>(context);
-  
+    final user = Provider.of<User>(context);
+    final mytable = Provider.of<Mytable>(context);
+    final listMember = Provider.of<List<MemberBarListInTable>>(context);
+    final infoFromTable = Provider.of<InfoInTable>(context);
+    
+
+    final buttonFinish = Container(
+      margin: EdgeInsets.all(10),
+      width: 410,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          FloatingActionButton(
+            onPressed:(){
+
+              if(listMember.length == 1){
+                /////////////////////////// ถ้าเหลือเป็นคนสุดท้ายในกลุ่ม ให้ลบข้อมูลกลุ่มนั้นทั้งหมด
+                DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user.userId,'info');
+              }else{
+                /////////////////////////// ถ้าไม่ใช่คนสุดท้าย ลบข้อมูลตัวเองออกจากกลุ่ม
+                DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user.userId,null);
+              }
+              //////////////////////////////// ในข้อมูลหน้า Table เป็น null คือเราออกจากกลุ่มนี้ ไม่มีกลุ่มแล้ว
+              DatabaseService().updateTableData(null, null,user.userId);
+              
+            } ,
+            child:Icon(Icons.restaurant),
+            backgroundColor: Colors.green,
+            tooltip: 'Finish your meal!',
+          ),
+         
+        ],
+      ),
+    );
     
     
     final info = Container(
@@ -55,7 +88,7 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
           ),
         child: Column(
           children: <Widget>[
-            Text('No.'+infoFromGroup.number,
+            Text('No.'+infoFromTable.number,
                   style: TextStyle(
                       fontFamily: 'Opun', 
                       fontSize: 15,
@@ -63,7 +96,7 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
                       color: Colors.yellow[700]
                   ),
                 ),
-            Text(infoFromGroup.name1+' '+infoFromGroup.name2,
+            Text(infoFromTable.name1+' '+infoFromTable.name2,
                   style: TextStyle(
                       fontFamily: 'Opun', 
                       fontSize: 15,
@@ -71,13 +104,13 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
                       color: Colors.deepOrange
                   ),
                 ),
-            Image.network(infoFromGroup.imageUrl),
+            Image.network(infoFromTable.imageUrl),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(Icons.location_on,size: 25,color: Colors.amber,),
                 Text(
-                  infoFromGroup.location,
+                  infoFromTable.location,
                   style: TextStyle(
                     fontFamily: 'Opun',
                     color: Colors.grey,
@@ -86,7 +119,7 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
                 ),
                 Icon(Icons.access_time,size: 25,color: Colors.amber),
                 Text(
-                  ' '+infoFromGroup.time,
+                  ' '+infoFromTable.time,
                   style: TextStyle(
                     fontFamily: 'Opun',
                     color: Colors.grey,
@@ -98,11 +131,12 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
           ],
         )
     );
-  
-///คุณสมบัติต่างๆ
+
+
+    ///คุณสมบัติต่างๆ
     // แปลง time stamp ให้เป็น date Time
     int getDueTime(){
-      String stringDueTime = infoFromGroup.dueTime.substring(18,28);
+      String stringDueTime = infoFromTable.dueTime.substring(18,28);
       return int.parse(stringDueTime);
     }
     DateTime newDueTime = new DateTime.fromMillisecondsSinceEpoch(getDueTime()*1000);
@@ -110,7 +144,7 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
     int getGender(){
       int index = 0;
       for (var item in genderList) {
-        if (infoFromGroup.gender == item.genderName){
+        if (infoFromTable.gender == item.genderName){
           return index;
         }
         index += 1;
@@ -136,7 +170,7 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
               ///age
               Text(
                     ///ค่าอายุเริ่ม - ค่าอายุจบ
-                    '${infoFromGroup.ageStart.toString()} - ${infoFromGroup.ageEnd.toString()}',
+                    '${infoFromTable.ageStart.toString()} - ${infoFromTable.ageEnd.toString()}',
                     style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.deepOrange,
@@ -157,7 +191,7 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
                       children: <Widget>[
                         Text(
                           /// 1/จำนวนคนที่เลือก
-                          '1 / ${infoFromGroup.people.round().toString()}',
+                          '1 / ${infoFromTable.people.round().toString()}',
                           style: TextStyle(
                             fontFamily: 'Opun',
                             color: Colors.deepOrange,
@@ -212,7 +246,7 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
           itemCount: listMember.length,
           itemBuilder: (BuildContext context,int index)
           {
-            MemberBarListInGroup member = listMember[index];
+            MemberBarListInTable member = listMember[index];
             String interesting(){
               List<bool> interest= [member.sport,member.pet,member.technology,member.political,member.fashion,
               member.entertainment];
@@ -336,24 +370,26 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
             )
           );
        
-
-    
-    
-
-    return Scaffold(
-      appBar: new AppBar(
-        title: new Text(
-            'Match!',
-          style: TextStyle(
-              fontFamily: 'Opun',
-              color: Colors.deepOrange,
-              fontSize: 17,
-              fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: Colors.white70,
-      ),
-      body: matchCol,
+       
+    final stackMatchCol = Stack(
+      children: [
+        matchCol,
+        Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children:[
+              buttonFinish,
+            ]
+          )
+        )
+      ]
     );
+    
+    
+    return stackMatchCol;
+     
+   
+      
+    
   }
 }
-

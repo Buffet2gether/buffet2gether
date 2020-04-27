@@ -15,10 +15,3 @@ class UserInformation {
 
 }
 
-
-/*
-class GetID {
-final String userID
-GetID({this.userID})
-}
-*/

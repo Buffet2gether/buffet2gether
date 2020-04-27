@@ -4,14 +4,15 @@ import 'package:buffet2gether_home/models/memberBarListInGroup_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:buffet2gether_home/services/database.dart';
+
 /// คลาสรวม แถบแจ้งเตือนทั้ง 2 แบบ
+
 abstract class Bar {
   
   Widget buildNotifBar(BuildContext context);
   Widget buildGroupBar(BuildContext context);
-  String getID() ;
+  String getdocumentID() ;
   String getResID();
-
   String getImageUrl() ;
   String getMemberName() ;
   String getNumber() ;
@@ -23,12 +24,14 @@ abstract class Bar {
   bool getPolitical();
   bool getFashion();
   bool getEntertainment();
+  bool getBook();
+  String getUserID();
 }
 /// สร้าง แถบแจ้งเตือนที่มีคนมา match กับกลุ่มที่เราสร้าง
 class CreateNotifBar implements Bar{
   final String imageUrl;
   final String membername;
-  final String id; 
+  final String documentID;
   final String gender;
   final int age;
   final bool sport;
@@ -37,16 +40,19 @@ class CreateNotifBar implements Bar{
   final bool political;
   final bool fashion;
   final bool entertainment;
+  final bool book;
+  final String userID;
   
-  CreateNotifBar({this.gender, this.age, this.sport, this.pet, this.technology, this.political, this.fashion, this.entertainment, this.imageUrl,this.membername,this.id});
+  CreateNotifBar({this.gender, this.age,this.fashion, this.sport, this.technology, this.political, this.entertainment, this.book, this.pet, this.imageUrl,this.membername,this.documentID,this.userID});
+  
   String interesting(){
-    List<bool> interest= [sport,pet,technology,political,fashion,entertainment];
+    List<bool> interest= [fashion,sport,technology,political,entertainment,book,pet];
     String infomation = '';
     if(interest[0]){
-      infomation += '#sport';
+    infomation += '#fashion';
     }
     if(interest[1]){
-      infomation += '#pet';
+    infomation += '#sport';
     }
     if(interest[2]){
       infomation += '#technology';
@@ -55,73 +61,73 @@ class CreateNotifBar implements Bar{
       infomation += '#political';
     }
     if(interest[4]){
-      infomation += '#fashion';
+      infomation += '#entertainment';
     }
     if(interest[5]){
-      infomation += '#entertainment';
+    infomation += '#book';
+    }
+    if(interest[6]){
+    infomation += '#pet';
     }
     return infomation;
   }
-  @override
-  String getID() {
-    return id;
-  }
+  
   Widget buildNotifBar(BuildContext context){
-    final notifBar =new ListTile( /////เอาไฟล์รูปที่เป็นสี่เหลี่ยม มาใส่ในContainerให้เป็นวงกลม
-                  leading: Container(
-                    width: 55.0,
-                    height: 55.0,
-                    decoration: new BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: new DecorationImage(
+    final notifBar = new ListTile( /////เอาไฟล์รูปที่เป็นสี่เหลี่ยม มาใส่ในContainerให้เป็นวงกลม
+                      leading: Container(
+                        width: 55.0,
+                        height: 55.0,
+                        decoration: new BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: new DecorationImage(
                             fit: BoxFit.cover,
                             image: new NetworkImage(imageUrl)
-                        )
+                          )
                         
-                    ),
-                  ),
-                  title: Text(
-                          membername+' อยากไปกินบุฟเฟ่ต์กับคุณ!',
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            fontFamily: 'Opun',
-                            color: Colors.deepOrange,
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      title: Text(
+                        membername+' อยากไปกินบุฟเฟ่ต์กับคุณ!',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.deepOrange,
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'Age: '+age.toString()+' | '+gender, // บรรทัดกลาง อายุ เพศ
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontFamily: 'Opun',
+                              color: Colors.grey,
+                              fontSize: 12,
+                              fontWeight: FontWeight.normal,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                           ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                            Text(
-                                  'Age: '+age.toString()+' | '+gender, // บรรทัดกลาง อายุ เพศ
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    fontFamily: 'Opun',
-                                    color: Colors.grey,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                    ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                ),
-                            Text(
-                                  interesting(),    //บรรทัดที่ 3 ความชอบ
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    fontFamily: 'Opun',
-                                    color: Colors.grey,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                    ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                ),
-                    ],
-                  ),
-            );
+                          Text(
+                            interesting(),    //บรรทัดที่ 3 ความชอบ
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontFamily: 'Opun',
+                              color: Colors.grey,
+                              fontSize: 12,
+                              fontWeight: FontWeight.normal,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ],
+                      ),
+                    );
         
     return 
       notifBar;
@@ -190,9 +196,26 @@ class CreateNotifBar implements Bar{
   }
 
   @override
+  bool getBook() {
+    return book;
+  }
+
+  @override
   String getResID() {
-    // TODO: implement getResID
+    
     return null;
+  }
+
+  @override
+  String getUserID() {
+    
+    return userID;
+  }
+
+  @override
+  String getdocumentID() {
+    
+    return documentID;
   }
 
  
@@ -202,7 +225,7 @@ class CreateGroupBar implements Bar{
   final String imageUrl;
   final String membername;
   final String number;
-  final String id; 
+  final String documentID;
   final String gender;
   final int age;
   final bool sport;
@@ -212,17 +235,19 @@ class CreateGroupBar implements Bar{
   final bool fashion;
   final bool entertainment;
   final String resID;
+  final bool book;
+  final String userID;
 
-  CreateGroupBar({this.gender, this.age, this.sport, this.pet, this.technology, this.political, this.fashion, this.entertainment,this.imageUrl,this.membername,this.number,this.id,this.resID});
-  
+  CreateGroupBar({this.gender, this.age, this.fashion, this.sport, this.technology, this.political, this.entertainment, this.book, this.pet,this.imageUrl,this.membername,this.number,this.documentID,this.resID,this.userID});
+ 
   String interesting(){
-    List<bool> interest= [sport,pet,technology,political,fashion,entertainment];
+    List<bool> interest= [fashion,sport,technology,political,entertainment,book,pet];
     String infomation = '';
     if(interest[0]){
-      infomation += '#sport';
+      infomation += '#fashion';
     }
-    if(interest[1]){
-      infomation += '#pet';
+    if(interest[01]){
+      infomation += '#sport';
     }
     if(interest[2]){
       infomation += '#technology';
@@ -231,90 +256,90 @@ class CreateGroupBar implements Bar{
       infomation += '#political';
     }
     if(interest[4]){
-      infomation += '#fashion';
+      infomation += '#entertainment';
     }
     if(interest[5]){
-      infomation += '#entertainment';
+      infomation += '#book';
+    }
+    if(interest[6]){
+      infomation += '#pet';
     }
     return infomation;
   }
   @override
-  String getID() {
-    return id;
+  String getdocumentID() {
+    return documentID;
   }
   Widget buildGroupBar(BuildContext context){
     final groupBar =  new InkWell(
-              onTap: ()
-              { 
-                return showDialog(
-                  context: context,
-                  builder: (context)
-                  {
-                    return StreamProvider<List<MemberBarListInGroup>>.value( 
-                            value: DatabaseService(numberGroup: number,resID: resID).memberInGroup,
-                            child: StreamProvider<List<InfoInGroup>>.value(
-                        value: DatabaseService(numberGroup: number,resID: resID).infoInGroup,
-                        child: Group1()     ///กดที่แถบแล้วให้ไปที่หน้า InviteToGroup
-                      ),
-                    );
-                  },
-                );
-              },
-              child: new ListTile(
-                  leading: Container(
-                    width: 55.0,
-                    height: 55.0,
-                    decoration: new BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: new DecorationImage(
-                            fit: BoxFit.cover,
-                            image: new NetworkImage(imageUrl)
-                        )
-                        
-                    ),
-                  ),
-                  title: Text(
-                          membername+' เชิญคุณเข้าร่วมกลุ่มบุฟเฟต์!',
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            fontFamily: 'Opun',
-                            color: Colors.deepOrange,
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal
+                        onTap: (){ 
+                          return showDialog(
+                            context: context,
+                            builder: (context) {
+                              return StreamProvider<List<MemberBarListInGroup>>.value( 
+                                value: DatabaseService(numberGroup: number,resID: resID).memberInGroup,
+                                child: StreamProvider<InfoInGroup>.value(
+                                  value: DatabaseService(numberGroup: number,resID: resID).infoInGroup,
+                                  child: Group1()     ///กดที่แถบแล้วให้ไปที่หน้า InviteToGroup
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        child: new ListTile(
+                          leading: Container(
+                            width: 55.0,
+                            height: 55.0,
+                            decoration: new BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: new DecorationImage(
+                                fit: BoxFit.cover,
+                                image: new NetworkImage(imageUrl)
+                              )
+                            ),
                           ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                            Text(
-                                  'Age: '+age.toString()+' | '+gender,
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    fontFamily: 'Opun',
-                                    color: Colors.grey,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                    ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
+                          title: Text(
+                            membername+' เชิญคุณเข้าร่วมกลุ่มบุฟเฟต์!',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontFamily: 'Opun',
+                              color: Colors.deepOrange,
+                              fontSize: 14,
+                              fontWeight: FontWeight.normal
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Age: '+age.toString()+' | '+gender,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontFamily: 'Opun',
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.normal,
                                 ),
-                            Text(
-                                  interesting(),
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    fontFamily: 'Opun',
-                                    color: Colors.grey,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                    ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                              Text(
+                                interesting(),
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontFamily: 'Opun',
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.normal,
                                 ),
-                    ],
-                  ),
-                  trailing: Text(
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                            ],
+                          ),
+                          trailing: Text(
                             'No.'+number,
                             textAlign: TextAlign.start,
                             style: TextStyle(
@@ -324,9 +349,8 @@ class CreateGroupBar implements Bar{
                               fontWeight: FontWeight.normal,
                             ),
                           ),
-                  
-                ),
-              );
+                        ),
+                      );
            
     return 
       groupBar;
@@ -391,8 +415,19 @@ class CreateGroupBar implements Bar{
   }
 
   @override
+  bool getBook() {
+    return null;
+  }
+
+  @override
   String getResID() {
-    // TODO: implement getResID
+   
     return resID;
+  }
+
+  @override
+  String getUserID() {
+    
+    return userID;
   }
 }

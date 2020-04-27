@@ -1,17 +1,19 @@
 //import 'dart:io';
 //import 'dart:typed_data';
-import 'package:buffet2gether_home/models/profile_model.dart';
-import 'package:buffet2gether_home/pages/home/matching_page.dart';
+import 'package:buffet2gether_home/models/userFindGroup_model.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:buffet2gether_home/pages/profile/editInterestingTable_page.dart';
+import 'package:buffet2gether_home/pages/home/editInterestingTable_page.dart';
 import 'package:buffet2gether_home/models/table_model.dart';
 import 'dart:math';
-import 'package:buffet2gether_home/pages/entire_page.dart';
+import 'package:buffet2gether_home/models/profile_model.dart';
+import 'package:provider/provider.dart';
+import 'package:buffet2gether_home/pages/home/matching_page.dart';
+import 'package:buffet2gether_home/models/mytable_model.dart';
 
 ///ส่วนที่ใช้เลือกเพศ จะมี Name กับ Icon
 class GenderItem {
@@ -75,6 +77,9 @@ class _CreateTablePageState extends State<CreateTablePage>
   @override
   Widget build(BuildContext context)
   {
+    final user = Provider.of<User>(context);
+    final userFindGroups = Provider.of<List<UserFindGroup>>(context);
+    final mytable = Provider.of<Mytable>(context);
     ///ข้อมูลร้าน
     final info = Container(
         margin: EdgeInsets.only(top: 25, left: 10,right: 10,bottom: 20),
@@ -504,76 +509,148 @@ class _CreateTablePageState extends State<CreateTablePage>
           ),
           backgroundColor: Colors.white70,
           actions: <Widget>[
-            InkWell(
-              onTap: ()
-              {
-                if(selectedGender.genderName == null) ///ถ้าไม่เลือก gender จะกด post ไม่ได้ เลยทำอันนี้ไว้เตือน แต่มันไม่ขึ้น...แงงงงง
+            StreamBuilder<UserData>(
+                stream: DatabaseService(uid: user.userId).userData,
+                builder: (context, snapshot)
                 {
-                  return showDialog(
-                  context: context,
-                  builder: (context)
-                  {
-                    return AlertDialog(
-                        content: Text(
-                          'Please select gender',
-                          style: TextStyle(
-                            fontFamily: 'Opun',
-                            color: Colors.black45,
-                            fontSize: 10,
-                          ),
-                        )
-                    );
-                  });
+                  return InkWell(
+                    onTap: ()
+                    {
+                      if (selectedGender.genderName == null) ///ถ้าไม่เลือก gender จะกด post ไม่ได้ เลยทำอันนี้ไว้เตือน แต่มันไม่ขึ้น...แงงงงง
+                        {
+                          return showDialog(
+                              context: context,
+                              builder: (context)
+                              {
+                                return AlertDialog(
+                                    content: Text(
+                                      'Please select gender',
+                                      style: TextStyle(
+                                        fontFamily: 'Opun',
+                                        color: Colors.black45,
+                                        fontSize: 10,
+                                      ),
+                                    )
+                                );
+                              });
+                        }
+                      else ///กด post ได้
+                        {
+                          if(mytable.numberTable == null){ ///ถ้ายังไม่มีโต๊ะจะกด post ได้
+
+                            int numberTable = new Random().nextInt(10000); // Random เลขโต๊ะ
+                            
+                            ///สร้างกลุ่มใหม่
+                            DatabaseService().updateGroups(
+                                widget.resID,
+                                widget.name1,
+                                widget.name2,
+                                widget.image,
+                                widget.location,
+                                widget.time,
+                                selectedRange.start.round(),
+                                selectedRange.end.round(),
+                                selectedNumm,
+                                newDateOfDue,
+                                selectedGender.genderName,
+                                ///ข้อมูลร้าน
+                                myTable.interestingBool[0],
+                                myTable.interestingBool[1],
+                                myTable.interestingBool[2],
+                                myTable.interestingBool[3],
+                                myTable.interestingBool[4],
+                                myTable.interestingBool[5],
+                                myTable.interestingBool[6],
+                                numberTable.toString()
+                            );///หัวข้อที่สนใจ
+
+                            UserData userData = snapshot.data;
+
+                            ///เพิ่มข้อมูลของตัวเจ้าของห้องให้เป็นสมาชิกในกลุ่มคนแรก
+                            DatabaseService().updateMemberInGroup(
+                                widget.resID,
+                                userData.profilePicture,
+                                userData.name,
+                                numberTable.toString(),
+                                userData.gender,
+                                (DateTime.now().difference(userData.dateofBirth).inDays / 365).floor(),
+                                userData.fashion,
+                                userData.sport,
+                                userData.technology,
+                                userData.politic,
+                                userData.entertainment,
+                                userData.book,
+                                userData.pet,
+                                userData.userId
+                            );
+
+                            ///เพิ่ม ID ของเราเป็น Master ของกลุ่มนี้
+                            DatabaseService().updateMasterData(widget.resID, numberTable.toString(), userData.userId);
+
+                            ///ถ้ามี  user find group ของร้านนี้อยู่ก่อนแล้ว ให้เพิ่ม user find group ทุกคนใน notification ของเรา
+                            for (var item in userFindGroups) {
+                              DatabaseService().updateNotifData(
+                                widget.resID,
+                                item.imageUrl,
+                                item.name,
+                                null,
+                                false, 
+                                item.gender,
+                                item.age,
+                                item.fashion,
+                                item.sport,
+                                item.technology,
+                                item.political,
+                                item.entertainment,
+                                item.book,
+                                item.pet,
+                                item.userID,
+                                userData.userId);
+                            }
+                            
+                            ///เพิ่มหน้า Table ของเราว่าเรามีโต๊ะเลขนี้แล้ว
+                            DatabaseService().updateTableData(widget.resID, numberTable.toString(),userData.userId);
+
+                            //// ไปหมุนหน้าน้องบุฟ 3 วิ ละค่อยไปหน้า Table
+                              return Navigator.of(context).push(
+                                  MaterialPageRoute(builder: (BuildContext context) =>
+                                      StreamProvider<Mytable>.value(
+                                        value: DatabaseService(userID: userData.userId).mytable,
+                                        child: MatchingPage())
+                                  )
+                              );
+                          }else{/// ถ้ามีโต๊ะแล้วจะกด post ไม่ได้แล้วให้ขึ้นแจ้งเตือน
+                              return showDialog(
+                              context: context,
+                              builder: (context)
+                              {
+                                return AlertDialog(
+                                  content: Text(
+                                    'ขออภัย...ไม่สามารถสร้างกลุ่มใหม่ได้เนื่องจากคุณมีกลุ่มบุฟเฟฟต์แล้ว',
+                                    style: TextStyle(
+                                      fontFamily: 'Opun',
+                                      color: Colors.deepOrange,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          }
+                          
+                        }
+                      },
+                    child: Text(
+                      'Post    ',
+                      style: TextStyle(
+                        fontFamily: 'Opun',
+                        color: Colors.orange,
+                        fontSize: 20,
+                      ),
+                    ),
+                  );
                 }
-                else ///กด post ได้
-                  { int numberTable =  new Random().nextInt(100);
-                    DatabaseService().updateGroups(
-                      widget.resID, 
-                      widget.name1,
-                       widget.name2, 
-                       widget.image, 
-                       widget.location, 
-                       widget.time, 
-                       selectedRange.start.round(), 
-                       selectedRange.end.round(), 
-                       selectedNumm, newDateOfDue, 
-                       selectedGender.genderName, ///ข้อมูลร้าน
-                      myTable.interestingBool[0], myTable.interestingBool[1], myTable.interestingBool[2], myTable.interestingBool[3], myTable.interestingBool[4], myTable.interestingBool[5], myTable.interestingBool[6],numberTable.toString()); ///หัวข้อที่สนใจ
-                    ///เพิ่มข้อมูลของตัวเจ้าของห้องให้เป็นสมาชิกในกลุ่มคนแรก
-                    DatabaseService().updateMemberInGroup(
-                      widget.resID,
-                      'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/profile_pictures%2Fuser_9rPrOGhAZqXNZDvYvqrLFYaiICy1?alt=media&token=e897249c-cf45-40f4-afee-a4ebf109d24c',
-                      myProfile.name, 
-                      numberTable.toString(),
-                      myProfile.gender,
-                      (DateTime.now().difference(myProfile.dateofBirth).inDays/365).floor(),
-                      myProfile.interestingBool[0],
-                      myProfile.interestingBool[1],
-                      myProfile.interestingBool[2],
-                      myProfile.interestingBool[3],
-                      myProfile.interestingBool[4],
-                      myProfile.interestingBool[5],
-                      'master');/*
-                    Scaffold.of(context).showSnackBar(SnackBar(content: 
-                      Text('Create table successful!')));*/
-                    //// ไปหมุนหน้าน้องบุฟ 3 วิ ละค่อยไปหน้า Table
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (BuildContext context) => 
-                        MatchingPage(numberTable: numberTable.toString(),resID: widget.resID)
-                        
-                      )
-                    );
-                  }
-                },
-              child: Text(
-                'Post    ',
-                style: TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.orange,
-                  fontSize: 20,
                 ),
-              ),
-            )
           ],
         ),
         body: allInPage

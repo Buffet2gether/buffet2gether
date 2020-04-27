@@ -1,9 +1,19 @@
+import 'package:buffet2gether_home/models/mytable_model.dart';
+import 'package:buffet2gether_home/models/userFindGroup_model.dart';
 import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/pages/home/matching_page.dart';
 import 'package:buffet2gether_home/pages/home/createTable_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
+import 'dart:ui';
+import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
+import 'package:buffet2gether_home/models/rec_model.dart';
+import 'package:buffet2gether_home/models/more_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:buffet2gether_home/services/auth.dart';
+import 'package:buffet2gether_home/models/userMaster_model.dart';
 
 class InfoPage extends StatefulWidget
 {
@@ -158,62 +168,115 @@ class _InfoPageState extends State<InfoPage>
           )
       );
 
+      final user = Provider.of<User>(context);
+      final userMasters = Provider.of<List<UserMaster>>(context);
+      final mytable = Provider.of<Mytable>(context);
+     
       ///ปุ่ม Matching
-      final buttonMatch = InkWell(
-          onTap: ()
+      final buttonMatch = StreamBuilder<UserData>(
+          stream: DatabaseService(uid: user.userId).userData,
+          builder: (context, snapshot)
           {
-            return showDialog(
-            context: context,
-            builder: (context)
-            {
+            return InkWell(
+                onTap: ()
+                { 
+                  if(mytable.numberTable == null){ ////ถ้ายังไม่มีโต๊ะจะกด Match ได้
+                        return showDialog(
+                          context: context,
+                          builder: (context)
+                          {
+                            UserData userData = snapshot.data;
+                            ///ส่งข้อมูลร้านและข้อมูล user ไปเก็บใน Groups/ชื่อร้าน(resID)/UserFindGroup/...
+                            DatabaseService().updateUserFindGroup(
+                              ///ข้อมูลร้าน
+                                widget.resID,
+                                widget.name1,
+                                widget.name2,
+                                widget.image,
+                                widget.location,
+                                widget.time,
+                                ///ข้อมูล use
+                                userData.name,
+                                userData.profilePicture,
+                                userData.gender,
+                                (DateTime.now().difference(userData.dateofBirth).inDays/365).floor(),
+                                ///interest ของ user
+                                userData.fashion,
+                                userData.sport,
+                                userData.technology,
+                                userData.politic,
+                                userData.entertainment,
+                                userData.book,
+                                userData.pet,
+                                userData.userId,
+                            );
+                            ///////////ส่ง notification หาเจ้าของห้องทุกคนในร้านนี้ ว่ามีเรามาหากลุ่ม
+                            for (var item in userMasters) {
+                                DatabaseService().updateNotifData(
+                                  widget.resID,
+                                  userData.profilePicture,
+                                  userData.name,
+                                  null,
+                                  false, 
+                                  userData.gender,
+                                  (DateTime.now().difference(userData.dateofBirth).inDays / 365).floor(),
+                                  userData.fashion,
+                                  userData.sport,
+                                  userData.technology,
+                                  userData.politic,
+                                  userData.entertainment,
+                                  userData.book,
+                                  userData.pet,
+                                  userData.userId,
+                                  item.userId);
+                            }
 
-              ///ส่งข้อมูลร้านและข้อมูล user ไปเก็บใน Groups/ชื่อร้าน(resID)/UserFindGroup/...
-              DatabaseService().updateUserFindGroup(
-                ///ข้อมูลร้าน
-                  widget.resID,
-                  widget.name1,
-                  widget.name2,
-                  widget.image,
-                  widget.location,
-                  widget.time,
-                  ///ข้อมูล user
-                  myProfile.name,
-                  //มันคือ profilePic แต่ว่า profile model ที่เค้ามีมันเป็น version ที่ใช้รูปใน ui ไม่ใช่ใน firebase เลยใส่เป็น link รูปใน firebase ให้แทนนะ จริงๆต้องเขียนเป็น myProfile.profilePicture ตามใน profile model
-                  'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/profile_pictures%2Fuser_9rPrOGhAZqXNZDvYvqrLFYaiICy1?alt=media&token=e897249c-cf45-40f4-afee-a4ebf109d24c',
-                  myProfile.gender,
-                  (DateTime.now().difference(myProfile.dateofBirth).inDays/365).floor(),
-                  myProfile.id,
-                  ///interest ของ user
-                  myProfile.interestingBool[0],
-                  myProfile.interestingBool[1],
-                  myProfile.interestingBool[2],
-                  myProfile.interestingBool[3],
-                  myProfile.interestingBool[4],
-                  myProfile.interestingBool[5],
-                  myProfile.interestingBool[6]
+                            ///แล้วแสดงหน้าน้องบุฟ 3 วิแล้วไปหน้า Notification
+                            return StreamProvider<Mytable>.value(
+                                    value: DatabaseService(userID: userData.userId).mytable,
+                                    child: MatchingPage());
+                          }
+                      );
+                  }else{ ////////////////////////////////ถ้ามีโต๊ะแล้ว Match ไม่ได้
+                      return showDialog(
+                              context: context,
+                              builder: (context)
+                              {
+                                return AlertDialog(
+                                  content: Text(
+                                    'ขออภัย...คุณมีกลุ่มบุฟเฟฟต์แล้ว',
+                                    style: TextStyle(
+                                      fontFamily: 'Opun',
+                                      color: Colors.deepOrange,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                  }
+                  
+                },
+                child: new Container(
+                  margin: EdgeInsets.only(top: 50),
+                  padding: EdgeInsets.all(70),
+                  decoration: new BoxDecoration(
+                      color: Colors.deepOrange,
+                      shape: BoxShape.circle),
+                  child: Text(
+                    'Matching!',
+                    style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                )
             );
-              ///แล้วแสดงหน้าน้องบุฟ 3 วิแล้วไปหน้า Notification
-              return MatchingPage();
-            }
+          }
           );
-          },
-          child: new Container(
-            margin: EdgeInsets.only(top: 50),
-            padding: EdgeInsets.all(70),
-            decoration: new BoxDecoration(
-                color: Colors.deepOrange,
-                shape: BoxShape.circle),
-            child: Text(
-              'Matching!',
-              style: TextStyle(
-                fontFamily: 'Opun',
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          )
-      );
+
 
       ///ปุ่ม Create Table
       final buttonCreate = InkWell(
@@ -223,13 +286,22 @@ class _InfoPageState extends State<InfoPage>
           return Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => CreateTablePage(
-                    resID: widget.resID,
-                    name1: widget.name1,
-                    name2: widget.name2,
-                    image: widget.image,
-                    location: widget.location,
-                    time: widget.time,
+                  builder: (context) => StreamProvider<Mytable>.value(
+                    value: DatabaseService(userID:user.userId).mytable,
+                    child: StreamProvider<List<UserFindGroup>>.value(
+                      value: DatabaseService(resID: widget.resID).userFindGroup,
+                      child: StreamProvider<User>.value(
+                          value: AuthService().user,
+                          child: CreateTablePage(
+                            resID: widget.resID,
+                            name1: widget.name1,
+                            name2: widget.name2,
+                            image: widget.image,
+                            location: widget.location,
+                            time: widget.time,
+                          )
+                      ),
+                    ),
                   )
               )
           );

@@ -1,4 +1,5 @@
 //---------------------------- Buffet2Gether adated-------------------------------------
+import 'package:buffet2gether_home/models/bar_model.dart';
 import 'package:buffet2gether_home/models/infoInTable_model.dart';
 import 'package:buffet2gether_home/models/memberBarListInTable_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,6 +12,9 @@ import 'package:provider/provider.dart';
 import 'package:buffet2gether_home/pages/profile/profile_screen.dart';
 import 'package:buffet2gether_home/models/rec_model.dart';
 import 'package:buffet2gether_home/models/more_model.dart';
+import 'package:buffet2gether_home/services/auth.dart';
+import 'package:buffet2gether_home/models/profile_model.dart';
+import 'package:buffet2gether_home/models/mytable_model.dart';
 
 
 
@@ -20,11 +24,11 @@ typedef void SetOffsetMethod(double offset);
 //-------------------------------------main---------------------------------------------
 class Entire extends StatefulWidget {
 
-  Entire({this.tabsIndex,this.numberTable,this.resID});
+  Entire({this.tabsIndex});
 
   int tabsIndex;
-  String numberTable;
-  String resID;
+ 
+ 
 
   @override
   EntireState createState() => new EntireState();
@@ -47,20 +51,14 @@ class EntireState extends State<Entire> with SingleTickerProviderStateMixin
       vsync: this,
       initialIndex: widget.tabsIndex
     );
-    
-
   }
-
-  final myController = TextEditingController();
 
   @override
   void dispose() {
-    myController.dispose();
     controller.dispose();
     super.dispose();
   }
 
-  
   @override
   Widget build(BuildContext context)
   {
@@ -72,96 +70,46 @@ class EntireState extends State<Entire> with SingleTickerProviderStateMixin
       new Tab(icon: new Icon(Icons.assignment_ind),),
 
     ];
-    
-    if(widget.numberTable == null){
-      return new Scaffold(
-      body: SafeArea(
-          child: new TabBarView(
-          controller: controller,
-          children: <Widget>[
-            StreamProvider<List<Recom>>.value(
-              value: DatabaseService().recInRes,
-              child: StreamProvider<List<More>>.value(
-                value: DatabaseService().moreInRes,
-                child: new HomeColumn(),
-              ),
-            ),
-            new  Scaffold(
-            appBar: new AppBar(
-              leading: new Container(),
-              centerTitle: true,
-              title: new Text(
-                'โต๊ะของคุณ',
-                style: TextStyle(
-                    color: Colors.deepOrange,
-                    fontFamily: 'Opun',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-              backgroundColor: Color(0xfff5f5f5),
-            ),
-            body: Container(
-              margin: EdgeInsets.only(top:80.0),
-              child: Column(
-                children:[
-                  new Image.asset('assets/images/Buffet_transparent.png',width: 500,height: 250),
-                  Text(
-                'ยังไม่มีโต๊ะเลย...ไปเพิ่มโต๊ะบุฟเฟ่กัน!',
-                style: TextStyle(
-                    color: Colors.deepOrange,
-                    fontFamily: 'Opun',
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold),
-              ),
-                ]
-              )),
-                  
-        ),
-            new NotifColumn(),
-            new ProfileScreen(),
-          ],
-          
-        )
-      ),
-        bottomNavigationBar: new Material(
-          color: Colors.white,
-          shadowColor: Colors.deepOrange,
-          child: new TabBar(
-            controller: controller,
-            tabs: tabs,
-            unselectedLabelColor: Colors.black38,
-            labelColor: Colors.deepOrange,
-            indicatorColor: Colors.deepOrange,
-            indicatorWeight: 3.0,
+
+    final user = Provider.of<User>(context);
+
+        return new Scaffold(
+          body: SafeArea(
+              child: new TabBarView(
+                controller: controller,
+                children: <Widget>[
+                  StreamProvider<User>.value(
+                    value: AuthService().user,
+                    child: StreamProvider<List<Recom>>.value(
+                      value: DatabaseService().recInRes,
+                      child: StreamProvider<List<More>>.value(
+                        value: DatabaseService().moreInRes,
+                        child: new HomeColumn(),
+                      ),
+                    ),
+                  ),
+                  StreamProvider<User>.value(
+                    value: AuthService().user,
+                    child: StreamProvider<Mytable>.value(
+                      value: DatabaseService(userID: user.userId).mytable,
+                      child: new Table1()),
+                  ),
+                  StreamProvider<Mytable>.value(
+                    value: DatabaseService(userID: user.userId).mytable,
+                    child: StreamProvider<List<Bar>>.value(
+                      value: DatabaseService().notifications,
+                      child: StreamProvider<User>.value(
+                        value: AuthService().user,
+                        child: new NotifColumn()),
+                    ),
+                  ),
+                  StreamProvider<User>.value(
+                    value: AuthService().user,
+                    child:ProfileScreen(),
+                  )
+                ],
+              )
           ),
-        ),
-      );
-    }else{
-      return new Scaffold(
-        body: SafeArea(
-            child: new TabBarView(
-            controller: controller,
-            children: <Widget>[
-              StreamProvider<List<Recom>>.value(
-              value: DatabaseService().recInRes,
-              child: StreamProvider<List<More>>.value(
-                value: DatabaseService().moreInRes,
-                child: new HomeColumn(),
-              ),
-            ),
-              StreamProvider<List<InfoInTable>>.value(
-                value: DatabaseService(numberTable: widget.numberTable,resID: widget.resID).infoInTable,
-                child: StreamProvider<List<MemberBarListInTable>>.value(
-                  value: DatabaseService(numberTable: widget.numberTable,resID: widget.resID).memberInTable,
-                  child: new Table1(),
-                ),
-              ),
-              new NotifColumn(numberTable: widget.numberTable,resID: widget.resID,),
-              new ProfileScreen(),
-            ],
-            
-          )
-        ),
           bottomNavigationBar: new Material(
             color: Colors.white,
             shadowColor: Colors.deepOrange,
@@ -174,7 +122,7 @@ class EntireState extends State<Entire> with SingleTickerProviderStateMixin
               indicatorWeight: 3.0,
             ),
           ),
-      );
-    }
+        );
+      
   }
 }

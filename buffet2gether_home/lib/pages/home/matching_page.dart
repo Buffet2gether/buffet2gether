@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:buffet2gether_home/main.dart';
+import 'package:buffet2gether_home/models/mytable_model.dart';
+import 'package:provider/provider.dart';
+import 'package:buffet2gether_home/models/profile_model.dart';
+import 'package:buffet2gether_home/services/auth.dart';
 
 class MatchingPage extends StatefulWidget
 {
-  final String resID;
-  final String numberTable;
-
-  MatchingPage({Key key, this.resID, this.numberTable});
-
   @override
   _MatchingPageState createState() => new _MatchingPageState();
 }
@@ -36,6 +35,7 @@ class _MatchingPageState extends State<MatchingPage>
   @override
   Widget build(BuildContext context)
   {
+    final mytable = Provider.of<Mytable>(context);
 
     if(timer == null)
     {
@@ -51,12 +51,16 @@ class _MatchingPageState extends State<MatchingPage>
     {
       isActive = false;
       ///พอครบ 3 วิส่งต่อไปหน้า Notification
-      if(widget.numberTable == null){
+      if(mytable.numberTable == null){
         /// ถ้ามาจากการ Matching
-        return MyCustomForm(tabsIndex: 2,);
+        return StreamProvider<User>.value(
+            value: AuthService().user,
+            child: MyCustomForm(tabsIndex: 2,));
       }else{
         ///ถ้ามาจากการสร้างโต๊ะ
-        return MyCustomForm(tabsIndex: 1,numberTable: widget.numberTable,resID: widget.resID);
+        return StreamProvider<User>.value(
+            value: AuthService().user,
+            child: MyCustomForm(tabsIndex: 1,));
       }
     }
     else

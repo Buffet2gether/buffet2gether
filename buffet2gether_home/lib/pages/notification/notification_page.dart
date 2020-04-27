@@ -1,16 +1,18 @@
 import 'package:buffet2gether_home/models/bar_model.dart';
+import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/pages/notification/barList.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:provider/provider.dart';
+import 'package:buffet2gether_home/services/auth.dart';
+import 'package:buffet2gether_home/models/mytable_model.dart';
+import 'package:buffet2gether_home/models/userFindGroup_model.dart';
+
 
 //----------------------------------------Notification page------------------------------------
 class NotifColumn extends StatefulWidget
 {
-  NotifColumn({Key key, this.numberTable,this.resID}) : super(key: key);
-  final String numberTable;
-  final String resID;
 
   @override
   _NotifColumnState createState() => new _NotifColumnState();
@@ -19,29 +21,42 @@ class _NotifColumnState extends State<NotifColumn>
 {
   ScrollController scrollController;
 
+
   @override
   Widget build(BuildContext context)
   {
-    return StreamProvider<List<Bar>>.value(
-      value: DatabaseService().notifications,
-      child: new Scaffold(
-          appBar: new AppBar(
-            centerTitle: true,
-            leading: new Container(),
-            title: Text(
-              'การแจ้งเตือน',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Opun',
-                color: Colors.deepOrange,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+    final user = Provider.of<User>(context);
+    final mytable = Provider.of<Mytable>(context);
+    return  StreamProvider<List<UserFindGroup>>.value(
+      value:DatabaseService(resID: mytable.resID).userFindGroup,
+      child: StreamProvider<Mytable>.value(
+        value: DatabaseService(userID: user.userId).mytable,
+        child: StreamProvider<User>.value(
+          value: AuthService().user,
+          child: StreamProvider<List<Bar>>.value(
+            value: DatabaseService(userID: user.userId).notifications,
+            child: new Scaffold(
+                appBar: new AppBar(
+                  centerTitle: true,
+                  leading: new Container(),
+                  title: Text(
+                    'การแจ้งเตือน',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.deepOrange,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  backgroundColor: Colors.white,
+                ),
+                body: BarList()
             ),
-            backgroundColor: Colors.white,
           ),
-          body: BarList(numberTable: widget.numberTable, resID: widget.resID)
+        ),
       ),
     );
   }
 }
+

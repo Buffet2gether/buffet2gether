@@ -1,3 +1,4 @@
+
 import 'package:buffet2gether_home/main.dart';
 import 'package:buffet2gether_home/models/bar_model.dart';
 import 'package:buffet2gether_home/services/database.dart';
@@ -15,9 +16,9 @@ class MessagingWidget extends StatefulWidget {
 class _MessagingWidgetState extends State<MessagingWidget> {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   final TextEditingController titleController =
-      TextEditingController(text: 'Title');
+  TextEditingController(text: 'Title');
   final TextEditingController bodyController =
-      TextEditingController(text: 'Body123');
+  TextEditingController(text: 'Body123');
   final List<Message> messages = [];
 
   @override
@@ -68,39 +69,39 @@ class _MessagingWidgetState extends State<MessagingWidget> {
     if(title != null){
       if(title == 'notification'){
         Navigator.of(context).push(
-            MaterialPageRoute(builder: (BuildContext context) => 
+            MaterialPageRoute(builder: (BuildContext context) =>
             StreamProvider<List<Bar>>.value(
-              value: DatabaseService().notifications,
-                
+                value: DatabaseService().notifications,
+
                 child: MyCustomForm(tabsIndex: 2)),
             )
-          );
+        );
       }
     }
   }
 
   @override
   Widget build(BuildContext context) => ListView(
-        children: [
-          TextFormField(
-            controller: titleController,
-            decoration: InputDecoration(labelText: 'Title'),
-          ),
-          TextFormField(
-            controller: bodyController,
-            decoration: InputDecoration(labelText: 'Body'),
-          ),
-          RaisedButton(
-            onPressed: sendNotification,
-            child: Text('Send notification to all'),
-          ),
-        ]..addAll(messages.map(buildMessage).toList()),
-      );
+    children: [
+      TextFormField(
+        controller: titleController,
+        decoration: InputDecoration(labelText: 'Title'),
+      ),
+      TextFormField(
+        controller: bodyController,
+        decoration: InputDecoration(labelText: 'Body'),
+      ),
+      RaisedButton(
+        onPressed: sendNotification,
+        child: Text('Send notification to all'),
+      ),
+    ]..addAll(messages.map(buildMessage).toList()),
+  );
 
   Widget buildMessage(Message message) => ListTile(
-        title: Text(message.title),
-        subtitle: Text(message.body),
-      );
+    title: Text(message.title),
+    subtitle: Text(message.body),
+  );
 
   Future sendNotification() async {
     final response = await Messaging.sendToAll(
@@ -112,7 +113,7 @@ class _MessagingWidgetState extends State<MessagingWidget> {
     if (response.statusCode != 200) {
       Scaffold.of(context).showSnackBar(SnackBar(
         content:
-            Text('[${response.statusCode}] Error message: ${response.body}'),
+        Text('[${response.statusCode}] Error message: ${response.body}'),
       ));
     }
   }
@@ -123,3 +124,4 @@ class _MessagingWidgetState extends State<MessagingWidget> {
     // this token to send push notifications
   }
 }
+

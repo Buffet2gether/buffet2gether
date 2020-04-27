@@ -16,6 +16,8 @@ import 'package:buffet2gether_home/models/rec_model.dart';
 import 'package:buffet2gether_home/models/more_model.dart';
 import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
+import 'package:buffet2gether_home/models/bar_model.dart';
+import 'package:buffet2gether_home/models/mytable_model.dart';
 
 void main()
 {
@@ -45,11 +47,9 @@ class MyApp extends StatelessWidget
 //-------------------------------------main---------------------------------------------
 class MyCustomForm extends StatefulWidget {
 
-  MyCustomForm({this.tabsIndex,this.numberTable,this.resID});
+  MyCustomForm({this.tabsIndex});
 
   int tabsIndex;
-  String numberTable;
-  String resID;
 
   @override
   MyAppState createState() => new MyAppState();
@@ -88,118 +88,57 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
 
     ];
 
-    final tablePageDefault = new  Scaffold(
-      appBar: new AppBar(
-        leading: new Container(),
-        centerTitle: true,
-        title: new Text(
-          'โต๊ะของคุณ',
-          style: TextStyle(
-              color: Colors.deepOrange,
-              fontFamily: 'Opun',
-              fontSize: 20,
-              fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: Color(0xfff5f5f5),
-      ),
-      body: Container(
-          margin: EdgeInsets.only(top:80.0),
-          child: Column(
-              children:[
-                new Image.asset('assets/images/Buffet_transparent.png',width: 500,height: 250),
-                Text(
-                  'ยังไม่มีโต๊ะเลย...ไปเพิ่มโต๊ะบุฟเฟ่กัน!',
-                  style: TextStyle(
-                      color: Colors.deepOrange,
-                      fontFamily: 'Opun',
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold),
-                ),
-              ]
-          )),
+    final user = Provider.of<User>(context);
 
-    );
-
-    if(widget.numberTable == null)
-    {
-      return new Scaffold(
-        body: SafeArea(
-            child: new TabBarView(
-              controller: controller,
-              children: <Widget>[
-                StreamProvider<List<Recom>>.value(
+    return new Scaffold(
+      body: SafeArea(
+          child: new TabBarView(
+            controller: controller,
+            children: <Widget>[
+              StreamProvider<User>.value(
+                value: AuthService().user,
+                child: StreamProvider<List<Recom>>.value(
                   value: DatabaseService().recInRes,
                   child: StreamProvider<List<More>>.value(
                     value: DatabaseService().moreInRes,
                     child: new HomeColumn(),
                   ),
                 ),
-                tablePageDefault,
-                new NotifColumn(),
-                StreamProvider<User>.value(
-                  value: AuthService().user,
-                  child:ProfileScreen(),
-                )
-              ],
-            )
-        ),
-        bottomNavigationBar: new Material(
-          color: Colors.white,
-          shadowColor: Colors.deepOrange,
-          child: new TabBar(
-            controller: controller,
-            tabs: tabs,
-            unselectedLabelColor: Colors.black38,
-            labelColor: Colors.deepOrange,
-            indicatorColor: Colors.deepOrange,
-            indicatorWeight: 3.0,
-          ),
-        ),
-      );
-    }
-    else
-      {
-        return new Scaffold(
-          body: SafeArea(
-              child: new TabBarView(
-                controller: controller,
-                children: <Widget>[
-                  StreamProvider<List<Recom>>.value(
-                    value: DatabaseService().recInRes,
-                    child: StreamProvider<List<More>>.value(
-                      value: DatabaseService().moreInRes,
-                      child: new HomeColumn(),
-                    ),
-                  ),
-                  StreamProvider<List<MemberBarListInTable>>.value(
-                    value: DatabaseService(numberTable: widget.numberTable,resID: widget.resID).memberInTable,
-                    child: StreamProvider<List<InfoInTable>>.value(
-                      value: DatabaseService(numberTable: widget.numberTable,resID: widget.resID).infoInTable,
-                      child: new Table1(),
-                    ),
-                  ),
-                  new NotifColumn(numberTable: widget.numberTable,resID: widget.resID,),
-                  StreamProvider<User>.value(
-                    value: AuthService().user,
-                    child:ProfileScreen(),
-                  )
-                ],
-
+              ),
+              StreamProvider<User>.value(
+                value: AuthService().user,
+                child: StreamProvider<Mytable>.value(
+                    value: DatabaseService(userID: user.userId).mytable,
+                    child: new Table1()),
+              ),
+              StreamProvider<Mytable>.value(
+                value: DatabaseService(userID: user.userId).mytable,
+                child: StreamProvider<List<Bar>>.value(
+                  value: DatabaseService().notifications,
+                  child: StreamProvider<User>.value(
+                      value: AuthService().user,
+                      child: new NotifColumn()),
+                ),
+              ),
+              StreamProvider<User>.value(
+                value: AuthService().user,
+                child:ProfileScreen(),
               )
-          ),
-          bottomNavigationBar: new Material(
-            color: Colors.white,
-            shadowColor: Colors.deepOrange,
-            child: new TabBar(
-              controller: controller,
-              tabs: tabs,
-              unselectedLabelColor: Colors.black38,
-              labelColor: Colors.deepOrange,
-              indicatorColor: Colors.deepOrange,
-              indicatorWeight: 3.0,
-            ),
-          ),
-        );
-      }
+            ],
+          )
+      ),
+      bottomNavigationBar: new Material(
+        color: Colors.white,
+        shadowColor: Colors.deepOrange,
+        child: new TabBar(
+          controller: controller,
+          tabs: tabs,
+          unselectedLabelColor: Colors.black38,
+          labelColor: Colors.deepOrange,
+          indicatorColor: Colors.deepOrange,
+          indicatorWeight: 3.0,
+        ),
+      ),
+    );
   }
 }

@@ -18,9 +18,9 @@ class Messaging {
       sendToTopic(title: title, body: body, topic: 'all');
 
   static Future<Response> sendToTopic(
-          {@required String title,
-          @required String body,
-          @required String topic}) =>
+      {@required String title,
+        @required String body,
+        @required String topic}) =>
       sendTo(title: title, body: body, fcmToken: '/topics/$topic');
 
   static Future<Response> sendTo({

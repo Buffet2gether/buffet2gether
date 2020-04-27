@@ -4,6 +4,10 @@ import 'package:buffet2gether_home/shared/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/pages/login/createAccount_page.dart';
+import 'package:buffet2gether_home/models/profile_model.dart';
+import 'package:provider/provider.dart';
+import 'package:buffet2gether_home/models/mytable_model.dart';
+import 'package:buffet2gether_home/services/database.dart';
 
 /////////////////////////////////////////////Log in///////////////////////////////////////////////
 class Login extends StatefulWidget {
@@ -152,7 +156,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                             {
                               setState(()
                               {
-                                loading = false;
+                                //loading = false;
                                 error = 'Could not sign in ,Please check your email or password';
                               });
                             } else
@@ -160,7 +164,10 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                 return Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => MyCustomForm(tabsIndex: 0,)
+                                        builder: (context) =>
+                                        StreamProvider<User>.value(
+                                            value: AuthService().user,
+                                            child: MyCustomForm(tabsIndex: 0,))
                                     )
                                 );
                               }

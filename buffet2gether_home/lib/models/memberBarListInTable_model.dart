@@ -12,22 +12,24 @@ class MemberBarListInTable
   bool fashion;
   bool entertainment;
   bool book;
- 
- 
+  String userID;
+
+
   MemberBarListInTable(
-    {
-      this.imageUrl,
-      this.membername,
-      this.gender,
-      this.age,
-      this.sport,
-      this.pet,
-      this.technology,
-      this.political,
-      this.fashion,
-      this.entertainment,
-      this.book
-    }
-  );
-  
+      {
+        this.imageUrl,
+        this.membername,
+        this.gender,
+        this.age,
+        this.sport,
+        this.pet,
+        this.technology,
+        this.political,
+        this.fashion,
+        this.entertainment,
+        this.book,
+        this.userID
+      }
+      );
+
 }

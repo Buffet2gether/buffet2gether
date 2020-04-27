@@ -1,3 +1,5 @@
+import 'package:buffet2gether_home/models/mytable_model.dart';
+import 'package:buffet2gether_home/models/userFindGroup_model.dart';
 import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/pages/home/matching_page.dart';
 import 'package:buffet2gether_home/pages/home/createTable_page.dart';
@@ -7,10 +9,8 @@ import 'package:buffet2gether_home/models/profile_model.dart';
 import 'dart:ui';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:buffet2gether_home/models/rec_model.dart';
-import 'package:buffet2gether_home/models/more_model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:buffet2gether_home/services/auth.dart';
+import 'package:buffet2gether_home/models/userMaster_model.dart';
 
 class InfoPage extends StatefulWidget
 {
@@ -166,6 +166,8 @@ class _InfoPageState extends State<InfoPage>
       );
 
       final user = Provider.of<User>(context);
+      final userMasters = Provider.of<List<UserMaster>>(context);
+      final mytable = Provider.of<Mytable>(context);
 
       ///ปุ่ม Matching
       final buttonMatch = StreamBuilder<UserData>(
@@ -175,6 +177,7 @@ class _InfoPageState extends State<InfoPage>
             return InkWell(
                 onTap: ()
                 {
+                if(mytable.numberTable == null){
                   return showDialog(
                       context: context,
                       builder: (context)
@@ -201,12 +204,56 @@ class _InfoPageState extends State<InfoPage>
                             userData.politic,
                             userData.entertainment,
                             userData.book,
-                            userData.pet
+                            userData.pet,
+                          userData.userId,
                         );
+                        ///////////ส่ง notification หาเจ้าของห้องทุกคนในร้านนี้ ว่ามีเรามาหากลุ่ม
+                        for (var item in userMasters) {
+                          DatabaseService().updateNotifData(
+                              widget.resID,
+                              userData.profilePicture,
+                              userData.name,
+                              null,
+                              false,
+                              userData.gender,
+                              (DateTime.now().difference(userData.dateofBirth).inDays / 365).floor(),
+                              userData.fashion,
+                              userData.sport,
+                              userData.technology,
+                              userData.politic,
+                              userData.entertainment,
+                              userData.book,
+                              userData.pet,
+                              userData.userId,
+                              item.userId);
+                        }
+
                         ///แล้วแสดงหน้าน้องบุฟ 3 วิแล้วไปหน้า Notification
-                        return MatchingPage();
+                        return StreamProvider<Mytable>.value(
+                            value: DatabaseService(userID: userData.userId).mytable,
+                            child: MatchingPage());
                       }
                   );
+                      }
+                else{
+                  ////////////////////////////////ถ้ามีโต๊ะแล้ว Match ไม่ได้
+                  return showDialog(
+                    context: context,
+                    builder: (context)
+                    {
+                      return AlertDialog(
+                        content: Text(
+                          'ขออภัย...คุณมีกลุ่มบุฟเฟฟต์แล้ว',
+                          style: TextStyle(
+                            fontFamily: 'Opun',
+                            color: Colors.deepOrange,
+                            fontSize: 13,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }
                 },
                 child: new Container(
                   margin: EdgeInsets.only(top: 50),
@@ -228,7 +275,6 @@ class _InfoPageState extends State<InfoPage>
           }
           );
 
-
       ///ปุ่ม Create Table
       final buttonCreate = InkWell(
         onTap: ()
@@ -237,16 +283,22 @@ class _InfoPageState extends State<InfoPage>
           return Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => StreamProvider<User>.value(
-                      value: AuthService().user,
-                      child: CreateTablePage(
-                        resID: widget.resID,
-                        name1: widget.name1,
-                        name2: widget.name2,
-                        image: widget.image,
-                        location: widget.location,
-                        time: widget.time,
-                      )
+                  builder: (context) => StreamProvider<Mytable>.value(
+                    value: DatabaseService(userID:user.userId).mytable,
+                    child: StreamProvider<List<UserFindGroup>>.value(
+                      value: DatabaseService(resID: widget.resID).userFindGroup,
+                      child: StreamProvider<User>.value(
+                          value: AuthService().user,
+                          child: CreateTablePage(
+                            resID: widget.resID,
+                            name1: widget.name1,
+                            name2: widget.name2,
+                            image: widget.image,
+                            location: widget.location,
+                            time: widget.time,
+                          )
+                      ),
+                    ),
                   )
               )
           );

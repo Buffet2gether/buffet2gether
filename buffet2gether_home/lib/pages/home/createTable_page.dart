@@ -495,7 +495,7 @@ class _CreateTablePageState extends State<CreateTablePage>
           ],
         )
     );
-
+   
     return new Scaffold(
         appBar: new AppBar(
           centerTitle: true,

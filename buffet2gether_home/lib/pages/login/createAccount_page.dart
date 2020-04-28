@@ -11,6 +11,8 @@ import 'package:buffet2gether_home/shared/loading.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'dart:math';
+import 'package:intl/intl.dart';
 
 class GenderItem {
   final genderName;
@@ -221,7 +223,8 @@ class _CreateProfileState extends State<CreateProfile> with SingleTickerProvider
                   });
                   if (_tempImage != null)
                   {
-                    StorageReference storageReference = FirebaseStorage.instance.ref().child('profile_pictures/user_/');
+                    int pathImage = new Random().nextInt(10000000);
+                    StorageReference storageReference = FirebaseStorage.instance.ref().child('profile_pictures/user_').child(pathImage.toString());
                     StorageUploadTask uploadTask = storageReference.putFile(_tempImage);
                     await uploadTask.onComplete;
                     print('File Uploaded');

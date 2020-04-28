@@ -278,7 +278,9 @@ class _CreateProfileState extends State<CreateProfile> with SingleTickerProvider
                           ),
                           child: CircleAvatar(
                             backgroundImage: NetworkImage(
-                                _uploadedImageURL ?? userData.profilePicture),
+                                _uploadedImageURL ?? 'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/profile_pictures%2Fdefault.png?alt=media&token=824df76d-dc2b-4a05-8d08-4414dc03750e'
+                                //_uploadedImageURL ?? userData.profilePicture
+                            ),
                             //FileImage(_tempImage),
                             radius: 70,
                           ),

@@ -23,11 +23,11 @@ class DatabaseService {
 
   //----------------------------- Restaurants -----------------------------------------------------------
   final CollectionReference recInResCollection =
-      Firestore.instance.collection('Restaurants/recommend/recList');
+  Firestore.instance.collection('Restaurants/recommend/recList');
   final CollectionReference moreInResCollection =
-      Firestore.instance.collection('Restaurants/more/moreList');
+  Firestore.instance.collection('Restaurants/more/moreList');
   final CollectionReference GroupsCollection =
-      Firestore.instance.collection('Groups');
+  Firestore.instance.collection('Groups');
 
   ///ดึงข้อมูลร้านใน Recommend
   List<Recom> _recListFromSnapshot(QuerySnapshot snapshot) {
@@ -177,27 +177,27 @@ class DatabaseService {
   //----------------------------- NOTIFACATION -----------------------------------------------------------
   /// set path ของ Collection ใน firebase ที่จะเอามาใช้
   final CollectionReference userCollection =
-      Firestore.instance.collection('Users');
+  Firestore.instance.collection('Users');
 
   /// ฟังก์ชันเอาไว้เพิ่ม document ใน firebase ส่วนที่เป็น notification (เพิ่มแถบแจ้งเตือน)
   Future updateNotifData(
-    String resID,
-    String imageUrl,
-    String membername,
-    String number,
-    bool group,
-    String gender,
-    int age,
-    bool fashion,
-    bool sport,
-    bool technology,
-    bool political,
-    bool entertainment,
-    bool book,
-    bool pet,
-    String userID, /////////// เจ้าของข้อมูลก่อนหน้านี้
-    String pathID, /////////// userID ของ คนที่ต้องการให้เห็นแจ้งเตือนนี้
-  ) async {
+      String resID,
+      String imageUrl,
+      String membername,
+      String number,
+      bool group,
+      String gender,
+      int age,
+      bool fashion,
+      bool sport,
+      bool technology,
+      bool political,
+      bool entertainment,
+      bool book,
+      bool pet,
+      String userID, /////////// เจ้าของข้อมูลก่อนหน้านี้
+      String pathID, /////////// userID ของ คนที่ต้องการให้เห็นแจ้งเตือนนี้
+      ) async {
     return await userCollection
         .document(pathID)
         .collection('notification')
@@ -251,21 +251,21 @@ class DatabaseService {
 
   /////////////// ฟังก์ชันเอาไว้เพิ่ม document ใน firebase ส่วนที่รับ member เข้ากลุ่ม///////////////////////
   Future updateMemberInGroup(
-    String resID,
-    String imageUrl,
-    String membername,
-    String numberTable,
-    String gender,
-    int age,
-    bool fashion,
-    bool sport,
-    bool technology,
-    bool political,
-    bool entertainment,
-    bool book,
-    bool pet,
-    String userID,
-  ) async {
+      String resID,
+      String imageUrl,
+      String membername,
+      String numberTable,
+      String gender,
+      int age,
+      bool fashion,
+      bool sport,
+      bool technology,
+      bool political,
+      bool entertainment,
+      bool book,
+      bool pet,
+      String userID,
+      ) async {
     return await GroupsCollection.document(resID)
         .collection('GroupsInRes')
         .document(numberTable)
@@ -550,7 +550,7 @@ class DatabaseService {
   //------------------------------- USER -----------------------------------------------------------
 // collection reference
   final CollectionReference tableCollection =
-      Firestore.instance.collection('Groups');
+  Firestore.instance.collection('Groups');
 
   Future<void> updateUserData(
       String profilePicture,
@@ -585,14 +585,14 @@ class DatabaseService {
   }
 
   Future<void> updateUserDataInteresting(
-    bool fashion,
-    bool sport,
-    bool technology,
-    bool politic,
-    bool entertainment,
-    bool book,
-    bool pet,
-  ) async {
+      bool fashion,
+      bool sport,
+      bool technology,
+      bool politic,
+      bool entertainment,
+      bool book,
+      bool pet,
+      ) async {
     return await userCollection.document(uid).updateData({
       'Fashion': fashion,
       'Sport': sport,
@@ -605,11 +605,11 @@ class DatabaseService {
   }
 
   Future<void> updateUserDataDetail(
-    String name,
-    String gender,
-    DateTime dateOfBirth,
-    String bio,
-  ) async {
+      String name,
+      String gender,
+      DateTime dateOfBirth,
+      String bio,
+      ) async {
     return await userCollection.document(uid).updateData({
       'Name': name,
       'Gender': gender,
@@ -618,12 +618,13 @@ class DatabaseService {
     });
   }
 
+//new func
   Future<void> updateFirstTimeUserData(
-    String profilePic,
-    String name,
-    String gender,
-    DateTime dateOfBirth,
-  ) async {
+      String profilePic,
+      String name,
+      String gender,
+      DateTime dateOfBirth,
+      ) async {
     return await userCollection.document(uid).updateData({
       'Name': name,
       'Gender': gender,
@@ -633,8 +634,8 @@ class DatabaseService {
   }
 
   Future<void> updateUserProfilePicture(
-    String url,
-  ) async {
+      String url,
+      ) async {
     return await userCollection.document(uid).updateData({
       'ProfilePicture': url,
     });
@@ -700,9 +701,7 @@ class DatabaseService {
 /*
   List<GetID> _GetID(QuerySnapshot snapshot){
 
-    
   }
-
 */
 
 }

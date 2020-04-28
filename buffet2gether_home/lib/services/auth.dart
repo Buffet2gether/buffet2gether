@@ -45,8 +45,7 @@ class AuthService {
       FirebaseUser user = result.user;
       //creat a new doc for the user with uid
       await DatabaseService(uid: user.uid).updateUserData(
-          ///////////////////default value
-
+        ///////////////////default value
           'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/profile_pictures%2Fdefault.png?alt=media&token=824df76d-dc2b-4a05-8d08-4414dc03750e',
           username,
           gender,

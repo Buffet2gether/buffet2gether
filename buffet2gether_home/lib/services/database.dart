@@ -618,6 +618,7 @@ class DatabaseService {
     });
   }
 
+//new func
   Future<void> updateFirstTimeUserData(
     String profilePic,
     String name,

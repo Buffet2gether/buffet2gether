@@ -41,6 +41,7 @@ class _MyTable1State extends State<MyTable1>
     final listMember = Provider.of<List<MemberBarListInTable>>(context);
     final infoFromTable = Provider.of<InfoInTable>(context);
 
+    final screenSize = MediaQuery.of(context).size;
 
     final buttonFinish = Container(
       margin: EdgeInsets.all(10),
@@ -71,7 +72,6 @@ class _MyTable1State extends State<MyTable1>
       ),
     );
 
-
     final info = Container(
         margin: EdgeInsets.all(10),
         decoration: new BoxDecoration(
@@ -88,7 +88,7 @@ class _MyTable1State extends State<MyTable1>
         ),
         child: Column(
           children: <Widget>[
-            Text('No.'+infoFromTable.number,
+            Text('No.'+infoFromTable?.number,
               style: TextStyle(
                   fontFamily: 'Opun',
                   fontSize: 15,
@@ -131,7 +131,6 @@ class _MyTable1State extends State<MyTable1>
           ],
         )
     );
-
 
     ///คุณสมบัติต่างๆ
     // แปลง time stamp ให้เป็น date Time
@@ -335,8 +334,6 @@ class _MyTable1State extends State<MyTable1>
       },
     );
 
-
-
     final matchCol = Container(
         color: Colors.white10,
         child: Column(
@@ -370,7 +367,6 @@ class _MyTable1State extends State<MyTable1>
         )
     );
 
-
     final stackMatchCol = Stack(
         children: [
           matchCol,
@@ -385,11 +381,7 @@ class _MyTable1State extends State<MyTable1>
         ]
     );
 
-
     return stackMatchCol;
-
-
-
 
   }
 }

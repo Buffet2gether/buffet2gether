@@ -28,7 +28,7 @@ class _BarListState extends State<BarList> {
     final userFindGroups = Provider.of<List<UserFindGroup>>(context);
 
     return ListView.builder(
-        itemCount: bars.length,
+        itemCount: bars?.length,
         itemBuilder: (context,index){
           final bar = bars[index];
           return StreamBuilder<UserData>(

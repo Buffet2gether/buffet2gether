@@ -28,13 +28,13 @@ class _NotifColumnState extends State<NotifColumn>
     final user = Provider.of<User>(context);
     final mytable = Provider.of<Mytable>(context);
     return  StreamProvider<List<UserFindGroup>>.value(
-      value:DatabaseService(resID: mytable.resID).userFindGroup,
+      value:DatabaseService(resID: mytable?.resID).userFindGroup,
       child: StreamProvider<Mytable>.value(
-        value: DatabaseService(userID: user.userId).mytable,
+        value: DatabaseService(userID: user?.userId).mytable,
         child: StreamProvider<User>.value(
           value: AuthService().user,
           child: StreamProvider<List<Bar>>.value(
-            value: DatabaseService(userID: user.userId).notifications,
+            value: DatabaseService(userID: user?.userId).notifications,
             child: new Scaffold(
                 appBar: new AppBar(
                   centerTitle: true,

@@ -57,12 +57,14 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   {
     return loading ? Loading() : Scaffold(
       body: SafeArea(
-        child: ListView.builder(
+        child:
+        ListView.builder(
             controller: scrollController,
             itemCount: 1,
             itemBuilder: (BuildContext context, int index)
             {
-              return Container(
+              return
+                Container(
                 padding: EdgeInsets.only(left: 20, right: 20),
                 child: Form(
                   key: _formkey,
@@ -70,9 +72,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      SizedBox(
-                        height: 80,
-                      ),
+                      //SizedBox(height: 80,),
                       Text(
                         'Log in',
                         style: TextStyle(
@@ -81,9 +81,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                             fontSize: 25,
                             fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      SizedBox(height: 20,),
                       Container(
                         width: 380,
                         decoration: new BoxDecoration(
@@ -109,9 +107,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                           },
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 10,),
                       Container(
                         width: 380,
                         decoration: new BoxDecoration(
@@ -138,9 +134,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                           },
                         ),
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      SizedBox(height: 20,),
                       RaisedButton(
                         color: Colors.yellow[600],
                         shape: RoundedRectangleBorder(
@@ -193,10 +187,10 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                         error,
                         style: TextStyle(color: Colors.red, fontSize: 14.0),
                       ),
-                      SizedBox(
-                        height: 220,
-                      ),
-                      Row(
+                      SizedBox(height: 10,),
+                      FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Row(
                         children: <Widget>[
                           Text(
                             '        Don\'t have an account?',
@@ -230,6 +224,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                           )
                         ],
                       ),
+                      )
                     ],
                   ),
                 ),

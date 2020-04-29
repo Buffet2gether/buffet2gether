@@ -26,8 +26,9 @@ class _Table1State extends State<Table1>
   {
     final mytable = Provider.of<Mytable>(context);
     final user = Provider.of<User>(context);
+    final screenSize = MediaQuery.of(context).size;
 
-    final tablePageDefault = new  Scaffold(
+    final tablePageDefault = new Scaffold(
       appBar: new AppBar(
         leading: new Container(),
         centerTitle: true,
@@ -41,11 +42,13 @@ class _Table1State extends State<Table1>
         ),
         backgroundColor: Color(0xfff5f5f5),
       ),
-      body: Container(
-          margin: EdgeInsets.only(top:80.0),
+      body: Center(
           child: Column(
               children:[
-                new Image.asset('assets/images/Buffet_transparent.png',width: 500,height: 250),
+                new Image.network(
+                    'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2FBuffet_transparent.png?alt=media&token=cb9c8611-b998-42aa-92f5-6972a91078cb',
+                    width: 500,
+                    height: 250),
                 Text(
                   'ยังไม่มีโต๊ะเลย...ไปเพิ่มโต๊ะบุฟเฟ่กัน!',
                   style: TextStyle(
@@ -55,10 +58,11 @@ class _Table1State extends State<Table1>
                       fontWeight: FontWeight.bold),
                 ),
               ]
-          )),
+          )
+      ),
     );
 
-    if (mytable.numberTable == null){
+    if (mytable?.numberTable == null){
       return tablePageDefault;
     }else{
       return StreamProvider<User>.value(

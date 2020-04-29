@@ -80,16 +80,14 @@ class _MatchingPageState extends State<MatchingPage>
               backgroundColor: Colors.white70,
             ),
             body: SafeArea(
-              child: Container(
-                  color: Colors.white,
-                  child: Center(
+              child: Center(
                     child: Stack(
                         children: <Widget>[
                           Positioned(
-                            right: 20,
-                            top: 5,
+                            left: 15,
+                            top: 10,
                             child: Image.network(
-                              'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2FBuffet.png?alt=media&token=243356b5-0a56-4a00-92cf-4a79f30b22cc',
+                              'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2FBuffet_transparent.png?alt=media&token=cb9c8611-b998-42aa-92f5-6972a91078cb',
                               height: 300,
                               width: 300,
                             ),
@@ -106,7 +104,6 @@ class _MatchingPageState extends State<MatchingPage>
                           )
                         ],
                       )
-                  )
               ),
             )
         );

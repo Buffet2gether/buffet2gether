@@ -31,13 +31,6 @@ class _GetStartedColumnState extends State<GetStartedColumn>
                   builder: (context) => Login()
               )
           );
-          /*showDialog(
-          context: context,
-          builder: (context)
-          {
-            return Login();
-          },
-        );*/
         },
       child:new Container(
         margin: EdgeInsets.only(top:30.0),
@@ -128,7 +121,13 @@ class _GetStartedColumnState extends State<GetStartedColumn>
 
     return Scaffold(
       body: SafeArea(
-        child: getStartedColumn
+        child: ListView.builder(
+            controller: scrollController,
+            itemCount: 1,
+            itemBuilder: (BuildContext context, int index)
+            {
+              return getStartedColumn;
+            })
       )
     );
   }

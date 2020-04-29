@@ -108,11 +108,11 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
               StreamProvider<User>.value(
                 value: AuthService().user,
                 child: StreamProvider<Mytable>.value(
-                    value: DatabaseService(userID: user.userId).mytable,
+                    value: DatabaseService(userID: user?.userId).mytable,
                     child: new Table1()),
               ),
               StreamProvider<Mytable>.value(
-                value: DatabaseService(userID: user.userId).mytable,
+                value: DatabaseService(userID: user?.userId).mytable,
                 child: StreamProvider<List<Bar>>.value(
                   value: DatabaseService().notifications,
                   child: StreamProvider<User>.value(

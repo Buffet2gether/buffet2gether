@@ -442,12 +442,15 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                   letterSpacing: 0.5,
                                 ),
                               ),
-                              onTap: () async {
+                              onTap: () async
+                              {
                                 await _auth.signOut();
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (_) => Login()));
+                                        builder: (_) => Login()
+                                    )
+                                );
                               },
                             ),
                           ],

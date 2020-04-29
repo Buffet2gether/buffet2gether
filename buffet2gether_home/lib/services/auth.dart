@@ -35,10 +35,11 @@ class AuthService {
   Future registerWithEmailAndPassword(
       String email,
       String password,
-      String profilePic,
-      String username,
-      String gender,
-      DateTime dateOfBirth) async {
+      //String profilePic,
+      //String username,
+      //String gender,
+      //DateTime dateOfBirth
+      ) async {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -46,10 +47,10 @@ class AuthService {
       //creat a new doc for the user with uid
       await DatabaseService(uid: user.uid).updateUserData(
         ///////////////////default value
-          'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/profile_pictures%2Fdefault.png?alt=media&token=824df76d-dc2b-4a05-8d08-4414dc03750e',
-          username,
-          gender,
-          dateOfBirth,
+          'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/profile_pictures%2Fdefault.png?alt=media&token=c91f2a65-0928-4eb1-a284-c07c0a8c1517',
+          'default', //Username
+          'Not Specified', //default gender
+          DateTime(1950, 1, 1), //default date of birth
           'Default Bio',
           true,
           true,

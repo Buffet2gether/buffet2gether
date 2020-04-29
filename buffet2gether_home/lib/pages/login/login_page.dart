@@ -55,6 +55,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context)
   {
+
     return loading ? Loading() : Scaffold(
       body: SafeArea(
         child:
@@ -65,6 +66,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
             {
               return
                 Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                color: Color(0xfff5f5f5),
                 padding: EdgeInsets.only(left: 20, right: 20),
                 child: Form(
                   key: _formkey,
@@ -191,9 +195,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       FittedBox(
                         fit: BoxFit.fitWidth,
                         child: Row(
-                        children: <Widget>[
-                          Text(
-                            '        Don\'t have an account?',
+                          children: <Widget>[
+                            Text(
+                            'Don\'t have an account?',
                             style: TextStyle(
                               fontFamily: 'Opun',
                               color: Colors.black26,
@@ -201,7 +205,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          new InkWell(
+                            SizedBox(width: 20,),
+                            new InkWell(
                               onTap: ()
                               {
                                 return showDialog(
@@ -213,7 +218,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                 );
                                 },
                               child: Text(
-                                '   Sign up',
+                                'Sign up',
                                 style: TextStyle(
                                   fontFamily: 'Opun',
                                   color: Colors.deepOrange,

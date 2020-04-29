@@ -33,6 +33,8 @@ class MyTable1 extends StatefulWidget
 
 class _MyTable1State extends State<MyTable1>
 {
+  ScrollController scrollController;
+
   @override
   Widget build(BuildContext context)
   {
@@ -109,14 +111,23 @@ class _MyTable1State extends State<MyTable1>
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(Icons.location_on,size: 25,color: Colors.amber,),
-                Text(
-                  infoFromTable.location,
-                  style: TextStyle(
-                    fontFamily: 'Opun',
-                    color: Colors.grey,
-                    fontSize: 13,
+                Expanded(
+                  child: Text(
+                    infoFromTable.location,
+                    style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.grey,
+                      fontSize: 13,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
-                ),
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
                 Icon(Icons.access_time,size: 25,color: Colors.amber),
                 Text(
                   ' '+infoFromTable.time,
@@ -139,6 +150,7 @@ class _MyTable1State extends State<MyTable1>
       return int.parse(stringDueTime);
     }
     DateTime newDueTime = new DateTime.fromMillisecondsSinceEpoch(getDueTime()*1000);
+
     // แปลง string gender ให้เป็น icon เพศทีเลือกไว้
     int getGender(){
       int index = 0;
@@ -149,6 +161,7 @@ class _MyTable1State extends State<MyTable1>
         index += 1;
       }
     }
+
     final properties = Container(
       height: 80,
       margin: EdgeInsets.symmetric(horizontal: 10),
@@ -381,7 +394,14 @@ class _MyTable1State extends State<MyTable1>
         ]
     );
 
-    return stackMatchCol;
-
+    return SafeArea(
+        child: ListView(
+            physics: BouncingScrollPhysics(),
+            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
+            children: <Widget>[
+              stackMatchCol
+            ]
+        )
+    );
   }
 }

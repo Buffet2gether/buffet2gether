@@ -64,7 +64,8 @@ class _Table1State extends State<Table1>
 
     if (mytable?.numberTable == null){
       return tablePageDefault;
-    }else{
+    }else
+      {
       return StreamProvider<User>.value(
         value: AuthService().user,
         child: StreamProvider<Mytable>.value(
@@ -88,8 +89,8 @@ class _Table1State extends State<Table1>
                       ),
                       backgroundColor: Color(0xfff5f5f5),
                     ),
-                    body: MyTable1()),
-
+                    body: MyTable1()
+                ),
               )
           ),
         ),

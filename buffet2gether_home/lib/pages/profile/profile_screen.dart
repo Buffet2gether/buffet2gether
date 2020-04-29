@@ -34,8 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   print(userData.userId);
                   return ListView(
                     physics: BouncingScrollPhysics(),
-                    padding:
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
+                    padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.all(20.0),
@@ -315,17 +314,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       Expanded(
                                         //height: 180,
                                         child: ListView.builder(
-                                          physics:
-                                          NeverScrollableScrollPhysics(),
+                                          physics: NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
                                           itemCount: 7,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            if (index == 0 &&
-                                                userData.fashion == true) {
+                                          itemBuilder: (BuildContext context, int index)
+                                          {
+                                            if (index == 0 && userData.fashion == true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(
-                                                    vertical: 3, horizontal: 5),
+                                                margin: EdgeInsets.symmetric(vertical: 3, horizontal: 5),
                                                 decoration: BoxDecoration(
                                                   boxShadow: [
                                                     BoxShadow(
@@ -359,8 +355,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               );
                                             }
-                                            if (index == 1 &&
-                                                userData.sport == true) {
+                                            if (index == 1 && userData.sport == true) {
                                               return Container(
                                                 margin: EdgeInsets.symmetric(
                                                     vertical: 3, horizontal: 5),
@@ -397,8 +392,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               );
                                             }
-                                            if (index == 2 &&
-                                                userData.technology == true) {
+                                            if (index == 2 && userData.technology == true) {
                                               return Container(
                                                 margin: EdgeInsets.symmetric(
                                                     vertical: 3, horizontal: 5),
@@ -434,8 +428,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               );
                                             }
-                                            if (index == 3 &&
-                                                userData.politic == true) {
+                                            if (index == 3 && userData.politic == true) {
                                               return Container(
                                                 margin: EdgeInsets.symmetric(
                                                     vertical: 3, horizontal: 5),
@@ -472,9 +465,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               );
                                             }
-                                            if (index == 4 &&
-                                                userData.entertainment ==
-                                                    true) {
+                                            if (index == 4 && userData.entertainment == true) {
                                               return Container(
                                                 margin: EdgeInsets.symmetric(
                                                     vertical: 3, horizontal: 5),
@@ -510,8 +501,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               );
                                             }
-                                            if (index == 5 &&
-                                                userData.book == true) {
+                                            if (index == 5 && userData.book == true) {
                                               return Container(
                                                 margin: EdgeInsets.symmetric(
                                                     vertical: 3, horizontal: 5),
@@ -547,8 +537,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               );
                                             }
-                                            if (index == 6 &&
-                                                userData.pet == true) {
+                                            if (index == 6 && userData.pet == true) {
                                               return Container(
                                                 margin: EdgeInsets.symmetric(
                                                     vertical: 3, horizontal: 5),

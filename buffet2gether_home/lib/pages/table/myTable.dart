@@ -176,7 +176,9 @@ class _MyTable1State extends State<MyTable1>
             )
           ]
       ),
-      child: Row(
+      child: FittedBox(
+        fit: BoxFit.fitWidth,
+        child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           ///age
@@ -251,36 +253,24 @@ class _MyTable1State extends State<MyTable1>
 
         ],
       ),
+    )
     );
 
     final memberBar = ListView.builder(
       scrollDirection: Axis.vertical,
       itemCount: listMember.length,
-      itemBuilder: (BuildContext context,int index)
-      {
+      itemBuilder: (BuildContext context,int index) {
         MemberBarListInTable member = listMember[index];
         String interesting(){
-          List<bool> interest= [member.sport,member.pet,member.technology,member.political,member.fashion,
-            member.entertainment];
+          List<bool> interest= [member.fashion, member.sport, member.technology, member.political, member.entertainment, member.book, member.pet];
           String infomation = '';
-          if(interest[0]){
-            infomation += '#sport';
-          }
-          if(interest[1]){
-            infomation += '#pet';
-          }
-          if(interest[2]){
-            infomation += '#technology';
-          }
-          if(interest[3]){
-            infomation += '#political';
-          }
-          if(interest[4]){
-            infomation += '#fashion';
-          }
-          if(interest[5]){
-            infomation += '#entertainment';
-          }
+          if(interest[0]){infomation += '#fashion';}
+          if(interest[1]){infomation += '#sport';}
+          if(interest[2]){infomation += '#technology';}
+          if(interest[3]){infomation += '#political';}
+          if(interest[4]){infomation += '#entertainment';}
+          if(interest[5]){infomation += '#book';}
+          if(interest[6]){infomation += '#pet';}
           return infomation;
         }
         return  new Container(
@@ -347,42 +337,49 @@ class _MyTable1State extends State<MyTable1>
       },
     );
 
-    final matchCol = Container(
-        color: Colors.white10,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            info,
-            Text(
-              '  '+'Matching with',
-              style: TextStyle(
-                fontFamily: 'Opun',
-                color: Colors.deepOrange,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-
-              ),
-            ),
-            properties,
-            Text(
-              '  '+'Member',
-              style: TextStyle(
-                fontFamily: 'Opun',
-                color: Colors.deepOrange,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-
-              ),
-            ),
-            Flexible(child: memberBar,)
-
-          ],
-        )
-    );
-
     final stackMatchCol = Stack(
         children: [
-          matchCol,
+          SafeArea(
+            child: Column(
+                children: <Widget>[
+                  Expanded(
+                      child: ListView(
+                          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
+                          children: <Widget>[
+                            info,
+                            Text(
+                              '  '+'Matching with',
+                              style: TextStyle(
+                                fontFamily: 'Opun',
+                                color: Colors.deepOrange,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+
+                              ),
+                            ),
+                            properties,
+                            Text(
+                              '  '+'Member',
+                              style: TextStyle(
+                                fontFamily: 'Opun',
+                                color: Colors.deepOrange,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+
+                              ),
+                            ),
+                            Container(
+                              height: 200,
+                              width: screenSize.width,
+                              color: Color(0xFFF5F5F5),
+                              child: memberBar,
+                            )
+                          ]
+                      )
+                  )
+                ]
+            )
+          ),
           Container(
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -394,14 +391,7 @@ class _MyTable1State extends State<MyTable1>
         ]
     );
 
-    return SafeArea(
-        child: ListView(
-            physics: BouncingScrollPhysics(),
-            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
-            children: <Widget>[
-              stackMatchCol
-            ]
-        )
-    );
+
+    return stackMatchCol;
   }
 }

@@ -10,6 +10,7 @@ import 'package:buffet2gether_home/models/infoInTable_model.dart';
 import 'package:buffet2gether_home/models/memberBarListInTable_model.dart';
 import 'package:buffet2gether_home/models/rec_model.dart';
 import 'package:buffet2gether_home/models/more_model.dart';
+import 'package:buffet2gether_home/models/promotion_model.dart';
 
 class DatabaseService {
   final String uid;
@@ -28,6 +29,8 @@ class DatabaseService {
   Firestore.instance.collection('Restaurants/more/moreList');
   final CollectionReference GroupsCollection =
   Firestore.instance.collection('Groups');
+  final CollectionReference promotionCollection =
+  Firestore.instance.collection('Restaurants/promotion/promotionPic');
 
   ///ดึงข้อมูลร้านใน Recommend
   List<Recom> _recListFromSnapshot(QuerySnapshot snapshot) {
@@ -67,6 +70,27 @@ class DatabaseService {
 
   Stream<List<More>> get moreInRes {
     return moreInResCollection.snapshots().map(_moreListFromSnapshot);
+  }
+
+  ///ดึงข้อมูลร้านใน promotion
+  List<Promo> _promotionPicFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return Promo(
+        resID: doc.data['resID'] ?? '',
+        imageUrl: doc.data['imageUrl'] ?? '',
+        name1: doc.data['name1'] ?? '',
+        name2: doc.data['name2'] ?? '',
+        location: doc.data['location'] ?? '',
+        promotion: doc.data['promotion'] ?? '',
+        promotionInfo: doc.data['promotionInfo'] ?? '',
+        time: doc.data['time'] ?? '',
+        proPic: doc.data['proPic'] ?? '',
+      );
+    }).toList();
+  }
+
+  Stream<List<Promo>> get promotionPic {
+    return promotionCollection.snapshots().map(_promotionPicFromSnapshot);
   }
 
   ///เพิ่มข้อมูลกลุ่มที่สร้างใน Groups/ชื่อร้าน(resID)/GroupsInRes/... ใน 1 ร้านมีหลายกลุ่ม

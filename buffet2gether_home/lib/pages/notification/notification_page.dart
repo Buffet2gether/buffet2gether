@@ -13,7 +13,7 @@ import 'package:buffet2gether_home/models/userFindGroup_model.dart';
 //----------------------------------------Notification page------------------------------------
 class NotifColumn extends StatefulWidget
 {
-  
+
   @override
   _NotifColumnState createState() => new _NotifColumnState();
 }
@@ -21,20 +21,20 @@ class _NotifColumnState extends State<NotifColumn>
 {
   ScrollController scrollController;
 
-  
+
   @override
   Widget build(BuildContext context)
   {
     final user = Provider.of<User>(context);
     final mytable = Provider.of<Mytable>(context);
     return  StreamProvider<List<UserFindGroup>>.value(
-      value:DatabaseService(resID: mytable.resID).userFindGroup,
-          child: StreamProvider<Mytable>.value(
-        value: DatabaseService(userID: user.userId).mytable,
-            child: StreamProvider<User>.value(
+      value:DatabaseService(resID: mytable?.resID).userFindGroup,
+      child: StreamProvider<Mytable>.value(
+        value: DatabaseService(userID: user?.userId).mytable,
+        child: StreamProvider<User>.value(
           value: AuthService().user,
-            child: StreamProvider<List<Bar>>.value(
-            value: DatabaseService(userID: user.userId).notifications,
+          child: StreamProvider<List<Bar>>.value(
+            value: DatabaseService(userID: user?.userId).notifications,
             child: new Scaffold(
                 appBar: new AppBar(
                   centerTitle: true,
@@ -51,7 +51,7 @@ class _NotifColumnState extends State<NotifColumn>
                   ),
                   backgroundColor: Colors.white,
                 ),
-              body: BarList()
+                body: BarList()
             ),
           ),
         ),
@@ -59,4 +59,3 @@ class _NotifColumnState extends State<NotifColumn>
     );
   }
 }
-

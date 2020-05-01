@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:buffet2gether_home/models/profile_model.dart';
-import 'package:buffet2gether_home/pages/login/login_page.dart';
 import 'package:buffet2gether_home/pages/profile/detail_editing_screen.dart';
 import 'package:buffet2gether_home/pages/profile/interesting_editing_screen.dart';
 import 'package:buffet2gether_home/pages/login/reset_password_screen.dart';
@@ -12,6 +11,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:buffet2gether_home/services/auth.dart';
+import 'package:buffet2gether_home/pages/login/login_page.dart';
+
 
 class ProfileSettingScreen extends StatefulWidget {
   @override
@@ -33,7 +34,6 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 UserData userData = snapshot.data;
-
                 Future getImageFromGalleryAndUpload() async {
                   await ImagePicker.pickImage(source: ImageSource.gallery)
                       .then((image) {
@@ -61,7 +61,6 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                     });
                   }
                 }
-
                 /*Future getImageFromCameraAndUpload() async {
                   await ImagePicker.pickImage(source: ImageSource.camera)
                       .then((image) {
@@ -71,10 +70,8 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                   });
                   uploadPicture();
                 }*/
-
                 return ListView(
-                  padding:
-                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                  padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(20.0),
@@ -436,21 +433,24 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                         Row(
                           children: <Widget>[
                             GestureDetector(
-                            child :Text(
-                              'Log out',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 0.5,
+                              child :Text(
+                                'Log out',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 0.5,
+                                ),
                               ),
-                            ),
-                            onTap: () async {
+                              onTap: () async
+                              {
                                 await _auth.signOut();
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (_) => Login()));
+                                        builder: (_) => Login()
+                                    )
+                                );
                               },
                             ),
                           ],

@@ -72,6 +72,8 @@ class _HomeColumnState extends State<HomeColumn>
   @override
   Widget build(BuildContext context)
   {
+    final screenSize = MediaQuery.of(context).size;
+
     final rowSearch = Container(
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
@@ -247,7 +249,7 @@ class _HomeColumnState extends State<HomeColumn>
         color: Color(0xFFF5F5F5),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: recs.length,
+          itemCount: recs?.length,
           itemBuilder: (BuildContext context,int index)
           {
             final rec = recs[index];
@@ -284,7 +286,6 @@ class _HomeColumnState extends State<HomeColumn>
                   margin: EdgeInsets.only(left: 10, bottom: 7),
                   decoration: new BoxDecoration(
                     borderRadius: new BorderRadius.circular(10),
-                    //color: Colors.orangeAccent,
                   ),
                   width: 140,
                   child: Stack(
@@ -379,9 +380,10 @@ class _HomeColumnState extends State<HomeColumn>
 
     final colMore = Container(
         height: 400,
+        width: screenSize.width,
         color: Color(0xFFF5F5F5),
         child: ListView.builder(
-            itemCount: more.length,
+            itemCount: more?.length,
             itemBuilder: (BuildContext context,int index)
             {
               final m = more[index];
@@ -415,6 +417,7 @@ class _HomeColumnState extends State<HomeColumn>
                     );
                     },
                   child: new Container(
+                      width: screenSize.width,
                       margin: EdgeInsets.only(bottom: 1, left: 5, right: 5),
                       padding: EdgeInsets.only(bottom: 15, left: 10, right: 5, top: 15),
                       decoration: new BoxDecoration(
@@ -422,47 +425,65 @@ class _HomeColumnState extends State<HomeColumn>
                       child: Row(
                         children: <Widget>[
                           Image.network(m.imageUrl),
-                          Column(
-                            children: <Widget>[
-                              Row(
+                          Container(
+                            width: screenSize.width - 120,
+                            color: Colors.white,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(width: 25,),
+                                      Expanded(
+                                        child: Text(
+                                          m.name1,
+                                          style: TextStyle(
+                                              fontFamily: 'Opun',
+                                              color: Colors.deepOrange,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        ),
+                                      )
+                                    ]
+                                ),
+                                Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      m.name1,
-                                      style: TextStyle(
+                                  children: <Widget>[
+                                    Icon(Icons.location_on, size: 25, color: Colors.amber,),
+                                    Expanded(
+                                      child: Text(
+                                        m.location,
+                                        style: TextStyle(
                                           fontFamily: 'Opun',
-                                          color: Colors.deepOrange,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold
+                                          color: Colors.grey,
+                                          fontSize: 13,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
                                       ),
                                     ),
-                                  ]
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Icon(Icons.location_on, size: 25, color: Colors.amber,),
-                                  Text(
-                                    m.location,
-                                    style: TextStyle(
-                                      fontFamily: 'Opun',
-                                      color: Colors.grey,
-                                      fontSize: 13,
+                                    Icon(Icons.access_time, size: 25, color: Colors.amber),
+                                    Expanded(
+                                      child: Text(
+                                        m.time,
+                                        style: TextStyle(
+                                          fontFamily: 'Opun',
+                                          color: Colors.grey,
+                                          fontSize: 13,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                      ),
                                     ),
-                                  ),
-                                  Icon(Icons.access_time, size: 25, color: Colors.amber),
-                                  Text(
-                                    m.time,
-                                    style: TextStyle(
-                                      fontFamily: 'Opun',
-                                      color: Colors.grey,
-                                      fontSize: 13,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
                         ],
                       )
                   )

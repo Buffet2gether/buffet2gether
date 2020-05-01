@@ -48,6 +48,8 @@ class CreateTablePage extends StatefulWidget
 
 class _CreateTablePageState extends State<CreateTablePage>
 {
+  ScrollController scrollController;
+
   ///ใช้แสดงคุณสมบัติต่างกันไป เช่นกดอายุขึ้นให้เลือกช่วงอายุ กดจำนวนขึ้นขึ้นให้เลือกจำนวนคน กดวันเวลาขึ้นให้เลือกวันเวลา กดเพศขึ้นให้เลือกเพศ
   ///ค่าเริ่มต้นเป็นอายุ
   int isSelecting = 0;
@@ -77,9 +79,11 @@ class _CreateTablePageState extends State<CreateTablePage>
   @override
   Widget build(BuildContext context)
   {
+    final screenSize = MediaQuery.of(context).size;
     final user = Provider.of<User>(context);
     final userFindGroups = Provider.of<List<UserFindGroup>>(context);
     final mytable = Provider.of<Mytable>(context);
+
     ///ข้อมูลร้าน
     final info = Container(
         margin: EdgeInsets.only(top: 25, left: 10,right: 10,bottom: 20),
@@ -127,16 +131,33 @@ class _CreateTablePageState extends State<CreateTablePage>
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Icon(Icons.location_on,size: 25,color: Colors.amber,),
-                Text(
-                  widget.location,
-                  style: TextStyle(
-                    fontFamily: 'Opun',
-                    color: Colors.grey,
-                    fontSize: 15,
-                  ),
+                Icon(
+                  Icons.location_on,
+                  size: 25,
+                  color: Colors.amber,
                 ),
-                Icon(Icons.access_time,size: 25,color: Colors.amber),
+                Expanded(
+                  child: Text(
+                    widget.location,
+                    style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.grey,
+                      fontSize: 15,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                    Icons.access_time,
+                    size: 25,
+                    color: Colors.amber
+                ),
                 Text(
                   widget.time,
                   style: TextStyle(
@@ -171,139 +192,146 @@ class _CreateTablePageState extends State<CreateTablePage>
 
     ///คุณสมบัติต่างๆ
     final properties = Container(
-          height: 80,
-          margin: EdgeInsets.symmetric(horizontal: 10),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  offset: Offset(0,4),
-                  blurRadius: 5,
+      width: screenSize.width,
+      height: 80,
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              offset: Offset(0,4),
+              blurRadius: 5,
+            )
+          ]
+      ),
+      child: FittedBox(
+        fit: BoxFit.fitWidth,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            ///age
+            InkWell(
+                onTap: ()
+                {
+                  setState(()
+                  {
+                    /// กดแล้วแสดงให้เลือกอายุ
+                    isSelecting = 0;
+                  });
+                },
+                child: Text(
+                  ///ค่าอายุเริ่ม - ค่าอายุจบ
+                  '${selectedRange.start.round()} - ${selectedRange.end.round()}',
+                  style: TextStyle(
+                    fontFamily: 'Opun',
+                    color: Colors.deepOrange,
+                    fontSize: 15,
+                  ),
                 )
-              ]
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              ///age
-              InkWell(
-                  onTap: ()
-                  {
-                    setState(() {
-                      /// กดแล้วแสดงให้เลือกอายุ
-                      isSelecting = 0;
-                    });
-                    },
-                  child: Text(
-                    ///ค่าอายุเริ่ม - ค่าอายุจบ
-                    '${selectedRange.start.round()} - ${selectedRange.end.round()}',
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.deepOrange,
-                      fontSize: 15,
-                    ),
-                  )
+            ),
+            Text(
+              '|',
+              style:  TextStyle(
+                fontFamily: 'Opun',
+                color: Colors.amberAccent,
+                fontSize: 25,
               ),
-              Text(
-                '|',
-                style:  TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.amberAccent,
-                  fontSize: 25,
+            ),
+            ///maxNum
+            InkWell(
+              onTap: ()
+              {
+                setState(()
+                {
+                  /// กดจำนวนคน ขึ้นให้เลือกจำนวนคน
+                  isSelecting = 1;
+                });
+              },
+              child: Container(
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      /// 1/จำนวนคนที่เลือก
+                      '1 / ${selectedNumm.round()}',
+                      style: TextStyle(
+                        fontFamily: 'Opun',
+                        color: Colors.deepOrange,
+                        fontSize: 15,
+                      ),
+                    ),
+                    Icon(
+                      Icons.people,
+                      color: Colors.deepOrange,
+                      size: 23,
+                    )
+                  ],
                 ),
               ),
-              ///maxNum
-              InkWell(
-                  onTap: ()
-                  {
-                    setState(() {
-                      /// กดจำนวนคน ขึ้นให้เลือกจำนวนคน
-                      isSelecting = 1;
-                    });
+            ),
+            Text(
+              '|',
+              style:  TextStyle(
+              fontFamily: 'Opun',
+              color: Colors.amberAccent,
+              fontSize: 25,
+            ),
+          ),
+          ///Date and time
+          InkWell(
+            onTap: ()
+            {
+              setState(()
+              {
+                /// กดวันเวลา ขึ้นให้เลือกวันเวลา
+                isSelecting = 2;
+              });
+              return DatePicker.showDateTimePicker(
+                context,
+                showTitleActions: true,
+                minTime: DateTime.now(),
+                maxTime: DateTime.now().add(new Duration(days: 30)), ///นับจากเวลาปัจจุบันไปอีก 30 วัน
+                onConfirm: (date)
+                {
+                  newDateOfDue = date;
+                  /// ใส่ setState ว่างๆไว้ให้มัน Update auto
+                  setState(() {});
                   },
-                  child: Container(
-                    child: Row(
-                      children: <Widget>[
-                        Text(
-                          /// 1/จำนวนคนที่เลือก
-                          '1 / ${selectedNumm.round()}',
-                          style: TextStyle(
-                            fontFamily: 'Opun',
-                            color: Colors.deepOrange,
-                            fontSize: 15,
-                          ),
-                        ),
-                        Icon(
-                          Icons.people,
-                          color: Colors.deepOrange,
-                          size: 23,
-                        )
-                      ],
-                    ),
-                  ),
+                locale: LocaleType.th,
+              );
+              },
+            child: Text(
+              DateFormat('dd-MM-yyyy  h:mm a').format(newDateOfDue),
+              style: TextStyle(
+                fontFamily: 'Opun',
+                color: Colors.deepOrange,
+                fontSize: 15,
               ),
-              Text(
-                '|',
-                style:  TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.amberAccent,
-                  fontSize: 25,
-                ),
-              ),
-              ///Date and time
-              InkWell(
-                  onTap: ()
-                  {
-                    setState(() {
-                      /// กดวันเวลา ขึ้นให้เลือกวันเวลา
-                      isSelecting = 2;
-                    });
-                    return DatePicker.showDateTimePicker(
-                      context,
-                      showTitleActions: true,
-                      minTime: DateTime.now(),
-                      maxTime: DateTime.now().add(new Duration(days: 30)), ///นับจากเวลาปัจจุบันไปอีก 30 วัน
-                      onConfirm: (date) {
-                        newDateOfDue = date;
-                        /// ใส่ setState ว่างๆไว้ให้มัน Update auto
-                        setState(() {
-                        });
-                      },
-                      locale: LocaleType.th,
-                    );
-                    },
-                  child: Text(
-                    DateFormat('dd-MM-yyyy  h:mm a').format(newDateOfDue),
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.deepOrange,
-                      fontSize: 15,
-                    ),
-                  ),
-              ),
-              Text(
-                '|',
-                style:  TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.amberAccent,
-                  fontSize: 25,
-                ),
-              ),
-              ///gender
-              InkWell(
-                  onTap: ()
-                  {
-                    setState(() {
-                      /// กดเพศ ขึ้นให้เลือกเพศ
-                      isSelecting = 3;
-                    });
-                    },
-                  child: newGender,
-              ),
-            ],
+            ),
           ),
+          Text(
+            '|',
+            style:  TextStyle(
+              fontFamily: 'Opun',
+              color: Colors.amberAccent,
+              fontSize: 25,
+            ),
+          ),
+          ///gender
+          InkWell(
+            onTap: ()
+            {
+              setState(() {
+                /// กดเพศ ขึ้นให้เลือกเพศ
+                isSelecting = 3;
+              });
+              },
+            child: newGender,
+          ),
+        ],
+      ),
+      ),
     );
 
     /// จาก isSelecting ใน properties กดอะไรขึ้นอันนั้น
@@ -489,13 +517,14 @@ class _CreateTablePageState extends State<CreateTablePage>
             properties,
             SizedBox(height: 60,),
             WhichProp(),
-            SizedBox(height: 90,),
+            SizedBox(height: 60,),
             interest,
-            interestList
+            interestList,
+            SizedBox(height: 30,)
           ],
         )
     );
-   
+
     return new Scaffold(
         appBar: new AppBar(
           centerTitle: true,
@@ -510,13 +539,13 @@ class _CreateTablePageState extends State<CreateTablePage>
           backgroundColor: Colors.white70,
           actions: <Widget>[
             StreamBuilder<UserData>(
-                stream: DatabaseService(uid: user.userId).userData,
+                stream: DatabaseService(uid: user?.userId).userData,
                 builder: (context, snapshot)
                 {
                   return InkWell(
                     onTap: ()
                     {
-                      if (selectedGender.genderName == null) ///ถ้าไม่เลือก gender จะกด post ไม่ได้ เลยทำอันนี้ไว้เตือน แต่มันไม่ขึ้น...แงงงงง
+                      if (selectedGender?.genderName == null) ///ถ้าไม่เลือก gender จะกด post ไม่ได้ เลยทำอันนี้ไว้เตือน แต่มันไม่ขึ้น...แงงงงง
                         {
                           return showDialog(
                               context: context,
@@ -536,11 +565,9 @@ class _CreateTablePageState extends State<CreateTablePage>
                         }
                       else ///กด post ได้
                         {
-                          if(mytable.numberTable == null){ ///ถ้ายังไม่มีโต๊ะจะกด post ได้
-
-                            int numberTable = new Random().nextInt(10000); // Random เลขโต๊ะ
-                            
-                            ///สร้างกลุ่มใหม่
+                          if(mytable.numberTable == null)
+                          {
+                            int numberTable = new Random().nextInt(100);
                             DatabaseService().updateGroups(
                                 widget.resID,
                                 widget.name1,
@@ -553,6 +580,7 @@ class _CreateTablePageState extends State<CreateTablePage>
                                 selectedNumm,
                                 newDateOfDue,
                                 selectedGender.genderName,
+
                                 ///ข้อมูลร้าน
                                 myTable.interestingBool[0],
                                 myTable.interestingBool[1],
@@ -562,8 +590,9 @@ class _CreateTablePageState extends State<CreateTablePage>
                                 myTable.interestingBool[5],
                                 myTable.interestingBool[6],
                                 numberTable.toString()
-                            );///หัวข้อที่สนใจ
+                            );
 
+                            ///หัวข้อที่สนใจ
                             UserData userData = snapshot.data;
 
                             ///เพิ่มข้อมูลของตัวเจ้าของห้องให้เป็นสมาชิกในกลุ่มคนแรก
@@ -585,59 +614,61 @@ class _CreateTablePageState extends State<CreateTablePage>
                             );
 
                             ///เพิ่ม ID ของเราเป็น Master ของกลุ่มนี้
-                            DatabaseService().updateMasterData(widget.resID, numberTable.toString(), userData.userId);
+                            DatabaseService().updateMasterData(widget.resID, numberTable.toString(), userData.userId,false);
 
                             ///ถ้ามี  user find group ของร้านนี้อยู่ก่อนแล้ว ให้เพิ่ม user find group ทุกคนใน notification ของเรา
                             for (var item in userFindGroups) {
                               DatabaseService().updateNotifData(
-                                widget.resID,
-                                item.imageUrl,
-                                item.name,
-                                null,
-                                false, 
-                                item.gender,
-                                item.age,
-                                item.fashion,
-                                item.sport,
-                                item.technology,
-                                item.political,
-                                item.entertainment,
-                                item.book,
-                                item.pet,
-                                item.userID,
-                                userData.userId);
+                                  widget.resID,
+                                  item.imageUrl,
+                                  item.name,
+                                  null,
+                                  false,
+                                  item.gender,
+                                  item.age,
+                                  item.fashion,
+                                  item.sport,
+                                  item.technology,
+                                  item.political,
+                                  item.entertainment,
+                                  item.book,
+                                  item.pet,
+                                  item.userID,
+                                  userData.userId);
                             }
-                            
+
                             ///เพิ่มหน้า Table ของเราว่าเรามีโต๊ะเลขนี้แล้ว
                             DatabaseService().updateTableData(widget.resID, numberTable.toString(),userData.userId);
 
                             //// ไปหมุนหน้าน้องบุฟ 3 วิ ละค่อยไปหน้า Table
-                              return Navigator.of(context).push(
-                                  MaterialPageRoute(builder: (BuildContext context) =>
-                                      StreamProvider<Mytable>.value(
-                                        value: DatabaseService(userID: userData.userId).mytable,
-                                        child: MatchingPage())
-                                  )
-                              );
-                          }else{/// ถ้ามีโต๊ะแล้วจะกด post ไม่ได้แล้วให้ขึ้นแจ้งเตือน
-                              return showDialog(
-                              context: context,
-                              builder: (context)
-                              {
-                                return AlertDialog(
-                                  content: Text(
-                                    'ขออภัย...ไม่สามารถสร้างกลุ่มใหม่ได้เนื่องจากคุณมีกลุ่มบุฟเฟฟต์แล้ว',
-                                    style: TextStyle(
-                                      fontFamily: 'Opun',
-                                      color: Colors.deepOrange,
-                                      fontSize: 13,
-                                    ),
-                                  ),
-                                );
-                              },
+                            return Navigator.of(context).push(
+                                MaterialPageRoute(builder: (BuildContext context) =>
+                                StreamProvider<Mytable>.value(
+                                    value: DatabaseService(userID: userData.userId).mytable,
+                                    child: MatchingPage())
+                                )
                             );
                           }
-                          
+                          else
+                            {
+                              /// ถ้ามีโต๊ะแล้วจะกด post ไม่ได้แล้วให้ขึ้นแจ้งเตือน
+                              return showDialog(
+                                context: context,
+                                builder: (context)
+                                {
+                                  return AlertDialog(
+                                    content: Text(
+                                      'ขออภัย...ไม่สามารถสร้างกลุ่มใหม่ได้เนื่องจากคุณมีกลุ่มบุฟเฟฟต์แล้ว',
+                                      style: TextStyle(
+                                        fontFamily: 'Opun',
+                                        color: Colors.deepOrange,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            }
                         }
                       },
                     child: Text(
@@ -653,7 +684,17 @@ class _CreateTablePageState extends State<CreateTablePage>
                 ),
           ],
         ),
-        body: allInPage
+        body: SafeArea(
+          child: ListView.builder(
+            controller: scrollController,
+            itemCount: 1,
+            itemBuilder: (BuildContext context, int index)
+            {
+              return allInPage;
+            },
+          ),
+        )
     );
   }
 }
+  

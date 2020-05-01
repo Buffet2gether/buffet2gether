@@ -1,15 +1,14 @@
-import 'package:buffet2gether_home/models/mytable_model.dart';
 import 'package:buffet2gether_home/pages/entire_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:buffet2gether_home/main.dart';
+import 'package:buffet2gether_home/models/mytable_model.dart';
 import 'package:provider/provider.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/services/auth.dart';
 
 class MatchingPage extends StatefulWidget
-{ 
-
-
+{
   @override
   _MatchingPageState createState() => new _MatchingPageState();
 }
@@ -37,7 +36,6 @@ class _MatchingPageState extends State<MatchingPage>
   @override
   Widget build(BuildContext context)
   {
-
     final mytable = Provider.of<Mytable>(context);
 
     if(timer == null)
@@ -57,16 +55,14 @@ class _MatchingPageState extends State<MatchingPage>
       if(mytable.numberTable == null){
         /// ถ้ามาจากการ Matching
         return StreamProvider<User>.value(
-                value: AuthService().user,
-                child: Entire(tabsIndex: 2,));
+            value: AuthService().user,
+            child: Entire(tabsIndex: 2,));
       }else{
         ///ถ้ามาจากการสร้างโต๊ะ
         return StreamProvider<User>.value(
-                value: AuthService().user,
-                child: Entire(tabsIndex: 1,));
-      
+            value: AuthService().user,
+            child: Entire(tabsIndex: 1,));
       }
-      
     }
     else
       {
@@ -86,16 +82,14 @@ class _MatchingPageState extends State<MatchingPage>
               backgroundColor: Colors.white70,
             ),
             body: SafeArea(
-              child: Container(
-                  color: Colors.white,
-                  child: Center(
+              child: Center(
                     child: Stack(
                         children: <Widget>[
                           Positioned(
-                            right: 20,
-                            top: 5,
+                            left: 15,
+                            top: 10,
                             child: Image.network(
-                              'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2FBuffet.png?alt=media&token=243356b5-0a56-4a00-92cf-4a79f30b22cc',
+                              'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2FBuffet_transparent.png?alt=media&token=cb9c8611-b998-42aa-92f5-6972a91078cb',
                               height: 300,
                               width: 300,
                             ),
@@ -112,7 +106,6 @@ class _MatchingPageState extends State<MatchingPage>
                           )
                         ],
                       )
-                  )
               ),
             )
         );

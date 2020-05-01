@@ -21,23 +21,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
   int isSelecting = 0;
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
     var currentUser = FirebaseAuth.instance.currentUser();
     return Scaffold(
       body: SafeArea(
           child: StreamBuilder<UserData>(
-              stream: DatabaseService(uid: user.userId).userData,
-              builder: (context, snapshot)
-              {
-                if (snapshot.hasData)
-                {
+              stream: DatabaseService(uid: user?.userId).userData,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
                   UserData userData = snapshot.data;
+                  print(userData.userId);
                   return ListView(
-                    physics: NeverScrollableScrollPhysics(),
-                    padding:
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
+                    physics: BouncingScrollPhysics(),
+                    padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.all(20.0),
@@ -246,25 +243,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             ),
                                           ),
                                           IconButton(
-                                              padding: EdgeInsets.only(bottom: 100, left: 5),
+                                              padding: EdgeInsets.only(
+                                                  bottom: 100, left: 5),
                                               icon: Icon(
                                                 FontAwesomeIcons.cog,
                                                 color: Colors.white,
                                               ),
-                                              onPressed: ()
-                                              {
+                                              onPressed: () {
                                                 print('Settings pressed');
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
-                                                        builder: (_) => StreamProvider<User>.value(
-                                                            value: AuthService().user,
-                                                            child: ProfileSettingScreen()
-                                                        )
-                                                    )
-                                                );
-                                              }
-                                              ),
+                                                        builder: (_) =>
+                                                        StreamProvider<
+                                                            User>.value(
+                                                            value:
+                                                            AuthService()
+                                                                .user,
+                                                            child:
+                                                            ProfileSettingScreen())));
+                                              }),
                                         ],
                                       ),
                                     ),
@@ -296,11 +294,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           alignment: Alignment.topCenter,
                           children: [
                             Container(
-                              ////////////////////////////////////////////////////Tag
-                              width: 360,
-                              height: 320,
-                              //color: Colors.red,
+                              width: MediaQuery.of(context).size.width,
+                              padding: EdgeInsets.symmetric(horizontal: 15),
                               child: Column(
+                                ////////////////////////////////////////////////////Tag
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
@@ -312,283 +309,283 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ),
                                   ),
                                   SizedBox(height: 10),
-                                  Container(
-                                    height: 180,
-                                    child: ListView.builder(
-                                      physics: BouncingScrollPhysics(),
-                                      itemCount: 7,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        if (index == 0 &&
-                                            userData.fashion == true) {
-                                          return Container(
-                                            margin: EdgeInsets.symmetric(
-                                                vertical: 3, horizontal: 5),
-                                            decoration: BoxDecoration(
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.black26,
-                                                  offset: Offset(0, 2),
-                                                  blurRadius: 0.5,
-                                                  spreadRadius: 0.2,
+                                  Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        //height: 180,
+                                        child: ListView.builder(
+                                          physics: NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemCount: 7,
+                                          itemBuilder: (BuildContext context, int index)
+                                          {
+                                            if (index == 0 && userData.fashion == true) {
+                                              return Container(
+                                                margin: EdgeInsets.symmetric(vertical: 3, horizontal: 5),
+                                                decoration: BoxDecoration(
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black26,
+                                                      offset: Offset(0, 2),
+                                                      blurRadius: 0.5,
+                                                      spreadRadius: 0.2,
+                                                    ),
+                                                  ],
+                                                  borderRadius:
+                                                  BorderRadius.circular(10),
+                                                  color: Colors.white,
                                                 ),
-                                              ],
-                                              borderRadius:
-                                              BorderRadius.circular(10),
-                                              color: Colors.white,
-                                            ),
-                                            child: ListTile(
-                                              dense: true,
-                                              leading: Icon(
-                                                FontAwesomeIcons.hatCowboySide,
-                                                color: Theme.of(context)
-                                                    .accentColor,
-                                              ),
-                                              title: Text(
-                                                'Fashion',
-                                                //overflow: TextOverflow.fade,
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20.0,
-                                                  letterSpacing: 1,
+                                                child: ListTile(
+                                                  dense: true,
+                                                  leading: Icon(
+                                                    FontAwesomeIcons
+                                                        .hatCowboySide,
+                                                    color: Theme.of(context)
+                                                        .accentColor,
+                                                  ),
+                                                  title: Text(
+                                                    'Fashion',
+                                                    //overflow: TextOverflow.fade,
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 20.0,
+                                                      letterSpacing: 1,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        if (index == 1 &&
-                                            userData.sport == true) {
-                                          return Container(
-                                            margin: EdgeInsets.symmetric(
-                                                vertical: 3, horizontal: 5),
-                                            decoration: BoxDecoration(
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.black26,
-                                                  offset: Offset(0, 2),
-                                                  blurRadius: 0.5,
-                                                  spreadRadius: 0.2,
+                                              );
+                                            }
+                                            if (index == 1 && userData.sport == true) {
+                                              return Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 3, horizontal: 5),
+                                                decoration: BoxDecoration(
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black26,
+                                                      offset: Offset(0, 2),
+                                                      blurRadius: 0.5,
+                                                      spreadRadius: 0.2,
+                                                    ),
+                                                  ],
+                                                  borderRadius:
+                                                  BorderRadius.circular(10),
+                                                  color: Colors.white,
                                                 ),
-                                              ],
-                                              borderRadius:
-                                              BorderRadius.circular(10),
-                                              color: Colors.white,
-                                            ),
-                                            child: ListTile(
-                                              dense: true,
-                                              leading: Icon(
-                                                FontAwesomeIcons.footballBall,
-                                                color: Theme.of(context)
-                                                    .accentColor,
-                                              ),
-                                              title: Text(
-                                                'Sport',
-                                                //overflow: TextOverflow.fade,
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20.0,
-                                                  letterSpacing: 1,
+                                                child: ListTile(
+                                                  dense: true,
+                                                  leading: Icon(
+                                                    FontAwesomeIcons
+                                                        .footballBall,
+                                                    color: Theme.of(context)
+                                                        .accentColor,
+                                                  ),
+                                                  title: Text(
+                                                    'Sport',
+                                                    //overflow: TextOverflow.fade,
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 20.0,
+                                                      letterSpacing: 1,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        if (index == 2 &&
-                                            userData.technology == true) {
-                                          return Container(
-                                            margin: EdgeInsets.symmetric(
-                                                vertical: 3, horizontal: 5),
-                                            decoration: BoxDecoration(
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.black26,
-                                                  offset: Offset(0, 2),
-                                                  blurRadius: 0.5,
-                                                  spreadRadius: 0.2,
+                                              );
+                                            }
+                                            if (index == 2 && userData.technology == true) {
+                                              return Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 3, horizontal: 5),
+                                                decoration: BoxDecoration(
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black26,
+                                                      offset: Offset(0, 2),
+                                                      blurRadius: 0.5,
+                                                      spreadRadius: 0.2,
+                                                    ),
+                                                  ],
+                                                  borderRadius:
+                                                  BorderRadius.circular(10),
+                                                  color: Colors.white,
                                                 ),
-                                              ],
-                                              borderRadius:
-                                              BorderRadius.circular(10),
-                                              color: Colors.white,
-                                            ),
-                                            child: ListTile(
-                                              dense: true,
-                                              leading: Icon(
-                                                FontAwesomeIcons.laptop,
-                                                color: Theme.of(context)
-                                                    .accentColor,
-                                              ),
-                                              title: Text(
-                                                'Technology',
-                                                //overflow: TextOverflow.fade,
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20.0,
-                                                  letterSpacing: 1,
+                                                child: ListTile(
+                                                  dense: true,
+                                                  leading: Icon(
+                                                    FontAwesomeIcons.laptop,
+                                                    color: Theme.of(context)
+                                                        .accentColor,
+                                                  ),
+                                                  title: Text(
+                                                    'Technology',
+                                                    //overflow: TextOverflow.fade,
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 20.0,
+                                                      letterSpacing: 1,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        if (index == 3 &&
-                                            userData.politic == true) {
-                                          return Container(
-                                            margin: EdgeInsets.symmetric(
-                                                vertical: 3, horizontal: 5),
-                                            decoration: BoxDecoration(
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.black26,
-                                                  offset: Offset(0, 2),
-                                                  blurRadius: 0.5,
-                                                  spreadRadius: 0.2,
+                                              );
+                                            }
+                                            if (index == 3 && userData.politic == true) {
+                                              return Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 3, horizontal: 5),
+                                                decoration: BoxDecoration(
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black26,
+                                                      offset: Offset(0, 2),
+                                                      blurRadius: 0.5,
+                                                      spreadRadius: 0.2,
+                                                    ),
+                                                  ],
+                                                  borderRadius:
+                                                  BorderRadius.circular(10),
+                                                  color: Colors.white,
                                                 ),
-                                              ],
-                                              borderRadius:
-                                              BorderRadius.circular(10),
-                                              color: Colors.white,
-                                            ),
-                                            child: ListTile(
-                                              dense: true,
-                                              leading: Icon(
-                                                FontAwesomeIcons.balanceScale,
-                                                color: Theme.of(context)
-                                                    .accentColor,
-                                              ),
-                                              title: Text(
-                                                'Politic',
-                                                //overflow: TextOverflow.fade,
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20.0,
-                                                  letterSpacing: 1,
+                                                child: ListTile(
+                                                  dense: true,
+                                                  leading: Icon(
+                                                    FontAwesomeIcons
+                                                        .balanceScale,
+                                                    color: Theme.of(context)
+                                                        .accentColor,
+                                                  ),
+                                                  title: Text(
+                                                    'Politic',
+                                                    //overflow: TextOverflow.fade,
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 20.0,
+                                                      letterSpacing: 1,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        if (index == 4 &&
-                                            userData.entertainment == true) {
-                                          return Container(
-                                            margin: EdgeInsets.symmetric(
-                                                vertical: 3, horizontal: 5),
-                                            decoration: BoxDecoration(
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.black26,
-                                                  offset: Offset(0, 2),
-                                                  blurRadius: 0.5,
-                                                  spreadRadius: 0.2,
+                                              );
+                                            }
+                                            if (index == 4 && userData.entertainment == true) {
+                                              return Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 3, horizontal: 5),
+                                                decoration: BoxDecoration(
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black26,
+                                                      offset: Offset(0, 2),
+                                                      blurRadius: 0.5,
+                                                      spreadRadius: 0.2,
+                                                    ),
+                                                  ],
+                                                  borderRadius:
+                                                  BorderRadius.circular(10),
+                                                  color: Colors.white,
                                                 ),
-                                              ],
-                                              borderRadius:
-                                              BorderRadius.circular(10),
-                                              color: Colors.white,
-                                            ),
-                                            child: ListTile(
-                                              dense: true,
-                                              leading: Icon(
-                                                FontAwesomeIcons.dice,
-                                                color: Theme.of(context)
-                                                    .accentColor,
-                                              ),
-                                              title: Text(
-                                                'Entertainment',
-                                                //overflow: TextOverflow.fade,
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20.0,
-                                                  letterSpacing: 1,
+                                                child: ListTile(
+                                                  dense: true,
+                                                  leading: Icon(
+                                                    FontAwesomeIcons.dice,
+                                                    color: Theme.of(context)
+                                                        .accentColor,
+                                                  ),
+                                                  title: Text(
+                                                    'Entertainment',
+                                                    //overflow: TextOverflow.fade,
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 20.0,
+                                                      letterSpacing: 1,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        if (index == 5 &&
-                                            userData.book == true) {
-                                          return Container(
-                                            margin: EdgeInsets.symmetric(
-                                                vertical: 3, horizontal: 5),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                              BorderRadius.circular(10),
-                                              color: Colors.white,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.black26,
-                                                  offset: Offset(0, 2),
-                                                  blurRadius: 0.5,
-                                                  spreadRadius: 0.2,
+                                              );
+                                            }
+                                            if (index == 5 && userData.book == true) {
+                                              return Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 3, horizontal: 5),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius.circular(10),
+                                                  color: Colors.white,
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black26,
+                                                      offset: Offset(0, 2),
+                                                      blurRadius: 0.5,
+                                                      spreadRadius: 0.2,
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
-                                            child: ListTile(
-                                              dense: true,
-                                              leading: Icon(
-                                                FontAwesomeIcons.book,
-                                                color: Theme.of(context)
-                                                    .accentColor,
-                                              ),
-                                              title: Text(
-                                                'Book',
-                                                //overflow: TextOverflow.fade,
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20.0,
-                                                  letterSpacing: 1,
+                                                child: ListTile(
+                                                  dense: true,
+                                                  leading: Icon(
+                                                    FontAwesomeIcons.book,
+                                                    color: Theme.of(context)
+                                                        .accentColor,
+                                                  ),
+                                                  title: Text(
+                                                    'Book',
+                                                    //overflow: TextOverflow.fade,
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 20.0,
+                                                      letterSpacing: 1,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        if (index == 6 &&
-                                            userData.pet == true) {
-                                          return Container(
-                                            margin: EdgeInsets.symmetric(
-                                                vertical: 3, horizontal: 5),
-                                            decoration: BoxDecoration(
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.black26,
-                                                  offset: Offset(0, 2),
-                                                  blurRadius: 0.5,
-                                                  spreadRadius: 0.2,
+                                              );
+                                            }
+                                            if (index == 6 && userData.pet == true) {
+                                              return Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 3, horizontal: 5),
+                                                decoration: BoxDecoration(
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black26,
+                                                      offset: Offset(0, 2),
+                                                      blurRadius: 0.5,
+                                                      spreadRadius: 0.2,
+                                                    ),
+                                                  ],
+                                                  borderRadius:
+                                                  BorderRadius.circular(10),
+                                                  color: Colors.white,
                                                 ),
-                                              ],
-                                              borderRadius:
-                                              BorderRadius.circular(10),
-                                              color: Colors.white,
-                                            ),
-                                            child: ListTile(
-                                              dense: true,
-                                              leading: Icon(
-                                                FontAwesomeIcons.cat,
-                                                color: Theme.of(context)
-                                                    .accentColor,
-                                              ),
-                                              title: Text(
-                                                'Pet',
-                                                //overflow: TextOverflow.fade,
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20.0,
-                                                  letterSpacing: 1,
+                                                child: ListTile(
+                                                  dense: true,
+                                                  leading: Icon(
+                                                    FontAwesomeIcons.cat,
+                                                    color: Theme.of(context)
+                                                        .accentColor,
+                                                  ),
+                                                  title: Text(
+                                                    'Pet',
+                                                    //overflow: TextOverflow.fade,
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 20.0,
+                                                      letterSpacing: 1,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        return SizedBox();
-                                      },
-                                    ),
+                                              );
+                                            }
+                                            return SizedBox();
+                                          },
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
                             ),
                             Container(
                               /////////////////////////////////////////History
-                              height: 300,
-                              width: 360,
+                              width: MediaQuery.of(context).size.width,
+                              padding: EdgeInsets.symmetric(horizontal: 15),
                               //color: Colors.blue,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -703,17 +700,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ]),
                     ],
                   );
-                }
-                else
-                  {
+                } else {
                   if (snapshot.hasError) {
                     print(snapshot.error.toString());
                   }
                   return Loading();
-                  }
-              }
-              )
-      ),
+                }
+              })),
     );
   }
 }

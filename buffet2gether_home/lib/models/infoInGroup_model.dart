@@ -13,7 +13,6 @@ class InfoInGroup
   String dueTime;
   String gender;
 
-
   InfoInGroup(
       {
         this.number,

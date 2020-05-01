@@ -14,6 +14,7 @@ void main()
 
 class MyApp extends StatelessWidget
 {
+
   @override
   Widget build(BuildContext context)
   {
@@ -24,19 +25,8 @@ class MyApp extends StatelessWidget
         accentColor: Colors.deepOrangeAccent,
         scaffoldBackgroundColor: Color(0xFFF3F5F7),
         ),
-      home: /*Scaffold(
-              appBar: AppBar(
-                title: Text('testnotification'),
-              ),
-              body: MessagingWidget(),
-            )*/
-      Wrapper()
-      /*Scaffold(
-              body: SafeArea(
-          child: new GetStartedColumn()
-        ),
-      )*/
-      
+      home: Wrapper()
+      //GetStartedColumn(),
     );
   }
 }

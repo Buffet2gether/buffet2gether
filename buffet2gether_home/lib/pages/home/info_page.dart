@@ -9,9 +9,6 @@ import 'package:buffet2gether_home/models/profile_model.dart';
 import 'dart:ui';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:buffet2gether_home/models/rec_model.dart';
-import 'package:buffet2gether_home/models/more_model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/models/userMaster_model.dart';
 
@@ -35,12 +32,16 @@ class InfoPage extends StatefulWidget
 
 class _InfoPageState extends State<InfoPage>
 {
-    @override
-    Widget build(BuildContext context)
-    {
 
-      ///ข้อมูลร้าน
-      final info = Container(
+  ScrollController scrollController;
+
+  @override
+  Widget build(BuildContext context)
+  {
+    final screenSize = MediaQuery.of(context).size;
+
+    ///ข้อมูลร้าน
+    final info = Container(
           margin: EdgeInsets.only(top: 25, left: 10,right: 10,bottom: 25),
           decoration: new BoxDecoration(
             borderRadius: new BorderRadius.circular(10),
@@ -86,16 +87,33 @@ class _InfoPageState extends State<InfoPage>
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Icon(Icons.location_on,size: 25,color: Colors.amber,),
-                  Text(
-                    widget.location,
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.grey,
-                      fontSize: 15,
-                    ),
+                  Icon(
+                    Icons.location_on,
+                    size: 25,
+                    color: Colors.amber,
                   ),
-                  Icon(Icons.access_time,size: 25,color: Colors.amber),
+                  Expanded(
+                    child: Text(
+                      widget.location,
+                      style: TextStyle(
+                        fontFamily: 'Opun',
+                        color: Colors.grey,
+                        fontSize: 15,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                      Icons.access_time,
+                      size: 25,
+                      color: Colors.amber
+                  ),
                   Text(
                     widget.time,
                     style: TextStyle(
@@ -110,8 +128,8 @@ class _InfoPageState extends State<InfoPage>
           )
       );
 
-      ///ข้อมูล Promotion
-      final textPro = Row(
+    ///ข้อมูล Promotion
+    final textPro = Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
@@ -127,7 +145,7 @@ class _InfoPageState extends State<InfoPage>
         ],
       );
 
-      final textProInfo = InkWell(
+    final textProInfo = InkWell(
           onTap: ()
           {
             return showDialog(
@@ -137,7 +155,7 @@ class _InfoPageState extends State<InfoPage>
                 return AlertDialog(
                     backgroundColor: Color(0xFFFFE5D4),
                     content: Text(
-                    widget.promotionInfo,
+                      widget.promotionInfo,
                       style: TextStyle(
                         fontFamily: 'Opun',
                         color: Colors.black45,
@@ -155,12 +173,16 @@ class _InfoPageState extends State<InfoPage>
                 color: Colors.white,),
               child: Row(
                   children: <Widget>[
-                    Text(
-                      widget.promotion,
-                      style: TextStyle(
-                        fontFamily: 'Opun',
-                        color: Colors.deepOrange,
-                        fontSize: 13,
+                    Expanded(
+                      child: Text(
+                        widget.promotion,
+                        style: TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.deepOrange,
+                          fontSize: 13,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
                     ),
                   ]
@@ -168,51 +190,54 @@ class _InfoPageState extends State<InfoPage>
           )
       );
 
-      final user = Provider.of<User>(context);
-      final userMasters = Provider.of<List<UserMaster>>(context);
-      final mytable = Provider.of<Mytable>(context);
-     
-      ///ปุ่ม Matching
-      final buttonMatch = StreamBuilder<UserData>(
-          stream: DatabaseService(uid: user.userId).userData,
+    final user = Provider.of<User>(context);
+    final userMasters = Provider.of<List<UserMaster>>(context);
+    final mytable = Provider.of<Mytable>(context);
+
+    ///ปุ่ม Matching
+    final buttonMatch = StreamBuilder<UserData>(
+          stream: DatabaseService(uid: user?.userId).userData,
           builder: (context, snapshot)
           {
             return InkWell(
                 onTap: ()
-                { 
-                  if(mytable.numberTable == null){ ////ถ้ายังไม่มีโต๊ะจะกด Match ได้
-                        return showDialog(
-                          context: context,
-                          builder: (context)
-                          {
-                            UserData userData = snapshot.data;
-                            ///ส่งข้อมูลร้านและข้อมูล user ไปเก็บใน Groups/ชื่อร้าน(resID)/UserFindGroup/...
-                            DatabaseService().updateUserFindGroup(
-                              ///ข้อมูลร้าน
-                                widget.resID,
-                                widget.name1,
-                                widget.name2,
-                                widget.image,
-                                widget.location,
-                                widget.time,
-                                ///ข้อมูล use
-                                userData.name,
-                                userData.profilePicture,
-                                userData.gender,
-                                (DateTime.now().difference(userData.dateofBirth).inDays/365).floor(),
-                                ///interest ของ user
-                                userData.fashion,
-                                userData.sport,
-                                userData.technology,
-                                userData.politic,
-                                userData.entertainment,
-                                userData.book,
-                                userData.pet,
-                                userData.userId,
-                            );
-                            ///////////ส่ง notification หาเจ้าของห้องทุกคนในร้านนี้ ว่ามีเรามาหากลุ่ม
-                            for (var item in userMasters) {
-                                DatabaseService().updateNotifData(
+                {
+                if(mytable.numberTable == null){
+                  return showDialog(
+                      context: context,
+                      builder: (context)
+                      {
+                        UserData userData = snapshot.data;
+                        ///ส่งข้อมูลร้านและข้อมูล user ไปเก็บใน Groups/ชื่อร้าน(resID)/UserFindGroup/...
+                        DatabaseService().updateUserFindGroup(
+                          ///ข้อมูลร้าน
+                            widget.resID,
+                            widget.name1,
+                            widget.name2,
+                            widget.image,
+                            widget.location,
+                            widget.time,
+                            ///ข้อมูล user
+                            userData.name,
+                            userData.profilePicture,
+                            userData.gender,
+                            (DateTime.now().difference(userData.dateofBirth).inDays/365).floor(),
+                            ///interest ของ user
+                            userData.fashion,
+                            userData.sport,
+                            userData.technology,
+                            userData.politic,
+                            userData.entertainment,
+                            userData.book,
+                            userData.pet,
+                          userData.userId,
+                        );
+                        ///////////ส่ง notification หาเจ้าของห้องทุกคนในร้านนี้ ว่ามีเรามาหากลุ่ม
+                        print(userMasters);
+                        for (var item in userMasters) {
+                          print(item.max);
+                              if(item.max == false){
+                                 DatabaseService().updateNotifData(
                                   widget.resID,
                                   userData.profilePicture,
                                   userData.name,
@@ -229,33 +254,35 @@ class _InfoPageState extends State<InfoPage>
                                   userData.pet,
                                   userData.userId,
                                   item.userId);
+                              }
                             }
 
-                            ///แล้วแสดงหน้าน้องบุฟ 3 วิแล้วไปหน้า Notification
-                            return StreamProvider<Mytable>.value(
-                                    value: DatabaseService(userID: userData.userId).mytable,
-                                    child: MatchingPage());
-                          }
+                        ///แล้วแสดงหน้าน้องบุฟ 3 วิแล้วไปหน้า Notification
+                        return StreamProvider<Mytable>.value(
+                            value: DatabaseService(userID: userData.userId).mytable,
+                            child: MatchingPage());
+                      }
+                  );
+                      }
+                else{
+                  ////////////////////////////////ถ้ามีโต๊ะแล้ว Match ไม่ได้
+                  return showDialog(
+                    context: context,
+                    builder: (context)
+                    {
+                      return AlertDialog(
+                        content: Text(
+                          'ขออภัย...คุณมีกลุ่มบุฟเฟฟต์แล้ว',
+                          style: TextStyle(
+                            fontFamily: 'Opun',
+                            color: Colors.deepOrange,
+                            fontSize: 13,
+                          ),
+                        ),
                       );
-                  }else{ ////////////////////////////////ถ้ามีโต๊ะแล้ว Match ไม่ได้
-                      return showDialog(
-                              context: context,
-                              builder: (context)
-                              {
-                                return AlertDialog(
-                                  content: Text(
-                                    'ขออภัย...คุณมีกลุ่มบุฟเฟฟต์แล้ว',
-                                    style: TextStyle(
-                                      fontFamily: 'Opun',
-                                      color: Colors.deepOrange,
-                                      fontSize: 13,
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                  }
-                  
+                    },
+                  );
+                }
                 },
                 child: new Container(
                   margin: EdgeInsets.only(top: 50),
@@ -277,9 +304,8 @@ class _InfoPageState extends State<InfoPage>
           }
           );
 
-
-      ///ปุ่ม Create Table
-      final buttonCreate = InkWell(
+    ///ปุ่ม Create Table
+    final buttonCreate = InkWell(
         onTap: ()
         {
           ///ส่งข้อมูลร้านและไปที่หน้า CreateTable
@@ -307,7 +333,7 @@ class _InfoPageState extends State<InfoPage>
           );
         },
         child: new Container(
-            margin: EdgeInsets.only(top: 15,left: 280),
+            margin: EdgeInsets.only(top: 15,left: screenSize.width-120,bottom: 30),
             padding: EdgeInsets.all(20),
             decoration: new BoxDecoration(
                 color: Colors.amberAccent,
@@ -319,34 +345,43 @@ class _InfoPageState extends State<InfoPage>
         ),
       );
 
-      final allInPage = Container(
-          color: Color(0xFFF5F5F5),
-          child: Column(
-            children: [
-              info,
-              textPro,
-              textProInfo,
-              buttonMatch,
-              buttonCreate
-            ],
-          )
-      );
+    final allInPage = Container(
+        width: screenSize.width,
+        color: Color(0xFFF5F5F5),
+        child: Column(
+          children: [
+            info,
+            textPro,
+            textProInfo,
+            buttonMatch,
+            buttonCreate
+          ],
+        )
+    );
 
-      return Scaffold(
-              appBar: new AppBar(
-                centerTitle: true,
-                title: new Text(
-                  'ร้านบุฟเฟ่ต์ที่คุณเลือก !!',
-                  style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.deepOrange,
-                      fontSize: 17,
+    return Scaffold(
+        appBar: new AppBar(
+          centerTitle: true,
+          title: new Text(
+            'ร้านบุฟเฟ่ต์ที่คุณเลือก !!',
+            style: TextStyle(
+                fontFamily: 'Opun',
+                color: Colors.deepOrange,
+                fontSize: 17,
                 fontWeight: FontWeight.bold),
-                ),
-                backgroundColor: Colors.white70,
-              ),
-              body: allInPage
-
+          ),
+          backgroundColor: Colors.white70,
+        ),
+        body: SafeArea(
+          child: ListView.builder(
+            controller: scrollController,
+            itemCount: 1,
+            itemBuilder: (BuildContext context, int index)
+            {
+              return allInPage;
+              },
+          ),
+        )
       );
     }
 }

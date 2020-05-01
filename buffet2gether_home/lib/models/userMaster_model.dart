@@ -1,4 +1,5 @@
 class UserMaster {
   String userId;
-  UserMaster({this.userId});
+  bool max;
+  UserMaster({this.userId,this.max});
 }

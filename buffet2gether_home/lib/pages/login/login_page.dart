@@ -1,11 +1,11 @@
 import 'package:buffet2gether_home/main.dart';
-import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/pages/entire_page.dart';
 import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/shared/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/pages/login/createAccount_page.dart';
+import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:provider/provider.dart';
 import 'package:buffet2gether_home/models/mytable_model.dart';
 import 'package:buffet2gether_home/services/database.dart';
@@ -56,14 +56,20 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context)
   {
+
     return loading ? Loading() : Scaffold(
       body: SafeArea(
-        child: ListView.builder(
+        child:
+        ListView.builder(
             controller: scrollController,
             itemCount: 1,
             itemBuilder: (BuildContext context, int index)
             {
-              return Container(
+              return
+                Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                color: Color(0xfff5f5f5),
                 padding: EdgeInsets.only(left: 20, right: 20),
                 child: Form(
                   key: _formkey,
@@ -71,9 +77,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      SizedBox(
-                        height: 80,
-                      ),
+                      //SizedBox(height: 80,),
                       Text(
                         'Log in',
                         style: TextStyle(
@@ -82,9 +86,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                             fontSize: 25,
                             fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      SizedBox(height: 50,),
                       Container(
                         width: 380,
                         decoration: new BoxDecoration(
@@ -110,9 +112,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                           },
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 10,),
                       Container(
                         width: 380,
                         decoration: new BoxDecoration(
@@ -139,9 +139,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                           },
                         ),
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      SizedBox(height: 20,),
                       RaisedButton(
                         color: Colors.yellow[600],
                         shape: RoundedRectangleBorder(
@@ -165,10 +163,10 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                 return Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => 
+                                        builder: (context) =>
                                         StreamProvider<User>.value(
-                                          value: AuthService().user,
-                                          child: Entire(tabsIndex: 0,))
+                                            value: AuthService().user,
+                                            child: Entire(tabsIndex: 0,))
                                     )
                                 );
                               }
@@ -189,18 +187,18 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                           ),
                         ),
                       ),
-                      SizedBox(height: 12.0),
+                      SizedBox(height: 250.0),
                       Text(
                         error,
                         style: TextStyle(color: Colors.red, fontSize: 14.0),
                       ),
-                      SizedBox(
-                        height: 220,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Text(
-                            '        Don\'t have an account?',
+                      SizedBox(height: 10,),
+                      FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                            'Don\'t have an account?',
                             style: TextStyle(
                               fontFamily: 'Opun',
                               color: Colors.black26,
@@ -208,7 +206,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          new InkWell(
+                            SizedBox(width: 20,),
+                            new InkWell(
                               onTap: ()
                               {
                                 return showDialog(
@@ -220,7 +219,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                 );
                                 },
                               child: Text(
-                                '   Sign up',
+                                'Sign up',
                                 style: TextStyle(
                                   fontFamily: 'Opun',
                                   color: Colors.deepOrange,
@@ -231,6 +230,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                           )
                         ],
                       ),
+                      )
                     ],
                   ),
                 ),
@@ -241,4 +241,3 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     );
   }
 }
-

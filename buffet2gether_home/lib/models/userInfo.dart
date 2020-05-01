@@ -14,4 +14,3 @@ class UserInformation {
   UserInformation({ this.name, this.gender, this.age, this.userID,this.sport,this.pet,this.technology,this.political,this.beauty,this.entertainment});
 
 }
-

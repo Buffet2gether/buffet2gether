@@ -43,7 +43,7 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                 DateTime newDateOfBirth = userData.dateofBirth;
                 return ListView(
                   padding:
-                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(20.0),
@@ -67,7 +67,7 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                             children: <Widget>[
                               Padding(
                                 padding:
-                                const EdgeInsets.symmetric(vertical: 10.0),
+                                    const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
@@ -115,7 +115,7 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                               SizedBox(height: 30),
                               Padding(
                                 padding:
-                                const EdgeInsets.symmetric(vertical: 10.0),
+                                    const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Row(
                                   children: <Widget>[
                                     Icon(
@@ -172,7 +172,7 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                               SizedBox(height: 30),
                               Padding(
                                 padding:
-                                const EdgeInsets.symmetric(vertical: 10.0),
+                                    const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
@@ -219,7 +219,7 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                               SizedBox(height: 30),
                               Padding(
                                 padding:
-                                const EdgeInsets.symmetric(vertical: 10.0),
+                                    const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Row(
                                   children: <Widget>[
                                     Icon(
@@ -306,10 +306,10 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                                         _formKey.currentState.save();
                                         await DatabaseService(uid: user.userId)
                                             .updateUserDataDetail(
-                                            newName,
-                                            newGender,
-                                            newDateOfBirth,
-                                            newBio);
+                                                newName,
+                                                newGender,
+                                                newDateOfBirth,
+                                                newBio);
 
                                         Navigator.pop(context);
                                       }

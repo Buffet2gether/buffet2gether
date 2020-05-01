@@ -1,6 +1,5 @@
-
+import 'package:buffet2gether_home/main.dart';
 import 'package:buffet2gether_home/models/bar_model.dart';
-import 'package:buffet2gether_home/models/mytable_model.dart';
 import 'package:buffet2gether_home/pages/entire_page.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:buffet2gether_home/services/message.dart';
@@ -8,6 +7,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:buffet2gether_home/pages/login/getStarted_page.dart';
+
 
 class Wrapper extends StatefulWidget {
   @override
@@ -25,7 +25,7 @@ class _WrapperState extends State<Wrapper> {
 
   @override
   void initState() {
-    
+    // TODO: implement initState
     super.initState();
     // _firebaseMessaging.onTokenRefresh.listen(sendTokenToServer);
     _firebaseMessaging.getToken();
@@ -73,8 +73,9 @@ class _WrapperState extends State<Wrapper> {
         print('///////////////////////////////');
         Navigator.of(context).push(
             MaterialPageRoute(builder: (BuildContext context) => 
-            StreamProvider<Mytable>.value(
-              value: DatabaseService().mytable,
+            StreamProvider<List<Bar>>.value(
+              value: DatabaseService().notifications,
+                
                 child: Entire(tabsIndex: 2)),
             )
           );

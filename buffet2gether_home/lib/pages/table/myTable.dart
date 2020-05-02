@@ -7,6 +7,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/models/mytable_model.dart';
+import 'package:buffet2gether_home/models/userMaster_model.dart';
+import 'package:buffet2gether_home/models/table_model.dart';
 
 ///ส่วนที่ใช้เลือกเพศ จะมี Name กับ Icon
 class GenderItem {
@@ -44,6 +46,13 @@ class _MyTable1State extends State<MyTable1>
     final infoFromTable = Provider.of<InfoInTable>(context);
 
     final screenSize = MediaQuery.of(context).size;
+    final userMaster = Provider.of<UserMaster>(context);
+
+    if(listMember.length == infoFromTable.people.round()){
+      if(userMaster.max == false){
+        DatabaseService().updateMasterData(mytable.resID, mytable.numberTable, userMaster.userId, true);
+      }
+    }
 
     final buttonFinish = Container(
       margin: EdgeInsets.all(10),
@@ -71,6 +80,41 @@ class _MyTable1State extends State<MyTable1>
           ),
 
         ],
+      ),
+    );
+
+    List<bool> interestTable= [infoFromTable?.fashion,infoFromTable?.sport, infoFromTable?.technology,
+      infoFromTable?.political,infoFromTable?.entertainment, infoFromTable?.book, infoFromTable?.pet];
+
+    /// แสดง interest ตามที่เลือกจากหน้า edit interesting table
+    final interestList = Container(
+      margin: EdgeInsets.symmetric(horizontal: 40),
+      height: 50,
+      child: ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          /// myTable มาจาก table model จะมี list bool interest อยู่
+          itemCount: interestTable.length,
+          itemBuilder: (BuildContext context, int index)
+          {
+            if (interestTable[index]) ///ถ้าถูกเลือกขึ้นสีส้ม
+            {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.5),
+                child: Icon(
+                    myTable.interestingIconUrl[index],
+                    color: Colors.deepOrange
+                ),
+              );
+            }
+            return Padding( ///ไม่เลือกขึ้นเเทา
+              padding: const EdgeInsets.symmetric(horizontal: 8.5),
+              child: Icon(
+                myTable.interestingIconUrl[index],
+                color: Colors.grey,
+              ),
+            );
+          }
       ),
     );
 
@@ -111,18 +155,16 @@ class _MyTable1State extends State<MyTable1>
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(Icons.location_on,size: 25,color: Colors.amber,),
-                Expanded(
-                  child: Text(
-                    infoFromTable.location,
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.grey,
-                      fontSize: 13,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
+                Text(
+                  infoFromTable.location,
+                  style: TextStyle(
+                    fontFamily: 'Opun',
+                    color: Colors.grey,
+                    fontSize: 13,
                   ),
-                )
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
               ],
             ),
             Row(
@@ -163,97 +205,97 @@ class _MyTable1State extends State<MyTable1>
     }
 
     final properties = Container(
-      height: 80,
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              offset: Offset(0,4),
-              blurRadius: 5,
-            )
-          ]
-      ),
-      child: FittedBox(
-        fit: BoxFit.fitWidth,
-        child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          ///age
-          Text(
-            ///ค่าอายุเริ่ม - ค่าอายุจบ
-            '${infoFromTable.ageStart.toString()} - ${infoFromTable.ageEnd.toString()}',
-            style: TextStyle(
-              fontFamily: 'Opun',
-              color: Colors.deepOrange,
-              fontSize: 15,
-            ),
-          ),
-          Text(
-            '|',
-            style:  TextStyle(
-              fontFamily: 'Opun',
-              color: Colors.amberAccent,
-              fontSize: 25,
-            ),
-          ),
-          ///maxNum
-          Container(
-            child: Row(
-              children: <Widget>[
-                Text(
-                  /// 1/จำนวนคนที่เลือก
-                  '1 / ${infoFromTable.people.round().toString()}',
-                  style: TextStyle(
-                    fontFamily: 'Opun',
-                    color: Colors.deepOrange,
-                    fontSize: 15,
-                  ),
-                ),
-                Icon(
-                  Icons.people,
+        height: 80,
+        margin: EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                offset: Offset(0,4),
+                blurRadius: 5,
+              )
+            ]
+        ),
+        child: FittedBox(
+          fit: BoxFit.fitWidth,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              ///age
+              Text(
+                ///ค่าอายุเริ่ม - ค่าอายุจบ
+                '${infoFromTable.ageStart.toString()} - ${infoFromTable.ageEnd.toString()}',
+                style: TextStyle(
+                  fontFamily: 'Opun',
                   color: Colors.deepOrange,
-                  size: 23,
-                )
-              ],
-            ),
-          ),
-          Text(
-            '|',
-            style:  TextStyle(
-              fontFamily: 'Opun',
-              color: Colors.amberAccent,
-              fontSize: 25,
-            ),
-          ),
-          ///Date and time
-          Text(
-            DateFormat('dd-MM-yyyy  h:mm a').format(newDueTime),
-            style: TextStyle(
-              fontFamily: 'Opun',
-              color: Colors.deepOrange,
-              fontSize: 15,
-            ),
-          ),
-          Text(
-            '|',
-            style:  TextStyle(
-              fontFamily: 'Opun',
-              color: Colors.amberAccent,
-              fontSize: 25,
-            ),
-          ),
-          ///gender
-          Icon(
-            genderList[getGender()].genderIcon,
-            size: 23,
-            color: Colors.deepOrange,),
+                  fontSize: 15,
+                ),
+              ),
+              Text(
+                '|',
+                style:  TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.amberAccent,
+                  fontSize: 25,
+                ),
+              ),
+              ///maxNum
+              Container(
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      /// 1/จำนวนคนที่เลือก
+                      '${listMember.length.toString()} / ${infoFromTable.people.round().toString()}',
+                      style: TextStyle(
+                        fontFamily: 'Opun',
+                        color: Colors.deepOrange,
+                        fontSize: 15,
+                      ),
+                    ),
+                    Icon(
+                      Icons.people,
+                      color: Colors.deepOrange,
+                      size: 23,
+                    )
+                  ],
+                ),
+              ),
+              Text(
+                '|',
+                style:  TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.amberAccent,
+                  fontSize: 25,
+                ),
+              ),
+              ///Date and time
+              Text(
+                DateFormat('dd-MM-yyyy  h:mm a').format(newDueTime),
+                style: TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.deepOrange,
+                  fontSize: 15,
+                ),
+              ),
+              Text(
+                '|',
+                style:  TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.amberAccent,
+                  fontSize: 25,
+                ),
+              ),
+              ///gender
+              Icon(
+                genderList[getGender()].genderIcon,
+                size: 23,
+                color: Colors.deepOrange,),
 
-        ],
-      ),
-    )
+            ],
+          ),
+        )
     );
 
     final memberBar = ListView.builder(
@@ -340,45 +382,55 @@ class _MyTable1State extends State<MyTable1>
     final stackMatchCol = Stack(
         children: [
           SafeArea(
-            child: Column(
-                children: <Widget>[
-                  Expanded(
-                      child: ListView(
-                          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
-                          children: <Widget>[
-                            info,
-                            Text(
-                              '  '+'Matching with',
-                              style: TextStyle(
-                                fontFamily: 'Opun',
-                                color: Colors.deepOrange,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
+              child: Column(
+                  children: <Widget>[
+                    Expanded(
+                        child: ListView(
+                            padding: EdgeInsets.symmetric(vertical: 10.0,horizontal: 15.0),
+                            children: <Widget>[
+                              info,
+                              Text(
+                                '  '+'Matching with',
+                                style: TextStyle(
+                                  fontFamily: 'Opun',
+                                  color: Colors.deepOrange,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
 
+                                ),
                               ),
-                            ),
-                            properties,
-                            Text(
-                              '  '+'Member',
-                              style: TextStyle(
-                                fontFamily: 'Opun',
-                                color: Colors.deepOrange,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
+                              properties,
+                              Text(
+                                ' Interesting',
+                                style: TextStyle(
+                                  fontFamily: 'Opun',
+                                  color: Colors.deepOrange,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              interestList,
+                              Text(
+                                '  '+'Member',
+                                style: TextStyle(
+                                  fontFamily: 'Opun',
+                                  color: Colors.deepOrange,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
 
+                                ),
                               ),
-                            ),
-                            Container(
-                              height: 200,
-                              width: screenSize.width,
-                              color: Color(0xFFF5F5F5),
-                              child: memberBar,
-                            )
-                          ]
-                      )
-                  )
-                ]
-            )
+                              Container(
+                                height: 200,
+                                width: screenSize.width,
+                                color: Color(0xFFF5F5F5),
+                                child: memberBar,
+                              )
+                            ]
+                        )
+                    )
+                  ]
+              )
           ),
           Container(
               child: Column(

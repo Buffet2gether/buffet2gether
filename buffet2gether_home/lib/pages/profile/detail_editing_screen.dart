@@ -31,6 +31,21 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
     return Scaffold(
+      appBar: new AppBar(
+        centerTitle: true,
+        leading: new Container(),
+        title: Text(
+          'Details',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: 'Opun',
+            color: Colors.deepOrange,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Color(0xfff5f5f5),
+      ),
       body: SafeArea(
         child: StreamBuilder<UserData>(
             stream: DatabaseService(uid: user.userId).userData,
@@ -43,19 +58,8 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                 DateTime newDateOfBirth = userData.dateofBirth;
                 return ListView(
                   padding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
                   children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Text(
-                        'Details',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 40.0,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).primaryColor),
-                      ),
-                    ),
                     Column(
                       children: <Widget>[
                         SizedBox(height: 10),
@@ -67,7 +71,7 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                             children: <Widget>[
                               Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
@@ -82,8 +86,9 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                                       'Username',
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
-                                        fontSize: 17,
-                                        letterSpacing: 0.5,
+                                        fontFamily: 'Opun',
+                                        color: Colors.black54,
+                                        fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -115,7 +120,7 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                               SizedBox(height: 30),
                               Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Row(
                                   children: <Widget>[
                                     Icon(
@@ -129,8 +134,9 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                                       'Gender',
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
-                                        fontSize: 17,
-                                        letterSpacing: 0.5,
+                                        fontFamily: 'Opun',
+                                        color: Colors.black54,
+                                        fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -172,7 +178,7 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                               SizedBox(height: 30),
                               Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
@@ -187,8 +193,9 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                                       'Bio',
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
-                                        fontSize: 17,
-                                        letterSpacing: 0.5,
+                                        fontFamily: 'Opun',
+                                        color: Colors.black54,
+                                        fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -219,7 +226,7 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                               SizedBox(height: 30),
                               Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Row(
                                   children: <Widget>[
                                     Icon(
@@ -233,8 +240,9 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                                       'Date of Birth',
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
-                                        fontSize: 17,
-                                        letterSpacing: 0.5,
+                                        fontFamily: 'Opun',
+                                        color: Colors.black54,
+                                        fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -247,7 +255,15 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                                     child: OutlineButton(
                                       padding: EdgeInsets.symmetric(
                                           vertical: 10, horizontal: 10),
-                                      child: Text('Edit your date of birth'),
+                                      child: Text(
+                                        'Edit your date of birth',
+                                        style: TextStyle(
+                                          fontFamily: 'Opun',
+                                          color: Colors.black45,
+                                          fontSize: 14,
+
+                                        ),
+                                      ),
                                       onPressed: () {
                                         DatePicker.showDatePicker(
                                           context,
@@ -280,7 +296,10 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                                     child: Text(
                                       'Cancle',
                                       style: TextStyle(
-                                        color: Colors.black,
+                                        fontFamily: 'Opun',
+                                        color: Colors.black54,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     onPressed: () {
@@ -294,7 +313,10 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                                     child: Text(
                                       'Confirm',
                                       style: TextStyle(
-                                        color: Theme.of(context).primaryColor,
+                                        fontFamily: 'Opun',
+                                        color: Colors.deepOrange,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     onPressed: () async {
@@ -306,10 +328,10 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                                         _formKey.currentState.save();
                                         await DatabaseService(uid: user.userId)
                                             .updateUserDataDetail(
-                                                newName,
-                                                newGender,
-                                                newDateOfBirth,
-                                                newBio);
+                                            newName,
+                                            newGender,
+                                            newDateOfBirth,
+                                            newBio);
 
                                         Navigator.pop(context);
                                       }

@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:buffet2gether_home/services/database.dart';
 
 /// คลาสรวม แถบแจ้งเตือนทั้ง 2 แบบ
-
 abstract class Bar {
 
   Widget buildNotifBar(BuildContext context);

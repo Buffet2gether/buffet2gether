@@ -31,7 +31,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin //<=== register page
-{
+    {
   ScrollController scrollController;
   final AuthService _auth = AuthService();
   final _formkey = GlobalKey<FormState>();
@@ -56,124 +56,124 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin //<
   {
     return Scaffold(
         body: SafeArea(
-          child: ListView.builder(
-              controller: scrollController,
-              itemCount: 1,
-              itemBuilder: (BuildContext context, int index)
-              {
-                return Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  padding: EdgeInsets.only(left: 20, right: 20),
-                  child: Form(
-                    key: _formkey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(height: 20,),
-                        Text(
-                          'Create your account',
-                          style: TextStyle(
-                              fontFamily: 'Opun',
-                              color: Colors.deepOrange,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(height: 20,),
-                        Container(
-                          //email block
-                          width: 380,
-                          decoration: new BoxDecoration(
-                            borderRadius: new BorderRadius.circular(10),
-                            color: Colors.white,
-                          ),
-                          child: TextFormField(
-                            cursorColor: Colors.deepOrange,
+            child: ListView.builder(
+                controller: scrollController,
+                itemCount: 1,
+                itemBuilder: (BuildContext context, int index)
+                {
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    child: Form(
+                      key: _formkey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          SizedBox(height: 70,),
+                          Text(
+                            'Create your account',
                             style: TextStyle(
-                              fontFamily: 'Opun',
-                              color: Colors.grey,
-                              fontSize: 15,
-                              fontWeight: FontWeight.normal,
-                            ),
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Email',
-                                prefixIcon: Icon(Icons.email)),
-                            validator: (val) => isEmail(val) ? null : "Invalid email",
-                            onChanged: (val)
-                            {
-                              setState(() => email = val); // save email to text field
-                            },
+                                fontFamily: 'Opun',
+                                color: Colors.deepOrange,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold),
                           ),
-                        ),
-                        SizedBox(height: 10,),
-                        Container(
-                          width: 380,
-                          decoration: new BoxDecoration(// <----- Password block
-                            borderRadius: new BorderRadius.circular(10),
-                            color: Colors.white,
-                          ),
-                          child: TextFormField( // Password Text Field
-                            cursorColor: Colors.deepOrange,
-                            style: TextStyle(
-                              fontFamily: 'Opun',
-                              color: Colors.grey,
-                              fontSize: 15,
-                              fontWeight: FontWeight.normal,
-                            ),
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Password',
-                                prefixIcon: Icon(Icons.lock)),
-                            validator: (val) => val.length < 6 ? 'Enter a apssword 6+ chars long' : null,
-                            onChanged: (val)
-                            {
-                              setState(() => password = val); //save password to textfield
-                            },
-                          ),
-                        ),
-                        SizedBox(height: 20,),
-                        RaisedButton(
-                          color: Colors.yellow[600],
-                          shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.all(Radius.circular(10))),
-                          onPressed: ()
-                          {
-                            if (_formkey.currentState.validate())
-                            {
-                              _auth.registerWithEmailAndPassword(email, password);
-                              return showDialog(
-                                context: context,
-                                builder: (context)
-                                {
-                                  return StreamProvider<User>.value(
-                                      value: AuthService().user,
-                                      child: CreateProfile());
-                                  },
-                              );
-                            }
-                            },
-                          child: new Container(
+                          SizedBox(height: 50,),
+                          Container(
+                            //email block
                             width: 380,
-                            height: 50,
-                            child: Text(
-                              'Next',
-                              textAlign: TextAlign.center,
+                            decoration: new BoxDecoration(
+                              borderRadius: new BorderRadius.circular(10),
+                              color: Colors.white,
+                            ),
+                            child: TextFormField(
+                              cursorColor: Colors.deepOrange,
                               style: TextStyle(
                                 fontFamily: 'Opun',
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                                fontSize: 15,
+                                fontWeight: FontWeight.normal,
+                              ),
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Email',
+                                  prefixIcon: Icon(Icons.email)),
+                              validator: (val) => isEmail(val) ? null : "Invalid email",
+                              onChanged: (val)
+                              {
+                                setState(() => email = val); // save email to text field
+                              },
+                            ),
+                          ),
+                          SizedBox(height: 10,),
+                          Container(
+                            width: 380,
+                            decoration: new BoxDecoration(// <----- Password block
+                              borderRadius: new BorderRadius.circular(10),
+                              color: Colors.white,
+                            ),
+                            child: TextFormField( // Password Text Field
+                              cursorColor: Colors.deepOrange,
+                              style: TextStyle(
+                                fontFamily: 'Opun',
+                                color: Colors.grey,
+                                fontSize: 15,
+                                fontWeight: FontWeight.normal,
+                              ),
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Password',
+                                  prefixIcon: Icon(Icons.lock)),
+                              validator: (val) => val.length < 6 ? 'Enter a apssword 6+ chars long' : null,
+                              onChanged: (val)
+                              {
+                                setState(() => password = val); //save password to textfield
+                              },
+                            ),
+                          ),
+                          SizedBox(height: 20,),
+                          RaisedButton(
+                            color: Colors.yellow[600],
+                            shape: RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.all(Radius.circular(10))),
+                            onPressed: ()
+                            {
+                              if (_formkey.currentState.validate())
+                              {
+                                _auth.registerWithEmailAndPassword(email, password);
+                                return showDialog(
+                                  context: context,
+                                  builder: (context)
+                                  {
+                                    return StreamProvider<User>.value(
+                                        value: AuthService().user,
+                                        child: CreateProfile());
+                                  },
+                                );
+                              }
+                            },
+                            child: new Container(
+                              width: 380,
+                              height: 50,
+                              child: Text(
+                                'Next',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: 'Opun',
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              }
-              )
+                  );
+                }
+            )
         )
     );
   }
@@ -190,7 +190,7 @@ class CreateProfile extends StatefulWidget {
 }
 
 class _CreateProfileState extends State<CreateProfile> with SingleTickerProviderStateMixin // <=== Profile page
-{
+    {
   ScrollController scrollController;
   File _tempImage;
   String _uploadedImageURL;
@@ -284,7 +284,7 @@ class _CreateProfileState extends State<CreateProfile> with SingleTickerProvider
                                     onPressed: () async
                                     {
                                       getImageFromGalleryAndUpload();
-                                      },
+                                    },
                                     icon: Icon(Icons.add),
                                   ),
                                   SizedBox( //Box for input username    <==== Start at this line
@@ -353,7 +353,7 @@ class _CreateProfileState extends State<CreateProfile> with SingleTickerProvider
                                         gender = selectedGender.genderName;
                                         print('select ' + selectedGender.genderName);
                                       });
-                                      },
+                                    },
                                     items: genderList.map<DropdownMenuItem<GenderItem>>((value)
                                     {
                                       return DropdownMenuItem<GenderItem>(
@@ -415,11 +415,11 @@ class _CreateProfileState extends State<CreateProfile> with SingleTickerProvider
                                               {
                                                 print('confirm $date');
                                                 dateOfBirth = date;
-                                                },
+                                              },
                                               currentTime: dateOfBirth,
                                               locale: LocaleType.th,
                                             );
-                                            },
+                                          },
                                         ),
                                       ),
                                     ],
@@ -437,9 +437,9 @@ class _CreateProfileState extends State<CreateProfile> with SingleTickerProvider
                                       if (_formkey.currentState.validate())
                                       {
                                         await DatabaseService(uid: userData.userId).updateFirstTimeUserData(_uploadedImageURL ?? 'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/profile_pictures%2Fdefault.png?alt=media&token=c91f2a65-0928-4eb1-a284-c07c0a8c1517',
-                                        username,
-                                        selectedGender.genderName,
-                                        dateOfBirth); // <=;== pass arguement to register    [function is in service/auth  ]
+                                            username,
+                                            selectedGender.genderName,
+                                            dateOfBirth); // <=;== pass arguement to register    [function is in service/auth  ]
                                         return Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -447,7 +447,7 @@ class _CreateProfileState extends State<CreateProfile> with SingleTickerProvider
                                             )
                                         );
                                       }
-                                      },
+                                    },
                                     child: new Container(
                                       width: 380,
                                       height: 50,
@@ -479,11 +479,11 @@ class _CreateProfileState extends State<CreateProfile> with SingleTickerProvider
                     );
                   }
                   else
-                    {
-                      return Loading();
-                    }
+                  {
+                    return Loading();
+                  }
                 }
-                )
+            )
         )
     );
   }

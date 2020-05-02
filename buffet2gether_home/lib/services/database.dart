@@ -10,6 +10,7 @@ import 'package:buffet2gether_home/models/infoInTable_model.dart';
 import 'package:buffet2gether_home/models/memberBarListInTable_model.dart';
 import 'package:buffet2gether_home/models/rec_model.dart';
 import 'package:buffet2gether_home/models/more_model.dart';
+import 'package:buffet2gether_home/models/tableInfo.dart';
 import 'package:buffet2gether_home/models/promotion_model.dart';
 
 class DatabaseService {
@@ -31,6 +32,55 @@ class DatabaseService {
   Firestore.instance.collection('Groups');
   final CollectionReference promotionCollection =
   Firestore.instance.collection('Restaurants/promotion/promotionPic');
+
+
+  ///ดึงข้อมูลร้านใน promotion
+  List<Promo> _promotionPicFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return Promo(
+        resID: doc.data['resID'] ?? '',
+        imageUrl: doc.data['imageUrl'] ?? '',
+        name1: doc.data['name1'] ?? '',
+        name2: doc.data['name2'] ?? '',
+        location: doc.data['location'] ?? '',
+        promotion: doc.data['promotion'] ?? '',
+        promotionInfo: doc.data['promotionInfo'] ?? '',
+        time: doc.data['time'] ?? '',
+        proPic: doc.data['proPic'] ?? '',
+      );
+    }).toList();
+  }
+
+  Stream<List<Promo>> get promotionPic {
+    return promotionCollection.snapshots().map(_promotionPicFromSnapshot);
+  }
+
+
+
+  TableInfo _getGroupInterest(DocumentSnapshot snapshot){  //ดึงความชอบจากร้านที่สร้างเอาไว้
+
+    return TableInfo(
+        fashion:snapshot.data['fashion']??false,
+        sport:snapshot.data['sport']??false,
+        technology:snapshot.data['technology']??false,
+        political:snapshot.data['politics']??false,
+        entertainment:snapshot.data['entertainment']??false,
+        book:snapshot.data['books']??false,
+        pet:snapshot.data['pet']??false,
+        ageStart: snapshot.data['ageStart']??0,
+        ageEnd: snapshot.data['ageEnd']??0,
+        gender: snapshot.data['gender']??''
+    );
+
+  }
+
+
+  Stream<TableInfo>get groupInterest{
+    return GroupsCollection.document(resID).collection('GroupsInRes').document(numberTable).collection('info').document('info').snapshots()
+        .map(_getGroupInterest);
+  }
+
+
 
   ///ดึงข้อมูลร้านใน Recommend
   List<Recom> _recListFromSnapshot(QuerySnapshot snapshot) {
@@ -70,27 +120,6 @@ class DatabaseService {
 
   Stream<List<More>> get moreInRes {
     return moreInResCollection.snapshots().map(_moreListFromSnapshot);
-  }
-
-  ///ดึงข้อมูลร้านใน promotion
-  List<Promo> _promotionPicFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.documents.map((doc) {
-      return Promo(
-        resID: doc.data['resID'] ?? '',
-        imageUrl: doc.data['imageUrl'] ?? '',
-        name1: doc.data['name1'] ?? '',
-        name2: doc.data['name2'] ?? '',
-        location: doc.data['location'] ?? '',
-        promotion: doc.data['promotion'] ?? '',
-        promotionInfo: doc.data['promotionInfo'] ?? '',
-        time: doc.data['time'] ?? '',
-        proPic: doc.data['proPic'] ?? '',
-      );
-    }).toList();
-  }
-
-  Stream<List<Promo>> get promotionPic {
-    return promotionCollection.snapshots().map(_promotionPicFromSnapshot);
   }
 
   ///เพิ่มข้อมูลกลุ่มที่สร้างใน Groups/ชื่อร้าน(resID)/GroupsInRes/... ใน 1 ร้านมีหลายกลุ่ม
@@ -264,14 +293,16 @@ class DatabaseService {
   }
 
   ///////////// ฟังก์ชันเอาไว้เพิ่ม document ใน firebase ส่วนที่เป็น master ของแต่ละกลุ่ม//////////
-  Future updateMasterData(String resID, String number, String userID) async {
+  Future updateMasterData(String resID, String number, String userID,bool max) async {
     return await GroupsCollection.document(resID)
         .collection('GroupsInRes')
         .document(number)
         .setData({
       'userID': userID,
+      'max'   :  max,
     });
   }
+
 
   /////////////// ฟังก์ชันเอาไว้เพิ่ม document ใน firebase ส่วนที่รับ member เข้ากลุ่ม///////////////////////
   Future updateMemberInGroup(
@@ -323,16 +354,18 @@ class DatabaseService {
 ///////////////////////////////////ลบข้อมูลใน Group เมื่อกด finish //////////////////////////////
   void deleteGroupData(
       String resID, String numberTable, String userID, String documentInfo) {
-    GroupsCollection.document(resID)
-        .collection('GroupsInRes')
-        .document(numberTable)
-        .delete();
-    GroupsCollection.document(resID)
-        .collection('GroupsInRes')
-        .document(numberTable)
-        .collection('info')
-        .document(documentInfo)
-        .delete();
+    if(documentInfo != null){
+      GroupsCollection.document(resID)
+          .collection('GroupsInRes')
+          .document(numberTable)
+          .delete();
+      GroupsCollection.document(resID)
+          .collection('GroupsInRes')
+          .document(numberTable)
+          .collection('info')
+          .document(documentInfo)
+          .delete();
+    }
     GroupsCollection.document(resID)
         .collection('GroupsInRes')
         .document(numberTable)
@@ -340,6 +373,7 @@ class DatabaseService {
         .document(userID)
         .delete();
   }
+
 
 ///////////////////////////////////ลบ User Find Group เมื่อผู้ใช้หากลุ่มได้แล้ว//////////////////////////////
   void deleteUserFindGroupData(String resID, String userID) {
@@ -379,7 +413,8 @@ class DatabaseService {
   List<UserMaster> _userMasterFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return UserMaster(
-        userId: doc.data['userID'] ?? '',
+          userId: doc.data['userID'] ?? '',
+          max: doc.data['max']
       );
     }).toList();
   }
@@ -389,6 +424,19 @@ class DatabaseService {
         .collection('GroupsInRes')
         .snapshots()
         .map(_userMasterFromSnapshot);
+  }
+
+////////////////////////////////////map Group Master Max ค่า max เป็น true คือกลุ่มเต็มแล้ว///////////////////////////
+  UserMaster _userMasterMaxFromSnapshot(DocumentSnapshot snapshot){
+    return UserMaster(
+        userId: snapshot.data['userID']??'',
+        max: snapshot.data['max']
+    );
+  }
+
+  Stream<UserMaster>get userMasterMax{
+    return GroupsCollection.document(resID).collection('GroupsInRes').document(numberTable).snapshots()
+        .map(_userMasterMaxFromSnapshot);
   }
 
   ////////////////////////// map แถบการแจ้งเตือนจาก document ใน Notification ทั้ง 2 แบบ ให้อยู่ใน list เดียวกัน
@@ -429,7 +477,7 @@ class DatabaseService {
             documentID: doc.documentID,
             userID: doc.data['userID'] ?? '');
       }
-    }).toList();
+    }).toSet().toList();
   }
 
   Stream<List<Bar>> get notifications {
@@ -484,6 +532,13 @@ class DatabaseService {
       people: snapshot.data['num'],
       dueTime: snapshot.data['dueTime'].toString(),
       gender: snapshot.data['gender'],
+      fashion: snapshot.data['fashion'] ?? false,
+      sport: snapshot.data['sports'] ?? false,
+      technology: snapshot.data['technology'] ?? false,
+      political: snapshot.data['politics'] ?? false,
+      entertainment: snapshot.data['entertainment'] ?? false,
+      book: snapshot.data['books'] ?? false,
+      pet: snapshot.data['pet'] ?? false,
     );
   }
 
@@ -541,6 +596,13 @@ class DatabaseService {
       people: snapshot.data['num'],
       dueTime: snapshot.data['dueTime'].toString(),
       gender: snapshot.data['gender'],
+      fashion: snapshot.data['fashion'] ?? false,
+      sport: snapshot.data['sports'] ?? false,
+      technology: snapshot.data['technology'] ?? false,
+      political: snapshot.data['politics'] ?? false,
+      entertainment: snapshot.data['entertainment'] ?? false,
+      book: snapshot.data['books'] ?? false,
+      pet: snapshot.data['pet'] ?? false,
     );
   }
 
@@ -721,11 +783,4 @@ class DatabaseService {
       'Member3': member3,
     });
   }
-
-/*
-  List<GetID> _GetID(QuerySnapshot snapshot){
-
-  }
-*/
-
 }

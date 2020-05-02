@@ -66,98 +66,98 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
             {
               return
                 Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                color: Color(0xfff5f5f5),
-                padding: EdgeInsets.only(left: 20, right: 20),
-                child: Form(
-                  key: _formkey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      //SizedBox(height: 80,),
-                      Text(
-                        'Log in',
-                        style: TextStyle(
-                            fontFamily: 'Opun',
-                            color: Colors.deepOrange,
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 20,),
-                      Container(
-                        width: 380,
-                        decoration: new BoxDecoration(
-                          borderRadius: new BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: TextFormField(
-                          cursorColor: Colors.deepOrange,
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  color: Color(0xfff5f5f5),
+                  padding: EdgeInsets.only(left: 20, right: 20),
+                  child: Form(
+                    key: _formkey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        //SizedBox(height: 80,),
+                        Text(
+                          'Log in',
                           style: TextStyle(
-                            fontFamily: 'Opun',
-                            color: Colors.grey,
-                            fontSize: 15,
-                            fontWeight: FontWeight.normal,
+                              fontFamily: 'Opun',
+                              color: Colors.deepOrange,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 50,),
+                        Container(
+                          width: 380,
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.circular(10),
+                            color: Colors.white,
                           ),
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Email',
-                              prefixIcon: Icon(Icons.email)),
-                          validator: (val) => isEmail(val) ? null : "Invalid email",
-                          onChanged: (val)
-                          {
-                            setState(() => email = val); // save email to text field
-                          },
-                        ),
-                      ),
-                      SizedBox(height: 10,),
-                      Container(
-                        width: 380,
-                        decoration: new BoxDecoration(
-                          borderRadius: new BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: TextFormField(
-                          cursorColor: Colors.deepOrange,
-                          obscureText: true,
-                          style: TextStyle(
-                            fontFamily: 'Opun',
-                            color: Colors.grey,
-                            fontSize: 15,
-                            fontWeight: FontWeight.normal,
-                          ),
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Password',
-                              prefixIcon: Icon(Icons.lock)),
-                          validator: (val) => val.length < 6 ? 'Enter a apssword 6+ chars long' : null,
-                          onChanged: (val)
-                          {
-                            setState(() => password = val); //save password to textfield
-                          },
-                        ),
-                      ),
-                      SizedBox(height: 20,),
-                      RaisedButton(
-                        color: Colors.yellow[600],
-                        shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.all(Radius.circular(10))
-                        ),
-                        onPressed: () async
-                        {
-                          if (_formkey.currentState.validate())
-                          {
-                            //  setState(() => loading = true);
-                            dynamic result = await _auth.signInWithEmailAndPassword(email, password);
-                            if (result == null)
+                          child: TextFormField(
+                            cursorColor: Colors.deepOrange,
+                            style: TextStyle(
+                              fontFamily: 'Opun',
+                              color: Colors.grey,
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal,
+                            ),
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Email',
+                                prefixIcon: Icon(Icons.email)),
+                            validator: (val) => isEmail(val) ? null : "Invalid email",
+                            onChanged: (val)
                             {
-                              setState(()
+                              setState(() => email = val); // save email to text field
+                            },
+                          ),
+                        ),
+                        SizedBox(height: 10,),
+                        Container(
+                          width: 380,
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.circular(10),
+                            color: Colors.white,
+                          ),
+                          child: TextFormField(
+                            cursorColor: Colors.deepOrange,
+                            obscureText: true,
+                            style: TextStyle(
+                              fontFamily: 'Opun',
+                              color: Colors.grey,
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal,
+                            ),
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Password',
+                                prefixIcon: Icon(Icons.lock)),
+                            validator: (val) => val.length < 6 ? 'Enter a apssword 6+ chars long' : null,
+                            onChanged: (val)
+                            {
+                              setState(() => password = val); //save password to textfield
+                            },
+                          ),
+                        ),
+                        SizedBox(height: 20,),
+                        RaisedButton(
+                          color: Colors.yellow[600],
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.all(Radius.circular(10))
+                          ),
+                          onPressed: () async
+                          {
+                            if (_formkey.currentState.validate())
+                            {
+                              //  setState(() => loading = true);
+                              dynamic result = await _auth.signInWithEmailAndPassword(email, password);
+                              if (result == null)
                               {
-                                //loading = false;
-                                error = 'Could not sign in ,Please check your email or password';
-                              });
-                            } else
+                                setState(()
+                                {
+                                  //loading = false;
+                                  error = 'Could not sign in ,Please check your email or password';
+                                });
+                              } else
                               {
                                 return Navigator.push(
                                     context,
@@ -169,73 +169,73 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                     )
                                 );
                               }
-                          }
+                            }
                           },
-                        child: new Container(
-                          width: 380,
-                          height: 50,
-                          child: Text(
-                            'Log in',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'Opun',
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                          child: new Container(
+                            width: 380,
+                            height: 50,
+                            child: Text(
+                              'Log in',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'Opun',
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 12.0),
-                      Text(
-                        error,
-                        style: TextStyle(color: Colors.red, fontSize: 14.0),
-                      ),
-                      SizedBox(height: 10,),
-                      FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Row(
-                          children: <Widget>[
-                            Text(
-                            'Don\'t have an account?',
-                            style: TextStyle(
-                              fontFamily: 'Opun',
-                              color: Colors.black26,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                            SizedBox(width: 20,),
-                            new InkWell(
-                              onTap: ()
-                              {
-                                return showDialog(
-                                  context: context,
-                                  builder: (context)
-                                  {
-                                    return SignUp();
-                                    },
-                                );
-                                },
-                              child: Text(
-                                'Sign up',
+                        SizedBox(height: 250.0),
+                        Text(
+                          error,
+                          style: TextStyle(color: Colors.red, fontSize: 14.0),
+                        ),
+                        SizedBox(height: 10,),
+                        FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: Row(
+                            children: <Widget>[
+                              Text(
+                                'Don\'t have an account?',
                                 style: TextStyle(
                                   fontFamily: 'Opun',
-                                  color: Colors.deepOrange,
+                                  color: Colors.black26,
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
+                              ),
+                              SizedBox(width: 20,),
+                              new InkWell(
+                                  onTap: ()
+                                  {
+                                    return showDialog(
+                                      context: context,
+                                      builder: (context)
+                                      {
+                                        return SignUp();
+                                      },
+                                    );
+                                  },
+                                  child: Text(
+                                    'Sign up',
+                                    style: TextStyle(
+                                      fontFamily: 'Opun',
+                                      color: Colors.deepOrange,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )
                               )
-                          )
-                        ],
-                      ),
-                      )
-                    ],
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              );
+                );
             }
-            ),
+        ),
       ),
     );
   }

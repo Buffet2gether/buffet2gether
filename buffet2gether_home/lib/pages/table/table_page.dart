@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:buffet2gether_home/models/mytable_model.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/services/auth.dart';
+import 'package:buffet2gether_home/models/userMaster_model.dart';
 
 //----------------------------------------Table page------------------------------------
 class Table1 extends StatefulWidget
@@ -65,37 +66,40 @@ class _Table1State extends State<Table1>
     if (mytable?.numberTable == null){
       return tablePageDefault;
     }else
-      {
-      return StreamProvider<User>.value(
-        value: AuthService().user,
-        child: StreamProvider<Mytable>.value(
-          value:DatabaseService(userID: user.userId).mytable,
-          child: StreamProvider<List<MemberBarListInTable>>.value(
-              value: DatabaseService(numberTable: mytable.numberTable,resID: mytable.resID).memberInTable,
-              child: StreamProvider<InfoInTable>.value(
-                value: DatabaseService(numberTable:mytable.numberTable,resID: mytable.resID).infoInTable,
-                child: Scaffold(
-                    appBar: new AppBar(
-                      leading: new Container(),
-                      centerTitle: true,
-                      title: new Text(
-                        'โต๊ะของคุณ',
-                        style: TextStyle(
-                            color: Colors.deepOrange,
-                            fontFamily: 'Opun',
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold
+    {
+      return StreamProvider<UserMaster>.value(
+        value: DatabaseService(resID: mytable?.resID,numberTable: mytable?.numberTable).userMasterMax,
+        child: StreamProvider<User>.value(
+          value: AuthService().user,
+          child: StreamProvider<Mytable>.value(
+            value:DatabaseService(userID: user.userId).mytable,
+            child: StreamProvider<List<MemberBarListInTable>>.value(
+                value: DatabaseService(numberTable: mytable?.numberTable,resID: mytable?.resID).memberInTable,
+                child: StreamProvider<InfoInTable>.value(
+                  value: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
+                  child: Scaffold(
+                      appBar: new AppBar(
+                        leading: new Container(),
+                        centerTitle: true,
+                        title: new Text(
+                          'โต๊ะของคุณ!',
+                          style: TextStyle(
+                              color: Colors.deepOrange,
+                              fontFamily: 'Opun',
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold
+                          ),
                         ),
+                        backgroundColor: Color(0xfff5f5f5),
                       ),
-                      backgroundColor: Color(0xfff5f5f5),
-                    ),
-                    body: MyTable1()
-                ),
-              )
+                      body: MyTable1()),
+
+                )
+            ),
           ),
+
         ),
       );
     }
   }
 }
-

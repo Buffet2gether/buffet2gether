@@ -12,6 +12,13 @@ class InfoInTable
   double people;
   String dueTime;
   String gender;
+  bool sport;
+  bool pet;
+  bool technology;
+  bool political;
+  bool fashion;
+  bool entertainment;
+  bool book;
 
   InfoInTable(
       {
@@ -26,6 +33,13 @@ class InfoInTable
         this.dueTime,
         this.gender,
         this.people,
+        this.sport,
+        this.pet,
+        this.technology,
+        this.political,
+        this.fashion,
+        this.entertainment,
+        this.book,
       }
       );
 }

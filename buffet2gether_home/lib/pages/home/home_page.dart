@@ -13,6 +13,7 @@ import 'package:buffet2gether_home/models/mytable_model.dart';
 import 'package:buffet2gether_home/pages/home/search_page.dart';
 import 'package:buffet2gether_home/models/promotion_model.dart';
 
+
 class HomeColumn extends StatefulWidget
 {
 
@@ -23,6 +24,7 @@ class HomeColumn extends StatefulWidget
 class _HomeColumnState extends State<HomeColumn>
 {
   ScrollController scrollController;
+
 
   @override
   void initState()
@@ -62,8 +64,11 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
+
     final picPro = ConstrainedBox(
         child: new Swiper(
+          itemCount: proPics?.length,
+          pagination: new SwiperPagination(),
           itemBuilder: (BuildContext context,int index)
           {
             final proPic = proPics[index];
@@ -97,10 +102,8 @@ class _HomeColumnState extends State<HomeColumn>
                   );
                 },
                 child: Image.network(proPic.proPic)
-            );//listPic[index];
+            );
           },
-          itemCount: proPics?.length,
-          pagination: new SwiperPagination(),
         ),
         constraints:new BoxConstraints.loose(new Size(350, 220.0))
     );
@@ -135,6 +138,7 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
+
     final rowRecom = Container(
         height: 155,
         color: Color(0xFFF5F5F5),
@@ -148,29 +152,29 @@ class _HomeColumnState extends State<HomeColumn>
                 onTap: ()
                 {
                   return showDialog(
-                  context: context,
-                  builder: (context)
-                  {
-                    return StreamProvider<Mytable>.value(
-                      value: DatabaseService(userID:user.userId).mytable,
-                      child: StreamProvider<List<UserMaster>>.value(
-                        value: DatabaseService(resID: rec.resID).userMaster,
-                        child: StreamProvider<User>.value(
-                            value: AuthService().user,
-                            child: InfoPage(
-                              resID: rec.resID,
-                              image: rec.imageUrl,
-                              name1: rec.name1,
-                              name2: rec.name2,
-                              location: rec.location,
-                              time: rec.time,
-                              promotion:  rec.promotion,
-                              promotionInfo: rec.promotionInfo,
-                            )
-                        ),
-                      ),
-                    );
-                  }
+                      context: context,
+                      builder: (context)
+                      {
+                        return StreamProvider<Mytable>.value(
+                          value: DatabaseService(userID:user.userId).mytable,
+                          child: StreamProvider<List<UserMaster>>.value(
+                            value: DatabaseService(resID: rec.resID).userMaster,
+                            child: StreamProvider<User>.value(
+                                value: AuthService().user,
+                                child: InfoPage(
+                                  resID: rec.resID,
+                                  image: rec.imageUrl,
+                                  name1: rec.name1,
+                                  name2: rec.name2,
+                                  location: rec.location,
+                                  time: rec.time,
+                                  promotion:  rec.promotion,
+                                  promotionInfo: rec.promotionInfo,
+                                )
+                            ),
+                          ),
+                        );
+                      }
                   );
                 },
                 child: Container(
@@ -234,12 +238,12 @@ class _HomeColumnState extends State<HomeColumn>
                         child: Stack(
                           children: <Widget>[
                             ClipRect(
-                                child: Image.network(
-                                  rec.imageUrl,
-                                  fit: BoxFit.cover,
-                                  width: 120,
-                                  height: 90,
-                                ),
+                              child: Image.network(
+                                rec.imageUrl,
+                                fit: BoxFit.cover,
+                                width: 120,
+                                height: 90,
+                              ),
                             )
                           ],
                         ),
@@ -267,6 +271,7 @@ class _HomeColumnState extends State<HomeColumn>
         )
       ],
     );
+
 
     final colMore = Container(
         height: 400,
@@ -305,7 +310,7 @@ class _HomeColumnState extends State<HomeColumn>
                           );
                         }
                     );
-                    },
+                  },
                   child: new Container(
                       width: screenSize.width,
                       margin: EdgeInsets.only(bottom: 1, left: 5, right: 5),
@@ -396,7 +401,7 @@ class _HomeColumnState extends State<HomeColumn>
                   )
               );
             }
-            )
+        )
     );
 
     final homeColumn = Container(
@@ -416,51 +421,51 @@ class _HomeColumnState extends State<HomeColumn>
     );
 
     return StreamProvider<List<Recom>>.value(
-      value: DatabaseService().recInRes,
-      child: StreamProvider<List<More>>.value(
-        value: DatabaseService().moreInRes,
-        child: Scaffold(
-            appBar: new AppBar(
-              leading: IconButton(
-                icon: Icon(Icons.search),
-                color: Colors.orange,
-                onPressed: ()
-                {
-                  return showDialog(
-                      context: context,
-                      builder: (context)
-                  {
-                    return StreamProvider<User>.value(
-                      value: AuthService().user,
-                      child: new SearchPage(),
+        value: DatabaseService().recInRes,
+        child: StreamProvider<List<More>>.value(
+            value: DatabaseService().moreInRes,
+            child: Scaffold(
+                appBar: new AppBar(
+                  leading: IconButton(
+                    icon: Icon(Icons.search),
+                    color: Colors.orange,
+                    onPressed: ()
+                    {
+                      return showDialog(
+                        context: context,
+                        builder: (context)
+                        {
+                          return StreamProvider<User>.value(
+                            value: AuthService().user,
+                            child: new SearchPage(),
+                          );
+                        },
                       );
-                  },
-                  );
-                },
-              ),
-              centerTitle: true,
-              title: new Text(
-                'Buffet2Gether',
-                style: TextStyle(
-                    color: Colors.deepOrange,
-                    fontFamily: 'Opun',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-              backgroundColor: Color(0xfff5f5f5),
-            ),
-            body: SafeArea(
-                child: ListView.builder(
-                  controller: scrollController,
-                  itemCount: 1,
-                  itemBuilder: (BuildContext context, int index)
-                  {
-                    return homeColumn;
                     },
+                  ),
+                  centerTitle: true,
+                  title: new Text(
+                    'Buffet2Gether',
+                    style: TextStyle(
+                        color: Colors.deepOrange,
+                        fontFamily: 'Opun',
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  backgroundColor: Color(0xfff5f5f5),
+                ),
+                body: SafeArea(
+                    child: ListView.builder(
+                      controller: scrollController,
+                      itemCount: 1,
+                      itemBuilder: (BuildContext context, int index)
+                      {
+                        return homeColumn;
+                      },
+                    )
                 )
             )
         )
-      )
     );
   }
 }

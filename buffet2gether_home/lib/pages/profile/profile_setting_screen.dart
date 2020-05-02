@@ -45,7 +45,7 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
       ),
       body: SafeArea(
         child: StreamBuilder<UserData>(
-            stream: DatabaseService(uid: user.userId).userData,
+            stream: DatabaseService(uid: user?.userId).userData,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 UserData userData = snapshot.data;

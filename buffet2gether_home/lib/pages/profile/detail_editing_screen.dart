@@ -24,12 +24,14 @@ class DetailEditingScreen extends StatefulWidget {
 }
 
 class _DetailEditingScreenState extends State<DetailEditingScreen> {
+
   final _formKey = GlobalKey<FormState>();
   GenderItem selectedGender;
 
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
+
     return Scaffold(
       appBar: new AppBar(
         centerTitle: true,
@@ -48,7 +50,7 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
       ),
       body: SafeArea(
         child: StreamBuilder<UserData>(
-            stream: DatabaseService(uid: user.userId).userData,
+            stream: DatabaseService(uid: user?.userId).userData,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 UserData userData = snapshot.data;
@@ -146,6 +148,7 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                               DropdownButtonFormField<GenderItem>(
                                 isDense: true,
                                 isExpanded: true,
+                                hint: Text('Select your gender'),
                                 value: selectedGender,
                                 onChanged: (GenderItem value) {
                                   setState(() {
@@ -154,8 +157,10 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                                 },
                                 onSaved: (GenderItem value) {
                                   setState(() {
-                                    selectedGender = value;
-                                    newGender = selectedGender.genderName;
+                                    if (value != null) {
+                                      //selectedGender = value;
+                                      newGender = selectedGender.genderName;
+                                    }
                                   });
                                 },
                                 items: genderList
@@ -328,11 +333,11 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                                         _formKey.currentState.save();
                                         await DatabaseService(uid: user.userId)
                                             .updateUserDataDetail(
-                                            newName,
-                                            newGender,
-                                            newDateOfBirth,
-                                            newBio);
-
+                                            newName ?? userData.name,
+                                            newGender ?? userData.gender,
+                                            newDateOfBirth ?? userData.dateofBirth,
+                                            newBio ?? userData.bio
+                                        );
                                         Navigator.pop(context);
                                       }
                                     },

@@ -14,7 +14,7 @@ class _InterestingEditingScreenState extends State<InterestingEditingScreen> {
   bool _tempFashion;
   bool _tempSport;
   bool _tempTechnology;
-  bool _tempPolitic;
+  bool _tempPolitics;
   bool _tempEntertainment;
   bool _tempBook;
   bool _tempPet;
@@ -118,7 +118,7 @@ class _InterestingEditingScreenState extends State<InterestingEditingScreen> {
                       ),
                       SwitchListTile(
                         title: Text(
-                          'Politic',
+                          'Politics',
                           style: TextStyle(
                             fontFamily: 'Opun',
                             color: Colors.black54,
@@ -127,14 +127,14 @@ class _InterestingEditingScreenState extends State<InterestingEditingScreen> {
                           ),
 
                         ),
-                        value: _tempPolitic ?? userData.politic,
+                        value: _tempPolitics ?? userData.politics,
                         secondary: Icon(
                           FontAwesomeIcons.balanceScale,
                           color: Theme.of(context).primaryColor,
                         ),
                         onChanged: (bool value) {
                           setState(() {
-                            _tempPolitic = value;
+                            _tempPolitics = value;
                           });
                         },
                       ),
@@ -221,7 +221,7 @@ class _InterestingEditingScreenState extends State<InterestingEditingScreen> {
                               _tempFashion = userData.fashion;
                               _tempSport = userData.sport;
                               _tempTechnology = userData.technology;
-                              _tempPolitic = userData.politic;
+                              _tempPolitics = userData.politics;
                               _tempEntertainment = userData.entertainment;
                               _tempBook = userData.book;
                               _tempPet = userData.pet;
@@ -249,9 +249,8 @@ class _InterestingEditingScreenState extends State<InterestingEditingScreen> {
                                   _tempFashion ?? userData.fashion,
                                   _tempSport ?? userData.sport,
                                   _tempTechnology ?? userData.technology,
-                                  _tempPolitic ?? userData.politic,
-                                  _tempEntertainment ??
-                                      userData.entertainment,
+                                  _tempPolitics ?? userData.politics,
+                                  _tempEntertainment ?? userData.entertainment,
                                   _tempBook ?? userData.book,
                                   _tempPet ?? userData.pet);
 

@@ -39,7 +39,7 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
     final infoFromGroup = Provider.of<InfoInGroup>(context);
 
     List<bool> interestGroup= [infoFromGroup?.fashion,infoFromGroup?.sport, infoFromGroup?.technology,
-      infoFromGroup?.political,infoFromGroup?.entertainment, infoFromGroup?.book, infoFromGroup?.pet];
+      infoFromGroup?.politics,infoFromGroup?.entertainment, infoFromGroup?.book, infoFromGroup?.pet];
 
     /// แสดง interest ตามที่เลือกจากหน้า edit interesting table
     final interestList = Container(
@@ -249,26 +249,30 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
       {
         MemberBarListInGroup member = listMember[index];
         String interesting(){
-          List<bool> interest= [member.sport,member.pet,member.technology,member.political,member.fashion,
-            member.entertainment];
+          List<bool> interest= [member.fashion, member.sport,member.technology,member.politics,
+            member.entertainment,member.book, member.pet];
           String infomation = '';
           if(interest[0]){
-            infomation += '#sport';
+            infomation += '#fashion';
           }
           if(interest[1]){
-            infomation += '#pet';
+            infomation += '#sport';
           }
+
           if(interest[2]){
             infomation += '#technology';
           }
           if(interest[3]){
-            infomation += '#political';
+            infomation += '#politics';
           }
           if(interest[4]){
-            infomation += '#fashion';
+            infomation += '#entertainment';
           }
           if(interest[5]){
-            infomation += '#entertainment';
+            infomation += '#book';
+          }
+          if(interest[6]){
+            infomation += '#pet';
           }
           return infomation;
         }

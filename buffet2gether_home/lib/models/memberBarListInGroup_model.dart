@@ -8,7 +8,7 @@ class MemberBarListInGroup
   bool sport;
   bool pet;
   bool technology;
-  bool political;
+  bool politics;
   bool fashion;
   bool entertainment;
   bool book;
@@ -23,7 +23,7 @@ class MemberBarListInGroup
         this.sport,
         this.pet,
         this.technology,
-        this.political,
+        this.politics,
         this.fashion,
         this.entertainment,
         this.book,

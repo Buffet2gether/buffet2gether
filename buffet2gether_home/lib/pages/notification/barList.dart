@@ -56,32 +56,30 @@ class _BarListState extends State<BarList> {
 
                                   for (var item in userFindGroups) {   //matching
 
-                                    if(((item.getBook()      && tableInfo.getBook()) == false)         &&
+                                    if(
+                                        ((item.getBook()         && tableInfo.getBook()) == false)         &&
                                         ((item.getEntertainment()&& tableInfo.getEntertainment()) == false)&&
                                         ((item.getFashion()      && tableInfo.getFashion()) == false)      &&
                                         ((item.getPet()          && tableInfo.getPet())==false)            &&
-                                        ((item.getPolitical()    && tableInfo.getPolitical())==false)      &&
+                                        ((item.getPolitics()    && tableInfo.getPolitics())==false)      &&
                                         ((item.getSport()        && tableInfo.getSport())==false)          &&
-                                        ((item.getTechnology()   && tableInfo.getTechnology())==false)){
-
+                                        ((item.getTechnology()   && tableInfo.getTechnology())==false)
+                                    ){
                                       DatabaseService().deleteNotifData(item.userID,userData.userId); ////เอาไว้ลบ document firebase
                                       continue;
                                     }
 
-                                    if( (item.age < tableInfo.getAgeStart())  || (item.age > tableInfo.getAgeEnd() )){
-
+                                    if( (item.age < tableInfo.getAgeStart())  || (item.age > tableInfo.getAgeEnd())  ){
                                       DatabaseService().deleteNotifData(item.userID,userData.userId); ////เอาไว้ลบ document firebase
                                     }
 
                                     if(tableInfo.getGender() == 'Male'){
                                       if(item.getGender() != 'Male'){
-
                                         DatabaseService().deleteNotifData(item.userID,userData.userId); ////เอาไว้ลบ document firebase
                                       }
                                     }
                                     else if (tableInfo.getGender() == 'Female'){
                                       if(item.getGender() != 'Female'){
-
                                         DatabaseService().deleteNotifData(item.userID,userData.userId); ////เอาไว้ลบ document firebase
                                       }
                                     }
@@ -146,7 +144,7 @@ class _BarListState extends State<BarList> {
                                                 userData.fashion,
                                                 userData.sport,
                                                 userData.technology,
-                                                userData.politic,
+                                                userData.politics,
                                                 userData.entertainment,
                                                 userData.book,
                                                 userData.pet,
@@ -222,7 +220,7 @@ class _BarListState extends State<BarList> {
                                                     userData.fashion,
                                                     userData.sport,
                                                     userData.technology,
-                                                    userData.politic,
+                                                    userData.politics,
                                                     userData.entertainment,
                                                     userData.book,
                                                     userData.pet,

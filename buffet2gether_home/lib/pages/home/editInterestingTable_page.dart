@@ -73,7 +73,7 @@ class _InterestingInTableState extends State<InterestingInTable> {
                   },
                 ),
                 SwitchListTile(
-                  title: Text('Politic'),
+                  title: Text('Politics'),
                   value: _tempInteresting[3],
                   secondary: Icon(
                     myTable.interestingIconUrl[3],

@@ -367,7 +367,7 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                         horizontal: 10.0),
                                     child: Icon(
                                       FontAwesomeIcons.balanceScale,
-                                      color: userData.politic
+                                      color: userData.politics
                                           ? Theme.of(context).accentColor
                                           : Theme.of(context).buttonColor,
                                     ),

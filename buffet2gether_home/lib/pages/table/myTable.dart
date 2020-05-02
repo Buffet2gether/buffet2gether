@@ -96,7 +96,7 @@ class _MyTable1State extends State<MyTable1>
                         infoFromTable.fashion,
                         infoFromTable.sport,
                         infoFromTable.technology,
-                        infoFromTable.political,
+                        infoFromTable.politics,
                         infoFromTable.entertainment,
                         infoFromTable.book,
                         infoFromTable.pet,
@@ -122,7 +122,7 @@ class _MyTable1State extends State<MyTable1>
                     infoFromTable.fashion,
                     infoFromTable.sport,
                     infoFromTable.technology,
-                    infoFromTable.political,
+                    infoFromTable.politics,
                     infoFromTable.entertainment,
                     infoFromTable.book,
                     infoFromTable.pet,
@@ -162,7 +162,7 @@ class _MyTable1State extends State<MyTable1>
     );
 
     List<bool> interestTable= [infoFromTable?.fashion,infoFromTable?.sport, infoFromTable?.technology,
-      infoFromTable?.political,infoFromTable?.entertainment, infoFromTable?.book, infoFromTable?.pet];
+      infoFromTable?.politics,infoFromTable?.entertainment, infoFromTable?.book, infoFromTable?.pet];
 
     /// แสดง interest ตามที่เลือกจากหน้า edit interesting table
     final interestList = Container(
@@ -376,12 +376,12 @@ class _MyTable1State extends State<MyTable1>
       itemBuilder: (BuildContext context,int index) {
         MemberBarListInTable member = listMember[index];
         String interesting(){
-          List<bool> interest= [member.fashion, member.sport, member.technology, member.political, member.entertainment, member.book, member.pet];
+          List<bool> interest= [member.fashion, member.sport, member.technology, member.politics, member.entertainment, member.book, member.pet];
           String infomation = '';
           if(interest[0]){infomation += '#fashion';}
           if(interest[1]){infomation += '#sport';}
           if(interest[2]){infomation += '#technology';}
-          if(interest[3]){infomation += '#political';}
+          if(interest[3]){infomation += '#politics';}
           if(interest[4]){infomation += '#entertainment';}
           if(interest[5]){infomation += '#book';}
           if(interest[6]){infomation += '#pet';}

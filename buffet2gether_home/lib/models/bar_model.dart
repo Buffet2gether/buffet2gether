@@ -20,7 +20,7 @@ abstract class Bar {
   bool getSport();
   bool getPet();
   bool getTechnology();
-  bool getPolitical();
+  bool getPolitics();
   bool getFashion();
   bool getEntertainment();
   bool getBook();
@@ -36,16 +36,16 @@ class CreateNotifBar implements Bar{
   final bool sport;
   final bool pet;
   final bool technology;
-  final bool political;
+  final bool politics;
   final bool fashion;
   final bool entertainment;
   final bool book;
   final String userID;
 
-  CreateNotifBar({this.gender, this.age,this.fashion, this.sport, this.technology, this.political, this.entertainment, this.book, this.pet, this.imageUrl,this.membername,this.documentID,this.userID});
+  CreateNotifBar({this.gender, this.age,this.fashion, this.sport, this.technology, this.politics, this.entertainment, this.book, this.pet, this.imageUrl,this.membername,this.documentID,this.userID});
 
   String interesting(){
-    List<bool> interest= [fashion,sport,technology,political,entertainment,book,pet];
+    List<bool> interest= [fashion,sport,technology,politics,entertainment,book,pet];
     String infomation = '';
     if(interest[0]){
       infomation += '#fashion';
@@ -57,7 +57,7 @@ class CreateNotifBar implements Bar{
       infomation += '#technology';
     }
     if(interest[3]){
-      infomation += '#political';
+      infomation += '#politics';
     }
     if(interest[4]){
       infomation += '#entertainment';
@@ -180,8 +180,8 @@ class CreateNotifBar implements Bar{
   }
 
   @override
-  bool getPolitical() {
-    return political;
+  bool getPolitics() {
+    return politics;
   }
 
   @override
@@ -230,17 +230,17 @@ class CreateGroupBar implements Bar{
   final bool sport;
   final bool pet;
   final bool technology;
-  final bool political;
+  final bool politics;
   final bool fashion;
   final bool entertainment;
   final String resID;
   final bool book;
   final String userID;
 
-  CreateGroupBar({this.gender, this.age, this.fashion, this.sport, this.technology, this.political, this.entertainment, this.book, this.pet,this.imageUrl,this.membername,this.number,this.documentID,this.resID,this.userID});
+  CreateGroupBar({this.gender, this.age, this.fashion, this.sport, this.technology, this.politics, this.entertainment, this.book, this.pet,this.imageUrl,this.membername,this.number,this.documentID,this.resID,this.userID});
 
   String interesting(){
-    List<bool> interest= [fashion,sport,technology,political,entertainment,book,pet];
+    List<bool> interest= [fashion,sport,technology,politics,entertainment,book,pet];
     String infomation = '';
     if(interest[0]){
       infomation += '#fashion';
@@ -252,7 +252,7 @@ class CreateGroupBar implements Bar{
       infomation += '#technology';
     }
     if(interest[3]){
-      infomation += '#political';
+      infomation += '#politics';
     }
     if(interest[4]){
       infomation += '#entertainment';
@@ -399,7 +399,7 @@ class CreateGroupBar implements Bar{
   }
 
   @override
-  bool getPolitical() {
+  bool getPolitics() {
     return null;
   }
 

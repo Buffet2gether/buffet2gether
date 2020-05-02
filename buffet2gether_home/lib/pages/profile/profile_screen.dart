@@ -438,7 +438,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               );
                                             }
-                                            if (index == 3 && userData.politic == true) {
+                                            if (index == 3 && userData.politics == true) {
                                               return Container(
                                                 margin: EdgeInsets.symmetric(vertical: 1),
                                                 decoration: BoxDecoration(
@@ -463,7 +463,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                         .accentColor,
                                                   ),
                                                   title: Text(
-                                                    'Politic',
+                                                    'Politics',
                                                     //overflow: TextOverflow.fade,
                                                     style: TextStyle(
                                                       fontFamily: 'Opun',

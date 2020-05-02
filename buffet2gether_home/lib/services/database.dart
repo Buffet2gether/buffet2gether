@@ -32,6 +32,8 @@ class DatabaseService {
   Firestore.instance.collection('Groups');
   final CollectionReference promotionCollection =
   Firestore.instance.collection('Restaurants/promotion/promotionPic');
+  final CollectionReference historyCollection =
+  Firestore.instance.collection('History');
 
 
   ///ดึงข้อมูลร้านใน promotion
@@ -55,8 +57,6 @@ class DatabaseService {
     return promotionCollection.snapshots().map(_promotionPicFromSnapshot);
   }
 
-
-
   TableInfo _getGroupInterest(DocumentSnapshot snapshot){  //ดึงความชอบจากร้านที่สร้างเอาไว้
 
     return TableInfo(
@@ -74,13 +74,10 @@ class DatabaseService {
 
   }
 
-
   Stream<TableInfo>get groupInterest{
     return GroupsCollection.document(resID).collection('GroupsInRes').document(numberTable).collection('info').document('info').snapshots()
         .map(_getGroupInterest);
   }
-
-
 
   ///ดึงข้อมูลร้านใน Recommend
   List<Recom> _recListFromSnapshot(QuerySnapshot snapshot) {
@@ -224,6 +221,58 @@ class DatabaseService {
       'books': books,
       'pet': pet,
       'userID': userID,
+    });
+  }
+
+  ///เพิ่มข้อมูลกลุ่มที่สร้างใน Groups/ชื่อร้าน(resID)/GroupsInRes/... ใน 1 ร้านมีหลายกลุ่ม
+  Future updateFinish(
+      String resID,
+      String name1,
+      String name2,
+      String image,
+      String location,
+      String time,
+      int ageStart,
+      int ageEnd,
+      double num,
+      DateTime dueTime,
+      String gender,
+      bool fashion,
+      bool sports,
+      bool technology,
+      bool politics,
+      bool entertainment,
+      bool books,
+      bool pet,
+      String numberTable,
+      String itemUserID
+      ) async {
+    return await historyCollection.document(itemUserID).setData({
+      'resID': resID,
+
+      /// ข้อมูลร้าน
+      'name1': name1,
+      'name2': name2,
+      'image': image,
+      'location': location,
+      'time': time,
+
+      /// คุณสมบัติ
+      'ageStart': ageStart,
+      'ageEnd': ageEnd,
+      'num': num,
+      'dueTime': dueTime,
+      'gender': gender,
+
+      /// ความชอบของกลุ่ม
+      'fashion': fashion,
+      'sports': sports,
+      'technology': technology,
+      'politics': politics,
+      'entertainment': entertainment,
+      'books': books,
+      'pet': pet,
+      'itemUserID' : itemUserID,
     });
   }
 

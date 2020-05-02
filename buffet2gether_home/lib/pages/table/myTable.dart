@@ -48,10 +48,23 @@ class _MyTable1State extends State<MyTable1>
     final screenSize = MediaQuery.of(context).size;
     final userMaster = Provider.of<UserMaster>(context);
 
+    ///คุณสมบัติต่างๆ
+    // แปลง time stamp ให้เป็น date Time
+    int getDueTime(){
+      String stringDueTime = infoFromTable.dueTime.substring(18,28);
+      return int.parse(stringDueTime);
+    }
+    DateTime newDueTime = new DateTime.fromMillisecondsSinceEpoch(getDueTime()*1000);
+
     if(listMember.length == infoFromTable.people.round()){
       if(userMaster.max == false){
         DatabaseService().updateMasterData(mytable.resID, mytable.numberTable, userMaster.userId, true);
       }
+    }
+
+    bool iAmMaster = false;
+    if(user.userId == userMaster.userId){
+      iAmMaster = true;
     }
 
     final buttonFinish = Container(
@@ -62,23 +75,88 @@ class _MyTable1State extends State<MyTable1>
         children: <Widget>[
           FloatingActionButton(
             onPressed:(){
-
-              if(listMember.length == 1){
-                /////////////////////////// ถ้าเหลือเป็นคนสุดท้ายในกลุ่ม ให้ลบข้อมูลกลุ่มนั้นทั้งหมด
+              if(iAmMaster)
+              {
+                for (var item in listMember) /////////////////////////// ลบข้อมูลคนอื่นออกจากกลุ่ม
+                {
+                  if(item.userID != user.userId)
+                  {
+                    DatabaseService().updateFinish(
+                        mytable.resID,
+                        infoFromTable.name1,
+                        infoFromTable.name2,
+                        infoFromTable.imageUrl,
+                        infoFromTable.location,
+                        infoFromTable.time,
+                        infoFromTable.ageStart,
+                        infoFromTable.ageEnd,
+                        infoFromTable.people,
+                        newDueTime,
+                        infoFromTable.gender,
+                        infoFromTable.fashion,
+                        infoFromTable.sport,
+                        infoFromTable.technology,
+                        infoFromTable.political,
+                        infoFromTable.entertainment,
+                        infoFromTable.book,
+                        infoFromTable.pet,
+                        infoFromTable.number,
+                        item.userID);
+                    DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,item.userID,null);
+                    DatabaseService().updateTableData(null, null,item.userID);
+                  }
+                }
+                /////////////////////////// ลบข้อมูลตัวเองออกจากกลุ่ม  + ลบกลุ่ม
+                DatabaseService().updateFinish(
+                    mytable.resID,
+                    infoFromTable.name1,
+                    infoFromTable.name2,
+                    infoFromTable.imageUrl,
+                    infoFromTable.location,
+                    infoFromTable.time,
+                    infoFromTable.ageStart,
+                    infoFromTable.ageEnd,
+                    infoFromTable.people,
+                    newDueTime,
+                    infoFromTable.gender,
+                    infoFromTable.fashion,
+                    infoFromTable.sport,
+                    infoFromTable.technology,
+                    infoFromTable.political,
+                    infoFromTable.entertainment,
+                    infoFromTable.book,
+                    infoFromTable.pet,
+                    infoFromTable.number,
+                    user.userId);
                 DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user.userId,'info');
-              }else{
-                /////////////////////////// ถ้าไม่ใช่คนสุดท้าย ลบข้อมูลตัวเองออกจากกลุ่ม
-                DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user.userId,null);
+                DatabaseService().updateTableData(null, null,user.userId);
               }
-              //////////////////////////////// ในข้อมูลหน้า Table เป็น null คือเราออกจากกลุ่มนี้ ไม่มีกลุ่มแล้ว
-              DatabaseService().updateTableData(null, null,user.userId);
-
+              else
+                {
+                /////////////////////////// ลบข้อมูลตัวเองออกจากกลุ่มอย่างเดียว
+                DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user.userId,null);
+                DatabaseService().updateTableData(null, null,user.userId);
+              }
             } ,
-            child:Icon(Icons.restaurant),
-            backgroundColor: Colors.green,
-            tooltip: 'Finish your meal!',
+            child:(iAmMaster)?Icon(Icons.restaurant):Icon(Icons.close),
+            backgroundColor: (iAmMaster)?Colors.green:Colors.red,
+            tooltip: (iAmMaster)?'Finish your meal!':'Out from group',
           ),
 
+        ],
+      ),
+    );
+
+    final nongBuffet = Container(
+      margin: EdgeInsets.all(10),
+      width: 410,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          new Image.network(
+              'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2FBuffet_transparent.png?alt=media&token=cb9c8611-b998-42aa-92f5-6972a91078cb',
+              width: 100,
+              height:100)
         ],
       ),
     );
@@ -185,13 +263,7 @@ class _MyTable1State extends State<MyTable1>
         )
     );
 
-    ///คุณสมบัติต่างๆ
-    // แปลง time stamp ให้เป็น date Time
-    int getDueTime(){
-      String stringDueTime = infoFromTable.dueTime.substring(18,28);
-      return int.parse(stringDueTime);
-    }
-    DateTime newDueTime = new DateTime.fromMillisecondsSinceEpoch(getDueTime()*1000);
+
 
     // แปลง string gender ให้เป็น icon เพศทีเลือกไว้
     int getGender(){
@@ -436,7 +508,8 @@ class _MyTable1State extends State<MyTable1>
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children:[
-                    buttonFinish,
+
+                    ((iAmMaster==false)&&(userMaster.max))?nongBuffet:buttonFinish,//ไม่ใช่เจ้าของห้อง และกลุ่มเต็ม ปุ่มออกจากห้องจะหาย
                   ]
               )
           )

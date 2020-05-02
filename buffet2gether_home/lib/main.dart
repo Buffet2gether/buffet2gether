@@ -17,6 +17,7 @@ import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/models/bar_model.dart';
 import 'package:buffet2gether_home/models/mytable_model.dart';
+import 'package:buffet2gether_home/models/history_model.dart';
 
 void main()
 {
@@ -124,7 +125,10 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
               ),
               StreamProvider<User>.value(
                 value: AuthService().user,
-                child:ProfileScreen(),
+                child:StreamProvider<History>.value(
+                  value: DatabaseService(userID: user?.userId).history,
+                  child:ProfileScreen(),
+                )
               )
             ],
           )

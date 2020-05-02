@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:buffet2gether_home/models/history_model.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/pages/profile/profile_setting_screen.dart';
 import 'package:buffet2gether_home/services/database.dart';
@@ -9,6 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:buffet2gether_home/services/auth.dart';
+import 'package:buffet2gether_home/pages/profile/history_page.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -24,6 +26,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
     var currentUser = FirebaseAuth.instance.currentUser();
+    final history = Provider.of<History>(context);
+
+
     return Scaffold(
       appBar: new AppBar(
         centerTitle: true,
@@ -261,14 +266,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
-                                                        builder: (_) =>
-                                                        StreamProvider<
-                                                            User>.value(
-                                                            value:
-                                                            AuthService()
-                                                                .user,
-                                                            child:
-                                                            ProfileSettingScreen())));
+                                                        builder: (_) => StreamProvider<User>.value(
+                                                            value: AuthService().user,
+                                                            child: ProfileSettingScreen()
+                                                        )
+                                                    )
+                                                );
                                               }),
                                         ],
                                       ),
@@ -591,122 +594,159 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ],
                               ),
                             ),
-                            Container(
-                              /////////////////////////////////////////History
-                              width: MediaQuery.of(context).size.width,
-                              padding: EdgeInsets.symmetric(horizontal: 15),
-                              //color: Colors.blue,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  /*Text(
-                                    'You haven\'t done anything yet.',
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black38,
-                                    ),
-                                  ),*/
-                                  Text(
-                                    'History : ',
-                                    style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  SizedBox(height: 20),
-                                  Container(
-                                    height: 150,
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black26,
-                                          offset: Offset(0, 5),
-                                          blurRadius: 5.0,
-                                          spreadRadius: 2.0,
-                                        ),
-                                      ],
-                                    ),
-                                    width: MediaQuery.of(context).size.width,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                          child: Image.network(
-                                            'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2Frec1.png?alt=media&token=cab6b551-bb20-4f99-a945-1587047faf55',
-                                          ),
-                                        ),
-                                        SizedBox(width: 10),
-                                        Expanded(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                            StreamBuilder<History>(
+                                stream: DatabaseService(userID: user?.userId).history,
+                                builder: (context, snapshot)
+                                {
+                                  //print(snapshot.data);
+                                  if (snapshot.hasData)
+                                  {
+                                    print('kao if jaaaaa');
+                                    History userHistory = snapshot.data;
+                                    return Container( /////////////////////////////////////////History
+                                        width: MediaQuery.of(context).size.width,
+                                        padding: EdgeInsets.symmetric(horizontal: 15),
+                                        //color: Colors.blue,
+                                        child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: <Widget>[
                                               Text(
-                                                'Ead Buffet Shabu',
+                                                'History : ',
                                                 style: TextStyle(
-                                                    fontSize: 16,
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
-                                                    //fontWeight: FontWeight.bold,
-                                                    letterSpacing: 0.5),
+                                                  fontSize: 20.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black,
+                                                ),
                                               ),
-                                              SizedBox(height: 10),
-                                              Row(
-                                                children: <Widget>[
-                                                  Icon(
-                                                    FontAwesomeIcons
-                                                        .mapMarkerAlt,
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
+                                              SizedBox(height: 20),
+                                              InkWell(
+                                                onTap: ()
+                                                {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (_) => HistoryPage(
+                                                            resID: userHistory.resID,
+                                                            image: userHistory.image,
+                                                            name1: userHistory.name1,
+                                                            name2: userHistory.name2,
+                                                            location: userHistory.location,
+                                                            time: userHistory.time,
+                                                            ageStart: userHistory.ageStart,
+                                                            ageEnd: userHistory.ageEnd,
+                                                            num: userHistory.num,
+                                                            dueTime: userHistory.dueTime,
+                                                            gender: userHistory.gender,
+                                                            fashion: userHistory.fashion,
+                                                            sport: userHistory.sport,
+                                                            technology: userHistory.technology,
+                                                            politics: userHistory.politics,
+                                                            entertainment: userHistory.entertainment,
+                                                            book: userHistory.book,
+                                                            pet: userHistory.pet,
+                                                          )
+                                                      )
+                                                  );
+                                                },
+                                                child: Container(
+                                                  height: 150,
+                                                  padding: EdgeInsets.all(10),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: Colors.black26,
+                                                        offset: Offset(0, 5),
+                                                        blurRadius: 5.0,
+                                                        spreadRadius: 2.0,
+                                                      ),
+                                                    ],
                                                   ),
-                                                  SizedBox(width: 10),
-                                                  Expanded(
-                                                    child: Text(
-                                                      'This is the location of this restaurant',
-                                                      overflow:
-                                                      TextOverflow.ellipsis,
-                                                      maxLines: 2,
-                                                    ),
+                                                  width: MediaQuery.of(context).size.width,
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      Container(
+                                                        padding: EdgeInsets.symmetric(
+                                                            horizontal: 10),
+                                                        child: Image.network(
+                                                          userHistory.image,
+                                                          fit: BoxFit.cover,
+                                                          width: 110,
+                                                          height: 80,
+                                                        ),
+                                                      ),
+                                                      SizedBox(width: 10),
+                                                      Expanded(
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment.center,
+                                                          crossAxisAlignment:
+                                                          CrossAxisAlignment.start,
+                                                          children: <Widget>[
+                                                            Text(
+                                                              userHistory.name1,
+                                                              style: TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Theme.of(context).primaryColor,
+                                                                  //fontWeight: FontWeight.bold,
+                                                                  letterSpacing: 0.5
+                                                              ),
+                                                            ),
+                                                            SizedBox(height: 10),
+                                                            Row(
+                                                              children: <Widget>[
+                                                                Icon(
+                                                                  FontAwesomeIcons.mapMarkerAlt,
+                                                                  color: Theme.of(context).primaryColor,
+                                                                ),
+                                                                SizedBox(width: 10),
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    userHistory.location,
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                    maxLines: 2,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            SizedBox(height: 10),
+                                                            Row(
+                                                              children: <Widget>[
+                                                                Icon(
+                                                                  FontAwesomeIcons.user,
+                                                                  color: Theme.of(context).primaryColor,
+                                                                ),
+                                                                SizedBox(width: 10),
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    userHistory.num.round().toString(),
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                    maxLines: 2,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
                                               ),
-                                              SizedBox(height: 10),
-                                              Row(
-                                                children: <Widget>[
-                                                  Icon(
-                                                    FontAwesomeIcons.user,
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
-                                                  ),
-                                                  SizedBox(width: 10),
-                                                  Expanded(
-                                                    child: Text(
-                                                      '4',
-                                                      overflow:
-                                                      TextOverflow.ellipsis,
-                                                      maxLines: 2,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ]),
+                                              )
+                                            ]
+                                        )
+                                    );
+                                  }
+                                  else
+                                    {
+                                      print('kao else jaaaaaa');
+                                      return Container();
+                                    }
+                                }
+                                )
+                          ]
+                      ),
                     ],
                   );
                 } else {

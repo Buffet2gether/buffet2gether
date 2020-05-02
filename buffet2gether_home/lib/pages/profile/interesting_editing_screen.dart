@@ -39,7 +39,7 @@ class _InterestingEditingScreenState extends State<InterestingEditingScreen> {
       ),
       body: SafeArea(
         child: StreamBuilder<UserData>(
-            stream: DatabaseService(uid: user.userId).userData,
+            stream: DatabaseService(uid: user?.userId).userData,
             builder: (context, snapshot) {
               UserData userData = snapshot.data;
               return ListView(

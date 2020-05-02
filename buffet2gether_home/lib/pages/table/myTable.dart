@@ -228,7 +228,12 @@ class _MyTable1State extends State<MyTable1>
                   color: Colors.deepOrange
               ),
             ),
-            Image.network(infoFromTable.imageUrl),
+            Image.network(
+                infoFromTable.imageUrl,
+                fit: BoxFit.contain,
+                width: 250,
+                height: 120
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

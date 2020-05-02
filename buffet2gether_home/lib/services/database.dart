@@ -12,6 +12,7 @@ import 'package:buffet2gether_home/models/rec_model.dart';
 import 'package:buffet2gether_home/models/more_model.dart';
 import 'package:buffet2gether_home/models/tableInfo.dart';
 import 'package:buffet2gether_home/models/promotion_model.dart';
+import 'package:buffet2gether_home/models/history_model.dart';
 
 class DatabaseService {
   final String uid;
@@ -35,6 +36,35 @@ class DatabaseService {
   final CollectionReference historyCollection =
   Firestore.instance.collection('History');
 
+  ///ดึงข้อมูลร้านใน history
+  History _historyFromSnapshot(DocumentSnapshot snapshot) {
+    //print('snapshot = ');
+    //print(snapshot.data);
+    return History(
+      resID: snapshot.data['resID'],
+      image: snapshot.data['image'],
+      name1: snapshot.data['name1'],
+      name2: snapshot.data['name2'],
+      location: snapshot.data['location'],
+      time: snapshot.data['time'],
+      ageStart: snapshot.data['ageStart'],
+      ageEnd: snapshot.data['ageEnd'],
+      num: snapshot.data['num'],
+      dueTime: snapshot.data['dueTime'].toString(),
+      gender: snapshot.data['gender'],
+      fashion: snapshot.data['fashion'] ?? false,
+      sport: snapshot.data['sport'] ?? false,
+      technology: snapshot.data['technology'] ?? false,
+      politics: snapshot.data['politics'] ?? false,
+      entertainment: snapshot.data['entertainment'] ?? false,
+      book: snapshot.data['book'] ?? false,
+      pet: snapshot.data['pet'] ?? false,
+      );
+  }
+  Stream<History> get history {
+    //print('userID history = '+userID);
+    return historyCollection.document(userID).snapshots().map(_historyFromSnapshot);
+  }
 
   ///ดึงข้อมูลร้านใน promotion
   List<Promo> _promotionPicFromSnapshot(QuerySnapshot snapshot) {
@@ -52,7 +82,6 @@ class DatabaseService {
       );
     }).toList();
   }
-
   Stream<List<Promo>> get promotionPic {
     return promotionCollection.snapshots().map(_promotionPicFromSnapshot);
   }
@@ -224,7 +253,7 @@ class DatabaseService {
     });
   }
 
-  ///เพิ่มข้อมูลกลุ่มที่สร้างใน Groups/ชื่อร้าน(resID)/GroupsInRes/... ใน 1 ร้านมีหลายกลุ่ม
+  ///เพิ่มข้อมูล
   Future updateFinish(
       String resID,
       String name1,
@@ -351,7 +380,6 @@ class DatabaseService {
       'max'   :  max,
     });
   }
-
 
   /////////////// ฟังก์ชันเอาไว้เพิ่ม document ใน firebase ส่วนที่รับ member เข้ากลุ่ม///////////////////////
   Future updateMemberInGroup(

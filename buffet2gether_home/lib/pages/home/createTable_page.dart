@@ -125,7 +125,11 @@ class _CreateTablePageState extends State<CreateTablePage>
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.network(widget.image)
+                Image.network(
+                    widget.image,
+                fit: BoxFit.contain,
+                  width: 250,
+                  height: 120,)
               ],
             ),
             Row(

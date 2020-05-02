@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:buffet2gether_home/models/rec_model.dart';
@@ -11,6 +10,9 @@ import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/models/userMaster_model.dart';
 import 'package:buffet2gether_home/models/mytable_model.dart';
+import 'package:buffet2gether_home/pages/home/search_page.dart';
+import 'package:buffet2gether_home/models/promotion_model.dart';
+
 
 class HomeColumn extends StatefulWidget
 {
@@ -23,46 +25,7 @@ class _HomeColumnState extends State<HomeColumn>
 {
   ScrollController scrollController;
 
-  final textController = TextEditingController();
-
-  @override
-  void dispose() {
-    textController.dispose();
-    super.dispose();
-  }
-
-  /* ----------------------------------- get data from backend ---------------------------------------- */
-  /*var queryResultSet = [];
-  var tempSearchStore = [];
-  initiateSearch(value){   // <----- call this function for search algorithm
-    if(value.length == 0 )
-      setState(() {
-        queryResultSet = [];
-        tempSearchStore = [];
-      });
-    var capitalizedValue =
-        value.substring(0,1).toUpperCase() + value.substring(1);
-    if(queryResultSet.length == 0 && value.length == 1){
-      SearchService().seacrhByName(value).then((QuerySnapshot docs){
-        for(int i=0; i < docs.documents.length; ++i){
-          queryResultSet.add(docs.documents[i].data);
-        }
-      });
-    }
-    else{
-      tempSearchStore = [];
-      queryResultSet.forEach((element) {
-        if(element['name'].startsWith(capitalizedValue)){
-          setState(() {
-            tempSearchStore.add(element);
-          });
-        }
-      });
-    }
-  }*/
-
-  /* ----------------------------------------------------------------------------------------------- */
-
+  
   @override
   void initState()
   {
@@ -74,60 +37,10 @@ class _HomeColumnState extends State<HomeColumn>
   {
     final screenSize = MediaQuery.of(context).size;
 
-    final rowSearch = Container(
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
-      decoration: new BoxDecoration(
-        borderRadius: new BorderRadius.circular(10),
-        color: Colors.white,
-      ),
-      child: TextField(
-        /*onChanged:(val){      //when search the first word of restaurant name
-          initiateSearch(val);
-        },*/
-        cursorColor: Colors.deepOrange,
-        controller: textController,
-        style: TextStyle(
-          fontFamily: 'Opun',
-          color: Colors.grey,
-          fontSize: 13,
-          fontWeight: FontWeight.bold,
-        ),
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          icon: Icon(Icons.search),
-          hintText: 'ค้นหา',
-        ),
-      ),
-    );
-
-    final buttonSearch = Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Container(
-          child: RaisedButton(
-              child: Text(
-                'ค้นหา',
-                style: TextStyle(
-                    fontFamily: 'Opun'
-                ),
-              ),
-              onPressed: ()
-              {
-                return showDialog(
-                  context: context,
-                  builder: (context)
-                  {
-                    return AlertDialog(
-                        content: Text(textController.text)
-                    );
-                    },
-                );
-              }
-              ),
-        ),
-      ]
-    );
+    final recs = Provider.of<List<Recom>>(context);
+    final user = Provider.of<User>(context);
+    final more = Provider.of<List<More>>(context);
+    final proPics = Provider.of<List<Promo>>(context);
 
     final textPro = Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -151,61 +64,45 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
-    final List listPic = [
-      new InkWell(
-          onTap: ()
-          {
-            return showDialog(
-              context: context,
-              builder: (context)
-              {
-                return AlertDialog(
-                  content: Text('click pic1'),
-                );
-              },
-            );
-          },
-          child: Image.asset('assets/images/pro.jpg')
-      ),
-      new InkWell(
-          onTap: ()
-          {
-            return showDialog(
-              context: context,
-              builder: (context)
-              {
-                return AlertDialog(
-                  content: Text('click pic2'),
-                );
-              },
-            );
-          },
-          child: Image.asset('assets/images/pro1.jpg')
-      ),
-      new InkWell(
-          onTap: ()
-          {
-            return showDialog(
-              context: context,
-              builder: (context)
-              {
-                return AlertDialog(
-                  content: Text('click pic3'),
-                );
-              },
-            );
-          },
-          child: Image.asset('assets/images/pro2.jpg')
-      ),
-    ];
 
     final picPro = ConstrainedBox(
         child: new Swiper(
           itemBuilder: (BuildContext context,int index)
           {
-            return listPic[index];
+            final proPic = proPics[index];
+            return InkWell(
+                onTap: ()
+                {
+                  return showDialog(
+                    context: context,
+                    builder: (context)
+                    {
+                      return StreamProvider<Mytable>.value(
+                        value: DatabaseService(userID:user.userId).mytable,
+                        child: StreamProvider<List<UserMaster>>.value(
+                          value: DatabaseService(resID: proPic.resID).userMaster,
+                          child: StreamProvider<User>.value(
+                              value: AuthService().user,
+                              child: InfoPage(
+                                resID: proPic.resID,
+                                image: proPic.imageUrl,
+                                name1: proPic.name1,
+                                name2: proPic.name2,
+                                location: proPic.location,
+                                time: proPic.time,
+                                promotion:  proPic.promotion,
+                                promotionInfo: proPic.promotionInfo,
+                              )
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+                child: Image.network(proPic.proPic)
+            );
           },
-          itemCount: listPic.length,
+          itemCount: proPics?.length,
           pagination: new SwiperPagination(),
         ),
         constraints:new BoxConstraints.loose(new Size(350, 220.0))
@@ -241,8 +138,6 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
-    final recs = Provider.of<List<Recom>>(context);
-    final user = Provider.of<User>(context);
 
     final rowRecom = Container(
         height: 155,
@@ -347,6 +242,7 @@ class _HomeColumnState extends State<HomeColumn>
                                   rec.imageUrl,
                                   fit: BoxFit.cover,
                                   width: 120,
+                                  height: 90,
                                 ),
                             )
                           ],
@@ -376,7 +272,6 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
-    final more = Provider.of<List<More>>(context);
 
     final colMore = Container(
         height: 400,
@@ -424,9 +319,13 @@ class _HomeColumnState extends State<HomeColumn>
                         color: Colors.white,),
                       child: Row(
                         children: <Widget>[
-                          Image.network(m.imageUrl),
+                          Image.network(
+                            m.imageUrl,
+                            fit: BoxFit.cover,
+                            width: 110,
+                            height: 80,),
                           Container(
-                            width: screenSize.width - 120,
+                            width: screenSize.width - 135,
                             color: Colors.white,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -447,7 +346,20 @@ class _HomeColumnState extends State<HomeColumn>
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
                                         ),
-                                      )
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          m.name2,
+                                          style: TextStyle(
+                                              fontFamily: 'Opun',
+                                              color: Colors.deepOrange,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        ),
+                                      ),
                                     ]
                                 ),
                                 Row(
@@ -497,8 +409,6 @@ class _HomeColumnState extends State<HomeColumn>
       child: Column(
         children: [
           SizedBox(height: 20,),
-          rowSearch,
-          buttonSearch,
           promotion,
           textRecom,
           SizedBox(height: 5,),
@@ -516,7 +426,23 @@ class _HomeColumnState extends State<HomeColumn>
         value: DatabaseService().moreInRes,
         child: Scaffold(
             appBar: new AppBar(
-              leading: new Container(),
+              leading: IconButton(
+                icon: Icon(Icons.search),
+                color: Colors.orange,
+                onPressed: ()
+                {
+                  return showDialog(
+                      context: context,
+                      builder: (context)
+                  {
+                    return StreamProvider<User>.value(
+                      value: AuthService().user,
+                      child: new SearchPage(),
+                      );
+                  },
+                  );
+                },
+              ),
               centerTitle: true,
               title: new Text(
                 'Buffet2Gether',

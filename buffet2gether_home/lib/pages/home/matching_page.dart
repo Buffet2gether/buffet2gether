@@ -52,7 +52,7 @@ class _MatchingPageState extends State<MatchingPage>
     {
       isActive = false;
       ///พอครบ 3 วิส่งต่อไปหน้า Notification
-      if(mytable.numberTable == null){
+      if(mytable?.numberTable == null){
         /// ถ้ามาจากการ Matching
         return StreamProvider<User>.value(
             value: AuthService().user,

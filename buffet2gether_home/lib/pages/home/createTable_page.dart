@@ -136,8 +136,7 @@ class _CreateTablePageState extends State<CreateTablePage>
                   size: 25,
                   color: Colors.amber,
                 ),
-                Expanded(
-                  child: Text(
+                Text(
                     widget.location,
                     style: TextStyle(
                       fontFamily: 'Opun',
@@ -147,7 +146,7 @@ class _CreateTablePageState extends State<CreateTablePage>
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
-                )
+                
               ],
             ),
             Row(

@@ -8,7 +8,7 @@ import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/models/mytable_model.dart';
 import 'package:buffet2gether_home/models/userFindGroup_model.dart';
-
+import 'package:buffet2gether_home/models/tableInfo.dart';
 
 /// คลาสที่นำ list ของแถบแจ้งเตือนมาสร้างเป็น ListView.builder เพื่อไปแสดงในหน้า Notification
 class BarList extends StatefulWidget {
@@ -35,18 +35,59 @@ class _BarListState extends State<BarList> {
         return StreamBuilder<UserMaster>(
           stream: DatabaseService(resID: bar.getResID(),numberTable: bar.getNumber()).userMasterMax,
           builder: (context, snapshot1)
-          {  
-            UserMaster userMaster = snapshot1.data;
-            
-            return StreamBuilder<UserMaster>(
-              stream: DatabaseService(resID: mytable.resID,numberTable: mytable.numberTable).userMasterMax,
-              builder: (context, snapshot2)
-              { 
-                  UserMaster master = snapshot2.data;
+        {  
+          UserMaster userMaster = snapshot1.data;
+          return StreamBuilder<UserMaster>(
+            stream: DatabaseService(resID: mytable.resID,numberTable: mytable.numberTable).userMasterMax,
+            builder: (context, snapshot2)
+          { 
+              UserMaster master = snapshot2.data;
+              return StreamBuilder<TableInfo>(
+                stream: DatabaseService(resID: mytable.resID,numberTable: mytable.numberTable).groupInterest,
+                builder: (context, snapshot3)
+              {
                   return StreamBuilder<UserData>(
                   stream: DatabaseService(uid: user.userId).userData,
                   builder: (context, snapshot)
-                {
+                { 
+                  
+                  UserData userData = snapshot.data;
+                  TableInfo tableInfo = snapshot3.data;
+
+                  for (var item in userFindGroups) {   //matching    
+               
+                    if(((item.getBook()      && tableInfo.getBook()) == false)         && 
+                    ((item.getEntertainment()&& tableInfo.getEntertainment()) == false)&& 
+                    ((item.getFashion()      && tableInfo.getFashion()) == false)      && 
+                    ((item.getPet()          && tableInfo.getPet())==false)            && 
+                    ((item.getPolitical()    && tableInfo.getPolitical())==false)      && 
+                    ((item.getSport()        && tableInfo.getSport())==false)          &&
+                    ((item.getTechnology()   && tableInfo.getTechnology())==false)){
+                      
+                      DatabaseService().deleteNotifData(item.userID,userData.userId); ////เอาไว้ลบ document firebase 
+                      continue;
+                    }
+
+                    if( (item.age < tableInfo.getAgeStart())  || (item.age > tableInfo.getAgeEnd() )){
+                      
+                        DatabaseService().deleteNotifData(item.userID,userData.userId); ////เอาไว้ลบ document firebase 
+                    }
+
+                    if(tableInfo.getGender() == 'Male'){
+                      if(item.getGender() != 'Male'){
+                        
+                        DatabaseService().deleteNotifData(item.userID,userData.userId); ////เอาไว้ลบ document firebase 
+                      }
+                    } 
+                    else if (tableInfo.getGender() == 'Female'){
+                      if(item.getGender() != 'Female'){
+                        
+                        DatabaseService().deleteNotifData(item.userID,userData.userId); ////เอาไว้ลบ document firebase 
+                      }
+                    }
+
+                  }
+
                   return Dismissible(   ////Dismission คือให้มันปัดซ้ายปัดขวาได้
                     secondaryBackground: Container(
                       color: Colors.red,
@@ -82,8 +123,7 @@ class _BarListState extends State<BarList> {
                       setState((){
                         bars.removeAt(index);
                       });
-                      UserData userData = snapshot.data;
-
+                      
                       DatabaseService().deleteNotifData(bar.getdocumentID(),userData.userId); ////เอาไว้ลบ document firebase เวลาปัดซ้ายปัดขวา 
                       
                       Scaffold.of(context).showSnackBar(SnackBar(content: 
@@ -172,7 +212,7 @@ class _BarListState extends State<BarList> {
 
                                             //////////// ถ้าผู้ใช้ที่เราเชิญเข้ากลุ่มอยู่ใน userFindGroup ให้ส่งแจ้งเตือนเชิญเข้ากลุ่มไปที่ user คนนั้น
                                               DatabaseService().updateNotifData(
-                                                  mytable.resID,
+                                                  mytable?.resID,
                                                   userData.profilePicture,
                                                   userData.name,
                                                   mytable.numberTable,
@@ -228,18 +268,19 @@ class _BarListState extends State<BarList> {
                                                 ),
                                               );
                                             },
-                                      );
-                                    }
-                        }
+                                        );
+                                      }
+                              }
+                            }
+                          },
+                        );
                       }
-                    },
-                    
-                  );
-                }
-              );
-            }
-          );
-        }
+                    );
+                  }
+                );
+              }
+            );
+          }
         );
       }
     );

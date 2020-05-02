@@ -25,6 +25,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final user = Provider.of<User>(context);
     var currentUser = FirebaseAuth.instance.currentUser();
     return Scaffold(
+      appBar: new AppBar(
+                  centerTitle: true,
+                  leading: new Container(),
+                  title: Text(
+                    'Profile',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.deepOrange,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  backgroundColor: Color(0xfff5f5f5),
+                ),
       body: SafeArea(
           child: StreamBuilder<UserData>(
               stream: DatabaseService(uid: user?.userId).userData,
@@ -36,25 +51,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     physics: BouncingScrollPhysics(),
                     padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
                     children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.all(20.0),
-                        child: Text(
-                          'Profile',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 40.0,
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).primaryColor),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
                       Column(
                         children: <Widget>[
                           Container(
                             height: 220,
-                            width: 340,
+                            width: 350,
                             child: Stack(
                               alignment: Alignment.topCenter,
                               children: <Widget>[
@@ -66,8 +67,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     decoration: BoxDecoration(
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Colors.black26,
-                                          offset: Offset(0, 5),
+                                          color: Colors.black12,
+                                          offset: Offset(0, 2),
                                           blurRadius: 5.0,
                                           spreadRadius: 2.0,
                                         ),
@@ -103,8 +104,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                   ),
                                                 ),
                                                 child: Text(
-                                                  'Tag',
-                                                  style: TextStyle(
+                                                      'Tag',
+                                                      style: TextStyle(
+                                                      color: Colors.black45,
+                                                      fontFamily: 'Opun',
                                                       fontSize: 15,
                                                       letterSpacing: 2,
                                                       fontWeight:
@@ -138,6 +141,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 child: Text(
                                                   'History',
                                                   style: TextStyle(
+                                                      color: Colors.black45,
+                                                      fontFamily: 'Opun',
                                                       fontSize: 15,
                                                       letterSpacing: 2,
                                                       fontWeight:
@@ -151,16 +156,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Column(
                                   children: <Widget>[
                                     Container(
-                                      width: 320,
+                                      width: 330,
                                       height: 150,
                                       decoration: BoxDecoration(
-                                        color: Theme.of(context).primaryColor,
+                                        color: Colors.deepOrange,
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(15)),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: Colors.black26,
-                                            offset: Offset(0, 5),
+                                            color: Colors.black12,
+                                            offset: Offset(0, 2),
                                             blurRadius: 5.0,
                                             spreadRadius: 2.0,
                                           ),
@@ -201,8 +206,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     overflow:
                                                     TextOverflow.ellipsis,
                                                     style: TextStyle(
+                                                      fontFamily: 'Opun',
                                                         color: Colors.white,
-                                                        fontSize: 25.0,
+                                                        fontSize: 20.0,
                                                         fontWeight:
                                                         FontWeight.bold,
                                                         letterSpacing: 1),
@@ -219,8 +225,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                             .toString() +
                                                             ' | ',
                                                         style: TextStyle(
+                                                          fontFamily: 'Opun',
                                                           color: Colors.white,
-                                                          fontSize: 20.0,
+                                                          fontSize: 18.0,
                                                           letterSpacing: 1,
                                                         ),
                                                         overflow: TextOverflow
@@ -281,9 +288,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             '\' ' + userData.bio + ' \'',
                             textAlign: TextAlign.justify,
                             style: TextStyle(
-                              fontSize: 16.0,
+                              fontFamily: 'Opun',
+                              fontSize: 15.0,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black45,
+                              color: Colors.black38,
                             ),
                           ),
                         ),
@@ -303,9 +311,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   Text(
                                     'You are interesting in : ',
                                     style: TextStyle(
-                                      fontSize: 20.0,
+                                      fontFamily: 'Opun',
+                                      color: Colors.black45,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.black,
                                     ),
                                   ),
                                   SizedBox(height: 10),
@@ -321,14 +330,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           {
                                             if (index == 0 && userData.fashion == true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(vertical: 3, horizontal: 5),
+                                                margin: EdgeInsets.symmetric(vertical: 1),
                                                 decoration: BoxDecoration(
                                                   boxShadow: [
                                                     BoxShadow(
-                                                      color: Colors.black26,
-                                                      offset: Offset(0, 2),
-                                                      blurRadius: 0.5,
-                                                      spreadRadius: 0.2,
+                                                      color: Colors.black12,
+                                                      offset: Offset(0, 1),
+                                                      blurRadius: 5.0,
+                                                      spreadRadius: 1.0,
                                                     ),
                                                   ],
                                                   borderRadius:
@@ -347,8 +356,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     'Fashion',
                                                     //overflow: TextOverflow.fade,
                                                     style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 20.0,
+                                                      fontFamily: 'Opun',
+                                                      color: Colors.deepOrange,
+                                                      fontSize: 18.0,
                                                       letterSpacing: 1,
                                                     ),
                                                   ),
@@ -357,15 +367,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             }
                                             if (index == 1 && userData.sport == true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(
-                                                    vertical: 3, horizontal: 5),
+                                                margin: EdgeInsets.symmetric(vertical: 1),
                                                 decoration: BoxDecoration(
                                                   boxShadow: [
                                                     BoxShadow(
-                                                      color: Colors.black26,
-                                                      offset: Offset(0, 2),
-                                                      blurRadius: 0.5,
-                                                      spreadRadius: 0.2,
+                                                      color: Colors.black12,
+                                                      offset: Offset(0, 1),
+                                                      blurRadius: 5.0,
+                                                      spreadRadius: 1.0,
                                                     ),
                                                   ],
                                                   borderRadius:
@@ -384,8 +393,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     'Sport',
                                                     //overflow: TextOverflow.fade,
                                                     style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 20.0,
+                                                      fontFamily: 'Opun',
+                                                      color: Colors.deepOrange,
+                                                      fontSize: 18.0,
                                                       letterSpacing: 1,
                                                     ),
                                                   ),
@@ -394,15 +404,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             }
                                             if (index == 2 && userData.technology == true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(
-                                                    vertical: 3, horizontal: 5),
+                                                margin: EdgeInsets.symmetric(vertical: 1),
                                                 decoration: BoxDecoration(
                                                   boxShadow: [
                                                     BoxShadow(
-                                                      color: Colors.black26,
-                                                      offset: Offset(0, 2),
-                                                      blurRadius: 0.5,
-                                                      spreadRadius: 0.2,
+                                                      color: Colors.black12,
+                                                      offset: Offset(0, 1),
+                                                      blurRadius: 5.0,
+                                                      spreadRadius: 1.0,
                                                     ),
                                                   ],
                                                   borderRadius:
@@ -420,8 +429,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     'Technology',
                                                     //overflow: TextOverflow.fade,
                                                     style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 20.0,
+                                                      fontFamily: 'Opun',
+                                                       color: Colors.deepOrange,
+                                                      fontSize: 18.0,
                                                       letterSpacing: 1,
                                                     ),
                                                   ),
@@ -430,15 +440,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             }
                                             if (index == 3 && userData.politic == true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(
-                                                    vertical: 3, horizontal: 5),
+                                                margin: EdgeInsets.symmetric(vertical: 1),
                                                 decoration: BoxDecoration(
                                                   boxShadow: [
                                                     BoxShadow(
-                                                      color: Colors.black26,
-                                                      offset: Offset(0, 2),
-                                                      blurRadius: 0.5,
-                                                      spreadRadius: 0.2,
+                                                      color: Colors.black12,
+                                                      offset: Offset(0, 1),
+                                                      blurRadius: 5.0,
+                                                      spreadRadius: 1.0,
                                                     ),
                                                   ],
                                                   borderRadius:
@@ -457,8 +466,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     'Politic',
                                                     //overflow: TextOverflow.fade,
                                                     style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 20.0,
+                                                      fontFamily: 'Opun',
+                                                      color: Colors.deepOrange,
+                                                      fontSize: 18.0,
                                                       letterSpacing: 1,
                                                     ),
                                                   ),
@@ -467,15 +477,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             }
                                             if (index == 4 && userData.entertainment == true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(
-                                                    vertical: 3, horizontal: 5),
+                                                margin: EdgeInsets.symmetric(vertical: 1),
                                                 decoration: BoxDecoration(
                                                   boxShadow: [
                                                     BoxShadow(
-                                                      color: Colors.black26,
-                                                      offset: Offset(0, 2),
-                                                      blurRadius: 0.5,
-                                                      spreadRadius: 0.2,
+                                                      color: Colors.black12,
+                                                      offset: Offset(0, 1),
+                                                      blurRadius: 5.0,
+                                                      spreadRadius: 1.0,
                                                     ),
                                                   ],
                                                   borderRadius:
@@ -493,8 +502,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     'Entertainment',
                                                     //overflow: TextOverflow.fade,
                                                     style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 20.0,
+                                                      color: Colors.deepOrange,
+                                                      fontSize: 18.0,
                                                       letterSpacing: 1,
                                                     ),
                                                   ),
@@ -503,18 +512,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             }
                                             if (index == 5 && userData.book == true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(
-                                                    vertical: 3, horizontal: 5),
+                                                margin: EdgeInsets.symmetric(vertical: 1),
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                   BorderRadius.circular(10),
                                                   color: Colors.white,
                                                   boxShadow: [
                                                     BoxShadow(
-                                                      color: Colors.black26,
-                                                      offset: Offset(0, 2),
-                                                      blurRadius: 0.5,
-                                                      spreadRadius: 0.2,
+                                                      color: Colors.black12,
+                                                      offset: Offset(0, 1),
+                                                      blurRadius: 5.0,
+                                                      spreadRadius: 1.0,
                                                     ),
                                                   ],
                                                 ),
@@ -529,8 +537,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     'Book',
                                                     //overflow: TextOverflow.fade,
                                                     style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 20.0,
+                                                      fontFamily: 'Opun',
+                                                       color: Colors.deepOrange,
+                                                      fontSize: 18.0,
                                                       letterSpacing: 1,
                                                     ),
                                                   ),
@@ -539,15 +548,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             }
                                             if (index == 6 && userData.pet == true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(
-                                                    vertical: 3, horizontal: 5),
+                                               margin: EdgeInsets.symmetric(vertical: 1),
                                                 decoration: BoxDecoration(
                                                   boxShadow: [
                                                     BoxShadow(
-                                                      color: Colors.black26,
-                                                      offset: Offset(0, 2),
-                                                      blurRadius: 0.5,
-                                                      spreadRadius: 0.2,
+                                                      color: Colors.black12,
+                                                      offset: Offset(0, 1),
+                                                      blurRadius: 5.0,
+                                                      spreadRadius: 1.0,
                                                     ),
                                                   ],
                                                   borderRadius:
@@ -565,8 +573,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     'Pet',
                                                     //overflow: TextOverflow.fade,
                                                     style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 20.0,
+                                                      fontFamily: 'Opun',
+                                                      color: Colors.deepOrange,
+                                                      fontSize: 18.0,
                                                       letterSpacing: 1,
                                                     ),
                                                   ),

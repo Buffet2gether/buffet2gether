@@ -28,6 +28,21 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
     final user = Provider.of<User>(context);
     final AuthService _auth = AuthService();
     return Scaffold(
+      appBar: new AppBar(
+                  centerTitle: true,
+                  leading: new Container(),
+                  title: Text(
+                   'Setting',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.deepOrange,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  backgroundColor: Color(0xfff5f5f5),
+                ),
       body: SafeArea(
         child: StreamBuilder<UserData>(
             stream: DatabaseService(uid: user.userId).userData,
@@ -73,17 +88,6 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                 return ListView(
                   padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
                   children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Text(
-                        'Setting',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 40.0,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).primaryColor),
-                      ),
-                    ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
@@ -95,9 +99,10 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                             Text(
                               'Profile Picture',
                               style: TextStyle(
-                                fontSize: 20,
+                                fontFamily: 'Opun',
+                                color: Colors.black54,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                letterSpacing: 0.5,
                               ),
                             ),
                             GestureDetector(
@@ -107,7 +112,10 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                               child: Text(
                                 'Edit',
                                 style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
+                                  fontFamily: 'Opun',
+                                  color: Colors.deepOrange,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
@@ -138,16 +146,20 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                             Text(
                               'Details',
                               style: TextStyle(
-                                fontSize: 20,
+                                fontFamily: 'Opun',
+                                color: Colors.black54,
+                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                letterSpacing: 1,
                               ),
                             ),
                             GestureDetector(
                               child: Text(
                                 'Edit',
                                 style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
+                                  fontFamily: 'Opun',
+                                  color: Colors.deepOrange,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                               onTap: () {
@@ -186,8 +198,9 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                       textAlign: TextAlign.start,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-                                        fontSize: 17,
-                                        letterSpacing: 0.5,
+                                        fontFamily: 'Opun',
+                                        color: Colors.black45,
+                                        fontSize: 16,
                                       ),
                                     ),
                                   ),
@@ -206,8 +219,9 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                     'Gender : ' + userData.gender,
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
-                                      fontSize: 17,
-                                      letterSpacing: 0.5,
+                                      fontFamily: 'Opun',
+                                      color: Colors.black45,
+                                      fontSize: 16,
                                     ),
                                   ),
                                 ],
@@ -232,8 +246,9 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                             .toString(),
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
-                                      fontSize: 17,
-                                      letterSpacing: 0.5,
+                                      fontFamily: 'Opun',
+                                      color: Colors.black45,
+                                      fontSize: 16,
                                     ),
                                   ),
                                 ],
@@ -253,8 +268,9 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                       textAlign: TextAlign.start,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-                                        fontSize: 17,
-                                        letterSpacing: 0.5,
+                                        fontFamily: 'Opun',
+                                        color: Colors.black45,
+                                        fontSize: 16,
                                       ),
                                     ),
                                   ),
@@ -272,16 +288,20 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                             Text(
                               'Interesting',
                               style: TextStyle(
-                                fontSize: 20,
+                                fontFamily: 'Opun',
+                                color: Colors.black54,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                letterSpacing: 0.5,
                               ),
                             ),
                             GestureDetector(
                               child: Text(
                                 'Edit',
                                 style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
+                                  fontFamily: 'Opun',
+                                  color: Colors.deepOrange,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                               onTap: () {
@@ -399,10 +419,10 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                             Text(
                               'Clear History',
                               style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 20,
+                                fontFamily: 'Opun',
+                                color: Colors.black54,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                letterSpacing: 0.5,
                               ),
                             ),
                           ],
@@ -414,10 +434,10 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                               child: Text(
                                 'Change Password',
                                 style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 20,
+                                  fontFamily: 'Opun',
+                                  color: Colors.black54,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  letterSpacing: 0.5,
                                 ),
                               ),
                               onTap: () {
@@ -436,10 +456,10 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                               child :Text(
                                 'Log out',
                                 style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 20,
+                                  fontFamily: 'Opun',
+                                  color: Colors.black54,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  letterSpacing: 0.5,
                                 ),
                               ),
                               onTap: () async

@@ -49,7 +49,7 @@ class _NotifColumnState extends State<NotifColumn>
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  backgroundColor: Colors.white,
+                  backgroundColor: Color(0xfff5f5f5),
                 ),
                 body: BarList()
             ),

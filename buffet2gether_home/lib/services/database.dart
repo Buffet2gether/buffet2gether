@@ -10,6 +10,8 @@ import 'package:buffet2gether_home/models/infoInTable_model.dart';
 import 'package:buffet2gether_home/models/memberBarListInTable_model.dart';
 import 'package:buffet2gether_home/models/rec_model.dart';
 import 'package:buffet2gether_home/models/more_model.dart';
+import 'package:buffet2gether_home/models/tableInfo.dart';
+import 'package:buffet2gether_home/models/promotion_model.dart';
 
 class DatabaseService {
   final String uid;
@@ -28,6 +30,57 @@ class DatabaseService {
   Firestore.instance.collection('Restaurants/more/moreList');
   final CollectionReference GroupsCollection =
   Firestore.instance.collection('Groups');
+  final CollectionReference promotionCollection =
+  Firestore.instance.collection('Restaurants/promotion/promotionPic');
+
+
+  ///ดึงข้อมูลร้านใน promotion
+  List<Promo> _promotionPicFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return Promo(
+        resID: doc.data['resID'] ?? '',
+        imageUrl: doc.data['imageUrl'] ?? '',
+        name1: doc.data['name1'] ?? '',
+        name2: doc.data['name2'] ?? '',
+        location: doc.data['location'] ?? '',
+        promotion: doc.data['promotion'] ?? '',
+        promotionInfo: doc.data['promotionInfo'] ?? '',
+        time: doc.data['time'] ?? '',
+        proPic: doc.data['proPic'] ?? '',
+      );
+    }).toList();
+  }
+
+  Stream<List<Promo>> get promotionPic {
+    return promotionCollection.snapshots().map(_promotionPicFromSnapshot);
+  }
+
+
+
+ TableInfo _getGroupInterest(DocumentSnapshot snapshot){  //ดึงความชอบจากร้านที่สร้างเอาไว้
+
+      return TableInfo(
+            fashion:snapshot.data['fashion']??false,
+            sport:snapshot.data['sport']??false,
+            technology:snapshot.data['technology']??false,
+            political:snapshot.data['politics']??false,
+            entertainment:snapshot.data['entertainment']??false,
+            book:snapshot.data['books']??false,
+            pet:snapshot.data['pet']??false,
+            ageStart: snapshot.data['ageStart']??0,
+            ageEnd: snapshot.data['ageEnd']??0,
+            gender: snapshot.data['gender']??''
+        );
+
+  }
+
+
+  Stream<TableInfo>get groupInterest{
+    return GroupsCollection.document(resID).collection('GroupsInRes').document(numberTable).collection('info').document('info').snapshots()
+    .map(_getGroupInterest);
+  }
+
+
 
   ///ดึงข้อมูลร้านใน Recommend
   List<Recom> _recListFromSnapshot(QuerySnapshot snapshot) {
@@ -425,7 +478,7 @@ class DatabaseService {
             documentID: doc.documentID,
             userID: doc.data['userID'] ?? '');
       }
-    }).toList();
+    }).toSet().toList();
   }
 
   Stream<List<Bar>> get notifications {
@@ -480,6 +533,13 @@ class DatabaseService {
       people: snapshot.data['num'],
       dueTime: snapshot.data['dueTime'].toString(),
       gender: snapshot.data['gender'],
+      fashion: snapshot.data['fashion'] ?? false,
+      sport: snapshot.data['sports'] ?? false,
+      technology: snapshot.data['technology'] ?? false,
+      political: snapshot.data['politics'] ?? false,
+      entertainment: snapshot.data['entertainment'] ?? false,
+      book: snapshot.data['books'] ?? false,
+      pet: snapshot.data['pet'] ?? false,
     );
   }
 
@@ -537,6 +597,13 @@ class DatabaseService {
       people: snapshot.data['num'],
       dueTime: snapshot.data['dueTime'].toString(),
       gender: snapshot.data['gender'],
+      fashion: snapshot.data['fashion'] ?? false,
+      sport: snapshot.data['sports'] ?? false,
+      technology: snapshot.data['technology'] ?? false,
+      political: snapshot.data['politics'] ?? false,
+      entertainment: snapshot.data['entertainment'] ?? false,
+      book: snapshot.data['books'] ?? false,
+      pet: snapshot.data['pet'] ?? false,
     );
   }
 

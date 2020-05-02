@@ -81,7 +81,11 @@ class _InfoPageState extends State<InfoPage>
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Image.network(widget.image)
+                  Image.network(
+                    widget.image,
+                    fit: BoxFit.contain,
+                    width: 250,
+                    height: 120,)
                 ],
               ),
               Row(
@@ -233,9 +237,7 @@ class _InfoPageState extends State<InfoPage>
                           userData.userId,
                         );
                         ///////////ส่ง notification หาเจ้าของห้องทุกคนในร้านนี้ ว่ามีเรามาหากลุ่ม
-                        print(userMasters);
                         for (var item in userMasters) {
-                          print(item.max);
                               if(item.max == false){
                                  DatabaseService().updateNotifData(
                                   widget.resID,
@@ -285,7 +287,7 @@ class _InfoPageState extends State<InfoPage>
                 }
                 },
                 child: new Container(
-                  margin: EdgeInsets.only(top: 50),
+                  margin: EdgeInsets.only(top: 15),
                   padding: EdgeInsets.all(70),
                   decoration: new BoxDecoration(
                       color: Colors.deepOrange,
@@ -333,7 +335,7 @@ class _InfoPageState extends State<InfoPage>
           );
         },
         child: new Container(
-            margin: EdgeInsets.only(top: 15,left: screenSize.width-120,bottom: 30),
+            margin: EdgeInsets.only(top: 0,left: screenSize.width-120,bottom: 0),
             padding: EdgeInsets.all(20),
             decoration: new BoxDecoration(
                 color: Colors.amberAccent,

@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/models/mytable_model.dart';
 import 'package:buffet2gether_home/models/userMaster_model.dart';
+import 'package:buffet2gether_home/models/table_model.dart';
 
 ///ส่วนที่ใช้เลือกเพศ จะมี Name กับ Icon
 class GenderItem {
@@ -82,6 +83,41 @@ class _MyTable1State extends State<MyTable1>
       ),
     );
 
+   List<bool> interestTable= [infoFromTable?.fashion,infoFromTable?.sport, infoFromTable?.technology, 
+          infoFromTable?.political,infoFromTable?.entertainment, infoFromTable?.book, infoFromTable?.pet];
+
+    /// แสดง interest ตามที่เลือกจากหน้า edit interesting table
+    final interestList = Container(
+      margin: EdgeInsets.symmetric(horizontal: 40),
+      height: 50,
+      child: ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          /// myTable มาจาก table model จะมี list bool interest อยู่
+          itemCount: interestTable.length,
+          itemBuilder: (BuildContext context, int index)
+          {
+            if (interestTable[index]) ///ถ้าถูกเลือกขึ้นสีส้ม
+            {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.5),
+                child: Icon(
+                  myTable.interestingIconUrl[index],
+                  color: Colors.deepOrange
+                ),
+              );
+            }
+            return Padding( ///ไม่เลือกขึ้นเเทา
+              padding: const EdgeInsets.symmetric(horizontal: 8.5),
+              child: Icon(
+                myTable.interestingIconUrl[index],
+                color: Colors.grey,
+              ),
+            );
+          }
+          ),
+    );
+
     final info = Container(
         margin: EdgeInsets.all(10),
         decoration: new BoxDecoration(
@@ -119,8 +155,7 @@ class _MyTable1State extends State<MyTable1>
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(Icons.location_on,size: 25,color: Colors.amber,),
-                Expanded(
-                  child: Text(
+                Text(
                     infoFromTable.location,
                     style: TextStyle(
                       fontFamily: 'Opun',
@@ -130,7 +165,6 @@ class _MyTable1State extends State<MyTable1>
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
-                )
               ],
             ),
             Row(
@@ -352,7 +386,7 @@ class _MyTable1State extends State<MyTable1>
                 children: <Widget>[
                   Expanded(
                       child: ListView(
-                          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
+                          padding: EdgeInsets.symmetric(vertical: 10.0,horizontal: 15.0),
                           children: <Widget>[
                             info,
                             Text(
@@ -366,6 +400,16 @@ class _MyTable1State extends State<MyTable1>
                               ),
                             ),
                             properties,
+                            Text(
+                              ' Interesting',
+                              style: TextStyle(
+                                fontFamily: 'Opun',
+                                color: Colors.deepOrange,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            interestList,
                             Text(
                               '  '+'Member',
                               style: TextStyle(

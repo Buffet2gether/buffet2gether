@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:buffet2gether_home/models/table_model.dart';
 
 ///ส่วนที่ใช้เลือกเพศ จะมี Name กับ Icon
 class GenderItem {
@@ -37,6 +38,40 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
     final listMember = Provider.of<List<MemberBarListInGroup>>(context);
     final infoFromGroup = Provider.of<InfoInGroup>(context);
 
+     List<bool> interestGroup= [infoFromGroup?.fashion,infoFromGroup?.sport, infoFromGroup?.technology, 
+          infoFromGroup?.political,infoFromGroup?.entertainment, infoFromGroup?.book, infoFromGroup?.pet];
+
+    /// แสดง interest ตามที่เลือกจากหน้า edit interesting table
+    final interestList = Container(
+      margin: EdgeInsets.symmetric(horizontal: 40),
+      height: 50,
+      child: ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          /// myTable มาจาก table model จะมี list bool interest อยู่
+          itemCount: interestGroup.length,
+          itemBuilder: (BuildContext context, int index)
+          {
+            if (interestGroup[index]) ///ถ้าถูกเลือกขึ้นสีส้ม
+            {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.5),
+                child: Icon(
+                  myTable.interestingIconUrl[index],
+                  color: Colors.deepOrange
+                ),
+              );
+            }
+            return Padding( ///ไม่เลือกขึ้นเเทา
+              padding: const EdgeInsets.symmetric(horizontal: 8.5),
+              child: Icon(
+                myTable.interestingIconUrl[index],
+                color: Colors.grey,
+              ),
+            );
+          }
+          ),
+    );
 
 
     final info = Container(
@@ -320,6 +355,16 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
               ),
             ),
             properties,
+            Text(
+              ' Interesting',
+              style: TextStyle(
+                fontFamily: 'Opun',
+                color: Colors.deepOrange,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            interestList,
             Text(
               '  '+'Member',
               style: TextStyle(

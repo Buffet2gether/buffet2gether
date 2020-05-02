@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget
         accentColor: Colors.deepOrangeAccent,
         scaffoldBackgroundColor: Color(0xFFF3F5F7),
         ),
-      home: Wrapper()
+      home: new Wrapper()
       //GetStartedColumn(),
     );
   }

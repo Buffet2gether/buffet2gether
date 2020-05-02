@@ -68,21 +68,21 @@ class _Table1State extends State<Table1>
     }else
       {
       return StreamProvider<UserMaster>.value(
-              value: DatabaseService(resID: mytable.resID,numberTable: mytable.numberTable).userMasterMax,
+              value: DatabaseService(resID: mytable?.resID,numberTable: mytable?.numberTable).userMasterMax,
                 child: StreamProvider<User>.value(
                   value: AuthService().user,
                   child: StreamProvider<Mytable>.value(
                     value:DatabaseService(userID: user.userId).mytable,
                       child: StreamProvider<List<MemberBarListInTable>>.value( 
-                        value: DatabaseService(numberTable: mytable.numberTable,resID: mytable.resID).memberInTable,
+                        value: DatabaseService(numberTable: mytable?.numberTable,resID: mytable?.resID).memberInTable,
                         child: StreamProvider<InfoInTable>.value(
-                          value: DatabaseService(numberTable:mytable.numberTable,resID: mytable.resID).infoInTable,
+                          value: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
                           child: Scaffold(
                             appBar: new AppBar(
                               leading: new Container(),
                               centerTitle: true,
                               title: new Text(
-                                'โต๊ะของคุณ',
+                                'โต๊ะของคุณ!',
                                 style: TextStyle(
                                     color: Colors.deepOrange,
                                     fontFamily: 'Opun',

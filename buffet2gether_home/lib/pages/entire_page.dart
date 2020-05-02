@@ -1,7 +1,6 @@
 //---------------------------- Buffet2Gether adated-------------------------------------
 import 'package:buffet2gether_home/models/bar_model.dart';
-import 'package:buffet2gether_home/models/infoInTable_model.dart';
-import 'package:buffet2gether_home/models/memberBarListInTable_model.dart';
+import 'package:buffet2gether_home/models/promotion_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/pages/home/home_page.dart';
@@ -84,7 +83,10 @@ class EntireState extends State<Entire> with SingleTickerProviderStateMixin
                       value: DatabaseService().recInRes,
                       child: StreamProvider<List<More>>.value(
                         value: DatabaseService().moreInRes,
-                        child: new HomeColumn(),
+                        child: StreamProvider<List<Promo>>.value(
+                          value: DatabaseService().promotionPic,
+                          child: new HomeColumn(),
+                    )
                       ),
                     ),
                   ),

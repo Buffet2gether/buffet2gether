@@ -7,7 +7,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:buffet2gether_home/services/database.dart';
-import 'package:buffet2gether_home/shared/loading.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';

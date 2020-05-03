@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/pages/profile/detail_editing_screen.dart';
 import 'package:buffet2gether_home/pages/profile/interesting_editing_screen.dart';
-import 'package:buffet2gether_home/pages/login/reset_password_screen.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:buffet2gether_home/shared/loading.dart';
 import 'package:firebase_storage/firebase_storage.dart';

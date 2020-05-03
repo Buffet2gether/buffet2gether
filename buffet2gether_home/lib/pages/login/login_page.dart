@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/pages/login/createAccount_page.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:provider/provider.dart';
-import 'package:buffet2gether_home/models/mytable_model.dart';
-import 'package:buffet2gether_home/services/database.dart';
 
 /////////////////////////////////////////////Log in///////////////////////////////////////////////
 class Login extends StatefulWidget {

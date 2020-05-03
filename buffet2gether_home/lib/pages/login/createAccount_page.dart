@@ -202,7 +202,7 @@ class _CreateProfileState extends State<CreateProfile>
   File _tempImage;
   String _uploadedImageURL;
 
-  final AuthService _auth = AuthService();
+  //final AuthService _auth = AuthService();
   final _formkey = GlobalKey<FormState>();
 
   //Text Field

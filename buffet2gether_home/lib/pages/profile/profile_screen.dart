@@ -4,7 +4,6 @@ import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/pages/profile/profile_setting_screen.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:buffet2gether_home/shared/loading.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/rendering.dart';
@@ -25,8 +24,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-    var currentUser = FirebaseAuth.instance.currentUser();
-    final history = Provider.of<History>(context);
+    //var currentUser = FirebaseAuth.instance.currentUser();
+    //final history = Provider.of<History>(context);
 
     return Scaffold(
       appBar: new AppBar(

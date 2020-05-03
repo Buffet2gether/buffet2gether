@@ -4,8 +4,6 @@ import 'package:buffet2gether_home/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:buffet2gether_home/models/infoInTable_model.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:buffet2gether_home/models/mytable_model.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/services/auth.dart';
@@ -27,7 +25,6 @@ class _Table1State extends State<Table1>
   {
     final mytable = Provider.of<Mytable>(context);
     final user = Provider.of<User>(context);
-    final screenSize = MediaQuery.of(context).size;
 
     final tablePageDefault = new Scaffold(
       appBar: new AppBar(

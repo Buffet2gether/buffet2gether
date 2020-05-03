@@ -21,6 +21,7 @@ class HomeColumn extends StatefulWidget {
 }
 
 class _HomeColumnState extends State<HomeColumn> {
+  
   SwiperController swiperController = SwiperController();
   ScrollController scrollController = ScrollController(initialScrollOffset: 0);
 

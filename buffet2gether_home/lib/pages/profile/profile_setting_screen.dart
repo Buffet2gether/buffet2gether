@@ -13,7 +13,6 @@ import 'package:provider/provider.dart';
 import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/pages/login/login_page.dart';
 
-
 class ProfileSettingScreen extends StatefulWidget {
   @override
   _ProfileSettingState createState() => _ProfileSettingState();
@@ -59,10 +58,10 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                   if (_tempImage != null) {
                     StorageReference storageReference = FirebaseStorage.instance
                         .ref()
-                    //.child('profile_pictures/${Path.basename(_tempImage.path)}');
+                        //.child('profile_pictures/${Path.basename(_tempImage.path)}');
                         .child('profile_pictures/user_' + userData.userId);
                     StorageUploadTask uploadTask =
-                    storageReference.putFile(_tempImage);
+                        storageReference.putFile(_tempImage);
                     await uploadTask.onComplete;
                     print('File Uploaded');
                     storageReference.getDownloadURL().then((fileURL) {
@@ -70,12 +69,13 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                         _uploadedImageURL = fileURL;
                         DatabaseService(uid: user.userId)
                             .updateUserProfilePicture(_uploadedImageURL
-                          //userData.profilePicture
-                        );
+                                //userData.profilePicture
+                                );
                       });
                     });
                   }
                 }
+
                 /*Future getImageFromCameraAndUpload() async {
                   await ImagePicker.pickImage(source: ImageSource.camera)
                       .then((image) {
@@ -86,7 +86,8 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                   uploadPicture();
                 }*/
                 return ListView(
-                  padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
                   children: <Widget>[
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -167,11 +168,10 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (_) => StreamProvider<User>.value(
-                                            value: AuthService().user,
-                                            child: DetailEditingScreen()
-                                        )
-                                    ));
+                                        builder: (_) =>
+                                            StreamProvider<User>.value(
+                                                value: AuthService().user,
+                                                child: DetailEditingScreen())));
                               },
                             ),
                           ],
@@ -238,10 +238,10 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                   Text(
                                     'Age : ' +
                                         (DateTime.now()
-                                            .difference(
-                                            userData.dateofBirth)
-                                            .inDays /
-                                            365)
+                                                    .difference(
+                                                        userData.dateofBirth)
+                                                    .inDays /
+                                                365)
                                             .floor()
                                             .toString(),
                                     textAlign: TextAlign.start,
@@ -308,12 +308,11 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (_) => StreamProvider<User>.value(
+                                        builder: (_) => StreamProvider<
+                                                User>.value(
                                             value: AuthService().user,
-                                            child: InterestingEditingScreen()
-                                        )
-                                    )
-                                );
+                                            child:
+                                                InterestingEditingScreen())));
                               },
                             ),
                           ],
@@ -412,48 +411,12 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                 return SizedBox();
                               }),
                         ),
-                        //////////////////////////////////////////////////////////////////////////////clear&logout
-                        Divider(height: 30),
-                        Row(
-                          children: <Widget>[
-                            Text(
-                              'Clear History',
-                              style: TextStyle(
-                                fontFamily: 'Opun',
-                                color: Colors.black54,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
+
                         Divider(height: 30),
                         Row(
                           children: <Widget>[
                             GestureDetector(
                               child: Text(
-                                'Change Password',
-                                style: TextStyle(
-                                  fontFamily: 'Opun',
-                                  color: Colors.black54,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => ResetPasswordScreen()));
-                              },
-                            ),
-                          ],
-                        ),
-                        Divider(height: 30),
-                        Row(
-                          children: <Widget>[
-                            GestureDetector(
-                              child :Text(
                                 'Log out',
                                 style: TextStyle(
                                   fontFamily: 'Opun',
@@ -462,15 +425,10 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              onTap: () async
-                              {
+                              onTap: () async {
                                 await _auth.signOut();
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => Login()
-                                    )
-                                );
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (_) => Login()));
                               },
                             ),
                           ],

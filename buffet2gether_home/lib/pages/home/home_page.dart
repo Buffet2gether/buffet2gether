@@ -1,6 +1,8 @@
+import 'package:buffet2gether_home/shared/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/services/database.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:buffet2gether_home/models/rec_model.dart';
 import 'package:buffet2gether_home/models/more_model.dart';
@@ -13,28 +15,34 @@ import 'package:buffet2gether_home/models/mytable_model.dart';
 import 'package:buffet2gether_home/pages/home/search_page.dart';
 import 'package:buffet2gether_home/models/promotion_model.dart';
 
-
-class HomeColumn extends StatefulWidget
-{
-
+class HomeColumn extends StatefulWidget {
   @override
   _HomeColumnState createState() => new _HomeColumnState();
 }
 
-class _HomeColumnState extends State<HomeColumn>
-{
-  ScrollController scrollController;
-
+class _HomeColumnState extends State<HomeColumn> {
+  SwiperController swiperController = SwiperController();
+  ScrollController scrollController = ScrollController(initialScrollOffset: 0);
 
   @override
-  void initState()
-  {
+  void initState() {
     super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (scrollController.hasClients) {
+        scrollController.animateTo(
+          scrollController.position.minScrollExtent,
+          curve: Curves.easeOut,
+          duration: const Duration(milliseconds: 200),
+        );
+      }
+      if (swiperController.hasListeners) {
+        swiperController.move(0);
+      }
+    });
   }
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
 
     final recs = Provider.of<List<Recom>>(context);
@@ -64,25 +72,23 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
-
     final picPro = ConstrainedBox(
         child: new Swiper(
-          itemCount: proPics?.length,
+          itemCount: proPics?.length ?? 0,
           pagination: new SwiperPagination(),
-          itemBuilder: (BuildContext context,int index)
-          {
+          controller: swiperController,
+          itemBuilder: (BuildContext context, int index) {
             final proPic = proPics[index];
             return InkWell(
-                onTap: ()
-                {
+                onTap: () {
                   return showDialog(
                     context: context,
-                    builder: (context)
-                    {
+                    builder: (context) {
                       return StreamProvider<Mytable>.value(
-                        value: DatabaseService(userID:user.userId).mytable,
+                        value: DatabaseService(userID: user.userId).mytable,
                         child: StreamProvider<List<UserMaster>>.value(
-                          value: DatabaseService(resID: proPic.resID).userMaster,
+                          value:
+                              DatabaseService(resID: proPic.resID).userMaster,
                           child: StreamProvider<User>.value(
                               value: AuthService().user,
                               child: InfoPage(
@@ -92,28 +98,22 @@ class _HomeColumnState extends State<HomeColumn>
                                 name2: proPic.name2,
                                 location: proPic.location,
                                 time: proPic.time,
-                                promotion:  proPic.promotion,
+                                promotion: proPic.promotion,
                                 promotionInfo: proPic.promotionInfo,
-                              )
-                          ),
+                              )),
                         ),
                       );
                     },
                   );
                 },
-                child: Image.network(proPic.proPic)
-            );
+                child: Image.network(proPic.proPic) ?? Loading());
           },
         ),
-        constraints:new BoxConstraints.loose(new Size(350, 220.0))
-    );
+        constraints: new BoxConstraints.loose(new Size(350, 220.0)));
 
     final promotion = Stack(
       alignment: Alignment.topCenter,
-      children: <Widget>[
-        picPro,
-        textPro
-      ],
+      children: <Widget>[picPro, textPro],
     );
 
     final textRecom = Row(
@@ -125,7 +125,7 @@ class _HomeColumnState extends State<HomeColumn>
               color: Colors.deepOrange,
             ),
             margin: EdgeInsets.only(left: 10),
-            child:Text(
+            child: Text(
               '  น้องบุฟแนะนำ !  ',
               style: TextStyle(
                 fontFamily: 'Opun',
@@ -133,30 +133,25 @@ class _HomeColumnState extends State<HomeColumn>
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
               ),
-            )
-        )
+            ))
       ],
     );
-
 
     final rowRecom = Container(
         height: 155,
         color: Color(0xFFF5F5F5),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: recs?.length,
-          itemBuilder: (BuildContext context,int index)
-          {
+          itemCount: recs?.length ?? 0,
+          itemBuilder: (BuildContext context, int index) {
             final rec = recs[index];
             return InkWell(
-                onTap: ()
-                {
+                onTap: () {
                   return showDialog(
                       context: context,
-                      builder: (context)
-                      {
+                      builder: (context) {
                         return StreamProvider<Mytable>.value(
-                          value: DatabaseService(userID:user.userId).mytable,
+                          value: DatabaseService(userID: user.userId).mytable,
                           child: StreamProvider<List<UserMaster>>.value(
                             value: DatabaseService(resID: rec.resID).userMaster,
                             child: StreamProvider<User>.value(
@@ -168,14 +163,12 @@ class _HomeColumnState extends State<HomeColumn>
                                   name2: rec.name2,
                                   location: rec.location,
                                   time: rec.time,
-                                  promotion:  rec.promotion,
+                                  promotion: rec.promotion,
                                   promotionInfo: rec.promotionInfo,
-                                )
-                            ),
+                                )),
                           ),
                         );
-                      }
-                  );
+                      });
                 },
                 child: Container(
                   margin: EdgeInsets.only(left: 10, bottom: 7),
@@ -193,7 +186,8 @@ class _HomeColumnState extends State<HomeColumn>
                             width: 140,
                             decoration: new BoxDecoration(
                               borderRadius: new BorderRadius.circular(10),
-                              color: Colors.white,),
+                              color: Colors.white,
+                            ),
                             child: Padding(
                               padding: EdgeInsets.all(1),
                               child: Column(
@@ -206,8 +200,7 @@ class _HomeColumnState extends State<HomeColumn>
                                         fontFamily: 'Opun',
                                         color: Colors.black,
                                         fontSize: 12,
-                                        fontWeight: FontWeight.bold
-                                    ),
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     rec.name2,
@@ -215,14 +208,12 @@ class _HomeColumnState extends State<HomeColumn>
                                         fontFamily: 'Opun',
                                         color: Colors.black,
                                         fontSize: 12,
-                                        fontWeight: FontWeight.bold
-                                    ),
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
                             ),
-                          )
-                      ),
+                          )),
                       Container(
                         decoration: BoxDecoration(
                             color: Colors.grey,
@@ -230,11 +221,10 @@ class _HomeColumnState extends State<HomeColumn>
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black26,
-                                offset: Offset(0,2),
+                                offset: Offset(0, 2),
                                 blurRadius: 6,
                               )
-                            ]
-                        ),
+                            ]),
                         child: Stack(
                           children: <Widget>[
                             ClipRect(
@@ -250,11 +240,9 @@ class _HomeColumnState extends State<HomeColumn>
                       ),
                     ],
                   ),
-                )
-            );
+                ));
           },
-        )
-    );
+        ));
 
     final textMore = Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -272,25 +260,21 @@ class _HomeColumnState extends State<HomeColumn>
       ],
     );
 
-
     final colMore = Container(
         height: 400,
         width: screenSize.width,
         color: Color(0xFFF5F5F5),
         child: ListView.builder(
-            itemCount: more?.length,
-            itemBuilder: (BuildContext context,int index)
-            {
+            itemCount: more?.length ?? 0,
+            itemBuilder: (BuildContext context, int index) {
               final m = more[index];
               return InkWell(
-                  onTap: ()
-                  {
+                  onTap: () {
                     return showDialog(
                         context: context,
-                        builder: (context)
-                        {
+                        builder: (context) {
                           return StreamProvider<Mytable>.value(
-                            value: DatabaseService(userID:user.userId).mytable,
+                            value: DatabaseService(userID: user.userId).mytable,
                             child: StreamProvider<List<UserMaster>>.value(
                               value: DatabaseService(resID: m.resID).userMaster,
                               child: StreamProvider<User>.value(
@@ -302,28 +286,29 @@ class _HomeColumnState extends State<HomeColumn>
                                     name2: m.name2,
                                     location: m.location,
                                     time: m.time,
-                                    promotion:  m.promotion,
+                                    promotion: m.promotion,
                                     promotionInfo: m.promotionInfo,
-                                  )
-                              ),
+                                  )),
                             ),
                           );
-                        }
-                    );
+                        });
                   },
                   child: new Container(
                       width: screenSize.width,
                       margin: EdgeInsets.only(bottom: 1, left: 5, right: 5),
-                      padding: EdgeInsets.only(bottom: 15, left: 10, right: 5, top: 15),
+                      padding: EdgeInsets.only(
+                          bottom: 15, left: 10, right: 5, top: 15),
                       decoration: new BoxDecoration(
-                        color: Colors.white,),
+                        color: Colors.white,
+                      ),
                       child: Row(
                         children: <Widget>[
                           Image.network(
                             m.imageUrl,
                             fit: BoxFit.cover,
                             width: 110,
-                            height: 80,),
+                            height: 80,
+                          ),
                           Container(
                             width: screenSize.width - 135,
                             color: Colors.white,
@@ -333,7 +318,9 @@ class _HomeColumnState extends State<HomeColumn>
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      SizedBox(width: 25,),
+                                      SizedBox(
+                                        width: 25,
+                                      ),
                                       Expanded(
                                         child: Text(
                                           m.name1,
@@ -341,8 +328,7 @@ class _HomeColumnState extends State<HomeColumn>
                                               fontFamily: 'Opun',
                                               color: Colors.deepOrange,
                                               fontSize: 15,
-                                              fontWeight: FontWeight.bold
-                                          ),
+                                              fontWeight: FontWeight.bold),
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
                                         ),
@@ -354,18 +340,20 @@ class _HomeColumnState extends State<HomeColumn>
                                               fontFamily: 'Opun',
                                               color: Colors.deepOrange,
                                               fontSize: 15,
-                                              fontWeight: FontWeight.bold
-                                          ),
+                                              fontWeight: FontWeight.bold),
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
                                         ),
                                       ),
-                                    ]
-                                ),
+                                    ]),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
-                                    Icon(Icons.location_on, size: 25, color: Colors.amber,),
+                                    Icon(
+                                      Icons.location_on,
+                                      size: 25,
+                                      color: Colors.amber,
+                                    ),
                                     Expanded(
                                       child: Text(
                                         m.location,
@@ -378,7 +366,8 @@ class _HomeColumnState extends State<HomeColumn>
                                         maxLines: 1,
                                       ),
                                     ),
-                                    Icon(Icons.access_time, size: 25, color: Colors.amber),
+                                    Icon(Icons.access_time,
+                                        size: 25, color: Colors.amber),
                                     Expanded(
                                       child: Text(
                                         m.time,
@@ -397,23 +386,25 @@ class _HomeColumnState extends State<HomeColumn>
                             ),
                           )
                         ],
-                      )
-                  )
-              );
-            }
-        )
-    );
+                      )));
+            }));
 
     final homeColumn = Container(
       color: Color(0XFFF5F5F5),
       child: Column(
         children: [
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
           promotion,
           textRecom,
-          SizedBox(height: 5,),
+          SizedBox(
+            height: 5,
+          ),
           rowRecom,
-          SizedBox(height: 10,),
+          SizedBox(
+            height: 10,
+          ),
           textMore,
           colMore,
         ],
@@ -429,12 +420,10 @@ class _HomeColumnState extends State<HomeColumn>
                   leading: IconButton(
                     icon: Icon(Icons.search),
                     color: Colors.orange,
-                    onPressed: ()
-                    {
+                    onPressed: () {
                       return showDialog(
                         context: context,
-                        builder: (context)
-                        {
+                        builder: (context) {
                           return StreamProvider<User>.value(
                             value: AuthService().user,
                             child: new SearchPage(),
@@ -456,16 +445,11 @@ class _HomeColumnState extends State<HomeColumn>
                 ),
                 body: SafeArea(
                     child: ListView.builder(
-                      controller: scrollController,
-                      itemCount: 1,
-                      itemBuilder: (BuildContext context, int index)
-                      {
-                        return homeColumn;
-                      },
-                    )
-                )
-            )
-        )
-    );
+                  controller: scrollController,
+                  itemCount: 1,
+                  itemBuilder: (BuildContext context, int index) {
+                    return homeColumn;
+                  },
+                )))));
   }
 }

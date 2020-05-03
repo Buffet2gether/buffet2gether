@@ -19,34 +19,28 @@ import 'package:buffet2gether_home/models/bar_model.dart';
 import 'package:buffet2gether_home/models/mytable_model.dart';
 import 'package:buffet2gether_home/models/history_model.dart';
 
-void main()
-{
+void main() {
   //debugPaintSizeEnabled=true;
   runApp(new MyApp());
 }
 
-class MyApp extends StatelessWidget
-{
-
+class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Buffet2Gether',
-      theme: ThemeData(
-        primaryColor: Colors.deepOrange,
-        accentColor: Colors.deepOrangeAccent,
-        scaffoldBackgroundColor: Color(0xFFF3F5F7),
+        title: 'Buffet2Gether',
+        theme: ThemeData(
+          primaryColor: Colors.deepOrange,
+          accentColor: Colors.deepOrangeAccent,
+          scaffoldBackgroundColor: Color(0xFFF3F5F7),
         ),
-      home: //Wrapper()
-      new Wrapper()
-    );
+        home: //Wrapper()
+            new Wrapper());
   }
 }
 
 //-------------------------------------main---------------------------------------------
 class MyCustomForm extends StatefulWidget {
-
   MyCustomForm({this.tabsIndex});
 
   int tabsIndex;
@@ -55,19 +49,15 @@ class MyCustomForm extends StatefulWidget {
   MyAppState createState() => new MyAppState();
 }
 
-class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
-{
+class MyAppState extends State<MyCustomForm>
+    with SingleTickerProviderStateMixin {
   TabController controller;
 
   @override
-  void initState()
-  {
+  void initState() {
     super.initState();
     controller = new TabController(
-      length: 4,
-      vsync: this,
-      initialIndex: widget.tabsIndex
-    );
+        length: 4, vsync: this, initialIndex: widget.tabsIndex);
   }
 
   @override
@@ -77,15 +67,20 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
   }
 
   @override
-  Widget build(BuildContext context)
-  {
-
+  Widget build(BuildContext context) {
     var tabs = <Tab>[
-      new Tab(icon: new Icon(Icons.home),),
-      new Tab(icon: new Icon(Icons.fastfood),),
-      new Tab(icon: new Icon(Icons.notifications_active),),
-      new Tab(icon: new Icon(Icons.assignment_ind),),
-
+      new Tab(
+        icon: new Icon(Icons.home),
+      ),
+      new Tab(
+        icon: new Icon(Icons.fastfood),
+      ),
+      new Tab(
+        icon: new Icon(Icons.notifications_active),
+      ),
+      new Tab(
+        icon: new Icon(Icons.assignment_ind),
+      ),
     ];
 
     final user = Provider.of<User>(context);
@@ -93,46 +88,42 @@ class MyAppState extends State<MyCustomForm> with SingleTickerProviderStateMixin
     return new Scaffold(
       body: SafeArea(
           child: new TabBarView(
-            controller: controller,
-            children: <Widget>[
-              StreamProvider<User>.value(
-                value: AuthService().user,
-                child: StreamProvider<List<Recom>>.value(
-                  value: DatabaseService().recInRes,
-                  child: StreamProvider<List<More>>.value(
-                    value: DatabaseService().moreInRes,
-                    child: StreamProvider<List<Promo>>.value(
-                      value: DatabaseService().promotionPic,
-                      child: new HomeColumn(),
-                    )
-                  ),
-                ),
-              ),
-              StreamProvider<User>.value(
-                value: AuthService().user,
-                child: StreamProvider<Mytable>.value(
-                    value: DatabaseService(userID: user?.userId).mytable,
-                    child: new Table1()),
-              ),
-              StreamProvider<Mytable>.value(
+        controller: controller,
+        children: <Widget>[
+          StreamProvider<User>.value(
+            value: AuthService().user,
+            child: StreamProvider<List<Recom>>.value(
+              value: DatabaseService().recInRes,
+              child: StreamProvider<List<More>>.value(
+                  value: DatabaseService().moreInRes,
+                  child: StreamProvider<List<Promo>>.value(
+                    value: DatabaseService().promotionPic,
+                    child: new HomeColumn(),
+                  )),
+            ),
+          ),
+          StreamProvider<User>.value(
+            value: AuthService().user,
+            child: StreamProvider<Mytable>.value(
                 value: DatabaseService(userID: user?.userId).mytable,
-                child: StreamProvider<List<Bar>>.value(
-                  value: DatabaseService().notifications,
-                  child: StreamProvider<User>.value(
-                      value: AuthService().user,
-                      child: new NotifColumn()),
-                ),
-              ),
-              StreamProvider<User>.value(
-                value: AuthService().user,
-                child:StreamProvider<History>.value(
-                  value: DatabaseService(userID: user?.userId).history,
-                  child:ProfileScreen(),
-                )
-              )
-            ],
-          )
-      ),
+                child: new Table1()),
+          ),
+          StreamProvider<Mytable>.value(
+            value: DatabaseService(userID: user?.userId).mytable,
+            child: StreamProvider<List<Bar>>.value(
+              value: DatabaseService().notifications,
+              child: StreamProvider<User>.value(
+                  value: AuthService().user, child: new NotifColumn()),
+            ),
+          ),
+          StreamProvider<User>.value(
+              value: AuthService().user,
+              child: StreamProvider<History>.value(
+                value: DatabaseService(userID: user?.userId).history,
+                child: ProfileScreen(),
+              ))
+        ],
+      )),
       bottomNavigationBar: new Material(
         color: Colors.white,
         shadowColor: Colors.deepOrange,

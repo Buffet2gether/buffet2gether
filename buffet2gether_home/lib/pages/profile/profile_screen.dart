@@ -28,7 +28,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     var currentUser = FirebaseAuth.instance.currentUser();
     final history = Provider.of<History>(context);
 
-
     return Scaffold(
       appBar: new AppBar(
         centerTitle: true,
@@ -54,7 +53,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   print(userData.userId);
                   return ListView(
                     physics: BouncingScrollPhysics(),
-                    padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
                     children: <Widget>[
                       Column(
                         children: <Widget>[
@@ -79,12 +79,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ),
                                       ],
                                       borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
+                                          BorderRadius.all(Radius.circular(10)),
                                       //color: Colors.grey[300],
                                     ),
                                     child: Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                         children: [
                                           InkWell(
                                             onTap: () {
@@ -97,15 +97,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 width: 169.5,
                                                 height: 110,
                                                 padding:
-                                                EdgeInsets.only(top: 70),
+                                                    EdgeInsets.only(top: 70),
                                                 decoration: BoxDecoration(
                                                   color: Colors.white,
                                                   borderRadius:
-                                                  BorderRadius.only(
+                                                      BorderRadius.only(
                                                     topLeft:
-                                                    Radius.circular(10),
+                                                        Radius.circular(10),
                                                     bottomLeft:
-                                                    Radius.circular(10),
+                                                        Radius.circular(10),
                                                   ),
                                                 ),
                                                 child: Text(
@@ -116,7 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       fontSize: 15,
                                                       letterSpacing: 2,
                                                       fontWeight:
-                                                      FontWeight.w600),
+                                                          FontWeight.w600),
                                                   textAlign: TextAlign.center,
                                                 )),
                                           ),
@@ -132,15 +132,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 width: 169.5,
                                                 height: 110,
                                                 padding:
-                                                EdgeInsets.only(top: 70),
+                                                    EdgeInsets.only(top: 70),
                                                 decoration: BoxDecoration(
                                                   color: Colors.white,
                                                   borderRadius:
-                                                  BorderRadius.only(
+                                                      BorderRadius.only(
                                                     topRight:
-                                                    Radius.circular(10),
+                                                        Radius.circular(10),
                                                     bottomRight:
-                                                    Radius.circular(10),
+                                                        Radius.circular(10),
                                                   ),
                                                 ),
                                                 child: Text(
@@ -151,7 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       fontSize: 15,
                                                       letterSpacing: 2,
                                                       fontWeight:
-                                                      FontWeight.w600),
+                                                          FontWeight.w600),
                                                   textAlign: TextAlign.center,
                                                 )),
                                           ),
@@ -198,36 +198,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           Expanded(
                                             child: Padding(
                                               padding:
-                                              const EdgeInsets.symmetric(
-                                                  horizontal: 10),
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10),
                                               child: Column(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                    MainAxisAlignment.center,
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: <Widget>[
                                                   Text(
                                                     userData.name,
                                                     overflow:
-                                                    TextOverflow.ellipsis,
+                                                        TextOverflow.ellipsis,
                                                     style: TextStyle(
                                                         fontFamily: 'Opun',
                                                         color: Colors.white,
                                                         fontSize: 20.0,
                                                         fontWeight:
-                                                        FontWeight.bold,
+                                                            FontWeight.bold,
                                                         letterSpacing: 1),
                                                   ),
                                                   Row(
                                                     children: <Widget>[
                                                       Text(
                                                         (DateTime.now()
-                                                            .difference(
-                                                            userData.dateofBirth)
-                                                            .inDays /
-                                                            365)
-                                                            .floor()
-                                                            .toString() +
+                                                                        .difference(
+                                                                            userData.dateofBirth)
+                                                                        .inDays /
+                                                                    365)
+                                                                .floor()
+                                                                .toString() +
                                                             ' | ',
                                                         style: TextStyle(
                                                           fontFamily: 'Opun',
@@ -240,11 +240,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       ),
                                                       Icon(
                                                         userData.gender ==
-                                                            'Male'
+                                                                'Male'
                                                             ? FontAwesomeIcons
-                                                            .mars
+                                                                .mars
                                                             : FontAwesomeIcons
-                                                            .venus,
+                                                                .venus,
                                                         color: Colors.white,
                                                         size: 20,
                                                       ),
@@ -266,12 +266,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
-                                                        builder: (_) => StreamProvider<User>.value(
-                                                            value: AuthService().user,
-                                                            child: ProfileSettingScreen()
-                                                        )
-                                                    )
-                                                );
+                                                        builder: (_) =>
+                                                            StreamProvider<
+                                                                    User>.value(
+                                                                value:
+                                                                    AuthService()
+                                                                        .user,
+                                                                child:
+                                                                    ProfileSettingScreen())));
                                               }),
                                         ],
                                       ),
@@ -326,14 +328,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       Expanded(
                                         //height: 180,
                                         child: ListView.builder(
-                                          physics: NeverScrollableScrollPhysics(),
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
                                           itemCount: 7,
-                                          itemBuilder: (BuildContext context, int index)
-                                          {
-                                            if (index == 0 && userData.fashion == true) {
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            if (index == 0 &&
+                                                userData.fashion == true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(vertical: 1),
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 1),
                                                 decoration: BoxDecoration(
                                                   boxShadow: [
                                                     BoxShadow(
@@ -344,7 +349,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ],
                                                   borderRadius:
-                                                  BorderRadius.circular(10),
+                                                      BorderRadius.circular(10),
                                                   color: Colors.white,
                                                 ),
                                                 child: ListTile(
@@ -368,9 +373,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               );
                                             }
-                                            if (index == 1 && userData.sport == true) {
+                                            if (index == 1 &&
+                                                userData.sport == true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(vertical: 1),
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 1),
                                                 decoration: BoxDecoration(
                                                   boxShadow: [
                                                     BoxShadow(
@@ -381,7 +388,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ],
                                                   borderRadius:
-                                                  BorderRadius.circular(10),
+                                                      BorderRadius.circular(10),
                                                   color: Colors.white,
                                                 ),
                                                 child: ListTile(
@@ -405,9 +412,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               );
                                             }
-                                            if (index == 2 && userData.technology == true) {
+                                            if (index == 2 &&
+                                                userData.technology == true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(vertical: 1),
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 1),
                                                 decoration: BoxDecoration(
                                                   boxShadow: [
                                                     BoxShadow(
@@ -418,7 +427,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ],
                                                   borderRadius:
-                                                  BorderRadius.circular(10),
+                                                      BorderRadius.circular(10),
                                                   color: Colors.white,
                                                 ),
                                                 child: ListTile(
@@ -441,9 +450,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               );
                                             }
-                                            if (index == 3 && userData.politics == true) {
+                                            if (index == 3 &&
+                                                userData.politics == true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(vertical: 1),
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 1),
                                                 decoration: BoxDecoration(
                                                   boxShadow: [
                                                     BoxShadow(
@@ -454,7 +465,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ],
                                                   borderRadius:
-                                                  BorderRadius.circular(10),
+                                                      BorderRadius.circular(10),
                                                   color: Colors.white,
                                                 ),
                                                 child: ListTile(
@@ -478,9 +489,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               );
                                             }
-                                            if (index == 4 && userData.entertainment == true) {
+                                            if (index == 4 &&
+                                                userData.entertainment ==
+                                                    true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(vertical: 1),
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 1),
                                                 decoration: BoxDecoration(
                                                   boxShadow: [
                                                     BoxShadow(
@@ -491,7 +505,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ],
                                                   borderRadius:
-                                                  BorderRadius.circular(10),
+                                                      BorderRadius.circular(10),
                                                   color: Colors.white,
                                                 ),
                                                 child: ListTile(
@@ -513,12 +527,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               );
                                             }
-                                            if (index == 5 && userData.book == true) {
+                                            if (index == 5 &&
+                                                userData.book == true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(vertical: 1),
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 1),
                                                 decoration: BoxDecoration(
                                                   borderRadius:
-                                                  BorderRadius.circular(10),
+                                                      BorderRadius.circular(10),
                                                   color: Colors.white,
                                                   boxShadow: [
                                                     BoxShadow(
@@ -549,9 +565,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               );
                                             }
-                                            if (index == 6 && userData.pet == true) {
+                                            if (index == 6 &&
+                                                userData.pet == true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(vertical: 1),
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 1),
                                                 decoration: BoxDecoration(
                                                   boxShadow: [
                                                     BoxShadow(
@@ -562,7 +580,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ],
                                                   borderRadius:
-                                                  BorderRadius.circular(10),
+                                                      BorderRadius.circular(10),
                                                   color: Colors.white,
                                                 ),
                                                 child: ListTile(
@@ -595,158 +613,221 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ),
                             StreamBuilder<History>(
-                                stream: DatabaseService(userID: user?.userId).history,
-                                builder: (context, snapshot)
-                                {
+                                stream: DatabaseService(userID: user?.userId)
+                                    .history,
+                                builder: (context, snapshot) {
                                   //print(snapshot.data);
-                                  if (snapshot.hasData)
-                                  {
+                                  if (snapshot.hasData) {
                                     print('kao if jaaaaa');
                                     History userHistory = snapshot.data;
-                                    return Container( /////////////////////////////////////////History
-                                        width: MediaQuery.of(context).size.width,
-                                        padding: EdgeInsets.symmetric(horizontal: 15),
-                                        //color: Colors.blue,
-                                        child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text(
-                                                'History : ',
-                                                style: TextStyle(
-                                                  fontSize: 20.0,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black,
+                                    if (userHistory.resID == 'restaurant ID') {
+                                      return Text('No history yet',
+                                          style: TextStyle(
+                                              fontFamily: 'Opun',
+                                              color: Colors.black45));
+                                    } else {
+                                      return Container(
+                                          /////////////////////////////////////////History
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 15),
+                                          //color: Colors.blue,
+                                          child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text(
+                                                  'History : ',
+                                                  style: TextStyle(
+                                                    fontSize: 20.0,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                  ),
                                                 ),
-                                              ),
-                                              SizedBox(height: 20),
-                                              InkWell(
-                                                onTap: ()
-                                                {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (_) => HistoryPage(
-                                                            resID: userHistory.resID,
-                                                            image: userHistory.image,
-                                                            name1: userHistory.name1,
-                                                            name2: userHistory.name2,
-                                                            location: userHistory.location,
-                                                            time: userHistory.time,
-                                                            ageStart: userHistory.ageStart,
-                                                            ageEnd: userHistory.ageEnd,
-                                                            num: userHistory.num,
-                                                            dueTime: userHistory.dueTime,
-                                                            gender: userHistory.gender,
-                                                            fashion: userHistory.fashion,
-                                                            sport: userHistory.sport,
-                                                            technology: userHistory.technology,
-                                                            politics: userHistory.politics,
-                                                            entertainment: userHistory.entertainment,
-                                                            book: userHistory.book,
-                                                            pet: userHistory.pet,
-                                                          )
-                                                      )
-                                                  );
-                                                },
-                                                child: Container(
-                                                  height: 150,
-                                                  padding: EdgeInsets.all(10),
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius: BorderRadius.circular(10),
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        color: Colors.black26,
-                                                        offset: Offset(0, 5),
-                                                        blurRadius: 5.0,
-                                                        spreadRadius: 2.0,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  width: MediaQuery.of(context).size.width,
-                                                  child: Row(
-                                                    children: <Widget>[
-                                                      Container(
-                                                        padding: EdgeInsets.symmetric(
-                                                            horizontal: 10),
-                                                        child: Image.network(
-                                                          userHistory.image,
-                                                          fit: BoxFit.cover,
-                                                          width: 110,
-                                                          height: 80,
+                                                SizedBox(height: 20),
+                                                InkWell(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder:
+                                                                (_) =>
+                                                                    HistoryPage(
+                                                                      resID: userHistory
+                                                                          .resID,
+                                                                      image: userHistory
+                                                                          .image,
+                                                                      name1: userHistory
+                                                                          .name1,
+                                                                      name2: userHistory
+                                                                          .name2,
+                                                                      location:
+                                                                          userHistory
+                                                                              .location,
+                                                                      time: userHistory
+                                                                          .time,
+                                                                      ageStart:
+                                                                          userHistory
+                                                                              .ageStart,
+                                                                      ageEnd: userHistory
+                                                                          .ageEnd,
+                                                                      num: userHistory
+                                                                          .num,
+                                                                      dueTime:
+                                                                          userHistory
+                                                                              .dueTime,
+                                                                      gender: userHistory
+                                                                          .gender,
+                                                                      fashion:
+                                                                          userHistory
+                                                                              .fashion,
+                                                                      sport: userHistory
+                                                                          .sport,
+                                                                      technology:
+                                                                          userHistory
+                                                                              .technology,
+                                                                      politics:
+                                                                          userHistory
+                                                                              .politics,
+                                                                      entertainment:
+                                                                          userHistory
+                                                                              .entertainment,
+                                                                      book: userHistory
+                                                                          .book,
+                                                                      pet: userHistory
+                                                                          .pet,
+                                                                    )));
+                                                  },
+                                                  child: Container(
+                                                    height: 150,
+                                                    padding: EdgeInsets.all(10),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Colors.black26,
+                                                          offset: Offset(0, 5),
+                                                          blurRadius: 5.0,
+                                                          spreadRadius: 2.0,
                                                         ),
-                                                      ),
-                                                      SizedBox(width: 10),
-                                                      Expanded(
-                                                        child: Column(
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment.center,
-                                                          crossAxisAlignment:
-                                                          CrossAxisAlignment.start,
-                                                          children: <Widget>[
-                                                            Text(
-                                                              userHistory.name1,
-                                                              style: TextStyle(
-                                                                  fontSize: 16,
-                                                                  color: Theme.of(context).primaryColor,
-                                                                  //fontWeight: FontWeight.bold,
-                                                                  letterSpacing: 0.5
+                                                      ],
+                                                    ),
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    child: Row(
+                                                      children: <Widget>[
+                                                        Container(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      10),
+                                                          child: Image.network(
+                                                            userHistory.image,
+                                                            fit: BoxFit.cover,
+                                                            width: 110,
+                                                            height: 80,
+                                                          ),
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                        Expanded(
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                userHistory
+                                                                    .name1,
+                                                                style: TextStyle(
+                                                                    fontSize: 16,
+                                                                    color: Theme.of(context).primaryColor,
+                                                                    //fontWeight: FontWeight.bold,
+                                                                    letterSpacing: 0.5),
                                                               ),
-                                                            ),
-                                                            SizedBox(height: 10),
-                                                            Row(
-                                                              children: <Widget>[
-                                                                Icon(
-                                                                  FontAwesomeIcons.mapMarkerAlt,
-                                                                  color: Theme.of(context).primaryColor,
-                                                                ),
-                                                                SizedBox(width: 10),
-                                                                Expanded(
-                                                                  child: Text(
-                                                                    userHistory.location,
-                                                                    overflow: TextOverflow.ellipsis,
-                                                                    maxLines: 2,
+                                                              SizedBox(
+                                                                  height: 10),
+                                                              Row(
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    FontAwesomeIcons
+                                                                        .mapMarkerAlt,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .primaryColor,
                                                                   ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            SizedBox(height: 10),
-                                                            Row(
-                                                              children: <Widget>[
-                                                                Icon(
-                                                                  FontAwesomeIcons.user,
-                                                                  color: Theme.of(context).primaryColor,
-                                                                ),
-                                                                SizedBox(width: 10),
-                                                                Expanded(
-                                                                  child: Text(
-                                                                    userHistory.num.round().toString(),
-                                                                    overflow: TextOverflow.ellipsis,
-                                                                    maxLines: 2,
+                                                                  SizedBox(
+                                                                      width:
+                                                                          10),
+                                                                  Expanded(
+                                                                    child: Text(
+                                                                      userHistory
+                                                                          .location,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      maxLines:
+                                                                          2,
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ],
+                                                                ],
+                                                              ),
+                                                              SizedBox(
+                                                                  height: 10),
+                                                              Row(
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    FontAwesomeIcons
+                                                                        .user,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .primaryColor,
+                                                                  ),
+                                                                  SizedBox(
+                                                                      width:
+                                                                          10),
+                                                                  Expanded(
+                                                                    child: Text(
+                                                                      userHistory.num
+                                                                              .round()
+                                                                          .toString(),
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      maxLines:
+                                                                          2,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
-                                              ),
-                                              )
-                                            ]
-                                        )
-                                    );
-                                  }
-                                  else
-                                    {
-                                      print('kao else jaaaaaa');
-                                      return Container();
+                                                )
+                                              ]));
                                     }
-                                }
-                                )
-                          ]
-                      ),
+                                  } else {
+                                    print('kao else jaaaaaa');
+                                    if (snapshot.hasError) {
+                                      print(snapshot.error.toString());
+                                    }
+                                    return Loading();
+                                  }
+                                })
+                          ]),
                     ],
                   );
                 } else {

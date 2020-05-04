@@ -454,42 +454,39 @@ class _HomeColumnState extends State<HomeColumn> {
                 ),
         body: SafeArea(
             child: StreamBuilder<List<Promo>>(
-            stream: DatabaseService().promotionPic,
+                stream: DatabaseService().promotionPic,
                 builder: (context, snapshot) {
-              if (snapshot.hasData) {
-    return
-
-
-    StreamProvider<User>.value(
-    value: AuthService().user,
-    child: StreamProvider<List<Recom>>.value(
-    value: DatabaseService().recInRes,
-    child: StreamProvider<List<More>>.value(
-    value: DatabaseService().moreInRes,
-    child: StreamProvider<List<Promo>>.value(
-    value: DatabaseService().promotionPic,
-    child: ListView.builder(
-    controller: scrollController,
-    itemCount: 1,
-    itemBuilder: (BuildContext context, int index) {
-    return homeColumn;
-    },
-    )
-    )
-    )
-    )
-    );
-
-    }
-              else
-                {
-                  if (snapshot.hasError)
+                  if (snapshot.hasData)
                   {
-                    print(snapshot.error.toString());
+                    return StreamProvider<User>.value(
+                        value: AuthService().user,
+                        child: StreamProvider<List<Recom>>.value(
+                            value: DatabaseService().recInRes,
+                            child: StreamProvider<List<More>>.value(
+                                value: DatabaseService().moreInRes,
+                                child: StreamProvider<List<Promo>>.value(
+                                    value: DatabaseService().promotionPic,
+                                    child: ListView.builder(
+                                      controller: scrollController,
+                                      itemCount: 1,
+                                      itemBuilder: (BuildContext context, int index) {
+                                        return homeColumn;
+                                        },
+                                    )
+                                )
+                            )
+                        )
+                    );
                   }
-                  return Loading();
+                  else
+                    {
+                      if (snapshot.hasError)
+                      {
+                        print(snapshot.error.toString());
+                      }
+                      return Loading();
+                    }
                 }
-            }
             )
         )
     );

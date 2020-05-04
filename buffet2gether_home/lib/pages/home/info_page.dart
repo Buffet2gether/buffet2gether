@@ -12,6 +12,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/models/userMaster_model.dart';
+import 'package:buffet2gether_home/shared/loading.dart';
 
 class InfoPage extends StatefulWidget
 {
@@ -202,11 +203,31 @@ class _InfoPageState extends State<InfoPage>
     ///ปุ่ม Matching
     bool iAmUserFindGroup = false;
     ///////////  ถ้าเราอยู่ใน UserfindGroup แล้ว iAmUserFindGroup จะเป็น true
-    for (var item in userFindGroups) {
-      if(item.userID == user.userId){
-        iAmUserFindGroup = true;
-      }
-    }
+
+    StreamBuilder<List<UserFindGroup>>(
+        stream: DatabaseService(resID: widget.resID).userFindGroup,
+        builder: (context, snapshot)
+        {
+          if (snapshot.hasData)
+          {
+            for (var item in userFindGroups)
+            {
+              if (item.userID == user.userId)
+              {
+                iAmUserFindGroup = true;
+              }
+            }
+          }
+          else
+            {
+              if (snapshot.hasError)
+              {
+                print(snapshot.error.toString());
+              }
+              return Loading();
+            }
+        }
+        );
 
     final buttonMatch = StreamBuilder<UserData>(
         stream: DatabaseService(uid: user?.userId).userData,
@@ -461,8 +482,8 @@ class _InfoPageState extends State<InfoPage>
             itemBuilder: (BuildContext context, int index)
             {
               return allInPage;
-            },
-          ),
+              },
+          )
         )
     );
   }

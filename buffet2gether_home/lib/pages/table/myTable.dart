@@ -9,6 +9,7 @@ import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/models/mytable_model.dart';
 import 'package:buffet2gether_home/models/userMaster_model.dart';
 import 'package:buffet2gether_home/models/table_model.dart';
+import 'package:buffet2gether_home/shared/loading.dart';
 
 ///ส่วนที่ใช้เลือกเพศ จะมี Name กับ Icon
 class GenderItem {
@@ -226,7 +227,7 @@ class _MyTable1State extends State<MyTable1>
               ),
             ),
             Image.network(
-                infoFromTable?.imageUrl,
+                infoFromTable?.imageUrl ?? 'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/profile_pictures%2Fdefault.png?alt=media&token=c91f2a65-0928-4eb1-a284-c07c0a8c1517',
                 fit: BoxFit.contain,
                 width: 250,
                 height: 120
@@ -237,7 +238,7 @@ class _MyTable1State extends State<MyTable1>
                 Icon(Icons.location_on,size: 25,color: Colors.amber,),
                 Expanded(
                   child: Text(
-                    infoFromTable.location,
+                    infoFromTable?.location ?? ' ',
                     style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.grey,
@@ -254,7 +255,7 @@ class _MyTable1State extends State<MyTable1>
               children: <Widget>[
                 Icon(Icons.access_time,size: 25,color: Colors.amber),
                 Text(
-                  ' '+infoFromTable.time,
+                  infoFromTable?.time ?? ' ',
                   style: TextStyle(
                     fontFamily: 'Opun',
                     color: Colors.grey,
@@ -269,11 +270,12 @@ class _MyTable1State extends State<MyTable1>
 
 
 
+    final gd = infoFromTable?.gender ?? ' ';
     // แปลง string gender ให้เป็น icon เพศทีเลือกไว้
     int getGender(){
       int index = 0;
       for (var item in genderList) {
-        if (infoFromTable.gender == item.genderName){
+        if (gd  == item.genderName){
           return index;
         }
         index += 1;
@@ -302,7 +304,7 @@ class _MyTable1State extends State<MyTable1>
               ///age
               Text(
                 ///ค่าอายุเริ่ม - ค่าอายุจบ
-                '${infoFromTable.ageStart.toString()} - ${infoFromTable.ageEnd.toString()}',
+                '${infoFromTable?.ageStart.toString()} - ${infoFromTable?.ageEnd.toString()}',
                 style: TextStyle(
                   fontFamily: 'Opun',
                   color: Colors.deepOrange,
@@ -368,7 +370,6 @@ class _MyTable1State extends State<MyTable1>
                 genderList[getGender()].genderIcon,
                 size: 23,
                 color: Colors.deepOrange,),
-
             ],
           ),
         )
@@ -520,7 +521,23 @@ class _MyTable1State extends State<MyTable1>
         ]
     );
 
-
-    return stackMatchCol;
+    return StreamBuilder<InfoInTable>(
+        stream: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
+        builder: (context, snapshot)
+        {
+          if (snapshot.hasData)
+          {
+            return stackMatchCol;
+          }
+          else
+            {
+              if (snapshot.hasError)
+              {
+                print(snapshot.error.toString());
+              }
+              return Loading();
+            }
+        }
+    );
   }
 }

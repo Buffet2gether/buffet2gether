@@ -8,6 +8,7 @@ import 'package:buffet2gether_home/models/mytable_model.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/models/userMaster_model.dart';
+import 'package:buffet2gether_home/shared/loading.dart';
 
 //----------------------------------------Table page------------------------------------
 class Table1 extends StatefulWidget
@@ -64,17 +65,7 @@ class _Table1State extends State<Table1>
       return tablePageDefault;
     }else
     {
-      return StreamProvider<UserMaster>.value(
-        value: DatabaseService(resID: mytable?.resID,numberTable: mytable?.numberTable).userMasterMax,
-        child: StreamProvider<User>.value(
-          value: AuthService().user,
-          child: StreamProvider<Mytable>.value(
-            value:DatabaseService(userID: user.userId).mytable,
-            child: StreamProvider<List<MemberBarListInTable>>.value(
-                value: DatabaseService(numberTable: mytable?.numberTable,resID: mytable?.resID).memberInTable,
-                child: StreamProvider<InfoInTable>.value(
-                  value: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
-                  child: Scaffold(
+      return Scaffold(
                       appBar: new AppBar(
                         leading: new Container(),
                         centerTitle: true,
@@ -89,13 +80,24 @@ class _Table1State extends State<Table1>
                         ),
                         backgroundColor: Color(0xfff5f5f5),
                       ),
-                      body: MyTable1()),
+                      body:
+  StreamProvider<UserMaster>.value(
+  value: DatabaseService(resID: mytable?.resID,numberTable: mytable?.numberTable).userMasterMax,
+  child: StreamProvider<User>.value(
+  value: AuthService().user,
+  child: StreamProvider<Mytable>.value(
+  value:DatabaseService(userID: user.userId).mytable,
+  child: StreamProvider<List<MemberBarListInTable>>.value(
+  value: DatabaseService(numberTable: mytable?.numberTable,resID: mytable?.resID).memberInTable,
+  child: StreamProvider<InfoInTable>.value(
+  value: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
+  child: MyTable1()),
 
-                )
-            ),
-          ),
+  )
+  ),
+  ),
 
-        ),
+  ),
       );
     }
   }

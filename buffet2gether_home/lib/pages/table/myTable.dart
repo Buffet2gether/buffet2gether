@@ -268,21 +268,129 @@ class _MyTable1State extends State<MyTable1>
         )
     );
 
-
-
-    final gd = infoFromTable?.gender ?? ' ';
-    // แปลง string gender ให้เป็น icon เพศทีเลือกไว้
-    int getGender(){
-      int index = 0;
-      for (var item in genderList) {
-        if (gd  == item.genderName){
-          return index;
-        }
-        index += 1;
-      }
-    }
-
     final properties = Container(
+        height: 80,
+        margin: EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                offset: Offset(0,4),
+                blurRadius: 5,
+              )
+            ]
+        ),
+        child: StreamBuilder<InfoInTable>(
+            stream: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
+            builder: (context, snapshot)
+            {
+              if (snapshot.hasData)
+              {
+                int getGender()
+                {
+                  int index = 0;
+                  for (var item in genderList)
+                  {
+                    if (infoFromTable.gender  == item.genderName)
+                    {
+                      return index;
+                    }
+                    index += 1;
+                  }
+                }
+                return FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      ///age
+                      Text(
+                    ///ค่าอายุเริ่ม - ค่าอายุจบ
+                    '${infoFromTable?.ageStart.toString()} - ${infoFromTable?.ageEnd.toString()}',
+                    style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.deepOrange,
+                      fontSize: 15,
+                    ),
+                  ),
+                      Text(
+                    '|',
+                    style:  TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.amberAccent,
+                      fontSize: 25,
+                    ),
+                  ),
+                      ///maxNum
+                      Container(
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          /// 1/จำนวนคนที่เลือก
+                          (infoFromTable?.people != null)?'${listMember?.length.toString()} / ${infoFromTable?.people.round().toString()}':' ',
+                          style: TextStyle(
+                            fontFamily: 'Opun',
+                            color: Colors.deepOrange,
+                            fontSize: 15,
+                          ),
+                        ),
+                        Icon(
+                          Icons.people,
+                          color: Colors.deepOrange,
+                          size: 23,
+                        )
+                      ],
+                    ),
+                  ),
+                      Text(
+                    '|',
+                    style:  TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.amberAccent,
+                      fontSize: 25,
+                    ),
+                  ),
+                      ///Date and time
+                      Text(
+                    DateFormat('dd-MM-yyyy  h:mm a').format(newDueTime),
+                    style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.deepOrange,
+                      fontSize: 15,
+                    ),
+                  ),
+                      Text(
+                    '|',
+                    style:  TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.amberAccent,
+                      fontSize: 25,
+                    ),
+                  ),
+                      ///gender
+                      Icon(
+                        genderList[getGender()].genderIcon,
+                        size: 23,
+                        color: Colors.deepOrange,),
+                    ],
+                  ),
+                );
+              }
+              else
+                {
+                  if (snapshot.hasError)
+                  {
+                    print(snapshot.error.toString());
+                  }
+                  return Loading();
+                }
+            }
+            )
+    );
+
+    /*final properties = Container(
         height: 80,
         margin: EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
@@ -373,7 +481,7 @@ class _MyTable1State extends State<MyTable1>
             ],
           ),
         )
-    );
+    );*/
 
     final memberBar = ListView.builder(
       scrollDirection: Axis.vertical,

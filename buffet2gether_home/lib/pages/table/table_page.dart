@@ -4,8 +4,6 @@ import 'package:buffet2gether_home/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:buffet2gether_home/models/infoInTable_model.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:buffet2gether_home/models/mytable_model.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/services/auth.dart';
@@ -27,7 +25,6 @@ class _Table1State extends State<Table1>
   {
     final mytable = Provider.of<Mytable>(context);
     final user = Provider.of<User>(context);
-    final screenSize = MediaQuery.of(context).size;
 
     final tablePageDefault = new Scaffold(
       appBar: new AppBar(
@@ -66,42 +63,40 @@ class _Table1State extends State<Table1>
     if (mytable?.numberTable == null){
       return tablePageDefault;
     }else
-      {
+    {
       return StreamProvider<UserMaster>.value(
-              value: DatabaseService(resID: mytable?.resID,numberTable: mytable?.numberTable).userMasterMax,
-                child: StreamProvider<User>.value(
-                  value: AuthService().user,
-                  child: StreamProvider<Mytable>.value(
-                    value:DatabaseService(userID: user.userId).mytable,
-                      child: StreamProvider<List<MemberBarListInTable>>.value( 
-                        value: DatabaseService(numberTable: mytable?.numberTable,resID: mytable?.resID).memberInTable,
-                        child: StreamProvider<InfoInTable>.value(
-                          value: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
-                          child: Scaffold(
-                            appBar: new AppBar(
-                              leading: new Container(),
-                              centerTitle: true,
-                              title: new Text(
-                                'โต๊ะของคุณ!',
-                                style: TextStyle(
-                                    color: Colors.deepOrange,
-                                    fontFamily: 'Opun',
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold
-                                ),
-                              ),
-                              backgroundColor: Color(0xfff5f5f5),
-                            ),
-                            body: MyTable1()),
-                          
-                          )
+        value: DatabaseService(resID: mytable?.resID,numberTable: mytable?.numberTable).userMasterMax,
+        child: StreamProvider<User>.value(
+          value: AuthService().user,
+          child: StreamProvider<Mytable>.value(
+            value:DatabaseService(userID: user.userId).mytable,
+            child: StreamProvider<List<MemberBarListInTable>>.value(
+                value: DatabaseService(numberTable: mytable?.numberTable,resID: mytable?.resID).memberInTable,
+                child: StreamProvider<InfoInTable>.value(
+                  value: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
+                  child: Scaffold(
+                      appBar: new AppBar(
+                        leading: new Container(),
+                        centerTitle: true,
+                        title: new Text(
+                          'โต๊ะของคุณ!',
+                          style: TextStyle(
+                              color: Colors.deepOrange,
+                              fontFamily: 'Opun',
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold
+                          ),
                         ),
+                        backgroundColor: Color(0xfff5f5f5),
                       ),
-                    
+                      body: MyTable1()),
+
+                )
+            ),
+          ),
+
         ),
       );
     }
   }
 }
-
-

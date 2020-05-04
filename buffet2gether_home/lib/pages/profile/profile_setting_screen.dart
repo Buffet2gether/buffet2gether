@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/pages/profile/detail_editing_screen.dart';
 import 'package:buffet2gether_home/pages/profile/interesting_editing_screen.dart';
-import 'package:buffet2gether_home/pages/login/reset_password_screen.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:buffet2gether_home/shared/loading.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -12,7 +11,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/pages/login/login_page.dart';
-
 
 class ProfileSettingScreen extends StatefulWidget {
   @override
@@ -29,23 +27,23 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
     final AuthService _auth = AuthService();
     return Scaffold(
       appBar: new AppBar(
-                  centerTitle: true,
-                  leading: new Container(),
-                  title: Text(
-                   'Setting',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.deepOrange,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  backgroundColor: Color(0xfff5f5f5),
-                ),
+        centerTitle: true,
+        leading: new Container(),
+        title: Text(
+          'Setting',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: 'Opun',
+            color: Colors.deepOrange,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Color(0xfff5f5f5),
+      ),
       body: SafeArea(
         child: StreamBuilder<UserData>(
-            stream: DatabaseService(uid: user.userId).userData,
+            stream: DatabaseService(uid: user?.userId).userData,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 UserData userData = snapshot.data;
@@ -59,10 +57,10 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                   if (_tempImage != null) {
                     StorageReference storageReference = FirebaseStorage.instance
                         .ref()
-                    //.child('profile_pictures/${Path.basename(_tempImage.path)}');
+                        //.child('profile_pictures/${Path.basename(_tempImage.path)}');
                         .child('profile_pictures/user_' + userData.userId);
                     StorageUploadTask uploadTask =
-                    storageReference.putFile(_tempImage);
+                        storageReference.putFile(_tempImage);
                     await uploadTask.onComplete;
                     print('File Uploaded');
                     storageReference.getDownloadURL().then((fileURL) {
@@ -70,12 +68,13 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                         _uploadedImageURL = fileURL;
                         DatabaseService(uid: user.userId)
                             .updateUserProfilePicture(_uploadedImageURL
-                          //userData.profilePicture
-                        );
+                                //userData.profilePicture
+                                );
                       });
                     });
                   }
                 }
+
                 /*Future getImageFromCameraAndUpload() async {
                   await ImagePicker.pickImage(source: ImageSource.camera)
                       .then((image) {
@@ -86,7 +85,8 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                   uploadPicture();
                 }*/
                 return ListView(
-                  padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
                   children: <Widget>[
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -148,7 +148,7 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                               style: TextStyle(
                                 fontFamily: 'Opun',
                                 color: Colors.black54,
-                                 fontSize: 18,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -167,11 +167,10 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (_) => StreamProvider<User>.value(
-                                            value: AuthService().user,
-                                            child: DetailEditingScreen()
-                                        )
-                                    ));
+                                        builder: (_) =>
+                                            StreamProvider<User>.value(
+                                                value: AuthService().user,
+                                                child: DetailEditingScreen())));
                               },
                             ),
                           ],
@@ -238,10 +237,10 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                   Text(
                                     'Age : ' +
                                         (DateTime.now()
-                                            .difference(
-                                            userData.dateofBirth)
-                                            .inDays /
-                                            365)
+                                                    .difference(
+                                                        userData.dateofBirth)
+                                                    .inDays /
+                                                365)
                                             .floor()
                                             .toString(),
                                     textAlign: TextAlign.start,
@@ -308,12 +307,11 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (_) => StreamProvider<User>.value(
+                                        builder: (_) => StreamProvider<
+                                                User>.value(
                                             value: AuthService().user,
-                                            child: InterestingEditingScreen()
-                                        )
-                                    )
-                                );
+                                            child:
+                                                InterestingEditingScreen())));
                               },
                             ),
                           ],
@@ -367,7 +365,7 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                         horizontal: 10.0),
                                     child: Icon(
                                       FontAwesomeIcons.balanceScale,
-                                      color: userData.politic
+                                      color: userData.politics
                                           ? Theme.of(context).accentColor
                                           : Theme.of(context).buttonColor,
                                     ),
@@ -412,48 +410,12 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                 return SizedBox();
                               }),
                         ),
-                        //////////////////////////////////////////////////////////////////////////////clear&logout
-                        Divider(height: 30),
-                        Row(
-                          children: <Widget>[
-                            Text(
-                              'Clear History',
-                              style: TextStyle(
-                                fontFamily: 'Opun',
-                                color: Colors.black54,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
+
                         Divider(height: 30),
                         Row(
                           children: <Widget>[
                             GestureDetector(
                               child: Text(
-                                'Change Password',
-                                style: TextStyle(
-                                  fontFamily: 'Opun',
-                                  color: Colors.black54,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => ResetPasswordScreen()));
-                              },
-                            ),
-                          ],
-                        ),
-                        Divider(height: 30),
-                        Row(
-                          children: <Widget>[
-                            GestureDetector(
-                              child :Text(
                                 'Log out',
                                 style: TextStyle(
                                   fontFamily: 'Opun',
@@ -462,15 +424,10 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              onTap: () async
-                              {
+                              onTap: () async {
                                 await _auth.signOut();
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => Login()
-                                    )
-                                );
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (_) => Login()));
                               },
                             ),
                           ],

@@ -1,5 +1,4 @@
 import 'package:buffet2gether_home/models/profile_model.dart';
-import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,7 +10,7 @@ class ResetPasswordScreen extends StatefulWidget {
 }
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
-  final AuthService _auth = AuthService();
+//  final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           child: StreamBuilder<UserData>(
               stream: DatabaseService(uid: user.userId).userData,
               builder: (context, snapshot) {
-                UserData userData = snapshot.data;
+                //UserData userData = snapshot.data;
                 return ListView(
                   padding:
                   EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),

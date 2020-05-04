@@ -12,6 +12,7 @@ import 'package:buffet2gether_home/models/rec_model.dart';
 import 'package:buffet2gether_home/models/more_model.dart';
 import 'package:buffet2gether_home/models/tableInfo.dart';
 import 'package:buffet2gether_home/models/promotion_model.dart';
+import 'package:buffet2gether_home/models/history_model.dart';
 
 class DatabaseService {
   final String uid;
@@ -25,14 +26,49 @@ class DatabaseService {
 
   //----------------------------- Restaurants -----------------------------------------------------------
   final CollectionReference recInResCollection =
-  Firestore.instance.collection('Restaurants/recommend/recList');
+      Firestore.instance.collection('Restaurants/recommend/recList');
   final CollectionReference moreInResCollection =
-  Firestore.instance.collection('Restaurants/more/moreList');
+      Firestore.instance.collection('Restaurants/more/moreList');
   final CollectionReference GroupsCollection =
-  Firestore.instance.collection('Groups');
+      Firestore.instance.collection('Groups');
   final CollectionReference promotionCollection =
-  Firestore.instance.collection('Restaurants/promotion/promotionPic');
+      Firestore.instance.collection('Restaurants/promotion/promotionPic');
+  final CollectionReference historyCollection =
+      Firestore.instance.collection('History');
 
+  ///ดึงข้อมูลร้านใน history
+  History _historyFromSnapshot(DocumentSnapshot snapshot) {
+    //print('snapshot = ');
+    //print(snapshot.data);
+    return History(
+      resID: snapshot.data['resID'],
+      image: snapshot.data['image'],
+      name1: snapshot.data['name1'],
+      name2: snapshot.data['name2'],
+      location: snapshot.data['location'],
+      time: snapshot.data['time'],
+      ageStart: snapshot.data['ageStart'],
+      ageEnd: snapshot.data['ageEnd'],
+      num: snapshot.data['num'],
+      dueTime: snapshot.data['dueTime'].toString(),
+      gender: snapshot.data['gender'],
+      fashion: snapshot.data['fashion'] ?? false,
+      sport: snapshot.data['sport'] ?? false,
+      technology: snapshot.data['technology'] ?? false,
+      politics: snapshot.data['politics'] ?? false,
+      entertainment: snapshot.data['entertainment'] ?? false,
+      book: snapshot.data['book'] ?? false,
+      pet: snapshot.data['pet'] ?? false,
+    );
+  }
+
+  Stream<History> get history {
+    //print('userID history = '+userID);
+    return historyCollection
+        .document(userID)
+        .snapshots()
+        .map(_historyFromSnapshot);
+  }
 
   ///ดึงข้อมูลร้านใน promotion
   List<Promo> _promotionPicFromSnapshot(QuerySnapshot snapshot) {
@@ -55,32 +91,31 @@ class DatabaseService {
     return promotionCollection.snapshots().map(_promotionPicFromSnapshot);
   }
 
+  TableInfo _getGroupInterest(DocumentSnapshot snapshot) {
+    //ดึงความชอบจากร้านที่สร้างเอาไว้
 
-
- TableInfo _getGroupInterest(DocumentSnapshot snapshot){  //ดึงความชอบจากร้านที่สร้างเอาไว้
-
-      return TableInfo(
-            fashion:snapshot.data['fashion']??false,
-            sport:snapshot.data['sport']??false,
-            technology:snapshot.data['technology']??false,
-            political:snapshot.data['politics']??false,
-            entertainment:snapshot.data['entertainment']??false,
-            book:snapshot.data['books']??false,
-            pet:snapshot.data['pet']??false,
-            ageStart: snapshot.data['ageStart']??0,
-            ageEnd: snapshot.data['ageEnd']??0,
-            gender: snapshot.data['gender']??''
-        );
-
+    return TableInfo(
+        fashion: snapshot.data['fashion'] ?? false,
+        sport: snapshot.data['sport'] ?? false,
+        technology: snapshot.data['technology'] ?? false,
+        politics: snapshot.data['politics'] ?? false,
+        entertainment: snapshot.data['entertainment'] ?? false,
+        book: snapshot.data['book'] ?? false,
+        pet: snapshot.data['pet'] ?? false,
+        ageStart: snapshot.data['ageStart'] ?? 0,
+        ageEnd: snapshot.data['ageEnd'] ?? 0,
+        gender: snapshot.data['gender'] ?? '');
   }
 
-
-  Stream<TableInfo>get groupInterest{
-    return GroupsCollection.document(resID).collection('GroupsInRes').document(numberTable).collection('info').document('info').snapshots()
-    .map(_getGroupInterest);
+  Stream<TableInfo> get groupInterest {
+    return GroupsCollection.document(resID)
+        .collection('GroupsInRes')
+        .document(numberTable)
+        .collection('info')
+        .document('info')
+        .snapshots()
+        .map(_getGroupInterest);
   }
-
-
 
   ///ดึงข้อมูลร้านใน Recommend
   List<Recom> _recListFromSnapshot(QuerySnapshot snapshot) {
@@ -136,11 +171,11 @@ class DatabaseService {
       DateTime dueTime,
       String gender,
       bool fashion,
-      bool sports,
+      bool sport,
       bool technology,
       bool politics,
       bool entertainment,
-      bool books,
+      bool book,
       bool pet,
       String numberTable) async {
     return await GroupsCollection.document(resID)
@@ -167,11 +202,11 @@ class DatabaseService {
       'fashion': fashion,
 
       /// ความชอบของกลุ่ม
-      'sports': sports,
+      'sport': sport,
       'technology': technology,
       'politics': politics,
       'entertainment': entertainment,
-      'books': books,
+      'book': book,
       'pet': pet,
     });
   }
@@ -189,11 +224,11 @@ class DatabaseService {
       String gender,
       int age,
       bool fashion,
-      bool sports,
+      bool sport,
       bool technology,
       bool politics,
       bool entertainment,
-      bool books,
+      bool book,
       bool pet,
       String userID) async {
     return await GroupsCollection.document(resID)
@@ -217,40 +252,91 @@ class DatabaseService {
       'fashion': fashion,
 
       /// ความชอบของ user
-      'sports': sports,
+      'sport': sport,
       'technology': technology,
       'politics': politics,
       'entertainment': entertainment,
-      'books': books,
+      'book': book,
       'pet': pet,
       'userID': userID,
+    });
+  }
+
+  ///เพิ่มข้อมูล
+  Future updateFinish(
+      String resID,
+      String name1,
+      String name2,
+      String image,
+      String location,
+      String time,
+      int ageStart,
+      int ageEnd,
+      double num,
+      DateTime dueTime,
+      String gender,
+      bool fashion,
+      bool sport,
+      bool technology,
+      bool politics,
+      bool entertainment,
+      bool book,
+      bool pet,
+      String numberTable,
+      String itemUserID) async {
+    return await historyCollection.document(itemUserID).setData({
+      'resID': resID,
+
+      /// ข้อมูลร้าน
+      'name1': name1,
+      'name2': name2,
+      'image': image,
+      'location': location,
+      'time': time,
+
+      /// คุณสมบัติ
+      'ageStart': ageStart,
+      'ageEnd': ageEnd,
+      'num': num,
+      'dueTime': dueTime,
+      'gender': gender,
+
+      /// ความชอบของกลุ่ม
+      'fashion': fashion,
+      'sport': sport,
+      'technology': technology,
+      'politics': politics,
+      'entertainment': entertainment,
+      'book': book,
+      'pet': pet,
+      'itemUserID': itemUserID,
     });
   }
 
   //----------------------------- NOTIFACATION -----------------------------------------------------------
   /// set path ของ Collection ใน firebase ที่จะเอามาใช้
   final CollectionReference userCollection =
-  Firestore.instance.collection('Users');
+      Firestore.instance.collection('Users');
 
   /// ฟังก์ชันเอาไว้เพิ่ม document ใน firebase ส่วนที่เป็น notification (เพิ่มแถบแจ้งเตือน)
   Future updateNotifData(
-      String resID,
-      String imageUrl,
-      String membername,
-      String number,
-      bool group,
-      String gender,
-      int age,
-      bool fashion,
-      bool sport,
-      bool technology,
-      bool political,
-      bool entertainment,
-      bool book,
-      bool pet,
-      String userID, /////////// เจ้าของข้อมูลก่อนหน้านี้
-      String pathID, /////////// userID ของ คนที่ต้องการให้เห็นแจ้งเตือนนี้
-      ) async {
+    String resID,
+    String imageUrl,
+    String membername,
+    String number,
+    bool group,
+    String gender,
+    int age,
+    bool fashion,
+    bool sport,
+    bool technology,
+    bool politics,
+    bool entertainment,
+    bool book,
+    bool pet,
+    String userID, /////////// เจ้าของข้อมูลก่อนหน้านี้
+    String pathID, /////////// userID ของ คนที่ต้องการให้เห็นแจ้งเตือนนี้
+  ) async {
     return await userCollection
         .document(pathID)
         .collection('notification')
@@ -271,7 +357,7 @@ class DatabaseService {
       'fashion': fashion,
       'sport': sport,
       'technology': technology,
-      'political': political,
+      'politics': politics,
       'entertainment': entertainment,
       'book': book,
       'pet': pet,
@@ -293,34 +379,34 @@ class DatabaseService {
   }
 
   ///////////// ฟังก์ชันเอาไว้เพิ่ม document ใน firebase ส่วนที่เป็น master ของแต่ละกลุ่ม//////////
-  Future updateMasterData(String resID, String number, String userID,bool max) async {
+  Future updateMasterData(
+      String resID, String number, String userID, bool max) async {
     return await GroupsCollection.document(resID)
         .collection('GroupsInRes')
         .document(number)
         .setData({
       'userID': userID,
-      'max'   :  max,
+      'max': max,
     });
   }
 
-
   /////////////// ฟังก์ชันเอาไว้เพิ่ม document ใน firebase ส่วนที่รับ member เข้ากลุ่ม///////////////////////
   Future updateMemberInGroup(
-      String resID,
-      String imageUrl,
-      String membername,
-      String numberTable,
-      String gender,
-      int age,
-      bool fashion,
-      bool sport,
-      bool technology,
-      bool political,
-      bool entertainment,
-      bool book,
-      bool pet,
-      String userID,
-      ) async {
+    String resID,
+    String imageUrl,
+    String membername,
+    String numberTable,
+    String gender,
+    int age,
+    bool fashion,
+    bool sport,
+    bool technology,
+    bool politics,
+    bool entertainment,
+    bool book,
+    bool pet,
+    String userID,
+  ) async {
     return await GroupsCollection.document(resID)
         .collection('GroupsInRes')
         .document(numberTable)
@@ -334,7 +420,7 @@ class DatabaseService {
       'fashion': fashion,
       'sport': sport,
       'technology': technology,
-      'political': political,
+      'politics': politics,
       'entertainment': entertainment,
       'book': book,
       'pet': pet,
@@ -354,18 +440,18 @@ class DatabaseService {
 ///////////////////////////////////ลบข้อมูลใน Group เมื่อกด finish //////////////////////////////
   void deleteGroupData(
       String resID, String numberTable, String userID, String documentInfo) {
-        if(documentInfo != null){
-    GroupsCollection.document(resID)
-        .collection('GroupsInRes')
-        .document(numberTable)
-        .delete();
-    GroupsCollection.document(resID)
-        .collection('GroupsInRes')
-        .document(numberTable)
-        .collection('info')
-        .document(documentInfo)
-        .delete();
-        }
+    if (documentInfo != null) {
+      GroupsCollection.document(resID)
+          .collection('GroupsInRes')
+          .document(numberTable)
+          .delete();
+      GroupsCollection.document(resID)
+          .collection('GroupsInRes')
+          .document(numberTable)
+          .collection('info')
+          .document(documentInfo)
+          .delete();
+    }
     GroupsCollection.document(resID)
         .collection('GroupsInRes')
         .document(numberTable)
@@ -374,7 +460,6 @@ class DatabaseService {
         .delete();
   }
 
-  
 ///////////////////////////////////ลบ User Find Group เมื่อผู้ใช้หากลุ่มได้แล้ว//////////////////////////////
   void deleteUserFindGroupData(String resID, String userID) {
     GroupsCollection.document(resID)
@@ -394,9 +479,9 @@ class DatabaseService {
           fashion: doc.data['fashion'] ?? false,
           sport: doc.data['sport'] ?? false,
           technology: doc.data['technology'] ?? false,
-          political: doc.data['politics'] ?? false,
+          politics: doc.data['politics'] ?? false,
           entertainment: doc.data['entertainment'] ?? false,
-          book: doc.data['books'] ?? false,
+          book: doc.data['book'] ?? false,
           pet: doc.data['pet'] ?? false,
           userID: doc.data['userID'] ?? '');
     }).toList();
@@ -412,10 +497,7 @@ class DatabaseService {
 ////////////////////////////////////map Master/////////////////////////////////////////
   List<UserMaster> _userMasterFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
-      return UserMaster(
-        userId: doc.data['userID'] ?? '',
-        max: doc.data['max']
-      );
+      return UserMaster(userId: doc.data['userID'] ?? '', max: doc.data['max']);
     }).toList();
   }
 
@@ -427,58 +509,61 @@ class DatabaseService {
   }
 
 ////////////////////////////////////map Group Master Max ค่า max เป็น true คือกลุ่มเต็มแล้ว///////////////////////////
+  UserMaster _userMasterMaxFromSnapshot(DocumentSnapshot snapshot) {
+    return UserMaster(
+        userId: snapshot.data['userID'] ?? '', max: snapshot.data['max']);
+  }
 
-  UserMaster _userMasterMaxFromSnapshot(DocumentSnapshot snapshot){
-       return UserMaster(
-        userId: snapshot.data['userID']??'',
-        max: snapshot.data['max']
-        );
- }
-
-  Stream<UserMaster>get userMasterMax{
-    return GroupsCollection.document(resID).collection('GroupsInRes').document(numberTable).snapshots()
-    .map(_userMasterMaxFromSnapshot);
+  Stream<UserMaster> get userMasterMax {
+    return GroupsCollection.document(resID)
+        .collection('GroupsInRes')
+        .document(numberTable)
+        .snapshots()
+        .map(_userMasterMaxFromSnapshot);
   }
 
   ////////////////////////// map แถบการแจ้งเตือนจาก document ใน Notification ทั้ง 2 แบบ ให้อยู่ใน list เดียวกัน
   List<Bar> _notificationListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.documents.map((doc) {
-      if (doc.data['group'] ?? false) {
-        ///ถ้า group เป็น true จะสร้าง group bar
-        return CreateGroupBar(
-            imageUrl: doc.data['imageUrl'] ?? '',
-            membername: doc.data['membername'] ?? '',
-            number: doc.data['number'] ?? '',
-            gender: doc.data['gender'] ?? '',
-            age: doc.data['age'] ?? 0,
-            fashion: doc.data['fashion'] ?? false,
-            sport: doc.data['sport'] ?? false,
-            technology: doc.data['technology'] ?? false,
-            political: doc.data['political'] ?? false,
-            entertainment: doc.data['entertainment'] ?? false,
-            book: doc.data['book'] ?? false,
-            pet: doc.data['pet'] ?? false,
-            documentID: doc.documentID,
-            resID: doc.data['resID'] ?? '',
-            userID: doc.data['userID'] ?? '');
-      } else {
-        ///ถ้า group เป็น false จะสร้าง notif bar
-        return CreateNotifBar(
-            imageUrl: doc.data['imageUrl'] ?? '',
-            membername: doc.data['membername'] ?? '',
-            gender: doc.data['gender'] ?? '',
-            age: doc.data['age'] ?? 0,
-            fashion: doc.data['fashion'] ?? false,
-            sport: doc.data['sport'] ?? false,
-            technology: doc.data['technology'] ?? false,
-            political: doc.data['political'] ?? false,
-            entertainment: doc.data['entertainment'] ?? false,
-            book: doc.data['book'] ?? false,
-            pet: doc.data['pet'] ?? false,
-            documentID: doc.documentID,
-            userID: doc.data['userID'] ?? '');
-      }
-    }).toSet().toList();
+    return snapshot.documents
+        .map((doc) {
+          if (doc.data['group'] ?? false) {
+            ///ถ้า group เป็น true จะสร้าง group bar
+            return CreateGroupBar(
+                imageUrl: doc.data['imageUrl'] ?? '',
+                membername: doc.data['membername'] ?? '',
+                number: doc.data['number'] ?? '',
+                gender: doc.data['gender'] ?? '',
+                age: doc.data['age'] ?? 0,
+                fashion: doc.data['fashion'] ?? false,
+                sport: doc.data['sport'] ?? false,
+                technology: doc.data['technology'] ?? false,
+                politics: doc.data['politics'] ?? false,
+                entertainment: doc.data['entertainment'] ?? false,
+                book: doc.data['book'] ?? false,
+                pet: doc.data['pet'] ?? false,
+                documentID: doc.documentID,
+                resID: doc.data['resID'] ?? '',
+                userID: doc.data['userID'] ?? '');
+          } else {
+            ///ถ้า group เป็น false จะสร้าง notif bar
+            return CreateNotifBar(
+                imageUrl: doc.data['imageUrl'] ?? '',
+                membername: doc.data['membername'] ?? '',
+                gender: doc.data['gender'] ?? '',
+                age: doc.data['age'] ?? 0,
+                fashion: doc.data['fashion'] ?? false,
+                sport: doc.data['sport'] ?? false,
+                technology: doc.data['technology'] ?? false,
+                politics: doc.data['politics'] ?? false,
+                entertainment: doc.data['entertainment'] ?? false,
+                book: doc.data['book'] ?? false,
+                pet: doc.data['pet'] ?? false,
+                documentID: doc.documentID,
+                userID: doc.data['userID'] ?? '');
+          }
+        })
+        .toSet()
+        .toList();
   }
 
   Stream<List<Bar>> get notifications {
@@ -501,7 +586,7 @@ class DatabaseService {
         fashion: doc.data['fashion'] ?? false,
         sport: doc.data['sport'] ?? false,
         technology: doc.data['technology'] ?? false,
-        political: doc.data['political'] ?? false,
+        politics: doc.data['politics'] ?? false,
         entertainment: doc.data['entertainment'] ?? false,
         book: doc.data['book'] ?? false,
         pet: doc.data['pet'] ?? false,
@@ -534,9 +619,9 @@ class DatabaseService {
       dueTime: snapshot.data['dueTime'].toString(),
       gender: snapshot.data['gender'],
       fashion: snapshot.data['fashion'] ?? false,
-      sport: snapshot.data['sports'] ?? false,
+      sport: snapshot.data['sport'] ?? false,
       technology: snapshot.data['technology'] ?? false,
-      political: snapshot.data['politics'] ?? false,
+      politics: snapshot.data['politics'] ?? false,
       entertainment: snapshot.data['entertainment'] ?? false,
       book: snapshot.data['books'] ?? false,
       pet: snapshot.data['pet'] ?? false,
@@ -565,7 +650,7 @@ class DatabaseService {
         fashion: doc.data['fashion'] ?? false,
         sport: doc.data['sport'] ?? false,
         technology: doc.data['technology'] ?? false,
-        political: doc.data['political'] ?? false,
+        politics: doc.data['politics'] ?? false,
         entertainment: doc.data['entertainment'] ?? false,
         book: doc.data['book'] ?? false,
         pet: doc.data['pet'] ?? false,
@@ -598,11 +683,11 @@ class DatabaseService {
       dueTime: snapshot.data['dueTime'].toString(),
       gender: snapshot.data['gender'],
       fashion: snapshot.data['fashion'] ?? false,
-      sport: snapshot.data['sports'] ?? false,
+      sport: snapshot.data['sport'] ?? false,
       technology: snapshot.data['technology'] ?? false,
-      political: snapshot.data['politics'] ?? false,
+      politics: snapshot.data['politics'] ?? false,
       entertainment: snapshot.data['entertainment'] ?? false,
-      book: snapshot.data['books'] ?? false,
+      book: snapshot.data['book'] ?? false,
       pet: snapshot.data['pet'] ?? false,
     );
   }
@@ -637,7 +722,7 @@ class DatabaseService {
   //------------------------------- USER -----------------------------------------------------------
 // collection reference
   final CollectionReference tableCollection =
-  Firestore.instance.collection('Groups');
+      Firestore.instance.collection('Groups');
 
   Future<void> updateUserData(
       String profilePicture,
@@ -648,7 +733,7 @@ class DatabaseService {
       bool fashion,
       bool sport,
       bool technology,
-      bool politic,
+      bool politics,
       bool entertainment,
       bool book,
       bool pet,
@@ -662,7 +747,7 @@ class DatabaseService {
       'Fashion': fashion,
       'Sport': sport,
       'Technology': technology,
-      'Politic': politic,
+      'Politics': politics,
       'Entertainment': entertainment,
       'Book': book,
       'Pet': pet,
@@ -672,19 +757,19 @@ class DatabaseService {
   }
 
   Future<void> updateUserDataInteresting(
-      bool fashion,
-      bool sport,
-      bool technology,
-      bool politic,
-      bool entertainment,
-      bool book,
-      bool pet,
-      ) async {
+    bool fashion,
+    bool sport,
+    bool technology,
+    bool politics,
+    bool entertainment,
+    bool book,
+    bool pet,
+  ) async {
     return await userCollection.document(uid).updateData({
       'Fashion': fashion,
       'Sport': sport,
       'Technology': technology,
-      'Politic': politic,
+      'Politics': politics,
       'Entertainment': entertainment,
       'Book': book,
       'Pet': pet,
@@ -692,11 +777,11 @@ class DatabaseService {
   }
 
   Future<void> updateUserDataDetail(
-      String name,
-      String gender,
-      DateTime dateOfBirth,
-      String bio,
-      ) async {
+    String name,
+    String gender,
+    DateTime dateOfBirth,
+    String bio,
+  ) async {
     return await userCollection.document(uid).updateData({
       'Name': name,
       'Gender': gender,
@@ -707,11 +792,25 @@ class DatabaseService {
 
 //new func
   Future<void> updateFirstTimeUserData(
-      String profilePic,
-      String name,
-      String gender,
-      DateTime dateOfBirth,
-      ) async {
+    String profilePic,
+    String name,
+    String gender,
+    DateTime dateOfBirth,
+  ) async {
+    return await userCollection.document(uid).updateData({
+      'Name': name,
+      'Gender': gender,
+      'BirthDate': dateOfBirth,
+      'ProfilePicture': profilePic,
+    });
+  }
+
+  Future<void> updateFirstTimeUserHistory(
+    String profilePic,
+    String name,
+    String gender,
+    DateTime dateOfBirth,
+  ) async {
     return await userCollection.document(uid).updateData({
       'Name': name,
       'Gender': gender,
@@ -721,8 +820,8 @@ class DatabaseService {
   }
 
   Future<void> updateUserProfilePicture(
-      String url,
-      ) async {
+    String url,
+  ) async {
     return await userCollection.document(uid).updateData({
       'ProfilePicture': url,
     });
@@ -739,7 +838,7 @@ class DatabaseService {
       fashion: snapshot.data['Fashion'],
       sport: snapshot.data['Sport'],
       technology: snapshot.data['Technology'],
-      politic: snapshot.data['Politic'],
+      politics: snapshot.data['Politics'],
       entertainment: snapshot.data['Entertainment'],
       book: snapshot.data['Book'],
       pet: snapshot.data['Pet'],

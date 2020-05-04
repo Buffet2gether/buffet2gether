@@ -14,7 +14,8 @@ import 'package:buffet2gether_home/models/more_model.dart';
 import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/models/mytable_model.dart';
-
+import 'package:buffet2gether_home/services/messaging.dart';
+import 'dart:async';
 
 
 typedef double GetOffsetMethod();
@@ -39,8 +40,6 @@ class EntireState extends State<Entire> with SingleTickerProviderStateMixin
   TabController controller;
   double listViewOffset=0.0;
  
-  
-  
   @override
   void initState()
   {
@@ -61,7 +60,6 @@ class EntireState extends State<Entire> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context)
   {
-
     var tabs = <Tab>[
       new Tab(icon: new Icon(Icons.home),),
       new Tab(icon: new Icon(Icons.fastfood),),
@@ -71,7 +69,6 @@ class EntireState extends State<Entire> with SingleTickerProviderStateMixin
     ];
 
     final user = Provider.of<User>(context);
-
         return new Scaffold(
           body: SafeArea(
               child: new TabBarView(
@@ -98,12 +95,9 @@ class EntireState extends State<Entire> with SingleTickerProviderStateMixin
                   ),
                   StreamProvider<Mytable>.value(
                     value: DatabaseService(userID: user?.userId).mytable,
-                    child: StreamProvider<List<Bar>>.value(
-                      value: DatabaseService().notifications,
                       child: StreamProvider<User>.value(
                         value: AuthService().user,
                         child: new NotifColumn()),
-                    ),
                   ),
                   StreamProvider<User>.value(
                     value: AuthService().user,
@@ -125,6 +119,5 @@ class EntireState extends State<Entire> with SingleTickerProviderStateMixin
             ),
           ),
         );
-      
   }
 }

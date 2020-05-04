@@ -24,31 +24,33 @@ class DetailEditingScreen extends StatefulWidget {
 }
 
 class _DetailEditingScreenState extends State<DetailEditingScreen> {
+
   final _formKey = GlobalKey<FormState>();
   GenderItem selectedGender;
 
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
+
     return Scaffold(
       appBar: new AppBar(
-                  centerTitle: true,
-                  leading: new Container(),
-                  title: Text(
-                    'Details',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.deepOrange,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  backgroundColor: Color(0xfff5f5f5),
-                ),
+        centerTitle: true,
+        leading: new Container(),
+        title: Text(
+          'Details',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: 'Opun',
+            color: Colors.deepOrange,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Color(0xfff5f5f5),
+      ),
       body: SafeArea(
         child: StreamBuilder<UserData>(
-            stream: DatabaseService(uid: user.userId).userData,
+            stream: DatabaseService(uid: user?.userId).userData,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 UserData userData = snapshot.data;
@@ -58,7 +60,7 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                 DateTime newDateOfBirth = userData.dateofBirth;
                 return ListView(
                   padding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
                   children: <Widget>[
                     Column(
                       children: <Widget>[
@@ -71,7 +73,7 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                             children: <Widget>[
                               Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
@@ -120,7 +122,7 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                               SizedBox(height: 30),
                               Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Row(
                                   children: <Widget>[
                                     Icon(
@@ -146,6 +148,7 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                               DropdownButtonFormField<GenderItem>(
                                 isDense: true,
                                 isExpanded: true,
+                                hint: Text('Select your gender'),
                                 value: selectedGender,
                                 onChanged: (GenderItem value) {
                                   setState(() {
@@ -154,8 +157,10 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                                 },
                                 onSaved: (GenderItem value) {
                                   setState(() {
-                                    selectedGender = value;
-                                    newGender = selectedGender.genderName;
+                                    if (value != null) {
+                                      //selectedGender = value;
+                                      newGender = selectedGender.genderName;
+                                    }
                                   });
                                 },
                                 items: genderList
@@ -178,7 +183,7 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                               SizedBox(height: 30),
                               Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
@@ -226,7 +231,7 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                               SizedBox(height: 30),
                               Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Row(
                                   children: <Widget>[
                                     Icon(
@@ -261,7 +266,7 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                                           fontFamily: 'Opun',
                                           color: Colors.black45,
                                           fontSize: 14,
-                                        
+
                                         ),
                                       ),
                                       onPressed: () {
@@ -328,11 +333,11 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                                         _formKey.currentState.save();
                                         await DatabaseService(uid: user.userId)
                                             .updateUserDataDetail(
-                                                newName,
-                                                newGender,
-                                                newDateOfBirth,
-                                                newBio);
-
+                                            newName ?? userData.name,
+                                            newGender ?? userData.gender,
+                                            newDateOfBirth ?? userData.dateofBirth,
+                                            newBio ?? userData.bio
+                                        );
                                         Navigator.pop(context);
                                       }
                                     },

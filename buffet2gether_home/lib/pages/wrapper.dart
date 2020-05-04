@@ -1,6 +1,5 @@
 import 'package:buffet2gether_home/main.dart';
 import 'package:buffet2gether_home/models/bar_model.dart';
-import 'package:buffet2gether_home/pages/entire_page.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:buffet2gether_home/services/message.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -76,7 +75,7 @@ class _WrapperState extends State<Wrapper> {
             StreamProvider<List<Bar>>.value(
               value: DatabaseService().notifications,
                 
-                child: Entire(tabsIndex: 2)),
+                child: MyCustomForm(tabsIndex: 2)),
             )
           );
       }

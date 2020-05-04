@@ -1,9 +1,9 @@
 class TableInfo{
- 
+
   final bool sport;
   final bool pet;
   final bool technology;
-  final bool political;
+  final bool politics;
   final bool fashion;
   final bool entertainment;
   final bool book;
@@ -11,31 +11,31 @@ class TableInfo{
   final int ageEnd;
   final String gender;
 
-  TableInfo({this.fashion, this.sport, this.technology, this.political, this.entertainment, this.book, this.pet,this.ageStart,this.ageEnd,this.gender});
-  
+  TableInfo({this.fashion, this.sport, this.technology, this.politics, this.entertainment, this.book, this.pet,this.ageStart,this.ageEnd,this.gender});
+
   String interesting(){
-    List<bool> interest= [fashion,sport,technology,political,entertainment,book,pet];
+    List<bool> interest= [fashion,sport,technology,politics,entertainment,book,pet];
     String infomation = '';
     if(interest[0]){
-    infomation += '#fashion';
+      infomation += '#fashion';
     }
     if(interest[1]){
-    infomation += '#sport';
+      infomation += '#sport';
     }
     if(interest[2]){
       infomation += '#technology';
     }
     if(interest[3]){
-      infomation += '#political';
+      infomation += '#politics';
     }
     if(interest[4]){
       infomation += '#entertainment';
     }
     if(interest[5]){
-    infomation += '#book';
+      infomation += '#book';
     }
     if(interest[6]){
-    infomation += '#pet';
+      infomation += '#pet';
     }
     return infomation;
   }
@@ -58,8 +58,8 @@ class TableInfo{
   }
 
   @override
-  bool getPolitical() {
-    return political;
+  bool getPolitics() {
+    return politics;
   }
 
   @override

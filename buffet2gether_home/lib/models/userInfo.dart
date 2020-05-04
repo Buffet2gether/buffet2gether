@@ -7,10 +7,11 @@ class UserInformation {
   final bool sport;
   final bool pet;
   final bool technology;
-  final bool political;
+  final bool politics;
   final bool beauty;
   final bool entertainment;
+  final bool book;
 
-  UserInformation({ this.name, this.gender, this.age, this.userID,this.sport,this.pet,this.technology,this.political,this.beauty,this.entertainment});
+  UserInformation({ this.name, this.gender, this.age, this.userID,this.sport,this.pet,this.technology,this.politics,this.beauty,this.entertainment,this.book});
 
 }

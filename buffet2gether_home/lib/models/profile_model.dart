@@ -16,7 +16,7 @@ class UserData
   bool fashion;
   bool sport;
   bool technology;
-  bool politic;
+  bool politics;
   bool entertainment;
   bool book;
   bool pet;
@@ -34,7 +34,7 @@ class UserData
         this.fashion,
         this.sport,
         this.technology,
-        this.politic,
+        this.politics,
         this.entertainment,
         this.book,
         this.pet,

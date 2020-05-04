@@ -1,12 +1,15 @@
 
+import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/pages/entire_page.dart';
 import 'package:buffet2gether_home/models/bar_model.dart';
+import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:buffet2gether_home/services/message.dart';
 import 'package:buffet2gether_home/services/messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:provider/provider.dart';
+import 'dart:async';
 
 class MessagingWidget extends StatefulWidget {
   @override
@@ -67,18 +70,18 @@ class _MessagingWidgetState extends State<MessagingWidget> {
   void handleRouting(dynamic notification) {
     var title = notification['title'] ;
     if(title != null){
-      if(title == 'notification'){
         Navigator.of(context).push(
             MaterialPageRoute(builder: (BuildContext context) => 
-            StreamProvider<List<Bar>>.value(
-              value: DatabaseService().notifications,
-                
-                child: Entire(tabsIndex: 2)),
+             StreamProvider<User>.value(
+                value: AuthService().user,
+                child: Entire(tabsIndex: 2)
+             )
             )
           );
-      }
+      
     }
   }
+
 
   @override
   Widget build(BuildContext context) => ListView(
@@ -92,7 +95,7 @@ class _MessagingWidgetState extends State<MessagingWidget> {
             decoration: InputDecoration(labelText: 'Body'),
           ),
           RaisedButton(
-            onPressed: sendNotification,
+            onPressed: sendMessage,
             child: Text('Send notification to all'),
           ),
         ]..addAll(messages.map(buildMessage).toList()),
@@ -102,6 +105,48 @@ class _MessagingWidgetState extends State<MessagingWidget> {
         title: Text(message.title),
         subtitle: Text(message.body),
       );
+
+  
+  static const duration = const Duration(seconds: 1);
+  int secondsPassed = 1;
+  bool isActive = true;
+  Timer timer;
+
+  void handleTick()
+  {
+    if (isActive)
+    {
+      setState(()
+      {
+        secondsPassed = secondsPassed + 1;
+        print(secondsPassed);
+      }
+      );
+    }
+  }
+
+   Widget sendMessage() {
+    
+     if(timer == null)
+    {
+      timer = Timer.periodic(
+          duration,(Timer t)
+          {
+            handleTick();
+            print('88888888');
+            if(secondsPassed%10==0)
+            {
+              isActive = false;
+              sendNotification();
+              print('Active********');
+              timer = null;
+            }
+          }
+      );
+    }
+    
+     
+   }
 
   Future sendNotification() async {
     final response = await Messaging.sendToAll(

@@ -1,14 +1,15 @@
 import 'dart:ui';
+import 'package:buffet2gether_home/models/history_model.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/pages/profile/profile_setting_screen.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:buffet2gether_home/shared/loading.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:buffet2gether_home/services/auth.dart';
+import 'package:buffet2gether_home/pages/profile/history_page.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -23,23 +24,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-    var currentUser = FirebaseAuth.instance.currentUser();
+    //var currentUser = FirebaseAuth.instance.currentUser();
+    //final history = Provider.of<History>(context);
+
     return Scaffold(
       appBar: new AppBar(
-                  centerTitle: true,
-                  leading: new Container(),
-                  title: Text(
-                    'Profile',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.deepOrange,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  backgroundColor: Color(0xfff5f5f5),
-                ),
+        centerTitle: true,
+        leading: new Container(),
+        title: Text(
+          'Profile',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: 'Opun',
+            color: Colors.deepOrange,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Color(0xfff5f5f5),
+      ),
       body: SafeArea(
           child: StreamBuilder<UserData>(
               stream: DatabaseService(uid: user?.userId).userData,
@@ -49,7 +52,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   print(userData.userId);
                   return ListView(
                     physics: BouncingScrollPhysics(),
-                    padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
                     children: <Widget>[
                       Column(
                         children: <Widget>[
@@ -74,12 +78,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ),
                                       ],
                                       borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
+                                          BorderRadius.all(Radius.circular(10)),
                                       //color: Colors.grey[300],
                                     ),
                                     child: Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                         children: [
                                           InkWell(
                                             onTap: () {
@@ -92,26 +96,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 width: 169.5,
                                                 height: 110,
                                                 padding:
-                                                EdgeInsets.only(top: 70),
+                                                    EdgeInsets.only(top: 70),
                                                 decoration: BoxDecoration(
                                                   color: Colors.white,
                                                   borderRadius:
-                                                  BorderRadius.only(
+                                                      BorderRadius.only(
                                                     topLeft:
-                                                    Radius.circular(10),
+                                                        Radius.circular(10),
                                                     bottomLeft:
-                                                    Radius.circular(10),
+                                                        Radius.circular(10),
                                                   ),
                                                 ),
                                                 child: Text(
-                                                      'Tag',
-                                                      style: TextStyle(
+                                                  'Tag',
+                                                  style: TextStyle(
                                                       color: Colors.black45,
                                                       fontFamily: 'Opun',
                                                       fontSize: 15,
                                                       letterSpacing: 2,
                                                       fontWeight:
-                                                      FontWeight.w600),
+                                                          FontWeight.w600),
                                                   textAlign: TextAlign.center,
                                                 )),
                                           ),
@@ -127,15 +131,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 width: 169.5,
                                                 height: 110,
                                                 padding:
-                                                EdgeInsets.only(top: 70),
+                                                    EdgeInsets.only(top: 70),
                                                 decoration: BoxDecoration(
                                                   color: Colors.white,
                                                   borderRadius:
-                                                  BorderRadius.only(
+                                                      BorderRadius.only(
                                                     topRight:
-                                                    Radius.circular(10),
+                                                        Radius.circular(10),
                                                     bottomRight:
-                                                    Radius.circular(10),
+                                                        Radius.circular(10),
                                                   ),
                                                 ),
                                                 child: Text(
@@ -146,7 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       fontSize: 15,
                                                       letterSpacing: 2,
                                                       fontWeight:
-                                                      FontWeight.w600),
+                                                          FontWeight.w600),
                                                   textAlign: TextAlign.center,
                                                 )),
                                           ),
@@ -193,36 +197,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           Expanded(
                                             child: Padding(
                                               padding:
-                                              const EdgeInsets.symmetric(
-                                                  horizontal: 10),
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10),
                                               child: Column(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                    MainAxisAlignment.center,
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: <Widget>[
                                                   Text(
                                                     userData.name,
                                                     overflow:
-                                                    TextOverflow.ellipsis,
+                                                        TextOverflow.ellipsis,
                                                     style: TextStyle(
-                                                      fontFamily: 'Opun',
+                                                        fontFamily: 'Opun',
                                                         color: Colors.white,
                                                         fontSize: 20.0,
                                                         fontWeight:
-                                                        FontWeight.bold,
+                                                            FontWeight.bold,
                                                         letterSpacing: 1),
                                                   ),
                                                   Row(
                                                     children: <Widget>[
                                                       Text(
                                                         (DateTime.now()
-                                                            .difference(
-                                                            userData.dateofBirth)
-                                                            .inDays /
-                                                            365)
-                                                            .floor()
-                                                            .toString() +
+                                                                        .difference(
+                                                                            userData.dateofBirth)
+                                                                        .inDays /
+                                                                    365)
+                                                                .floor()
+                                                                .toString() +
                                                             ' | ',
                                                         style: TextStyle(
                                                           fontFamily: 'Opun',
@@ -235,11 +239,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       ),
                                                       Icon(
                                                         userData.gender ==
-                                                            'Male'
+                                                                'Male'
                                                             ? FontAwesomeIcons
-                                                            .mars
+                                                                .mars
                                                             : FontAwesomeIcons
-                                                            .venus,
+                                                                .venus,
                                                         color: Colors.white,
                                                         size: 20,
                                                       ),
@@ -262,13 +266,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (_) =>
-                                                        StreamProvider<
-                                                            User>.value(
-                                                            value:
-                                                            AuthService()
-                                                                .user,
-                                                            child:
-                                                            ProfileSettingScreen())));
+                                                            StreamProvider<
+                                                                    User>.value(
+                                                                value:
+                                                                    AuthService()
+                                                                        .user,
+                                                                child:
+                                                                    ProfileSettingScreen())));
                                               }),
                                         ],
                                       ),
@@ -323,14 +327,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       Expanded(
                                         //height: 180,
                                         child: ListView.builder(
-                                          physics: NeverScrollableScrollPhysics(),
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
                                           itemCount: 7,
-                                          itemBuilder: (BuildContext context, int index)
-                                          {
-                                            if (index == 0 && userData.fashion == true) {
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            if (index == 0 &&
+                                                userData.fashion == true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(vertical: 1),
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 1),
                                                 decoration: BoxDecoration(
                                                   boxShadow: [
                                                     BoxShadow(
@@ -341,7 +348,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ],
                                                   borderRadius:
-                                                  BorderRadius.circular(10),
+                                                      BorderRadius.circular(10),
                                                   color: Colors.white,
                                                 ),
                                                 child: ListTile(
@@ -365,9 +372,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               );
                                             }
-                                            if (index == 1 && userData.sport == true) {
+                                            if (index == 1 &&
+                                                userData.sport == true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(vertical: 1),
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 1),
                                                 decoration: BoxDecoration(
                                                   boxShadow: [
                                                     BoxShadow(
@@ -378,7 +387,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ],
                                                   borderRadius:
-                                                  BorderRadius.circular(10),
+                                                      BorderRadius.circular(10),
                                                   color: Colors.white,
                                                 ),
                                                 child: ListTile(
@@ -402,9 +411,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               );
                                             }
-                                            if (index == 2 && userData.technology == true) {
+                                            if (index == 2 &&
+                                                userData.technology == true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(vertical: 1),
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 1),
                                                 decoration: BoxDecoration(
                                                   boxShadow: [
                                                     BoxShadow(
@@ -415,7 +426,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ],
                                                   borderRadius:
-                                                  BorderRadius.circular(10),
+                                                      BorderRadius.circular(10),
                                                   color: Colors.white,
                                                 ),
                                                 child: ListTile(
@@ -430,7 +441,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     //overflow: TextOverflow.fade,
                                                     style: TextStyle(
                                                       fontFamily: 'Opun',
-                                                       color: Colors.deepOrange,
+                                                      color: Colors.deepOrange,
                                                       fontSize: 18.0,
                                                       letterSpacing: 1,
                                                     ),
@@ -438,9 +449,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               );
                                             }
-                                            if (index == 3 && userData.politic == true) {
+                                            if (index == 3 &&
+                                                userData.politics == true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(vertical: 1),
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 1),
                                                 decoration: BoxDecoration(
                                                   boxShadow: [
                                                     BoxShadow(
@@ -451,7 +464,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ],
                                                   borderRadius:
-                                                  BorderRadius.circular(10),
+                                                      BorderRadius.circular(10),
                                                   color: Colors.white,
                                                 ),
                                                 child: ListTile(
@@ -463,7 +476,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                         .accentColor,
                                                   ),
                                                   title: Text(
-                                                    'Politic',
+                                                    'Politics',
                                                     //overflow: TextOverflow.fade,
                                                     style: TextStyle(
                                                       fontFamily: 'Opun',
@@ -475,9 +488,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               );
                                             }
-                                            if (index == 4 && userData.entertainment == true) {
+                                            if (index == 4 &&
+                                                userData.entertainment ==
+                                                    true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(vertical: 1),
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 1),
                                                 decoration: BoxDecoration(
                                                   boxShadow: [
                                                     BoxShadow(
@@ -488,7 +504,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ],
                                                   borderRadius:
-                                                  BorderRadius.circular(10),
+                                                      BorderRadius.circular(10),
                                                   color: Colors.white,
                                                 ),
                                                 child: ListTile(
@@ -510,12 +526,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               );
                                             }
-                                            if (index == 5 && userData.book == true) {
+                                            if (index == 5 &&
+                                                userData.book == true) {
                                               return Container(
-                                                margin: EdgeInsets.symmetric(vertical: 1),
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 1),
                                                 decoration: BoxDecoration(
                                                   borderRadius:
-                                                  BorderRadius.circular(10),
+                                                      BorderRadius.circular(10),
                                                   color: Colors.white,
                                                   boxShadow: [
                                                     BoxShadow(
@@ -538,7 +556,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     //overflow: TextOverflow.fade,
                                                     style: TextStyle(
                                                       fontFamily: 'Opun',
-                                                       color: Colors.deepOrange,
+                                                      color: Colors.deepOrange,
                                                       fontSize: 18.0,
                                                       letterSpacing: 1,
                                                     ),
@@ -546,9 +564,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               );
                                             }
-                                            if (index == 6 && userData.pet == true) {
+                                            if (index == 6 &&
+                                                userData.pet == true) {
                                               return Container(
-                                               margin: EdgeInsets.symmetric(vertical: 1),
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 1),
                                                 decoration: BoxDecoration(
                                                   boxShadow: [
                                                     BoxShadow(
@@ -559,7 +579,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ],
                                                   borderRadius:
-                                                  BorderRadius.circular(10),
+                                                      BorderRadius.circular(10),
                                                   color: Colors.white,
                                                 ),
                                                 child: ListTile(
@@ -591,121 +611,221 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ],
                               ),
                             ),
-                            Container(
-                              /////////////////////////////////////////History
-                              width: MediaQuery.of(context).size.width,
-                              padding: EdgeInsets.symmetric(horizontal: 15),
-                              //color: Colors.blue,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  /*Text(
-                                    'You haven\'t done anything yet.',
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black38,
-                                    ),
-                                  ),*/
-                                  Text(
-                                    'History : ',
-                                    style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  SizedBox(height: 20),
-                                  Container(
-                                    height: 150,
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black26,
-                                          offset: Offset(0, 5),
-                                          blurRadius: 5.0,
-                                          spreadRadius: 2.0,
-                                        ),
-                                      ],
-                                    ),
-                                    width: MediaQuery.of(context).size.width,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Container(
+                            StreamBuilder<History>(
+                                stream: DatabaseService(userID: user?.userId)
+                                    .history,
+                                builder: (context, snapshot) {
+                                  //print(snapshot.data);
+                                  if (snapshot.hasData) {
+                                    print('kao if jaaaaa');
+                                    History userHistory = snapshot.data;
+                                    if (userHistory.resID == 'restaurant ID') {
+                                      return Text('No history yet',
+                                          style: TextStyle(
+                                              fontFamily: 'Opun',
+                                              color: Colors.black45));
+                                    } else {
+                                      return Container(
+                                          /////////////////////////////////////////History
+                                          width:
+                                              MediaQuery.of(context).size.width,
                                           padding: EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                          child: Image.network(
-                                            'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2Frec1.png?alt=media&token=cab6b551-bb20-4f99-a945-1587047faf55',
-                                          ),
-                                        ),
-                                        SizedBox(width: 10),
-                                        Expanded(
+                                              horizontal: 15),
+                                          //color: Colors.blue,
                                           child: Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text(
-                                                'Ead Buffet Shabu',
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
-                                                    //fontWeight: FontWeight.bold,
-                                                    letterSpacing: 0.5),
-                                              ),
-                                              SizedBox(height: 10),
-                                              Row(
-                                                children: <Widget>[
-                                                  Icon(
-                                                    FontAwesomeIcons
-                                                        .mapMarkerAlt,
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text(
+                                                  'History : ',
+                                                  style: TextStyle(
+                                                    fontSize: 20.0,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
                                                   ),
-                                                  SizedBox(width: 10),
-                                                  Expanded(
-                                                    child: Text(
-                                                      'This is the location of this restaurant',
-                                                      overflow:
-                                                      TextOverflow.ellipsis,
-                                                      maxLines: 2,
+                                                ),
+                                                SizedBox(height: 20),
+                                                InkWell(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder:
+                                                                (_) =>
+                                                                    HistoryPage(
+                                                                      resID: userHistory
+                                                                          .resID,
+                                                                      image: userHistory
+                                                                          .image,
+                                                                      name1: userHistory
+                                                                          .name1,
+                                                                      name2: userHistory
+                                                                          .name2,
+                                                                      location:
+                                                                          userHistory
+                                                                              .location,
+                                                                      time: userHistory
+                                                                          .time,
+                                                                      ageStart:
+                                                                          userHistory
+                                                                              .ageStart,
+                                                                      ageEnd: userHistory
+                                                                          .ageEnd,
+                                                                      num: userHistory
+                                                                          .num,
+                                                                      dueTime:
+                                                                          userHistory
+                                                                              .dueTime,
+                                                                      gender: userHistory
+                                                                          .gender,
+                                                                      fashion:
+                                                                          userHistory
+                                                                              .fashion,
+                                                                      sport: userHistory
+                                                                          .sport,
+                                                                      technology:
+                                                                          userHistory
+                                                                              .technology,
+                                                                      politics:
+                                                                          userHistory
+                                                                              .politics,
+                                                                      entertainment:
+                                                                          userHistory
+                                                                              .entertainment,
+                                                                      book: userHistory
+                                                                          .book,
+                                                                      pet: userHistory
+                                                                          .pet,
+                                                                    )));
+                                                  },
+                                                  child: Container(
+                                                    height: 150,
+                                                    padding: EdgeInsets.all(10),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Colors.black26,
+                                                          offset: Offset(0, 5),
+                                                          blurRadius: 5.0,
+                                                          spreadRadius: 2.0,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    child: Row(
+                                                      children: <Widget>[
+                                                        Container(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      10),
+                                                          child: Image.network(
+                                                            userHistory.image,
+                                                            fit: BoxFit.cover,
+                                                            width: 110,
+                                                            height: 80,
+                                                          ),
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                        Expanded(
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                userHistory
+                                                                    .name1,
+                                                                style: TextStyle(
+                                                                    fontSize: 16,
+                                                                    color: Theme.of(context).primaryColor,
+                                                                    //fontWeight: FontWeight.bold,
+                                                                    letterSpacing: 0.5),
+                                                              ),
+                                                              SizedBox(
+                                                                  height: 10),
+                                                              Row(
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    FontAwesomeIcons
+                                                                        .mapMarkerAlt,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .primaryColor,
+                                                                  ),
+                                                                  SizedBox(
+                                                                      width:
+                                                                          10),
+                                                                  Expanded(
+                                                                    child: Text(
+                                                                      userHistory
+                                                                          .location,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      maxLines:
+                                                                          2,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              SizedBox(
+                                                                  height: 10),
+                                                              Row(
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    FontAwesomeIcons
+                                                                        .user,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .primaryColor,
+                                                                  ),
+                                                                  SizedBox(
+                                                                      width:
+                                                                          10),
+                                                                  Expanded(
+                                                                    child: Text(
+                                                                      userHistory.num
+                                                                              .round()
+                                                                          .toString(),
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      maxLines:
+                                                                          2,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
-                                                ],
-                                              ),
-                                              SizedBox(height: 10),
-                                              Row(
-                                                children: <Widget>[
-                                                  Icon(
-                                                    FontAwesomeIcons.user,
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
-                                                  ),
-                                                  SizedBox(width: 10),
-                                                  Expanded(
-                                                    child: Text(
-                                                      '4',
-                                                      overflow:
-                                                      TextOverflow.ellipsis,
-                                                      maxLines: 2,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                                                )
+                                              ]));
+                                    }
+                                  } else {
+                                    print('kao else jaaaaaa');
+                                    if (snapshot.hasError) {
+                                      print(snapshot.error.toString());
+                                    }
+                                    return Loading();
+                                  }
+                                })
                           ]),
                     ],
                   );

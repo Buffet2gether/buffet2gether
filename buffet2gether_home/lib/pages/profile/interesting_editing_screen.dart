@@ -14,7 +14,7 @@ class _InterestingEditingScreenState extends State<InterestingEditingScreen> {
   bool _tempFashion;
   bool _tempSport;
   bool _tempTechnology;
-  bool _tempPolitic;
+  bool _tempPolitics;
   bool _tempEntertainment;
   bool _tempBook;
   bool _tempPet;
@@ -23,23 +23,23 @@ class _InterestingEditingScreenState extends State<InterestingEditingScreen> {
     final user = Provider.of<User>(context);
     return Scaffold(
       appBar: new AppBar(
-                  centerTitle: true,
-                  leading: new Container(),
-                  title: Text(
-                    'Interesting',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.deepOrange,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  backgroundColor: Color(0xfff5f5f5),
-                ),
+        centerTitle: true,
+        leading: new Container(),
+        title: Text(
+          'Interesting',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: 'Opun',
+            color: Colors.deepOrange,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Color(0xfff5f5f5),
+      ),
       body: SafeArea(
         child: StreamBuilder<UserData>(
-            stream: DatabaseService(uid: user.userId).userData,
+            stream: DatabaseService(uid: user?.userId).userData,
             builder: (context, snapshot) {
               UserData userData = snapshot.data;
               return ListView(
@@ -58,8 +58,8 @@ class _InterestingEditingScreenState extends State<InterestingEditingScreen> {
                             color: Colors.black54,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            ),
                           ),
+                        ),
                         value: _tempFashion ?? userData.fashion,
                         secondary: Icon(
                           FontAwesomeIcons.hatCowboySide,
@@ -80,9 +80,9 @@ class _InterestingEditingScreenState extends State<InterestingEditingScreen> {
                             color: Colors.black54,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            ),
-                          
                           ),
+
+                        ),
                         value: _tempSport ?? userData.sport,
                         secondary: Icon(
                           FontAwesomeIcons.footballBall,
@@ -102,9 +102,9 @@ class _InterestingEditingScreenState extends State<InterestingEditingScreen> {
                             color: Colors.black54,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            ),
-                          
                           ),
+
+                        ),
                         value: _tempTechnology ?? userData.technology,
                         secondary: Icon(
                           FontAwesomeIcons.laptop,
@@ -118,36 +118,36 @@ class _InterestingEditingScreenState extends State<InterestingEditingScreen> {
                       ),
                       SwitchListTile(
                         title: Text(
-                          'Politic',
+                          'Politics',
                           style: TextStyle(
                             fontFamily: 'Opun',
                             color: Colors.black54,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            ),
-                          
                           ),
-                        value: _tempPolitic ?? userData.politic,
+
+                        ),
+                        value: _tempPolitics ?? userData.politics,
                         secondary: Icon(
                           FontAwesomeIcons.balanceScale,
                           color: Theme.of(context).primaryColor,
                         ),
                         onChanged: (bool value) {
                           setState(() {
-                            _tempPolitic = value;
+                            _tempPolitics = value;
                           });
                         },
                       ),
                       SwitchListTile(
                         title: Text(
                           'Entertainment',
-                         style: TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Opun',
                             color: Colors.black54,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            ),
                           ),
+                        ),
                         value: _tempEntertainment ?? userData.entertainment,
                         secondary: Icon(
                           FontAwesomeIcons.dice,
@@ -162,13 +162,13 @@ class _InterestingEditingScreenState extends State<InterestingEditingScreen> {
                       SwitchListTile(
                         title: Text(
                           'Book',
-                         style: TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Opun',
                             color: Colors.black54,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            ),
                           ),
+                        ),
                         value: _tempBook ?? userData.book,
                         secondary: Icon(
                           FontAwesomeIcons.book,
@@ -188,8 +188,8 @@ class _InterestingEditingScreenState extends State<InterestingEditingScreen> {
                             color: Colors.black54,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            ),
                           ),
+                        ),
                         value: _tempPet ?? userData.pet,
                         secondary: Icon(
                           FontAwesomeIcons.cat,
@@ -210,18 +210,18 @@ class _InterestingEditingScreenState extends State<InterestingEditingScreen> {
                             child: Text(
                               'Cancle',
                               style: TextStyle(
-                            fontFamily: 'Opun',
-                            color: Colors.black54,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            ),
-                          
+                                fontFamily: 'Opun',
+                                color: Colors.black54,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+
                             ),
                             onPressed: () {
                               _tempFashion = userData.fashion;
                               _tempSport = userData.sport;
                               _tempTechnology = userData.technology;
-                              _tempPolitic = userData.politic;
+                              _tempPolitics = userData.politics;
                               _tempEntertainment = userData.entertainment;
                               _tempBook = userData.book;
                               _tempPet = userData.pet;
@@ -235,12 +235,12 @@ class _InterestingEditingScreenState extends State<InterestingEditingScreen> {
                             child: Text(
                               'Confirm',
                               style: TextStyle(
-                            fontFamily: 'Opun',
-                            color: Colors.deepOrange,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            ),
-                          
+                                fontFamily: 'Opun',
+                                color: Colors.deepOrange,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+
                             ),
                             onPressed: () async {
                               //print(_tempFashion);
@@ -249,9 +249,8 @@ class _InterestingEditingScreenState extends State<InterestingEditingScreen> {
                                   _tempFashion ?? userData.fashion,
                                   _tempSport ?? userData.sport,
                                   _tempTechnology ?? userData.technology,
-                                  _tempPolitic ?? userData.politic,
-                                  _tempEntertainment ??
-                                      userData.entertainment,
+                                  _tempPolitics ?? userData.politics,
+                                  _tempEntertainment ?? userData.entertainment,
                                   _tempBook ?? userData.book,
                                   _tempPet ?? userData.pet);
 

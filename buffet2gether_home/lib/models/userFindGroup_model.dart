@@ -8,14 +8,14 @@ class UserFindGroup {
   final bool sport;
   final bool pet;
   final bool technology;
-  final bool political;
+  final bool politics;
   final bool fashion;
   final bool entertainment;
   final bool book;
 
-  UserFindGroup({ this.name,this.imageUrl, this.gender, this.age, this.userID,this.sport,this.pet,this.technology,this.political,this.fashion,this.entertainment,this.book});
+  UserFindGroup({ this.name,this.imageUrl, this.gender, this.age, this.userID,this.sport,this.pet,this.technology,this.politics,this.fashion,this.entertainment,this.book});
 
-   @override
+  @override
   bool getFashion() {
     return fashion;
   }
@@ -36,8 +36,8 @@ class UserFindGroup {
   }
 
   @override
-  bool getPolitical() {
-    return political;
+  bool getPolitics() {
+    return politics;
   }
 
   @override

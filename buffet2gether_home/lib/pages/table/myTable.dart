@@ -154,7 +154,7 @@ class _MyTable1State extends State<MyTable1>
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           new Image.network(
-              'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2FBuffet_transparent.png?alt=media&token=cb9c8611-b998-42aa-92f5-6972a91078cb',
+              'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2Fletseat.png?alt=media&token=e6a9ab44-2926-4390-a82d-3758b06fd8a4',
               width: 100,
               height:100)
         ],
@@ -238,16 +238,18 @@ class _MyTable1State extends State<MyTable1>
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(Icons.location_on,size: 25,color: Colors.amber,),
-                Text(
-                  infoFromTable.location,
-                  style: TextStyle(
-                    fontFamily: 'Opun',
-                    color: Colors.grey,
-                    fontSize: 13,
+                Expanded(
+                  child: Text(
+                    infoFromTable.location,
+                    style: TextStyle(
+                      fontFamily: 'Opun',
+                     color: Colors.grey,
+                     fontSize: 13,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
+                )
               ],
             ),
             Row(

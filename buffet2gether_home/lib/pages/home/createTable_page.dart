@@ -140,17 +140,18 @@ class _CreateTablePageState extends State<CreateTablePage>
                   size: 25,
                   color: Colors.amber,
                 ),
-                Text(
-                  widget.location,
-                  style: TextStyle(
-                    fontFamily: 'Opun',
-                    color: Colors.grey,
-                    fontSize: 15,
+                Expanded(
+                  child: Text(
+                    widget.location,
+                    style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.grey,
+                      fontSize: 15,
+                   ),
+                   overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
-
+                )
               ],
             ),
             Row(

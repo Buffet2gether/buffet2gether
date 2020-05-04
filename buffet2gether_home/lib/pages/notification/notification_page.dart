@@ -47,7 +47,10 @@ class _NotifColumnState extends State<NotifColumn> {
                   ),
                   backgroundColor: Color(0xfff5f5f5),
                 ),
-                body: BarList()),
+                body: BarList()
+
+
+            ),
           ),
         ),
       ),

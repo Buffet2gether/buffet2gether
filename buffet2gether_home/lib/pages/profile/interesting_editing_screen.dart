@@ -60,7 +60,7 @@ class _InterestingEditingScreenState extends State<InterestingEditingScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        value: _tempFashion ?? userData.fashion,
+                        value: _tempFashion ?? userData?.fashion,
                         secondary: Icon(
                           FontAwesomeIcons.hatCowboySide,
                           color: Theme.of(context).primaryColor,

@@ -109,14 +109,18 @@ class _HomeColumnState extends State<HomeColumn> {
                     },
                   );
                 },
-                child: Image.network(proPic.proPic) ?? Loading());
+                child: Image.network(proPic.proPic)
+            );
           },
         ),
         constraints: new BoxConstraints.loose(new Size(350, 220.0)));
 
     final promotion = Stack(
       alignment: Alignment.topCenter,
-      children: <Widget>[picPro, textPro],
+      children: <Widget>[
+        picPro,
+        textPro
+      ],
     );
 
     final textRecom = Row(
@@ -420,12 +424,8 @@ class _HomeColumnState extends State<HomeColumn> {
       ),
     );
 
-    return StreamProvider<List<Recom>>.value(
-        value: DatabaseService().recInRes,
-        child: StreamProvider<List<More>>.value(
-            value: DatabaseService().moreInRes,
-            child: Scaffold(
-                appBar: new AppBar(
+    return Scaffold(
+        appBar: new AppBar(
                   leading: IconButton(
                     icon: Icon(Icons.search),
                     color: Colors.orange,
@@ -452,13 +452,46 @@ class _HomeColumnState extends State<HomeColumn> {
                   ),
                   backgroundColor: Color(0xfff5f5f5),
                 ),
-                body: SafeArea(
-                    child: ListView.builder(
-                      controller: scrollController,
-                      itemCount: 1,
-                      itemBuilder: (BuildContext context, int index) {
-                        return homeColumn;
-                      },
-                    )))));
+        body: SafeArea(
+            child: StreamBuilder<List<Promo>>(
+            stream: DatabaseService().promotionPic,
+                builder: (context, snapshot) {
+              if (snapshot.hasData) {
+    return
+
+
+    StreamProvider<User>.value(
+    value: AuthService().user,
+    child: StreamProvider<List<Recom>>.value(
+    value: DatabaseService().recInRes,
+    child: StreamProvider<List<More>>.value(
+    value: DatabaseService().moreInRes,
+    child: StreamProvider<List<Promo>>.value(
+    value: DatabaseService().promotionPic,
+    child: ListView.builder(
+    controller: scrollController,
+    itemCount: 1,
+    itemBuilder: (BuildContext context, int index) {
+    return homeColumn;
+    },
+    )
+    )
+    )
+    )
+    );
+
+    }
+              else
+                {
+                  if (snapshot.hasError)
+                  {
+                    print(snapshot.error.toString());
+                  }
+                  return Loading();
+                }
+            }
+            )
+        )
+    );
   }
 }

@@ -829,13 +829,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ]),
                     ],
                   );
-                } else {
-                  if (snapshot.hasError) {
-                    print(snapshot.error.toString());
-                  }
-                  return Loading();
                 }
-              })),
+                else
+                  {
+                    if (snapshot.hasError)
+                    {
+                      print(snapshot.error.toString());
+                    }
+                    return Loading();
+                  }
+              }
+              )
+      ),
     );
   }
 }

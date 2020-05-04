@@ -133,7 +133,7 @@ class _SignUpState extends State<SignUp>
                                   hintText: 'Password',
                                   prefixIcon: Icon(Icons.lock)),
                               validator: (val) => val.length < 6
-                                  ? 'Enter a apssword 6+ chars long'
+                                  ? 'Enter a password 6+ chars long'
                                   : null,
                               onChanged: (val) {
                                 setState(() => password =

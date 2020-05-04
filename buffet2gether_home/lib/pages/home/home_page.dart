@@ -2,7 +2,6 @@ import 'package:buffet2gether_home/shared/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/services/database.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:buffet2gether_home/models/rec_model.dart';
 import 'package:buffet2gether_home/models/more_model.dart';
@@ -27,12 +26,12 @@ class _HomeColumnState extends State<HomeColumn> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (scrollController.hasClients) {
         scrollController.animateTo(
           scrollController.position.minScrollExtent,
           curve: Curves.easeOut,
-          duration: const Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 10),
         );
       }
       if (swiperController.hasListeners) {
@@ -74,7 +73,7 @@ class _HomeColumnState extends State<HomeColumn> {
 
     final picPro = ConstrainedBox(
         child: new Swiper(
-          itemCount: proPics?.length ?? 0,
+          itemCount: proPics?.length,
           pagination: new SwiperPagination(),
           controller: swiperController,
           itemBuilder: (BuildContext context, int index) {

@@ -51,19 +51,27 @@ class _MyTable1State extends State<MyTable1>
     ///คุณสมบัติต่างๆ
     // แปลง time stamp ให้เป็น date Time
     int getDueTime(){
-      String stringDueTime = infoFromTable.dueTime.substring(18,28);
-      return int.parse(stringDueTime);
+      if(infoFromTable?.dueTime != null){
+        String stringDueTime = infoFromTable?.dueTime.substring(18,28);
+        return int.parse(stringDueTime);
+      }else{
+        return 0;
+      }
+
     }
     DateTime newDueTime = new DateTime.fromMillisecondsSinceEpoch(getDueTime()*1000);
 
-    if(listMember.length == infoFromTable.people.round()){
-      if(userMaster.max == false){
-        DatabaseService().updateMasterData(mytable.resID, mytable.numberTable, userMaster.userId, true);
+    if(infoFromTable?.people != null){
+      if(listMember?.length == infoFromTable?.people.round()){
+        if(userMaster?.max == false){
+          DatabaseService().updateMasterData(mytable.resID, mytable.numberTable, userMaster?.userId, true);
+        }
       }
     }
 
+
     bool iAmMaster = false;
-    if(user.userId == userMaster.userId){
+    if(user?.userId == userMaster?.userId){
       iAmMaster = true;
     }
 
@@ -73,74 +81,61 @@ class _MyTable1State extends State<MyTable1>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          FloatingActionButton(
-            onPressed:(){
-              if(iAmMaster)
-              {
-                for (var item in listMember) /////////////////////////// ลบข้อมูลคนอื่นออกจากกลุ่ม
-                {
-                  if(item.userID != user.userId)
+          (iAmMaster)?InkWell(
+            onTap: (){
+              for (var item in listMember) /////////////////////////// ลบข้อมูลคนอื่นออกจากกลุ่ม
                   {
-                    DatabaseService().updateFinish(
-                        mytable.resID,
-                        infoFromTable.name1,
-                        infoFromTable.name2,
-                        infoFromTable.imageUrl,
-                        infoFromTable.location,
-                        infoFromTable.time,
-                        infoFromTable.ageStart,
-                        infoFromTable.ageEnd,
-                        infoFromTable.people,
-                        newDueTime,
-                        infoFromTable.gender,
-                        infoFromTable.fashion,
-                        infoFromTable.sport,
-                        infoFromTable.technology,
-                        infoFromTable.politics,
-                        infoFromTable.entertainment,
-                        infoFromTable.book,
-                        infoFromTable.pet,
-                        infoFromTable.number,
-                        item.userID);
-                    DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,item.userID,null);
-                    DatabaseService().updateTableData(null, null,item.userID);
-                  }
-                }
-                /////////////////////////// ลบข้อมูลตัวเองออกจากกลุ่ม  + ลบกลุ่ม
-                DatabaseService().updateFinish(
-                    mytable.resID,
-                    infoFromTable.name1,
-                    infoFromTable.name2,
-                    infoFromTable.imageUrl,
-                    infoFromTable.location,
-                    infoFromTable.time,
-                    infoFromTable.ageStart,
-                    infoFromTable.ageEnd,
-                    infoFromTable.people,
-                    newDueTime,
-                    infoFromTable.gender,
-                    infoFromTable.fashion,
-                    infoFromTable.sport,
-                    infoFromTable.technology,
-                    infoFromTable.politics,
-                    infoFromTable.entertainment,
-                    infoFromTable.book,
-                    infoFromTable.pet,
-                    infoFromTable.number,
-                    user.userId);
-                DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user.userId,'info');
-                DatabaseService().updateTableData(null, null,user.userId);
-              }
-              else
+                if(item?.userID != user?.userId)
                 {
-                /////////////////////////// ลบข้อมูลตัวเองออกจากกลุ่มอย่างเดียว
-                DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user.userId,null);
-                DatabaseService().updateTableData(null, null,user.userId);
+                  DatabaseService().updateFinish(
+                      mytable.resID,
+                      infoFromTable.name1,
+                      infoFromTable.name2,
+                      infoFromTable.imageUrl,
+                      infoFromTable.location,
+                      infoFromTable.time,
+                      infoFromTable.ageStart,
+                      infoFromTable.ageEnd,
+                      infoFromTable?.people,
+                      newDueTime,
+                      infoFromTable.gender,
+                      infoFromTable.fashion,
+                      infoFromTable.sport,
+                      infoFromTable.technology,
+                      infoFromTable.politics,
+                      infoFromTable.entertainment,
+                      infoFromTable.book,
+                      infoFromTable.pet,
+                      infoFromTable.number,
+                      item?.userID);
+                  DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,item?.userID,null);
+                  DatabaseService().updateTableData(null, null,item?.userID);
+                }
               }
-            } ,
-            child:(iAmMaster)?Icon(Icons.restaurant):Icon(Icons.close),
-            backgroundColor: (iAmMaster)?Colors.green:Colors.red,
-            tooltip: (iAmMaster)?'Finish your meal!':'Out from group',
+              /////////////////////////// ลบข้อมูลตัวเองออกจากกลุ่ม
+              DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user?.userId,'info');
+              DatabaseService().updateTableData(null, null,user?.userId);
+            },
+            child: Image.network(
+                'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/notificationAndTable_test%2Ffinish.png?alt=media&token=8eb679d9-be8a-4a77-8fc5-4da352700d7e',
+                width: 100,
+                height:100),
+          ):
+          Container(
+            width: 100,
+            height:100,
+            child: FittedBox(
+              child: FloatingActionButton(
+                onPressed:(){
+                  /////////////////////////// ลบข้อมูลตัวเองออกจากกลุ่มอย่างเดียว
+                  DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user?.userId,null);
+                  DatabaseService().updateTableData(null, null,user?.userId);
+                } ,
+                child:Icon(Icons.close),
+                backgroundColor:Colors.red,
+                tooltip: 'Out from group',
+              ),
+            ),
           ),
 
         ],
@@ -154,7 +149,7 @@ class _MyTable1State extends State<MyTable1>
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           new Image.network(
-              'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2Fletseat.png?alt=media&token=e6a9ab44-2926-4390-a82d-3758b06fd8a4',
+              'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/notificationAndTable_test%2FLetEat.png?alt=media&token=f1a2da80-ead5-4666-adbc-b4c35f2b3497',
               width: 100,
               height:100)
         ],
@@ -172,7 +167,7 @@ class _MyTable1State extends State<MyTable1>
           physics: NeverScrollableScrollPhysics(),
           scrollDirection: Axis.horizontal,
           /// myTable มาจาก table model จะมี list bool interest อยู่
-          itemCount: interestTable.length,
+          itemCount: interestTable?.length,
           itemBuilder: (BuildContext context, int index)
           {
             if (interestTable[index]) ///ถ้าถูกเลือกขึ้นสีส้ม
@@ -212,7 +207,8 @@ class _MyTable1State extends State<MyTable1>
         ),
         child: Column(
           children: <Widget>[
-            Text('No.'+infoFromTable?.number,
+            Text(
+              (infoFromTable?.number != null)?'No.'+infoFromTable?.number:'',
               style: TextStyle(
                   fontFamily: 'Opun',
                   fontSize: 15,
@@ -220,7 +216,8 @@ class _MyTable1State extends State<MyTable1>
                   color: Colors.yellow[700]
               ),
             ),
-            Text(infoFromTable.name1+' '+infoFromTable.name2,
+            Text(
+              ((infoFromTable?.name1 != null)&&(infoFromTable?.name2 != null))?infoFromTable?.name1+' '+infoFromTable?.name2:'',
               style: TextStyle(
                   fontFamily: 'Opun',
                   fontSize: 15,
@@ -229,7 +226,7 @@ class _MyTable1State extends State<MyTable1>
               ),
             ),
             Image.network(
-                infoFromTable.imageUrl,
+                infoFromTable?.imageUrl,
                 fit: BoxFit.contain,
                 width: 250,
                 height: 120
@@ -243,8 +240,8 @@ class _MyTable1State extends State<MyTable1>
                     infoFromTable.location,
                     style: TextStyle(
                       fontFamily: 'Opun',
-                     color: Colors.grey,
-                     fontSize: 13,
+                      color: Colors.grey,
+                      fontSize: 13,
                     ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
@@ -326,7 +323,7 @@ class _MyTable1State extends State<MyTable1>
                   children: <Widget>[
                     Text(
                       /// 1/จำนวนคนที่เลือก
-                      '${listMember.length.toString()} / ${infoFromTable.people.round().toString()}',
+                      (infoFromTable?.people != null)?'${listMember?.length.toString()} / ${infoFromTable?.people.round().toString()}':' ',
                       style: TextStyle(
                         fontFamily: 'Opun',
                         color: Colors.deepOrange,
@@ -379,7 +376,7 @@ class _MyTable1State extends State<MyTable1>
 
     final memberBar = ListView.builder(
       scrollDirection: Axis.vertical,
-      itemCount: listMember.length,
+      itemCount: listMember?.length,
       itemBuilder: (BuildContext context,int index) {
         MemberBarListInTable member = listMember[index];
         String interesting(){
@@ -516,7 +513,7 @@ class _MyTable1State extends State<MyTable1>
                   mainAxisAlignment: MainAxisAlignment.end,
                   children:[
 
-                    ((iAmMaster==false)&&(userMaster.max))?nongBuffet:buttonFinish,//ไม่ใช่เจ้าของห้อง และกลุ่มเต็ม ปุ่มออกจากห้องจะหาย
+                    ((iAmMaster==false)&&(userMaster?.max))?nongBuffet:buttonFinish,//ไม่ใช่เจ้าของห้อง และกลุ่มเต็ม ปุ่มออกจากห้องจะหาย
                   ]
               )
           )

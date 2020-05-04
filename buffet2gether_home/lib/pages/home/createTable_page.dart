@@ -126,8 +126,8 @@ class _CreateTablePageState extends State<CreateTablePage>
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Image.network(
-                    widget.image,
-                fit: BoxFit.contain,
+                  widget.image,
+                  fit: BoxFit.contain,
                   width: 250,
                   height: 120,)
               ],
@@ -147,8 +147,8 @@ class _CreateTablePageState extends State<CreateTablePage>
                       fontFamily: 'Opun',
                       color: Colors.grey,
                       fontSize: 15,
-                   ),
-                   overflow: TextOverflow.ellipsis,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
                 )

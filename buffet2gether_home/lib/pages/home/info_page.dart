@@ -8,6 +8,7 @@ import 'package:buffet2gether_home/services/database.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'dart:ui';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/models/userMaster_model.dart';
@@ -197,8 +198,16 @@ class _InfoPageState extends State<InfoPage>
     final user = Provider.of<User>(context);
     final userMasters = Provider.of<List<UserMaster>>(context);
     final mytable = Provider.of<Mytable>(context);
-
+    final userFindGroups = Provider.of<List<UserFindGroup>>(context);
     ///ปุ่ม Matching
+    bool iAmUserFindGroup = false;
+    ///////////  ถ้าเราอยู่ใน UserfindGroup แล้ว iAmUserFindGroup จะเป็น true
+    for (var item in userFindGroups) {
+      if(item.userID == user.userId){
+        iAmUserFindGroup = true;
+      }
+    }
+
     final buttonMatch = StreamBuilder<UserData>(
         stream: DatabaseService(uid: user?.userId).userData,
         builder: (context, snapshot)
@@ -306,6 +315,75 @@ class _InfoPageState extends State<InfoPage>
         }
     );
 
+    final nongBuffet = Stack(
+      children: <Widget>[
+        Container(
+            child: SpinKitRipple(
+              color: Colors.amberAccent,
+              size: 250.0,
+            )
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(top:10),
+                  child: Image.network(
+                    'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2FBuffet_transparent.png?alt=media&token=cb9c8611-b998-42aa-92f5-6972a91078cb',
+                    height: 200,
+                    width: 200,
+                  ),
+                ),
+                Text(
+                  'ระบบกำลัง Match กลุ่มในร้านนี้ที่เหมาะกับคุณ!',
+                  style: TextStyle(
+                    fontFamily: 'Opun',
+                    color: Colors.deepOrange,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+
+
+    ///ปุ่ม Matching
+    final buttonDeleteMatch =  new  InkWell(
+      onTap: ()
+      {
+        DatabaseService().deleteUserFindGroupData(widget.resID,user.userId);
+
+      },
+      child: Column(
+        children: <Widget>[
+          new Container(
+              padding: EdgeInsets.all(20),
+              margin: EdgeInsets.only(top:30),
+              decoration: new BoxDecoration(
+                  color: Colors.deepOrange,
+                  shape: BoxShape.circle),
+              child: Icon(Icons.delete,size: 30,color: Colors.white,)
+          ),
+          Text(
+            'ยกเลิกการ Match',
+            style: TextStyle(
+              fontFamily: 'Opun',
+              color: Colors.deepOrange,
+              fontSize: 14,
+
+            ),
+          ),
+        ],
+      ),
+    );
+
+
     ///ปุ่ม Create Table
     final buttonCreate = InkWell(
       onTap: ()
@@ -347,16 +425,18 @@ class _InfoPageState extends State<InfoPage>
       ),
     );
 
+
+
     final allInPage = Container(
         width: screenSize.width,
         color: Color(0xFFF5F5F5),
         child: Column(
           children: [
             info,
-            textPro,
-            textProInfo,
-            buttonMatch,
-            buttonCreate
+            (iAmUserFindGroup)?Container():textPro,
+            (iAmUserFindGroup)?Container():textProInfo,
+            (iAmUserFindGroup)?nongBuffet:buttonMatch,
+            (iAmUserFindGroup)?buttonDeleteMatch:buttonCreate
           ],
         )
     );

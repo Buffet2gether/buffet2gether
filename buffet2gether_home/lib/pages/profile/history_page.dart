@@ -217,15 +217,15 @@ class _HistoryPageState extends State<HistoryPage>
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             ///age
-           Text(
-             ///ค่าอายุเริ่ม - ค่าอายุจบ
-             widget.ageStart.toString()+' - '+widget.ageEnd.toString(),
-             style: TextStyle(
-               fontFamily: 'Opun',
-               color: Colors.deepOrange,
-               fontSize: 15,
-             ),
-           ),
+            Text(
+              ///ค่าอายุเริ่ม - ค่าอายุจบ
+              widget.ageStart.toString()+' - '+widget.ageEnd.toString(),
+              style: TextStyle(
+                fontFamily: 'Opun',
+                color: Colors.deepOrange,
+                fontSize: 15,
+              ),
+            ),
             Text(
               '|',
               style:  TextStyle(

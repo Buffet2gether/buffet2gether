@@ -1,3 +1,4 @@
+import 'package:buffet2gether_home/models/userFindGroup_model.dart';
 import 'package:buffet2gether_home/shared/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class HomeColumn extends StatefulWidget {
 }
 
 class _HomeColumnState extends State<HomeColumn> {
-  
+
   SwiperController swiperController = SwiperController();
   ScrollController scrollController = ScrollController(initialScrollOffset: 0);
 
@@ -84,23 +85,25 @@ class _HomeColumnState extends State<HomeColumn> {
                   return showDialog(
                     context: context,
                     builder: (context) {
-                      return StreamProvider<Mytable>.value(
-                        value: DatabaseService(userID: user.userId).mytable,
-                        child: StreamProvider<List<UserMaster>>.value(
-                          value:
-                              DatabaseService(resID: proPic.resID).userMaster,
-                          child: StreamProvider<User>.value(
-                              value: AuthService().user,
-                              child: InfoPage(
-                                resID: proPic.resID,
-                                image: proPic.imageUrl,
-                                name1: proPic.name1,
-                                name2: proPic.name2,
-                                location: proPic.location,
-                                time: proPic.time,
-                                promotion: proPic.promotion,
-                                promotionInfo: proPic.promotionInfo,
-                              )),
+                      return StreamProvider<List<UserFindGroup>>.value(
+                        value:DatabaseService(resID: proPic.resID).userFindGroup,
+                        child: StreamProvider<Mytable>.value(
+                          value: DatabaseService(userID: user.userId).mytable,
+                          child: StreamProvider<List<UserMaster>>.value(
+                            value:DatabaseService(resID: proPic.resID).userMaster,
+                            child: StreamProvider<User>.value(
+                                value: AuthService().user,
+                                child: InfoPage(
+                                  resID: proPic.resID,
+                                  image: proPic.imageUrl,
+                                  name1: proPic.name1,
+                                  name2: proPic.name2,
+                                  location: proPic.location,
+                                  time: proPic.time,
+                                  promotion: proPic.promotion,
+                                  promotionInfo: proPic.promotionInfo,
+                                )),
+                          ),
                         ),
                       );
                     },
@@ -142,7 +145,7 @@ class _HomeColumnState extends State<HomeColumn> {
         color: Color(0xFFF5F5F5),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: recs?.length ?? 0,
+          itemCount: recs?.length,
           itemBuilder: (BuildContext context, int index) {
             final rec = recs[index];
             return InkWell(
@@ -150,22 +153,25 @@ class _HomeColumnState extends State<HomeColumn> {
                   return showDialog(
                       context: context,
                       builder: (context) {
-                        return StreamProvider<Mytable>.value(
-                          value: DatabaseService(userID: user.userId).mytable,
-                          child: StreamProvider<List<UserMaster>>.value(
-                            value: DatabaseService(resID: rec.resID).userMaster,
-                            child: StreamProvider<User>.value(
-                                value: AuthService().user,
-                                child: InfoPage(
-                                  resID: rec.resID,
-                                  image: rec.imageUrl,
-                                  name1: rec.name1,
-                                  name2: rec.name2,
-                                  location: rec.location,
-                                  time: rec.time,
-                                  promotion: rec.promotion,
-                                  promotionInfo: rec.promotionInfo,
-                                )),
+                        return StreamProvider<List<UserFindGroup>>.value(
+                          value: DatabaseService(resID: rec.resID).userFindGroup,
+                          child: StreamProvider<Mytable>.value(
+                            value: DatabaseService(userID: user.userId).mytable,
+                            child: StreamProvider<List<UserMaster>>.value(
+                              value: DatabaseService(resID: rec.resID).userMaster,
+                              child: StreamProvider<User>.value(
+                                  value: AuthService().user,
+                                  child: InfoPage(
+                                    resID: rec.resID,
+                                    image: rec.imageUrl,
+                                    name1: rec.name1,
+                                    name2: rec.name2,
+                                    location: rec.location,
+                                    time: rec.time,
+                                    promotion: rec.promotion,
+                                    promotionInfo: rec.promotionInfo,
+                                  )),
+                            ),
                           ),
                         );
                       });
@@ -265,7 +271,7 @@ class _HomeColumnState extends State<HomeColumn> {
         width: screenSize.width,
         color: Color(0xFFF5F5F5),
         child: ListView.builder(
-            itemCount: more?.length ?? 0,
+            itemCount: more?.length,
             itemBuilder: (BuildContext context, int index) {
               final m = more[index];
               return InkWell(
@@ -273,22 +279,25 @@ class _HomeColumnState extends State<HomeColumn> {
                     return showDialog(
                         context: context,
                         builder: (context) {
-                          return StreamProvider<Mytable>.value(
-                            value: DatabaseService(userID: user.userId).mytable,
-                            child: StreamProvider<List<UserMaster>>.value(
-                              value: DatabaseService(resID: m.resID).userMaster,
-                              child: StreamProvider<User>.value(
-                                  value: AuthService().user,
-                                  child: InfoPage(
-                                    resID: m.resID,
-                                    image: m.imageUrl,
-                                    name1: m.name1,
-                                    name2: m.name2,
-                                    location: m.location,
-                                    time: m.time,
-                                    promotion: m.promotion,
-                                    promotionInfo: m.promotionInfo,
-                                  )),
+                          return StreamProvider<List<UserFindGroup>>.value(
+                            value: DatabaseService(resID: m.resID).userFindGroup,
+                            child: StreamProvider<Mytable>.value(
+                              value: DatabaseService(userID: user.userId).mytable,
+                              child: StreamProvider<List<UserMaster>>.value(
+                                value: DatabaseService(resID: m.resID).userMaster,
+                                child: StreamProvider<User>.value(
+                                    value: AuthService().user,
+                                    child: InfoPage(
+                                      resID: m.resID,
+                                      image: m.imageUrl,
+                                      name1: m.name1,
+                                      name2: m.name2,
+                                      location: m.location,
+                                      time: m.time,
+                                      promotion: m.promotion,
+                                      promotionInfo: m.promotionInfo,
+                                    )),
+                              ),
                             ),
                           );
                         });
@@ -445,11 +454,11 @@ class _HomeColumnState extends State<HomeColumn> {
                 ),
                 body: SafeArea(
                     child: ListView.builder(
-                  controller: scrollController,
-                  itemCount: 1,
-                  itemBuilder: (BuildContext context, int index) {
-                    return homeColumn;
-                  },
-                )))));
+                      controller: scrollController,
+                      itemCount: 1,
+                      itemBuilder: (BuildContext context, int index) {
+                        return homeColumn;
+                      },
+                    )))));
   }
 }

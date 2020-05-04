@@ -21,24 +21,39 @@ List genderList = <GenderItem>[
   const GenderItem(FontAwesomeIcons.venusMars, 'Not specified'),
 ];
 
-///////////////////////////////////////////// group1///////////////////////////////////////////////
+
+/////////////////////////////////////////////Group page///////////////////////////////////////////////
 class Group1 extends StatefulWidget
 {
-
   @override
   _Group1State createState() => new _Group1State();
 }
 
-class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
+class _Group1State extends State<Group1>
 {
+  ScrollController scrollController;
 
   @override
   Widget build(BuildContext context)
   {
+
+
     final listMember = Provider.of<List<MemberBarListInGroup>>(context);
     final infoFromGroup = Provider.of<InfoInGroup>(context);
 
-    List<bool> interestGroup= [infoFromGroup?.fashion,infoFromGroup?.sport, infoFromGroup?.technology,
+    final screenSize = MediaQuery.of(context).size;
+
+
+    ///คุณสมบัติต่างๆ
+    // แปลง time stamp ให้เป็น date Time
+    int getDueTime(){
+      String stringDueTime = infoFromGroup.dueTime.substring(18,28);
+      return int.parse(stringDueTime);
+    }
+    DateTime newDueTime = new DateTime.fromMillisecondsSinceEpoch(getDueTime()*1000);
+
+
+    List<bool> interestTable= [infoFromGroup?.fashion,infoFromGroup?.sport, infoFromGroup?.technology,
       infoFromGroup?.politics,infoFromGroup?.entertainment, infoFromGroup?.book, infoFromGroup?.pet];
 
     /// แสดง interest ตามที่เลือกจากหน้า edit interesting table
@@ -49,10 +64,10 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
           physics: NeverScrollableScrollPhysics(),
           scrollDirection: Axis.horizontal,
           /// myTable มาจาก table model จะมี list bool interest อยู่
-          itemCount: interestGroup.length,
+          itemCount: interestTable.length,
           itemBuilder: (BuildContext context, int index)
           {
-            if (interestGroup[index]) ///ถ้าถูกเลือกขึ้นสีส้ม
+            if (interestTable[index]) ///ถ้าถูกเลือกขึ้นสีส้ม
             {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.5),
@@ -73,7 +88,6 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
       ),
     );
 
-
     final info = Container(
         margin: EdgeInsets.all(10),
         decoration: new BoxDecoration(
@@ -90,7 +104,7 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
         ),
         child: Column(
           children: <Widget>[
-            Text('No.'+infoFromGroup.number,
+            Text('No.'+infoFromGroup?.number,
               style: TextStyle(
                   fontFamily: 'Opun',
                   fontSize: 15,
@@ -106,19 +120,33 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
                   color: Colors.deepOrange
               ),
             ),
-            Image.network(infoFromGroup.imageUrl),
+            Image.network(
+                infoFromGroup.imageUrl,
+                fit: BoxFit.contain,
+                width: 250,
+                height: 120
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(Icons.location_on,size: 25,color: Colors.amber,),
-                Text(
-                  infoFromGroup.location,
-                  style: TextStyle(
-                    fontFamily: 'Opun',
-                    color: Colors.grey,
-                    fontSize: 13,
+                Expanded(
+                  child: Text(
+                    infoFromGroup.location,
+                    style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.grey,
+                      fontSize: 13,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
-                ),
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
                 Icon(Icons.access_time,size: 25,color: Colors.amber),
                 Text(
                   ' '+infoFromGroup.time,
@@ -134,13 +162,8 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
         )
     );
 
-    ///คุณสมบัติต่างๆ
-    // แปลง time stamp ให้เป็น date Time
-    int getDueTime(){
-      String stringDueTime = infoFromGroup.dueTime.substring(18,28);
-      return int.parse(stringDueTime);
-    }
-    DateTime newDueTime = new DateTime.fromMillisecondsSinceEpoch(getDueTime()*1000);
+
+
     // แปลง string gender ให้เป็น icon เพศทีเลือกไว้
     int getGender(){
       int index = 0;
@@ -151,129 +174,116 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
         index += 1;
       }
     }
-    final properties = Container(
-      height: 80,
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              offset: Offset(0,4),
-              blurRadius: 5,
-            )
-          ]
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          ///age
-          Text(
-            ///ค่าอายุเริ่ม - ค่าอายุจบ
-            '${infoFromGroup.ageStart.toString()} - ${infoFromGroup.ageEnd.toString()}',
-            style: TextStyle(
-              fontFamily: 'Opun',
-              color: Colors.deepOrange,
-              fontSize: 15,
-            ),
-          ),
-          Text(
-            '|',
-            style:  TextStyle(
-              fontFamily: 'Opun',
-              color: Colors.amberAccent,
-              fontSize: 25,
-            ),
-          ),
-          ///maxNum
-          Container(
-            child: Row(
-              children: <Widget>[
-                Text(
-                  /// 1/จำนวนคนที่เลือก
-                  '${listMember.length.toString()} / ${infoFromGroup.people.round().toString()}',
-                  style: TextStyle(
-                    fontFamily: 'Opun',
-                    color: Colors.deepOrange,
-                    fontSize: 15,
-                  ),
-                ),
-                Icon(
-                  Icons.people,
-                  color: Colors.deepOrange,
-                  size: 23,
-                )
-              ],
-            ),
-          ),
-          Text(
-            '|',
-            style:  TextStyle(
-              fontFamily: 'Opun',
-              color: Colors.amberAccent,
-              fontSize: 25,
-            ),
-          ),
-          ///Date and time
-          Text(
-            DateFormat('dd-MM-yyyy  h:mm a').format(newDueTime),
-            style: TextStyle(
-              fontFamily: 'Opun',
-              color: Colors.deepOrange,
-              fontSize: 15,
-            ),
-          ),
-          Text(
-            '|',
-            style:  TextStyle(
-              fontFamily: 'Opun',
-              color: Colors.amberAccent,
-              fontSize: 25,
-            ),
-          ),
-          ///gender
-          Icon(
-            genderList[getGender()].genderIcon,
-            size: 23,
-            color: Colors.deepOrange,),
 
-        ],
-      ),
+    final properties = Container(
+        height: 80,
+        margin: EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                offset: Offset(0,4),
+                blurRadius: 5,
+              )
+            ]
+        ),
+        child: FittedBox(
+          fit: BoxFit.fitWidth,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              ///age
+              Text(
+                ///ค่าอายุเริ่ม - ค่าอายุจบ
+                '${infoFromGroup.ageStart.toString()} - ${infoFromGroup.ageEnd.toString()}',
+                style: TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.deepOrange,
+                  fontSize: 15,
+                ),
+              ),
+              Text(
+                '|',
+                style:  TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.amberAccent,
+                  fontSize: 25,
+                ),
+              ),
+              ///maxNum
+              Container(
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      /// 1/จำนวนคนที่เลือก
+                      '${listMember.length.toString()} / ${infoFromGroup.people.round().toString()}',
+                      style: TextStyle(
+                        fontFamily: 'Opun',
+                        color: Colors.deepOrange,
+                        fontSize: 15,
+                      ),
+                    ),
+                    Icon(
+                      Icons.people,
+                      color: Colors.deepOrange,
+                      size: 23,
+                    )
+                  ],
+                ),
+              ),
+              Text(
+                '|',
+                style:  TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.amberAccent,
+                  fontSize: 25,
+                ),
+              ),
+              ///Date and time
+              Text(
+                DateFormat('dd-MM-yyyy  h:mm a').format(newDueTime),
+                style: TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.deepOrange,
+                  fontSize: 15,
+                ),
+              ),
+              Text(
+                '|',
+                style:  TextStyle(
+                  fontFamily: 'Opun',
+                  color: Colors.amberAccent,
+                  fontSize: 25,
+                ),
+              ),
+              ///gender
+              Icon(
+                genderList[getGender()].genderIcon,
+                size: 23,
+                color: Colors.deepOrange,),
+
+            ],
+          ),
+        )
     );
 
     final memberBar = ListView.builder(
       scrollDirection: Axis.vertical,
       itemCount: listMember.length,
-      itemBuilder: (BuildContext context,int index)
-      {
+      itemBuilder: (BuildContext context,int index) {
         MemberBarListInGroup member = listMember[index];
         String interesting(){
-          List<bool> interest= [member.fashion, member.sport,member.technology,member.politics,
-            member.entertainment,member.book, member.pet];
+          List<bool> interest= [member.fashion, member.sport, member.technology, member.politics, member.entertainment, member.book, member.pet];
           String infomation = '';
-          if(interest[0]){
-            infomation += '#fashion';
-          }
-          if(interest[1]){
-            infomation += '#sport';
-          }
-
-          if(interest[2]){
-            infomation += '#technology';
-          }
-          if(interest[3]){
-            infomation += '#politics';
-          }
-          if(interest[4]){
-            infomation += '#entertainment';
-          }
-          if(interest[5]){
-            infomation += '#book';
-          }
-          if(interest[6]){
-            infomation += '#pet';
-          }
+          if(interest[0]){infomation += '#fashion';}
+          if(interest[1]){infomation += '#sport';}
+          if(interest[2]){infomation += '#technology';}
+          if(interest[3]){infomation += '#politics';}
+          if(interest[4]){infomation += '#entertainment';}
+          if(interest[5]){infomation += '#book';}
+          if(interest[6]){infomation += '#pet';}
           return infomation;
         }
         return  new Container(
@@ -340,50 +350,62 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
       },
     );
 
+    final stackMatchCol = Stack(
+        children: [
+          SafeArea(
+              child: Column(
+                  children: <Widget>[
+                    Expanded(
+                        child: ListView(
+                            padding: EdgeInsets.symmetric(vertical: 10.0,horizontal: 15.0),
+                            children: <Widget>[
+                              info,
+                              Text(
+                                '  '+'Matching with',
+                                style: TextStyle(
+                                  fontFamily: 'Opun',
+                                  color: Colors.deepOrange,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
 
+                                ),
+                              ),
+                              properties,
+                              Text(
+                                ' Interesting',
+                                style: TextStyle(
+                                  fontFamily: 'Opun',
+                                  color: Colors.deepOrange,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              interestList,
+                              Text(
+                                '  '+'Member',
+                                style: TextStyle(
+                                  fontFamily: 'Opun',
+                                  color: Colors.deepOrange,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
 
-    final matchCol = Container(
-        color: Colors.white10,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            info,
-            Text(
-              '  '+'Matching with',
-              style: TextStyle(
-                fontFamily: 'Opun',
-                color: Colors.deepOrange,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-
-              ),
-            ),
-            properties,
-            Text(
-              ' Interesting',
-              style: TextStyle(
-                fontFamily: 'Opun',
-                color: Colors.deepOrange,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            interestList,
-            Text(
-              '  '+'Member',
-              style: TextStyle(
-                fontFamily: 'Opun',
-                color: Colors.deepOrange,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-
-              ),
-            ),
-            Flexible(child: memberBar,)
-
-          ],
-        )
+                                ),
+                              ),
+                              Container(
+                                height: 200,
+                                width: screenSize.width,
+                                color: Color(0xFFF5F5F5),
+                                child: memberBar,
+                              )
+                            ]
+                        )
+                    )
+                  ]
+              )
+          ),
+        ]
     );
+
 
     return Scaffold(
       appBar: new AppBar(
@@ -397,7 +419,7 @@ class _Group1State extends State<Group1> with SingleTickerProviderStateMixin
         ),
         backgroundColor: Colors.white70,
       ),
-      body: matchCol,
+      body: stackMatchCol,
     );
   }
 }

@@ -9,6 +9,7 @@ import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/models/userMaster_model.dart';
 import 'package:buffet2gether_home/models/mytable_model.dart';
+import 'package:buffet2gether_home/models/userFindGroup_model.dart';
 
 class SearchPage extends StatefulWidget
 {
@@ -110,11 +111,12 @@ class _SearchPageState extends State<SearchPage> {
                 return showDialog(
                     context: context,
                     builder: (context) {
-                      return StreamProvider<Mytable>.value(
+                      return StreamProvider<List<UserFindGroup>>.value(
+                      value: DatabaseService(resID: element['resID']).userFindGroup,
+                      child: StreamProvider<Mytable>.value(
                         value: DatabaseService(userID: user.userId).mytable,
                         child: StreamProvider<List<UserMaster>>.value(
-                          value: DatabaseService(resID: element['resID'])
-                              .userMaster,
+                          value: DatabaseService(resID: element['resID']).userMaster,
                           child: StreamProvider<User>.value(
                               value: AuthService().user,
                               child: InfoPage(
@@ -129,6 +131,7 @@ class _SearchPageState extends State<SearchPage> {
                               )
                           ),
                         ),
+                      )
                       );
                     }
                 );

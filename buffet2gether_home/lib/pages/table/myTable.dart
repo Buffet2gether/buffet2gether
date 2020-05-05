@@ -160,39 +160,69 @@ class _MyTable1State extends State<MyTable1>
       ),
     );
 
-    List<bool> interestTable= [infoFromTable?.fashion,infoFromTable?.sport, infoFromTable?.technology,
-      infoFromTable?.politics,infoFromTable?.entertainment, infoFromTable?.book, infoFromTable?.pet];
+    List<bool> interestTable = [
+      infoFromTable?.fashion,
+      infoFromTable?.sport,
+      infoFromTable?.technology,
+      infoFromTable?.politics,
+      infoFromTable?.entertainment,
+      infoFromTable?.book,
+      infoFromTable?.pet
+    ];
+
+    print('fashion = '+interestTable[0].toString());
+    print('sport = '+interestTable[1].toString());
+    print('tech = '+interestTable[0].toString());
+    print('poli = '+interestTable[0].toString());
+    print('ent = '+interestTable[0].toString());
+    print('book = '+interestTable[0].toString());
+    print('pet = '+interestTable[0].toString());
 
     /// แสดง interest ตามที่เลือกจากหน้า edit interesting table
     final interestList = Container(
-      margin: EdgeInsets.symmetric(horizontal: 40),
+      margin: EdgeInsets.symmetric(horizontal: 20),
       height: 50,
-      child: ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          /// myTable มาจาก table model จะมี list bool interest อยู่
-          itemCount: interestTable?.length,
-          itemBuilder: (BuildContext context, int index)
+      child: StreamBuilder<InfoInTable>(
+          stream: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
+          builder: (context, snapshot)
           {
-            if (interestTable[index]) ///ถ้าถูกเลือกขึ้นสีส้ม
+            if (snapshot.hasData)
             {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.5),
-                child: Icon(
-                    myTable.interestingIconUrl[index],
-                    color: Colors.deepOrange
-                ),
-              );
+              return ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                /// myTable มาจาก table model จะมี list bool interest อยู่
+                itemCount: interestTable?.length,
+                itemBuilder: (BuildContext context, int index)
+                {
+                  if (interestTable[index]) ///ถ้าถูกเลือกขึ้นสีส้ม
+                  {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.5),
+                      child: Icon(
+                          myTable.interestingIconUrl[index],
+                          color: Colors.deepOrange
+                      ),
+                    );
+                  }
+                  return Padding( ///ไม่เลือกขึ้นเเทา
+                    padding: const EdgeInsets.symmetric(horizontal: 8.5),
+                    child: Icon(
+                      myTable.interestingIconUrl[index],
+                      color: Colors.grey,
+                    ),
+                  );
+                });
             }
-            return Padding( ///ไม่เลือกขึ้นเเทา
-              padding: const EdgeInsets.symmetric(horizontal: 8.5),
-              child: Icon(
-                myTable.interestingIconUrl[index],
-                color: Colors.grey,
-              ),
-            );
-          }
-      ),
+            else
+              {
+                if (snapshot.hasError)
+                {
+                  print(snapshot.error.toString());
+                }
+                return Loading();
+              }
+          })
     );
 
     final info = Container(

@@ -482,7 +482,7 @@ class _CreateTablePageState extends State<CreateTablePage>
 
     /// แสดง interest ตามที่เลือกจากหน้า edit interesting table
     final interestList = Container(
-      margin: EdgeInsets.symmetric(horizontal: 40),
+      margin: EdgeInsets.symmetric(horizontal: 20),
       height: 50,
       child: ListView.builder(
           physics: NeverScrollableScrollPhysics(),

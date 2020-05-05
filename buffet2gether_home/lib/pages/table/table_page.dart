@@ -43,7 +43,7 @@ class _Table1State extends State<Table1>
       ),
       body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children:[
                 new Image.network(
                     'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2FBuffet_transparent.png?alt=media&token=cb9c8611-b998-42aa-92f5-6972a91078cb',
@@ -67,38 +67,38 @@ class _Table1State extends State<Table1>
     }else
     {
       return Scaffold(
-                      appBar: new AppBar(
-                        leading: new Container(),
-                        centerTitle: true,
-                        title: new Text(
-                          'โต๊ะของคุณ!',
-                          style: TextStyle(
-                              color: Colors.deepOrange,
-                              fontFamily: 'Opun',
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold
-                          ),
-                        ),
-                        backgroundColor: Color(0xfff5f5f5),
-                      ),
-                      body:
-  StreamProvider<UserMaster>.value(
-  value: DatabaseService(resID: mytable?.resID,numberTable: mytable?.numberTable).userMasterMax,
-  child: StreamProvider<User>.value(
-  value: AuthService().user,
-  child: StreamProvider<Mytable>.value(
-  value:DatabaseService(userID: user.userId).mytable,
-  child: StreamProvider<List<MemberBarListInTable>>.value(
-  value: DatabaseService(numberTable: mytable?.numberTable,resID: mytable?.resID).memberInTable,
-  child: StreamProvider<InfoInTable>.value(
-  value: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
-  child: MyTable1()),
+        appBar: new AppBar(
+          leading: new Container(),
+          centerTitle: true,
+          title: new Text(
+            'โต๊ะของคุณ!',
+            style: TextStyle(
+                color: Colors.deepOrange,
+                fontFamily: 'Opun',
+                fontSize: 20,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+          backgroundColor: Color(0xfff5f5f5),
+        ),
+        body:
+        StreamProvider<UserMaster>.value(
+          value: DatabaseService(resID: mytable?.resID,numberTable: mytable?.numberTable).userMasterMax,
+          child: StreamProvider<User>.value(
+            value: AuthService().user,
+            child: StreamProvider<Mytable>.value(
+                value:DatabaseService(userID: user.userId).mytable,
+                child: StreamProvider<List<MemberBarListInTable>>.value(
+                  value: DatabaseService(numberTable: mytable?.numberTable,resID: mytable?.resID).memberInTable,
+                  child: StreamProvider<InfoInTable>.value(
+                      value: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
+                      child: MyTable1()),
 
-  )
-  ),
-  ),
+                )
+            ),
+          ),
 
-  ),
+        ),
       );
     }
   }

@@ -38,8 +38,6 @@ class _MyTable1State extends State<MyTable1>
 {
   ScrollController scrollController;
 
-  bool iAmMaster = false;
-
   @override
   Widget build(BuildContext context)
   {
@@ -50,7 +48,7 @@ class _MyTable1State extends State<MyTable1>
 
     final screenSize = MediaQuery.of(context).size;
     final userMaster = Provider.of<UserMaster>(context);
-
+    bool iAmMaster = false;
     ///คุณสมบัติต่างๆ
     // แปลง time stamp ให้เป็น date Time
     int getDueTime(){
@@ -72,21 +70,39 @@ class _MyTable1State extends State<MyTable1>
       }
     }
 
-    if(user?.userId == userMaster?.userId)
-    {
-      iAmMaster = true;
-    }
+    final buttonLeaveGroup = Container(
+      margin: EdgeInsets.all(10),
+      width: 410,
+      child:
+      Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          FloatingActionButton(
+            onPressed:(){
+              /////////////////////////// ลบข้อมูลตัวเองออกจากกลุ่มอย่างเดียว
+              DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user?.userId,null);
+              DatabaseService().updateTableData(null, null,user?.userId);
+            } ,
+            child:Icon(Icons.exit_to_app),
+            backgroundColor:Colors.red,
+            tooltip: 'Leave group',
+          ),
+        ],
+      ),
 
+
+    );
     final buttonFinish = Container(
       margin: EdgeInsets.all(10),
       width: 410,
-      child: Row(
+      child:
+      Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          (iAmMaster)?InkWell(
+          InkWell(
             onTap: (){
               for (var item in listMember) /////////////////////////// ลบข้อมูลคนอื่นออกจากกลุ่ม
-                {
+                  {
                 if(item?.userID != user?.userId)
                 {
                   DatabaseService().updateFinish(
@@ -135,7 +151,7 @@ class _MyTable1State extends State<MyTable1>
                   infoFromTable.book,
                   infoFromTable.pet,
                   infoFromTable.number,
-                  user.userId);
+                  user?.userId);
               DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user?.userId,'info');
               DatabaseService().updateTableData(null, null,user?.userId);
             },
@@ -143,24 +159,7 @@ class _MyTable1State extends State<MyTable1>
                 'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/notificationAndTable_test%2Ffinish.png?alt=media&token=8eb679d9-be8a-4a77-8fc5-4da352700d7e',
                 width: 100,
                 height:100),
-          ):
-          Container(
-            width: 60,
-            height:60,
-            child: FittedBox(
-              child: FloatingActionButton(
-                onPressed:(){
-                  /////////////////////////// ลบข้อมูลตัวเองออกจากกลุ่มอย่างเดียว
-                  DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user?.userId,null);
-                  DatabaseService().updateTableData(null, null,user?.userId);
-                } ,
-                child:Icon(FontAwesomeIcons.signOutAlt),
-                backgroundColor:Colors.red,
-                tooltip: 'Out from group',
-              ),
-            ),
-          ),
-
+          )
         ],
       ),
 
@@ -181,61 +180,53 @@ class _MyTable1State extends State<MyTable1>
       ),
     );
 
+    List<bool> interestTable = [
+      infoFromTable?.fashion,
+      infoFromTable?.sport,
+      infoFromTable?.technology,
+      infoFromTable?.politics,
+      infoFromTable?.entertainment,
+      infoFromTable?.book,
+      infoFromTable?.pet
+    ];
+
     /// แสดง interest ตามที่เลือกจากหน้า edit interesting table
     final interestList = Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
-      height: 50,
-      child: StreamBuilder<InfoInTable>(
-          stream: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
-          builder: (context, snapshot)
-          {
-            if (snapshot.hasData)
+        margin: EdgeInsets.symmetric(horizontal: 20),
+        height: 50,
+        child: StreamBuilder<InfoInTable>(
+            stream: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
+            builder: (context, snapshot)
             {
-              List<bool> interestTable = [
-                infoFromTable?.fashion,
-                infoFromTable?.sport,
-                infoFromTable?.technology,
-                infoFromTable?.politics,
-                infoFromTable?.entertainment,
-                infoFromTable?.book,
-                infoFromTable?.pet
-              ];
-
-              print(infoFromTable?.fashion);
-              print(infoFromTable?.sport);
-              print(infoFromTable?.technology);
-              print(infoFromTable?.politics);
-              print(infoFromTable?.entertainment);
-              print(infoFromTable?.book);
-              print(infoFromTable?.pet);
-
-              return ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                /// myTable มาจาก table model จะมี list bool interest อยู่
-                itemCount: interestTable?.length,
-                itemBuilder: (BuildContext context, int index)
-                {
-                  if (interestTable[index]) ///ถ้าถูกเลือกขึ้นสีส้ม
-                  {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.5),
-                      child: Icon(
+              if (snapshot.hasData)
+              {
+                return ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    /// myTable มาจาก table model จะมี list bool interest อยู่
+                    itemCount: interestTable?.length,
+                    itemBuilder: (BuildContext context, int index)
+                    {
+                      if (interestTable[index]) ///ถ้าถูกเลือกขึ้นสีส้ม
+                      {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.5),
+                          child: Icon(
+                              myTable.interestingIconUrl[index],
+                              color: Colors.deepOrange
+                          ),
+                        );
+                      }
+                      return Padding( ///ไม่เลือกขึ้นเเทา
+                        padding: const EdgeInsets.symmetric(horizontal: 8.5),
+                        child: Icon(
                           myTable.interestingIconUrl[index],
-                          color: Colors.deepOrange
-                      ),
-                    );
-                  }
-                  return Padding( ///ไม่เลือกขึ้นเเทา
-                    padding: const EdgeInsets.symmetric(horizontal: 8.5),
-                    child: Icon(
-                      myTable.interestingIconUrl[index],
-                      color: Colors.grey,
-                    ),
-                  );
-                });
-            }
-            else
+                          color: Colors.grey,
+                        ),
+                      );
+                    });
+              }
+              else
               {
                 if (snapshot.hasError)
                 {
@@ -243,7 +234,7 @@ class _MyTable1State extends State<MyTable1>
                 }
                 return Loading();
               }
-          })
+            })
     );
 
     final info = Container(
@@ -361,68 +352,68 @@ class _MyTable1State extends State<MyTable1>
                     children: <Widget>[
                       ///age
                       Text(
-                    ///ค่าอายุเริ่ม - ค่าอายุจบ
-                    '${infoFromTable?.ageStart.toString()} - ${infoFromTable?.ageEnd.toString()}',
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.deepOrange,
-                      fontSize: 15,
-                    ),
-                  ),
+                        ///ค่าอายุเริ่ม - ค่าอายุจบ
+                        '${infoFromTable?.ageStart.toString()} - ${infoFromTable?.ageEnd.toString()}',
+                        style: TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.deepOrange,
+                          fontSize: 15,
+                        ),
+                      ),
                       Text(
-                    '|',
-                    style:  TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.amberAccent,
-                      fontSize: 25,
-                    ),
-                  ),
+                        '|',
+                        style:  TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.amberAccent,
+                          fontSize: 25,
+                        ),
+                      ),
                       ///maxNum
                       Container(
-                    child: Row(
-                      children: <Widget>[
-                        Text(
-                          /// 1/จำนวนคนที่เลือก
-                          (infoFromTable?.people != null)?'${listMember?.length.toString()} / ${infoFromTable?.people.round().toString()}':' ',
-                          style: TextStyle(
-                            fontFamily: 'Opun',
-                            color: Colors.deepOrange,
-                            fontSize: 15,
-                          ),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              /// 1/จำนวนคนที่เลือก
+                              (infoFromTable?.people != null)?'${listMember?.length.toString()} / ${infoFromTable?.people.round().toString()}':' ',
+                              style: TextStyle(
+                                fontFamily: 'Opun',
+                                color: Colors.deepOrange,
+                                fontSize: 15,
+                              ),
+                            ),
+                            Icon(
+                              Icons.people,
+                              color: Colors.deepOrange,
+                              size: 23,
+                            )
+                          ],
                         ),
-                        Icon(
-                          Icons.people,
-                          color: Colors.deepOrange,
-                          size: 23,
-                        )
-                      ],
-                    ),
-                  ),
+                      ),
                       Text(
-                    '|',
-                    style:  TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.amberAccent,
-                      fontSize: 25,
-                    ),
-                  ),
+                        '|',
+                        style:  TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.amberAccent,
+                          fontSize: 25,
+                        ),
+                      ),
                       ///Date and time
                       Text(
-                    DateFormat('dd-MM-yyyy  h:mm a').format(newDueTime),
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.deepOrange,
-                      fontSize: 15,
-                    ),
-                  ),
+                        DateFormat('dd-MM-yyyy  h:mm a').format(newDueTime),
+                        style: TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.deepOrange,
+                          fontSize: 15,
+                        ),
+                      ),
                       Text(
-                    '|',
-                    style:  TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.amberAccent,
-                      fontSize: 25,
-                    ),
-                  ),
+                        '|',
+                        style:  TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.amberAccent,
+                          fontSize: 25,
+                        ),
+                      ),
                       ///gender
                       Icon(
                         genderList[getGender()].genderIcon,
@@ -433,15 +424,15 @@ class _MyTable1State extends State<MyTable1>
                 );
               }
               else
+              {
+                if (snapshot.hasError)
                 {
-                  if (snapshot.hasError)
-                  {
-                    print(snapshot.error.toString());
-                  }
-                  return Loading();
+                  print(snapshot.error.toString());
                 }
+                return Loading();
+              }
             }
-            )
+        )
     );
 
     final memberBar = ListView.builder(
@@ -525,87 +516,93 @@ class _MyTable1State extends State<MyTable1>
       },
     );
 
+
+    print(iAmMaster);
     final stackMatchCol = StreamBuilder<InfoInTable>(
         stream: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
         builder: (context, snapshot)
         {
           if (snapshot.hasData)
+          {  if(user?.userId == userMaster?.userId)
           {
-            return Stack(
-                children: [
-                  SafeArea(
-                      child: Column(
-                  children: <Widget>[
-                    Expanded(
-                        child: ListView(
-                            padding: EdgeInsets.symmetric(vertical: 10.0,horizontal: 15.0),
-                            children: <Widget>[
-                              info,
-                              Text(
-                                '  '+'Matching with',
-                                style: TextStyle(
-                                  fontFamily: 'Opun',
-                                  color: Colors.deepOrange,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
+            iAmMaster = true;
+          }
+          return Stack(
+              children: [
+                SafeArea(
+                    child: Column(
+                        children: <Widget>[
+                          Expanded(
+                              child: ListView(
+                                  padding: EdgeInsets.symmetric(vertical: 10.0,horizontal: 15.0),
+                                  children: <Widget>[
+                                    info,
+                                    Text(
+                                      '  '+'Matching with',
+                                      style: TextStyle(
+                                        fontFamily: 'Opun',
+                                        color: Colors.deepOrange,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
 
-                                ),
-                              ),
-                              properties,
-                              Text(
-                                ' Interesting',
-                                style: TextStyle(
-                                  fontFamily: 'Opun',
-                                  color: Colors.deepOrange,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              interestList,
-                              Text(
-                                '  '+'Member',
-                                style: TextStyle(
-                                  fontFamily: 'Opun',
-                                  color: Colors.deepOrange,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    properties,
+                                    Text(
+                                      ' Interesting',
+                                      style: TextStyle(
+                                        fontFamily: 'Opun',
+                                        color: Colors.deepOrange,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    interestList,
+                                    Text(
+                                      '  '+'Member',
+                                      style: TextStyle(
+                                        fontFamily: 'Opun',
+                                        color: Colors.deepOrange,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
 
-                                ),
-                              ),
-                              Container(
-                                height: 200,
-                                width: screenSize.width,
-                                color: Color(0xFFF5F5F5),
-                                child: memberBar,
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 200,
+                                      width: screenSize.width,
+                                      color: Color(0xFFF5F5F5),
+                                      child: memberBar,
+                                    )
+                                  ]
                               )
-                            ]
-                        )
+                          )
+                        ]
                     )
-                  ]
-              )
-                  ),
-                  Container(
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children:[
-                            ((iAmMaster==false)&&(userMaster?.max))?nongBuffet:buttonFinish,//ไม่ใช่เจ้าของห้อง และกลุ่มเต็ม ปุ่มออกจากห้องจะหาย
-                          ]
-                      )
-                  )
-                ]
-            );
+                ),
+                Container(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children:[
+                          (iAmMaster)?buttonFinish:Container(),
+                          ((iAmMaster==false)&&(userMaster?.max==false))?buttonLeaveGroup:Container(),//ไม่ใช่เจ้าของห้อง และกลุ่มเต็ม ปุ่มออกจากห้องจะหาย
+                          ((iAmMaster==false)&&(userMaster?.max))?nongBuffet:Container(),
+                        ]
+                    )
+                )
+              ]
+          );
           }
           else
+          {
+            if (snapshot.hasError)
             {
-              if (snapshot.hasError)
-              {
-                print(snapshot.error.toString());
-              }
-              return Loading();
+              print(snapshot.error.toString());
             }
+            return Loading();
+          }
         }
     );
-
     return stackMatchCol;
   }
 }

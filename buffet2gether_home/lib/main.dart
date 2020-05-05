@@ -17,7 +17,6 @@ import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/models/mytable_model.dart';
 import 'package:buffet2gether_home/models/history_model.dart';
-import 'package:buffet2gether_home/pages/login/getStarted_page.dart';
 
 void main() {
   //debugPaintSizeEnabled=true;
@@ -35,8 +34,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Color(0xFFF3F5F7),
         ),
         home: //Wrapper()
-            new GetStartedColumn()
-    );
+        new Wrapper());
   }
 }
 
@@ -89,40 +87,40 @@ class MyAppState extends State<MyCustomForm>
     return new Scaffold(
       body: SafeArea(
           child: new TabBarView(
-        controller: controller,
-        children: <Widget>[
-          StreamProvider<User>.value(
-            value: AuthService().user,
-            child: StreamProvider<List<Recom>>.value(
-              value: DatabaseService().recInRes,
-              child: StreamProvider<List<More>>.value(
-                  value: DatabaseService().moreInRes,
-                  child: StreamProvider<List<Promo>>.value(
-                    value: DatabaseService().promotionPic,
-                    child: new HomeColumn(),
-                  )),
-            ),
-          ),
-          StreamProvider<User>.value(
-            value: AuthService().user,
-            child: StreamProvider<Mytable>.value(
-                value: DatabaseService(userID: user?.userId).mytable,
-                child: new Table1()),
-          ),
-          StreamProvider<Mytable>.value(
-            value: DatabaseService(userID: user?.userId).mytable,
-            child: StreamProvider<User>.value(
+            controller: controller,
+            children: <Widget>[
+              StreamProvider<User>.value(
                 value: AuthService().user,
-                child: new NotifColumn()),
-          ),
-          StreamProvider<User>.value(
-              value: AuthService().user,
-              child: StreamProvider<History>.value(
-                value: DatabaseService(userID: user?.userId).history,
-                child: ProfileScreen(),
-              ))
-        ],
-      )),
+                child: StreamProvider<List<Recom>>.value(
+                  value: DatabaseService().recInRes,
+                  child: StreamProvider<List<More>>.value(
+                      value: DatabaseService().moreInRes,
+                      child: StreamProvider<List<Promo>>.value(
+                        value: DatabaseService().promotionPic,
+                        child: new HomeColumn(),
+                      )),
+                ),
+              ),
+              StreamProvider<User>.value(
+                value: AuthService().user,
+                child: StreamProvider<Mytable>.value(
+                    value: DatabaseService(userID: user?.userId).mytable,
+                    child: new Table1()),
+              ),
+              StreamProvider<Mytable>.value(
+                value: DatabaseService(userID: user?.userId).mytable,
+                child: StreamProvider<User>.value(
+                    value: AuthService().user,
+                    child: new NotifColumn()),
+              ),
+              StreamProvider<User>.value(
+                  value: AuthService().user,
+                  child: StreamProvider<History>.value(
+                    value: DatabaseService(userID: user?.userId).history,
+                    child: ProfileScreen(),
+                  ))
+            ],
+          )),
       bottomNavigationBar: new Material(
         color: Colors.white,
         shadowColor: Colors.deepOrange,

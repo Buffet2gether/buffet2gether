@@ -426,32 +426,32 @@ class _HomeColumnState extends State<HomeColumn> {
 
     return Scaffold(
         appBar: new AppBar(
-                  leading: IconButton(
-                    icon: Icon(Icons.search),
-                    color: Colors.orange,
-                    onPressed: () {
-                      return showDialog(
-                        context: context,
-                        builder: (context) {
-                          return StreamProvider<User>.value(
-                            value: AuthService().user,
-                            child: new SearchPage(),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                  centerTitle: true,
-                  title: new Text(
-                    'Buffet2Gether',
-                    style: TextStyle(
-                        color: Colors.deepOrange,
-                        fontFamily: 'Opun',
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  backgroundColor: Color(0xfff5f5f5),
-                ),
+          leading: IconButton(
+            icon: Icon(Icons.search),
+            color: Colors.orange,
+            onPressed: () {
+              return showDialog(
+                context: context,
+                builder: (context) {
+                  return StreamProvider<User>.value(
+                    value: AuthService().user,
+                    child: new SearchPage(),
+                  );
+                },
+              );
+            },
+          ),
+          centerTitle: true,
+          title: new Text(
+            'Buffet2Gether',
+            style: TextStyle(
+                color: Colors.deepOrange,
+                fontFamily: 'Opun',
+                fontSize: 20,
+                fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: Color(0xfff5f5f5),
+        ),
         body: SafeArea(
             child: StreamBuilder<List<Promo>>(
                 stream: DatabaseService().promotionPic,
@@ -471,7 +471,7 @@ class _HomeColumnState extends State<HomeColumn> {
                                       itemCount: 1,
                                       itemBuilder: (BuildContext context, int index) {
                                         return homeColumn;
-                                        },
+                                      },
                                     )
                                 )
                             )
@@ -479,13 +479,13 @@ class _HomeColumnState extends State<HomeColumn> {
                     );
                   }
                   else
+                  {
+                    if (snapshot.hasError)
                     {
-                      if (snapshot.hasError)
-                      {
-                        print(snapshot.error.toString());
-                      }
-                      return Loading();
+                      print(snapshot.error.toString());
                     }
+                    return Loading();
+                  }
                 }
             )
         )

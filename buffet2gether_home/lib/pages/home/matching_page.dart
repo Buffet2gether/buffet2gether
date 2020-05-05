@@ -67,46 +67,58 @@ class _MatchingPageState extends State<MatchingPage>
     {
       ///แสดงหน้าน้องบุฟ 3 วิ
       return Scaffold(
-          appBar: new AppBar(
-            leading: Container(),
-            centerTitle: true,
-            title: new Text(
-              'Matching !',
-              style: TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.deepOrange,
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold),
-            ),
-            backgroundColor: Colors.white70,
+        appBar: new AppBar(
+          leading: Container(),
+          centerTitle: true,
+          title: new Text(
+            'Matching !',
+            style: TextStyle(
+                fontFamily: 'Opun',
+                color: Colors.deepOrange,
+                fontSize: 17,
+                fontWeight: FontWeight.bold),
           ),
-          body: SafeArea(
-            child: Center(
-                child: Stack(
-                  children: <Widget>[
-                    Positioned(
-                      left: 15,
-                      top: 10,
-                      child: Image.network(
-                        'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2FBuffet_transparent.png?alt=media&token=cb9c8611-b998-42aa-92f5-6972a91078cb',
-                        height: 300,
-                        width: 300,
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color> (Colors.amberAccent),
-                        backgroundColor: Colors.deepOrange,
-                        strokeWidth: 5,
-                      ),
-                      height: 320,
-                      width: 320,
-                    )
-                  ],
-                )
-            ),
-          )
+          backgroundColor: Colors.white70,
+        ),
+        body: SafeArea(
+            child:Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Stack(
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.all(10),
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color> (Colors.amberAccent),
+                              backgroundColor: Colors.deepOrange,
+                              strokeWidth: 5,
+                            ),
+                            height: 320,
+                            width: 320,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                margin: EdgeInsets.only(top:20,left:40),
+                                child: Image.network(
+                                  'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/notificationAndTable_test%2Fmatching-orage-gray.png?alt=media&token=74b284d1-809b-4824-a0d8-edd46045fe8a',
+                                  height: 270,
+                                  width: 270,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      )
+                    ]
+                ),
+              ],
+            )
+        ),
       );
     }
   }

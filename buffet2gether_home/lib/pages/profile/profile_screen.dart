@@ -831,15 +831,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   );
                 }
                 else
+                {
+                  if (snapshot.hasError)
                   {
-                    if (snapshot.hasError)
-                    {
-                      print(snapshot.error.toString());
-                    }
-                    return Loading();
+                    print(snapshot.error.toString());
                   }
+                  return Loading();
+                }
               }
-              )
+          )
       ),
     );
   }

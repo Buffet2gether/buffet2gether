@@ -433,7 +433,7 @@ class _InfoPageState extends State<InfoPage>
           {
             for (var item in userFindGroups)
             {
-              if (item.userID == user?.userId)
+              if (item.userID == user.userId)
               {
                 iAmUserFindGroup = true;
               }

@@ -14,6 +14,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
+  TabController controllerr;
   ScrollController scrollController;
 
   final AuthService _auth = AuthService();
@@ -24,6 +25,21 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   static String password = '';
   bool loading = false;
   String error = '';
+
+  @override
+  void initState() {
+    super.initState();
+    controllerr = new TabController(
+      length: 4,
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    controllerr.dispose();
+    super.dispose();
+  }
 
   bool isEmail(String em) {
     String p =
@@ -40,12 +56,14 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
     return loading ? Loading() : Scaffold(
       body: SafeArea(
-        child: ListView.builder(
+        child:
+        ListView.builder(
             controller: scrollController,
             itemCount: 1,
             itemBuilder: (BuildContext context, int index)
             {
-              return Container(
+              return
+                Container(
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
                   color: Color(0xfff5f5f5),
@@ -166,12 +184,12 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20.0),
+                        SizedBox(height: 250.0),
                         Text(
                           error,
                           style: TextStyle(color: Colors.red, fontSize: 14.0),
                         ),
-                        SizedBox(height: 90,),
+                        SizedBox(height: 10,),
                         FittedBox(
                           fit: BoxFit.fitWidth,
                           child: Row(

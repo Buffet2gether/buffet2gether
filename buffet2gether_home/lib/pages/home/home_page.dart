@@ -237,7 +237,8 @@ class _HomeColumnState extends State<HomeColumn> {
                             ]),
                         child: Stack(
                           children: <Widget>[
-                            ClipRect(
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
                               child: Image.network(
                                 rec.imageUrl,
                                 fit: BoxFit.cover,
@@ -316,11 +317,14 @@ class _HomeColumnState extends State<HomeColumn> {
                       ),
                       child: Row(
                         children: <Widget>[
-                          Image.network(
-                            m.imageUrl,
-                            fit: BoxFit.cover,
-                            width: 110,
-                            height: 80,
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              m.imageUrl,
+                              fit: BoxFit.cover,
+                              width: 110,
+                              height: 80,
+                            ),
                           ),
                           Container(
                             width: screenSize.width - 135,

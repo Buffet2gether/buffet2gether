@@ -15,7 +15,6 @@ import 'package:buffet2gether_home/models/rec_model.dart';
 import 'package:buffet2gether_home/models/more_model.dart';
 import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
-import 'package:buffet2gether_home/models/bar_model.dart';
 import 'package:buffet2gether_home/models/mytable_model.dart';
 import 'package:buffet2gether_home/models/history_model.dart';
 
@@ -110,11 +109,9 @@ class MyAppState extends State<MyCustomForm>
           ),
           StreamProvider<Mytable>.value(
             value: DatabaseService(userID: user?.userId).mytable,
-            child: StreamProvider<List<Bar>>.value(
-              value: DatabaseService().notifications,
-              child: StreamProvider<User>.value(
-                  value: AuthService().user, child: new NotifColumn()),
-            ),
+            child: StreamProvider<User>.value(
+                value: AuthService().user,
+                child: new NotifColumn()),
           ),
           StreamProvider<User>.value(
               value: AuthService().user,

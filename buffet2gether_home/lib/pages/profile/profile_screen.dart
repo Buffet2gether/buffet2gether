@@ -49,11 +49,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   UserData userData = snapshot.data;
-                  print(userData.userId);
+                  //print(userData.userId);
                   return ListView(
                     physics: BouncingScrollPhysics(),
                     padding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
+                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
                     children: <Widget>[
                       Column(
                         children: <Widget>[
@@ -78,16 +78,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ),
                                       ],
                                       borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
+                                      BorderRadius.all(Radius.circular(10)),
                                       //color: Colors.grey[300],
                                     ),
                                     child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                        MainAxisAlignment.center,
                                         children: [
                                           InkWell(
                                             onTap: () {
-                                              print('Tag Pressed');
+                                              //print('Tag Pressed');
                                               setState(() {
                                                 isSelecting = 0;
                                               });
@@ -96,15 +96,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 width: 169.5,
                                                 height: 110,
                                                 padding:
-                                                    EdgeInsets.only(top: 70),
+                                                EdgeInsets.only(top: 70),
                                                 decoration: BoxDecoration(
                                                   color: Colors.white,
                                                   borderRadius:
-                                                      BorderRadius.only(
+                                                  BorderRadius.only(
                                                     topLeft:
-                                                        Radius.circular(10),
+                                                    Radius.circular(10),
                                                     bottomLeft:
-                                                        Radius.circular(10),
+                                                    Radius.circular(10),
                                                   ),
                                                 ),
                                                 child: Text(
@@ -115,14 +115,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       fontSize: 15,
                                                       letterSpacing: 2,
                                                       fontWeight:
-                                                          FontWeight.w600),
+                                                      FontWeight.w600),
                                                   textAlign: TextAlign.center,
                                                 )),
                                           ),
                                           SizedBox(width: 1),
                                           InkWell(
                                             onTap: () {
-                                              print('History Pressed');
+                                              //print('History Pressed');
                                               setState(() {
                                                 isSelecting = 1;
                                               });
@@ -131,15 +131,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 width: 169.5,
                                                 height: 110,
                                                 padding:
-                                                    EdgeInsets.only(top: 70),
+                                                EdgeInsets.only(top: 70),
                                                 decoration: BoxDecoration(
                                                   color: Colors.white,
                                                   borderRadius:
-                                                      BorderRadius.only(
+                                                  BorderRadius.only(
                                                     topRight:
-                                                        Radius.circular(10),
+                                                    Radius.circular(10),
                                                     bottomRight:
-                                                        Radius.circular(10),
+                                                    Radius.circular(10),
                                                   ),
                                                 ),
                                                 child: Text(
@@ -150,7 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       fontSize: 15,
                                                       letterSpacing: 2,
                                                       fontWeight:
-                                                          FontWeight.w600),
+                                                      FontWeight.w600),
                                                   textAlign: TextAlign.center,
                                                 )),
                                           ),
@@ -197,36 +197,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           Expanded(
                                             child: Padding(
                                               padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 10),
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 10),
                                               child: Column(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                                MainAxisAlignment.center,
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                                 children: <Widget>[
                                                   Text(
                                                     userData.name,
                                                     overflow:
-                                                        TextOverflow.ellipsis,
+                                                    TextOverflow.ellipsis,
                                                     style: TextStyle(
                                                         fontFamily: 'Opun',
                                                         color: Colors.white,
                                                         fontSize: 20.0,
                                                         fontWeight:
-                                                            FontWeight.bold,
+                                                        FontWeight.bold,
                                                         letterSpacing: 1),
                                                   ),
                                                   Row(
                                                     children: <Widget>[
                                                       Text(
                                                         (DateTime.now()
-                                                                        .difference(
-                                                                            userData.dateofBirth)
-                                                                        .inDays /
-                                                                    365)
-                                                                .floor()
-                                                                .toString() +
+                                                            .difference(
+                                                            userData.dateofBirth)
+                                                            .inDays /
+                                                            365)
+                                                            .floor()
+                                                            .toString() +
                                                             ' | ',
                                                         style: TextStyle(
                                                           fontFamily: 'Opun',
@@ -239,11 +239,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       ),
                                                       Icon(
                                                         userData.gender ==
-                                                                'Male'
+                                                            'Male'
                                                             ? FontAwesomeIcons
-                                                                .mars
+                                                            .mars
                                                             : FontAwesomeIcons
-                                                                .venus,
+                                                            .venus,
                                                         color: Colors.white,
                                                         size: 20,
                                                       ),
@@ -261,18 +261,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 color: Colors.white,
                                               ),
                                               onPressed: () {
-                                                print('Settings pressed');
+                                                //print('Settings pressed');
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (_) =>
-                                                            StreamProvider<
-                                                                    User>.value(
-                                                                value:
-                                                                    AuthService()
-                                                                        .user,
-                                                                child:
-                                                                    ProfileSettingScreen())));
+                                                        StreamProvider<
+                                                            User>.value(
+                                                            value:
+                                                            AuthService()
+                                                                .user,
+                                                            child:
+                                                            ProfileSettingScreen())));
                                               }),
                                         ],
                                       ),
@@ -328,7 +328,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         //height: 180,
                                         child: ListView.builder(
                                           physics:
-                                              NeverScrollableScrollPhysics(),
+                                          NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
                                           itemCount: 7,
                                           itemBuilder: (BuildContext context,
@@ -348,7 +348,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ],
                                                   borderRadius:
-                                                      BorderRadius.circular(10),
+                                                  BorderRadius.circular(10),
                                                   color: Colors.white,
                                                 ),
                                                 child: ListTile(
@@ -387,7 +387,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ],
                                                   borderRadius:
-                                                      BorderRadius.circular(10),
+                                                  BorderRadius.circular(10),
                                                   color: Colors.white,
                                                 ),
                                                 child: ListTile(
@@ -426,7 +426,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ],
                                                   borderRadius:
-                                                      BorderRadius.circular(10),
+                                                  BorderRadius.circular(10),
                                                   color: Colors.white,
                                                 ),
                                                 child: ListTile(
@@ -464,7 +464,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ],
                                                   borderRadius:
-                                                      BorderRadius.circular(10),
+                                                  BorderRadius.circular(10),
                                                   color: Colors.white,
                                                 ),
                                                 child: ListTile(
@@ -504,7 +504,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ],
                                                   borderRadius:
-                                                      BorderRadius.circular(10),
+                                                  BorderRadius.circular(10),
                                                   color: Colors.white,
                                                 ),
                                                 child: ListTile(
@@ -533,7 +533,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     vertical: 1),
                                                 decoration: BoxDecoration(
                                                   borderRadius:
-                                                      BorderRadius.circular(10),
+                                                  BorderRadius.circular(10),
                                                   color: Colors.white,
                                                   boxShadow: [
                                                     BoxShadow(
@@ -579,7 +579,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ),
                                                   ],
                                                   borderRadius:
-                                                      BorderRadius.circular(10),
+                                                  BorderRadius.circular(10),
                                                   color: Colors.white,
                                                 ),
                                                 child: ListTile(
@@ -617,7 +617,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 builder: (context, snapshot) {
                                   //print(snapshot.data);
                                   if (snapshot.hasData) {
-                                    print('kao if jaaaaa');
+                                    //print('kao if jaaaaa');
                                     History userHistory = snapshot.data;
                                     if (userHistory.resID == 'restaurant ID') {
                                       return Text('No history yet',
@@ -626,15 +626,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               color: Colors.black45));
                                     } else {
                                       return Container(
-                                          /////////////////////////////////////////History
+                                        /////////////////////////////////////////History
                                           width:
-                                              MediaQuery.of(context).size.width,
+                                          MediaQuery.of(context).size.width,
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 15),
                                           //color: Colors.blue,
                                           child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Text(
                                                   'History : ',
@@ -652,51 +652,51 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                         MaterialPageRoute(
                                                             builder:
                                                                 (_) =>
-                                                                    HistoryPage(
-                                                                      resID: userHistory
-                                                                          .resID,
-                                                                      image: userHistory
-                                                                          .image,
-                                                                      name1: userHistory
-                                                                          .name1,
-                                                                      name2: userHistory
-                                                                          .name2,
-                                                                      location:
-                                                                          userHistory
-                                                                              .location,
-                                                                      time: userHistory
-                                                                          .time,
-                                                                      ageStart:
-                                                                          userHistory
-                                                                              .ageStart,
-                                                                      ageEnd: userHistory
-                                                                          .ageEnd,
-                                                                      num: userHistory
-                                                                          .num,
-                                                                      dueTime:
-                                                                          userHistory
-                                                                              .dueTime,
-                                                                      gender: userHistory
-                                                                          .gender,
-                                                                      fashion:
-                                                                          userHistory
-                                                                              .fashion,
-                                                                      sport: userHistory
-                                                                          .sport,
-                                                                      technology:
-                                                                          userHistory
-                                                                              .technology,
-                                                                      politics:
-                                                                          userHistory
-                                                                              .politics,
-                                                                      entertainment:
-                                                                          userHistory
-                                                                              .entertainment,
-                                                                      book: userHistory
-                                                                          .book,
-                                                                      pet: userHistory
-                                                                          .pet,
-                                                                    )));
+                                                                HistoryPage(
+                                                                  resID: userHistory
+                                                                      .resID,
+                                                                  image: userHistory
+                                                                      .image,
+                                                                  name1: userHistory
+                                                                      .name1,
+                                                                  name2: userHistory
+                                                                      .name2,
+                                                                  location:
+                                                                  userHistory
+                                                                      .location,
+                                                                  time: userHistory
+                                                                      .time,
+                                                                  ageStart:
+                                                                  userHistory
+                                                                      .ageStart,
+                                                                  ageEnd: userHistory
+                                                                      .ageEnd,
+                                                                  num: userHistory
+                                                                      .num,
+                                                                  dueTime:
+                                                                  userHistory
+                                                                      .dueTime,
+                                                                  gender: userHistory
+                                                                      .gender,
+                                                                  fashion:
+                                                                  userHistory
+                                                                      .fashion,
+                                                                  sport: userHistory
+                                                                      .sport,
+                                                                  technology:
+                                                                  userHistory
+                                                                      .technology,
+                                                                  politics:
+                                                                  userHistory
+                                                                      .politics,
+                                                                  entertainment:
+                                                                  userHistory
+                                                                      .entertainment,
+                                                                  book: userHistory
+                                                                      .book,
+                                                                  pet: userHistory
+                                                                      .pet,
+                                                                )));
                                                   },
                                                   child: Container(
                                                     height: 150,
@@ -704,8 +704,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     decoration: BoxDecoration(
                                                       color: Colors.white,
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
+                                                      BorderRadius.circular(
+                                                          10),
                                                       boxShadow: [
                                                         BoxShadow(
                                                           color: Colors.black26,
@@ -716,16 +716,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       ],
                                                     ),
                                                     width:
-                                                        MediaQuery.of(context)
-                                                            .size
-                                                            .width,
+                                                    MediaQuery.of(context)
+                                                        .size
+                                                        .width,
                                                     child: Row(
                                                       children: <Widget>[
                                                         Container(
                                                           padding: EdgeInsets
                                                               .symmetric(
-                                                                  horizontal:
-                                                                      10),
+                                                              horizontal:
+                                                              10),
                                                           child: Image.network(
                                                             userHistory.image,
                                                             fit: BoxFit.cover,
@@ -737,11 +737,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                         Expanded(
                                                           child: Column(
                                                             mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
+                                                            MainAxisAlignment
+                                                                .center,
                                                             crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
+                                                            CrossAxisAlignment
+                                                                .start,
                                                             children: <Widget>[
                                                               Text(
                                                                 userHistory
@@ -761,21 +761,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                     FontAwesomeIcons
                                                                         .mapMarkerAlt,
                                                                     color: Theme.of(
-                                                                            context)
+                                                                        context)
                                                                         .primaryColor,
                                                                   ),
                                                                   SizedBox(
                                                                       width:
-                                                                          10),
+                                                                      10),
                                                                   Expanded(
                                                                     child: Text(
                                                                       userHistory
                                                                           .location,
                                                                       overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
+                                                                      TextOverflow
+                                                                          .ellipsis,
                                                                       maxLines:
-                                                                          2,
+                                                                      2,
                                                                     ),
                                                                   ),
                                                                 ],
@@ -789,22 +789,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                     FontAwesomeIcons
                                                                         .user,
                                                                     color: Theme.of(
-                                                                            context)
+                                                                        context)
                                                                         .primaryColor,
                                                                   ),
                                                                   SizedBox(
                                                                       width:
-                                                                          10),
+                                                                      10),
                                                                   Expanded(
                                                                     child: Text(
                                                                       userHistory.num
-                                                                              .round()
+                                                                          .round()
                                                                           .toString(),
                                                                       overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
+                                                                      TextOverflow
+                                                                          .ellipsis,
                                                                       maxLines:
-                                                                          2,
+                                                                      2,
                                                                     ),
                                                                   ),
                                                                 ],
@@ -819,7 +819,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               ]));
                                     }
                                   } else {
-                                    print('kao else jaaaaaa');
+                                    //print('kao else jaaaaaa');
                                     if (snapshot.hasError) {
                                       print(snapshot.error.toString());
                                     }
@@ -829,13 +829,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ]),
                     ],
                   );
-                } else {
-                  if (snapshot.hasError) {
-                    print(snapshot.error.toString());
-                  }
-                  return Loading();
                 }
-              })),
+                else
+                  {
+                    if (snapshot.hasError)
+                    {
+                      print(snapshot.error.toString());
+                    }
+                    return Loading();
+                  }
+              }
+              )
+      ),
     );
   }
 }

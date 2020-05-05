@@ -36,13 +36,13 @@ class _Group1State extends State<Group1>
   @override
   Widget build(BuildContext context)
   {
-    
-    
+
+
     final listMember = Provider.of<List<MemberBarListInGroup>>(context);
     final infoFromGroup = Provider.of<InfoInGroup>(context);
 
     final screenSize = MediaQuery.of(context).size;
-   
+
 
     ///คุณสมบัติต่างๆ
     // แปลง time stamp ให้เป็น date Time
@@ -135,8 +135,8 @@ class _Group1State extends State<Group1>
                     infoFromGroup.location,
                     style: TextStyle(
                       fontFamily: 'Opun',
-                     color: Colors.grey,
-                     fontSize: 13,
+                      color: Colors.grey,
+                      fontSize: 13,
                     ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,

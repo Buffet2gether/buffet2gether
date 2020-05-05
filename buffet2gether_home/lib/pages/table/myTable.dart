@@ -9,6 +9,7 @@ import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/models/mytable_model.dart';
 import 'package:buffet2gether_home/models/userMaster_model.dart';
 import 'package:buffet2gether_home/models/table_model.dart';
+import 'package:buffet2gether_home/shared/loading.dart';
 
 ///ส่วนที่ใช้เลือกเพศ จะมี Name กับ Icon
 class GenderItem {
@@ -57,7 +58,7 @@ class _MyTable1State extends State<MyTable1>
       }else{
         return 0;
       }
-      
+
     }
     DateTime newDueTime = new DateTime.fromMillisecondsSinceEpoch(getDueTime()*1000);
 
@@ -68,58 +69,59 @@ class _MyTable1State extends State<MyTable1>
         }
       }
     }
-    
-
     bool iAmMaster = false;
-    if(user?.userId == userMaster?.userId){
+    if(user?.userId == userMaster?.userId)
+    {
       iAmMaster = true;
     }
 
     final buttonFinish = Container(
       margin: EdgeInsets.all(10),
       width: 410,
-      child: Row(
+      child:
+
+      Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           (iAmMaster)?InkWell(
             onTap: (){
               for (var item in listMember) /////////////////////////// ลบข้อมูลคนอื่นออกจากกลุ่ม
-                    {
-                      if(item?.userID != user?.userId)
-                      {
-                        DatabaseService().updateFinish(
-                            mytable.resID,
-                            infoFromTable.name1,
-                            infoFromTable.name2,
-                            infoFromTable.imageUrl,
-                            infoFromTable.location,
-                            infoFromTable.time,
-                            infoFromTable.ageStart,
-                            infoFromTable.ageEnd,
-                            infoFromTable?.people,
-                            newDueTime,
-                            infoFromTable.gender,
-                            infoFromTable.fashion,
-                            infoFromTable.sport,
-                            infoFromTable.technology,
-                            infoFromTable.politics,
-                            infoFromTable.entertainment,
-                            infoFromTable.book,
-                            infoFromTable.pet,
-                            infoFromTable.number,
-                            item?.userID);
-                        DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,item?.userID,null);
-                        DatabaseService().updateTableData(null, null,item?.userID);
-                      }
-                    }
-                     /////////////////////////// ลบข้อมูลตัวเองออกจากกลุ่ม
-                    DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user?.userId,null);
-                    DatabaseService().updateTableData(null, null,user?.userId);
+                  {
+                if(item?.userID != user?.userId)
+                {
+                  DatabaseService().updateFinish(
+                      mytable.resID,
+                      infoFromTable.name1,
+                      infoFromTable.name2,
+                      infoFromTable.imageUrl,
+                      infoFromTable.location,
+                      infoFromTable.time,
+                      infoFromTable.ageStart,
+                      infoFromTable.ageEnd,
+                      infoFromTable?.people,
+                      newDueTime,
+                      infoFromTable.gender,
+                      infoFromTable.fashion,
+                      infoFromTable.sport,
+                      infoFromTable.technology,
+                      infoFromTable.politics,
+                      infoFromTable.entertainment,
+                      infoFromTable.book,
+                      infoFromTable.pet,
+                      infoFromTable.number,
+                      item?.userID);
+                  DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,item?.userID,null);
+                  DatabaseService().updateTableData(null, null,item?.userID);
+                }
+              }
+              /////////////////////////// ลบข้อมูลตัวเองออกจากกลุ่ม
+              DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user?.userId,'info');
+              DatabaseService().updateTableData(null, null,user?.userId);
             },
             child: Image.network(
-                  'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/notificationAndTable_test%2Ffinish.png?alt=media&token=8eb679d9-be8a-4a77-8fc5-4da352700d7e',
-                  width: 100,
-                  height:100),
+                'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/notificationAndTable_test%2Ffinish.png?alt=media&token=8eb679d9-be8a-4a77-8fc5-4da352700d7e',
+                width: 100,
+                height:100),
           ):
           Container(
             width: 100,
@@ -127,9 +129,9 @@ class _MyTable1State extends State<MyTable1>
             child: FittedBox(
               child: FloatingActionButton(
                 onPressed:(){
-                    /////////////////////////// ลบข้อมูลตัวเองออกจากกลุ่มอย่างเดียว
-                    DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user?.userId,null);
-                    DatabaseService().updateTableData(null, null,user?.userId);
+                  /////////////////////////// ลบข้อมูลตัวเองออกจากกลุ่มอย่างเดียว
+                  DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user?.userId,null);
+                  DatabaseService().updateTableData(null, null,user?.userId);
                 } ,
                 child:Icon(Icons.close),
                 backgroundColor:Colors.red,
@@ -140,6 +142,8 @@ class _MyTable1State extends State<MyTable1>
 
         ],
       ),
+
+
     );
 
     final nongBuffet = Container(
@@ -156,39 +160,61 @@ class _MyTable1State extends State<MyTable1>
       ),
     );
 
-    List<bool> interestTable= [infoFromTable?.fashion,infoFromTable?.sport, infoFromTable?.technology,
-      infoFromTable?.politics,infoFromTable?.entertainment, infoFromTable?.book, infoFromTable?.pet];
+    List<bool> interestTable = [
+      infoFromTable?.fashion,
+      infoFromTable?.sport,
+      infoFromTable?.technology,
+      infoFromTable?.politics,
+      infoFromTable?.entertainment,
+      infoFromTable?.book,
+      infoFromTable?.pet
+    ];
 
     /// แสดง interest ตามที่เลือกจากหน้า edit interesting table
     final interestList = Container(
-      margin: EdgeInsets.symmetric(horizontal: 40),
+      margin: EdgeInsets.symmetric(horizontal: 20),
       height: 50,
-      child: ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          /// myTable มาจาก table model จะมี list bool interest อยู่
-          itemCount: interestTable?.length,
-          itemBuilder: (BuildContext context, int index)
+      child: StreamBuilder<InfoInTable>(
+          stream: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
+          builder: (context, snapshot)
           {
-            if (interestTable[index]) ///ถ้าถูกเลือกขึ้นสีส้ม
+            if (snapshot.hasData)
             {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.5),
-                child: Icon(
-                    myTable.interestingIconUrl[index],
-                    color: Colors.deepOrange
-                ),
-              );
+              return ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                /// myTable มาจาก table model จะมี list bool interest อยู่
+                itemCount: interestTable?.length,
+                itemBuilder: (BuildContext context, int index)
+                {
+                  if (interestTable[index]) ///ถ้าถูกเลือกขึ้นสีส้ม
+                  {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.5),
+                      child: Icon(
+                          myTable.interestingIconUrl[index],
+                          color: Colors.deepOrange
+                      ),
+                    );
+                  }
+                  return Padding( ///ไม่เลือกขึ้นเเทา
+                    padding: const EdgeInsets.symmetric(horizontal: 8.5),
+                    child: Icon(
+                      myTable.interestingIconUrl[index],
+                      color: Colors.grey,
+                    ),
+                  );
+                });
             }
-            return Padding( ///ไม่เลือกขึ้นเเทา
-              padding: const EdgeInsets.symmetric(horizontal: 8.5),
-              child: Icon(
-                myTable.interestingIconUrl[index],
-                color: Colors.grey,
-              ),
-            );
-          }
-      ),
+            else
+              {
+                if (snapshot.hasError)
+                {
+                  print(snapshot.error.toString());
+                }
+                return Loading();
+              }
+          })
     );
 
     final info = Container(
@@ -226,7 +252,7 @@ class _MyTable1State extends State<MyTable1>
               ),
             ),
             Image.network(
-                infoFromTable.imageUrl,
+                infoFromTable?.imageUrl ?? 'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/profile_pictures%2Fdefault.png?alt=media&token=c91f2a65-0928-4eb1-a284-c07c0a8c1517',
                 fit: BoxFit.contain,
                 width: 250,
                 height: 120
@@ -237,11 +263,11 @@ class _MyTable1State extends State<MyTable1>
                 Icon(Icons.location_on,size: 25,color: Colors.amber,),
                 Expanded(
                   child: Text(
-                    infoFromTable.location,
+                    infoFromTable?.location ?? ' ',
                     style: TextStyle(
                       fontFamily: 'Opun',
-                     color: Colors.grey,
-                     fontSize: 13,
+                      color: Colors.grey,
+                      fontSize: 13,
                     ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
@@ -254,7 +280,7 @@ class _MyTable1State extends State<MyTable1>
               children: <Widget>[
                 Icon(Icons.access_time,size: 25,color: Colors.amber),
                 Text(
-                  ' '+infoFromTable.time,
+                  infoFromTable?.time ?? ' ',
                   style: TextStyle(
                     fontFamily: 'Opun',
                     color: Colors.grey,
@@ -266,19 +292,6 @@ class _MyTable1State extends State<MyTable1>
           ],
         )
     );
-
-
-
-    // แปลง string gender ให้เป็น icon เพศทีเลือกไว้
-    int getGender(){
-      int index = 0;
-      for (var item in genderList) {
-        if (infoFromTable.gender == item.genderName){
-          return index;
-        }
-        index += 1;
-      }
-    }
 
     final properties = Container(
         height: 80,
@@ -294,84 +307,112 @@ class _MyTable1State extends State<MyTable1>
               )
             ]
         ),
-        child: FittedBox(
-          fit: BoxFit.fitWidth,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              ///age
-              Text(
-                ///ค่าอายุเริ่ม - ค่าอายุจบ
-                '${infoFromTable.ageStart.toString()} - ${infoFromTable.ageEnd.toString()}',
-                style: TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.deepOrange,
-                  fontSize: 15,
-                ),
-              ),
-              Text(
-                '|',
-                style:  TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.amberAccent,
-                  fontSize: 25,
-                ),
-              ),
-              ///maxNum
-              Container(
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      /// 1/จำนวนคนที่เลือก
-                      (infoFromTable?.people != null)?'${listMember?.length.toString()} / ${infoFromTable?.people.round().toString()}':' ',
-                      style: TextStyle(
-                        fontFamily: 'Opun',
-                        color: Colors.deepOrange,
-                        fontSize: 15,
-                      ),
-                    ),
-                    Icon(
-                      Icons.people,
+        child: StreamBuilder<InfoInTable>(
+            stream: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
+            builder: (context, snapshot)
+            {
+              if (snapshot.hasData)
+              {
+                int getGender()
+                {
+                  int index = 0;
+                  for (var item in genderList)
+                  {
+                    if (infoFromTable.gender  == item.genderName)
+                    {
+                      return index;
+                    }
+                    index += 1;
+                  }
+                }
+                return FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      ///age
+                      Text(
+                    ///ค่าอายุเริ่ม - ค่าอายุจบ
+                    '${infoFromTable?.ageStart.toString()} - ${infoFromTable?.ageEnd.toString()}',
+                    style: TextStyle(
+                      fontFamily: 'Opun',
                       color: Colors.deepOrange,
-                      size: 23,
-                    )
-                  ],
-                ),
-              ),
-              Text(
-                '|',
-                style:  TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.amberAccent,
-                  fontSize: 25,
-                ),
-              ),
-              ///Date and time
-              Text(
-                DateFormat('dd-MM-yyyy  h:mm a').format(newDueTime),
-                style: TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.deepOrange,
-                  fontSize: 15,
-                ),
-              ),
-              Text(
-                '|',
-                style:  TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.amberAccent,
-                  fontSize: 25,
-                ),
-              ),
-              ///gender
-              Icon(
-                genderList[getGender()].genderIcon,
-                size: 23,
-                color: Colors.deepOrange,),
-
-            ],
-          ),
-        )
+                      fontSize: 15,
+                    ),
+                  ),
+                      Text(
+                    '|',
+                    style:  TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.amberAccent,
+                      fontSize: 25,
+                    ),
+                  ),
+                      ///maxNum
+                      Container(
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          /// 1/จำนวนคนที่เลือก
+                          (infoFromTable?.people != null)?'${listMember?.length.toString()} / ${infoFromTable?.people.round().toString()}':' ',
+                          style: TextStyle(
+                            fontFamily: 'Opun',
+                            color: Colors.deepOrange,
+                            fontSize: 15,
+                          ),
+                        ),
+                        Icon(
+                          Icons.people,
+                          color: Colors.deepOrange,
+                          size: 23,
+                        )
+                      ],
+                    ),
+                  ),
+                      Text(
+                    '|',
+                    style:  TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.amberAccent,
+                      fontSize: 25,
+                    ),
+                  ),
+                      ///Date and time
+                      Text(
+                    DateFormat('dd-MM-yyyy  h:mm a').format(newDueTime),
+                    style: TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.deepOrange,
+                      fontSize: 15,
+                    ),
+                  ),
+                      Text(
+                    '|',
+                    style:  TextStyle(
+                      fontFamily: 'Opun',
+                      color: Colors.amberAccent,
+                      fontSize: 25,
+                    ),
+                  ),
+                      ///gender
+                      Icon(
+                        genderList[getGender()].genderIcon,
+                        size: 23,
+                        color: Colors.deepOrange,),
+                    ],
+                  ),
+                );
+              }
+              else
+                {
+                  if (snapshot.hasError)
+                  {
+                    print(snapshot.error.toString());
+                  }
+                  return Loading();
+                }
+            }
+            )
     );
 
     final memberBar = ListView.builder(
@@ -520,7 +561,23 @@ class _MyTable1State extends State<MyTable1>
         ]
     );
 
-
-    return stackMatchCol;
+    return StreamBuilder<InfoInTable>(
+        stream: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
+        builder: (context, snapshot)
+        {
+          if (snapshot.hasData)
+          {
+            return stackMatchCol;
+          }
+          else
+            {
+              if (snapshot.hasError)
+              {
+                print(snapshot.error.toString());
+              }
+              return Loading();
+            }
+        }
+    );
   }
 }

@@ -21,7 +21,7 @@ class HomeColumn extends StatefulWidget {
 }
 
 class _HomeColumnState extends State<HomeColumn> {
-  
+
   SwiperController swiperController = SwiperController();
   ScrollController scrollController = ScrollController(initialScrollOffset: 0);
 
@@ -87,7 +87,7 @@ class _HomeColumnState extends State<HomeColumn> {
                     builder: (context) {
                       return StreamProvider<List<UserFindGroup>>.value(
                         value:DatabaseService(resID: proPic.resID).userFindGroup,
-                          child: StreamProvider<Mytable>.value(
+                        child: StreamProvider<Mytable>.value(
                           value: DatabaseService(userID: user.userId).mytable,
                           child: StreamProvider<List<UserMaster>>.value(
                             value:DatabaseService(resID: proPic.resID).userMaster,
@@ -109,14 +109,18 @@ class _HomeColumnState extends State<HomeColumn> {
                     },
                   );
                 },
-                child: Image.network(proPic.proPic) ?? Loading());
+                child: Image.network(proPic.proPic)
+            );
           },
         ),
         constraints: new BoxConstraints.loose(new Size(350, 220.0)));
 
     final promotion = Stack(
       alignment: Alignment.topCenter,
-      children: <Widget>[picPro, textPro],
+      children: <Widget>[
+        picPro,
+        textPro
+      ],
     );
 
     final textRecom = Row(
@@ -145,7 +149,7 @@ class _HomeColumnState extends State<HomeColumn> {
         color: Color(0xFFF5F5F5),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: recs?.length ?? 0,
+          itemCount: recs?.length,
           itemBuilder: (BuildContext context, int index) {
             final rec = recs[index];
             return InkWell(
@@ -271,7 +275,7 @@ class _HomeColumnState extends State<HomeColumn> {
         width: screenSize.width,
         color: Color(0xFFF5F5F5),
         child: ListView.builder(
-            itemCount: more?.length ?? 0,
+            itemCount: more?.length,
             itemBuilder: (BuildContext context, int index) {
               final m = more[index];
               return InkWell(
@@ -420,12 +424,8 @@ class _HomeColumnState extends State<HomeColumn> {
       ),
     );
 
-    return StreamProvider<List<Recom>>.value(
-        value: DatabaseService().recInRes,
-        child: StreamProvider<List<More>>.value(
-            value: DatabaseService().moreInRes,
-            child: Scaffold(
-                appBar: new AppBar(
+    return Scaffold(
+        appBar: new AppBar(
                   leading: IconButton(
                     icon: Icon(Icons.search),
                     color: Colors.orange,
@@ -452,13 +452,43 @@ class _HomeColumnState extends State<HomeColumn> {
                   ),
                   backgroundColor: Color(0xfff5f5f5),
                 ),
-                body: SafeArea(
-                    child: ListView.builder(
-                  controller: scrollController,
-                  itemCount: 1,
-                  itemBuilder: (BuildContext context, int index) {
-                    return homeColumn;
-                  },
-                )))));
+        body: SafeArea(
+            child: StreamBuilder<List<Promo>>(
+                stream: DatabaseService().promotionPic,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData)
+                  {
+                    return StreamProvider<User>.value(
+                        value: AuthService().user,
+                        child: StreamProvider<List<Recom>>.value(
+                            value: DatabaseService().recInRes,
+                            child: StreamProvider<List<More>>.value(
+                                value: DatabaseService().moreInRes,
+                                child: StreamProvider<List<Promo>>.value(
+                                    value: DatabaseService().promotionPic,
+                                    child: ListView.builder(
+                                      controller: scrollController,
+                                      itemCount: 1,
+                                      itemBuilder: (BuildContext context, int index) {
+                                        return homeColumn;
+                                        },
+                                    )
+                                )
+                            )
+                        )
+                    );
+                  }
+                  else
+                    {
+                      if (snapshot.hasError)
+                      {
+                        print(snapshot.error.toString());
+                      }
+                      return Loading();
+                    }
+                }
+            )
+        )
+    );
   }
 }

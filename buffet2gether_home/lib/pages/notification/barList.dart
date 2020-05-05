@@ -32,6 +32,9 @@ class _BarListState extends State<BarList> {
           //print('now');
           final bar = bars[index];
 
+        return StreamBuilder<List<UserFindGroup>>(
+          stream: DatabaseService(resID: mytable.resID).userFindGroup,
+          builder: (context, snapshot4) {
           return StreamBuilder<UserMaster>(
               stream: DatabaseService(resID: bar.getResID(), numberTable: bar.getNumber()).userMasterMax,
               builder: (context, snapshot1) {
@@ -52,11 +55,9 @@ class _BarListState extends State<BarList> {
                                   //if (snapshot.hasData) {
                                   UserData userData = snapshot.data;
                                   TableInfo tableInfo = snapshot3.data;
-
-                                  StreamBuilder<InfoInTable>(
-                                      stream: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
-                                      builder: (context, snapshot) {
-                                        if (snapshot.hasData) {
+                                  
+                                         print('เข้า**********mat***************');
+                                        if (snapshot4.hasData&&snapshot3.hasData) {
                                           for (var item in userFindGroups) {
                                             //matching
                                             if (((item.getBook() &&
@@ -130,7 +131,7 @@ class _BarListState extends State<BarList> {
                                           }
                                           return Loading();
                                         }
-                                      });
+                                     
 
 
 
@@ -373,6 +374,7 @@ class _BarListState extends State<BarList> {
                 //  return Container();
                 //}
               });
+           });
         });
   }
 }

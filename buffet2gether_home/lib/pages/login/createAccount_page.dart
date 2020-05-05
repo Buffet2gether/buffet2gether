@@ -39,7 +39,6 @@ class _SignUpState extends State<SignUp>
   //text field
   static String email = '';
   static String password = '';
-  bool pass = false;
   String error = '';
 
   bool isEmail(String em) {
@@ -149,10 +148,16 @@ class _SignUpState extends State<SignUp>
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                 new BorderRadius.all(Radius.circular(10))),
-                            onPressed: () {
+                            onPressed: () async {
                               if (_formkey.currentState.validate()) {
-                                _auth.registerWithEmailAndPassword(
+                            
+                              dynamic result = await _auth.registerWithEmailAndPassword(
                                     email, password);
+                                print(result);
+                                if(result == null){
+                                
+                                  setState(() => error = "This email is already use");
+                                }else{
                                 return showDialog(
                                   context: context,
                                   builder: (context) {
@@ -161,6 +166,8 @@ class _SignUpState extends State<SignUp>
                                         child: CreateProfile());
                                   },
                                 );
+                                }
+                                
                               }
                             },
                             child: new Container(
@@ -177,7 +184,13 @@ class _SignUpState extends State<SignUp>
                                 ),
                               ),
                             ),
+                            
                           ),
+                        SizedBox(height: 20.0),
+                        Text(
+                          error,
+                          style: TextStyle(color: Colors.red, fontSize: 14.0),
+                        ),
                         ],
                       ),
                     ),
@@ -206,6 +219,7 @@ class _CreateProfileState extends State<CreateProfile>
   final _formkey = GlobalKey<FormState>();
 
   //Text Field
+  static bool regSuccess = false; 
   static String gender = '';
   static String username = '';
   _SignUpState signup = new _SignUpState();
@@ -218,7 +232,8 @@ class _CreateProfileState extends State<CreateProfile>
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
+    final user = Provider.of<User>(context);  
+  
     return loading
         ? Loading()
         : Scaffold(

@@ -275,13 +275,10 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                                           showTitleActions: true,
                                           minTime: DateTime(1950),
                                           maxTime: DateTime.now(),
-                                          onChanged: (date) {
-                                            print('change $date');
-                                          },
                                           onConfirm: (date) {
-                                            print('confirm $date');
+                                            //print('confirm $date');
                                             newDateOfBirth = date;
-                                            print(date.toString());
+                                            //print(date.toString());
                                           },
                                           currentTime: userData.dateofBirth,
                                           locale: LocaleType.th,
@@ -325,10 +322,10 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                                       ),
                                     ),
                                     onPressed: () async {
-                                      print(newName);
-                                      print(newGender);
-                                      print(newDateOfBirth);
-                                      print(newBio);
+                                      //print(newName);
+                                      //print(newGender);
+                                      //print(newDateOfBirth);
+                                      //print(newBio);
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
                                         await DatabaseService(uid: user.userId)

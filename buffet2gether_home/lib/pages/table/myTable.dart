@@ -170,14 +170,6 @@ class _MyTable1State extends State<MyTable1>
       infoFromTable?.pet
     ];
 
-    print('fashion = '+interestTable[0].toString());
-    print('sport = '+interestTable[1].toString());
-    print('tech = '+interestTable[0].toString());
-    print('poli = '+interestTable[0].toString());
-    print('ent = '+interestTable[0].toString());
-    print('book = '+interestTable[0].toString());
-    print('pet = '+interestTable[0].toString());
-
     /// แสดง interest ตามที่เลือกจากหน้า edit interesting table
     final interestList = Container(
       margin: EdgeInsets.symmetric(horizontal: 20),

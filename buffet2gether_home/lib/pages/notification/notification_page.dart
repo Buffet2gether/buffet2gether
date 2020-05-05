@@ -25,7 +25,7 @@ class _NotifColumnState extends State<NotifColumn> {
   {
     final user = Provider.of<User>(context);
     final mytable = Provider.of<Mytable>(context);
-    print('now in notif');
+    //print('now in notif');
 
     return new Scaffold(
       appBar: new AppBar(

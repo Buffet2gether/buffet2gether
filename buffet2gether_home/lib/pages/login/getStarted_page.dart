@@ -21,6 +21,8 @@ class _GetStartedColumnState extends State<GetStartedColumn>
   @override
   Widget build(BuildContext context)
   {
+    final screenSize = MediaQuery.of(context).size;
+
     final buttonStarted = new InkWell(
       onTap: ()
       {
@@ -66,25 +68,33 @@ class _GetStartedColumnState extends State<GetStartedColumn>
               style: TextStyle(
                 fontFamily: 'Opun',
                 color: Colors.deepOrange,
-                fontSize: 30,fontWeight: FontWeight.bold,
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
               ),
             ),
             SizedBox(height: 38,),
-            Image.asset('assets/images/Buffet.png',width: 230,height: 250,),
+            Image.network(
+              'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2FBuffet_transparent.png?alt=media&token=cb9c8611-b998-42aa-92f5-6972a91078cb',
+              width: 230,
+              height: 250,
+            ),
             SizedBox(height: 37,),
             Stack(
               children: <Widget>[
                 Container(
-                  width: 450,
+                  width: screenSize.width,
                   height:165,
                   margin: EdgeInsets.only(top:110.0),
                   decoration: BoxDecoration(
                       color:Colors.deepOrange
                   ),
                 ),
-                Image.asset('assets/images/back.png',width: 500,),
+                Image.network(
+                  'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2Fback.png?alt=media&token=bdd8c2a2-7243-4773-a7f2-3b2c0b736d8e',
+                  width: screenSize.width,
+                ),
                 Container(
-                  width: 450,
+                  width: screenSize.width,
                   height:180,
                   margin: EdgeInsets.only(top:60.0),
                   child: Column(

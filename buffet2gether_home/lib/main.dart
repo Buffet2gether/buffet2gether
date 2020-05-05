@@ -15,7 +15,6 @@ import 'package:buffet2gether_home/models/rec_model.dart';
 import 'package:buffet2gether_home/models/more_model.dart';
 import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
-import 'package:buffet2gether_home/models/bar_model.dart';
 import 'package:buffet2gether_home/models/mytable_model.dart';
 import 'package:buffet2gether_home/models/history_model.dart';
 

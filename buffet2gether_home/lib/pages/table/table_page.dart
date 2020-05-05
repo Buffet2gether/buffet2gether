@@ -43,6 +43,7 @@ class _Table1State extends State<Table1>
       ),
       body: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
               children:[
                 new Image.network(
                     'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2FBuffet_transparent.png?alt=media&token=cb9c8611-b998-42aa-92f5-6972a91078cb',

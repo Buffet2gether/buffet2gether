@@ -62,7 +62,7 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                     StorageUploadTask uploadTask =
                     storageReference.putFile(_tempImage);
                     await uploadTask.onComplete;
-                    print('File Uploaded');
+                    //print('File Uploaded');
                     storageReference.getDownloadURL().then((fileURL) {
                       setState(() {
                         _uploadedImageURL = fileURL;
@@ -163,7 +163,7 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                 ),
                               ),
                               onTap: () {
-                                print('Detail edit pressed');
+                                //print('Detail edit pressed');
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(

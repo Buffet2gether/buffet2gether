@@ -25,11 +25,11 @@ class _BarListState extends State<BarList> {
     final user = Provider.of<User>(context);
     final mytable = Provider.of<Mytable>(context);
     final userFindGroups = Provider.of<List<UserFindGroup>>(context);
-    print('now in barlist');
+    //print('now in barlist');
     return ListView.builder(
         itemCount: bars?.length ?? 0,
         itemBuilder: (context, index) {
-          print('now');
+          //print('now');
           final bar = bars[index];
 
           return StreamBuilder<UserMaster>(

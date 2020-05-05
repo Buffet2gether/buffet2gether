@@ -245,7 +245,7 @@ class _CreateProfileState extends State<CreateProfile>
                         StorageUploadTask uploadTask =
                         storageReference.putFile(_tempImage);
                         await uploadTask.onComplete;
-                        print('File Uploaded');
+                        //print('File Uploaded');
                         storageReference.getDownloadURL().then((fileURL) {
                           setState(() {
                             _uploadedImageURL = fileURL;
@@ -354,6 +354,15 @@ class _CreateProfileState extends State<CreateProfile>
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
+                                        Text(
+                                          ' *',
+                                          style: TextStyle(
+                                            fontSize: 17,
+                                            letterSpacing: 0.5,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.red
+                                          ),
+                                        )
                                       ],
                                     ),
                                   ),
@@ -366,8 +375,7 @@ class _CreateProfileState extends State<CreateProfile>
                                       setState(() {
                                         selectedGender = value;
                                         gender = selectedGender.genderName;
-                                        print('select ' +
-                                            selectedGender.genderName);
+                                        //print('select ' + selectedGender.genderName);
                                       });
                                     },
                                     items: genderList
@@ -433,7 +441,7 @@ class _CreateProfileState extends State<CreateProfile>
                                               minTime: DateTime(1950),
                                               maxTime: DateTime.now(),
                                               onConfirm: (date) {
-                                                print('confirm $date');
+                                                //print('confirm $date');
                                                 dateOfBirth = date;
                                               },
                                               currentTime: dateOfBirth,

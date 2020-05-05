@@ -49,7 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   UserData userData = snapshot.data;
-                  print(userData.userId);
+                  //print(userData.userId);
                   return ListView(
                     physics: BouncingScrollPhysics(),
                     padding:
@@ -87,7 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         children: [
                                           InkWell(
                                             onTap: () {
-                                              print('Tag Pressed');
+                                              //print('Tag Pressed');
                                               setState(() {
                                                 isSelecting = 0;
                                               });
@@ -122,7 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           SizedBox(width: 1),
                                           InkWell(
                                             onTap: () {
-                                              print('History Pressed');
+                                              //print('History Pressed');
                                               setState(() {
                                                 isSelecting = 1;
                                               });
@@ -261,7 +261,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 color: Colors.white,
                                               ),
                                               onPressed: () {
-                                                print('Settings pressed');
+                                                //print('Settings pressed');
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
@@ -617,7 +617,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 builder: (context, snapshot) {
                                   //print(snapshot.data);
                                   if (snapshot.hasData) {
-                                    print('kao if jaaaaa');
+                                    //print('kao if jaaaaa');
                                     History userHistory = snapshot.data;
                                     if (userHistory.resID == 'restaurant ID') {
                                       return Text('No history yet',
@@ -819,7 +819,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               ]));
                                     }
                                   } else {
-                                    print('kao else jaaaaaa');
+                                    //print('kao else jaaaaaa');
                                     if (snapshot.hasError) {
                                       print(snapshot.error.toString());
                                     }

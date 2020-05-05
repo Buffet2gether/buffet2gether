@@ -38,8 +38,6 @@ class DatabaseService {
 
   ///ดึงข้อมูลร้านใน history
   History _historyFromSnapshot(DocumentSnapshot snapshot) {
-    //print('snapshot = ');
-    //print(snapshot.data);
     return History(
       resID: snapshot.data['resID'],
       image: snapshot.data['image'],
@@ -63,7 +61,6 @@ class DatabaseService {
   }
 
   Stream<History> get history {
-    //print('userID history = '+userID);
     return historyCollection
         .document(userID)
         .snapshots()

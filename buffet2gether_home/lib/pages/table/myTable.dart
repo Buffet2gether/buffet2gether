@@ -48,7 +48,7 @@ class _MyTable1State extends State<MyTable1>
 
     final screenSize = MediaQuery.of(context).size;
     final userMaster = Provider.of<UserMaster>(context);
-
+    bool iAmMaster = false;
     ///คุณสมบัติต่างๆ
     // แปลง time stamp ให้เป็น date Time
     int getDueTime(){
@@ -69,21 +69,37 @@ class _MyTable1State extends State<MyTable1>
         }
       }
     }
-    bool iAmMaster = false;
-    if(user?.userId == userMaster?.userId)
-    {
-      iAmMaster = true;
-    }
+    
+    final buttonLeaveGroup = Container(
+      margin: EdgeInsets.all(10),
+      width: 410,
+      child:
+      Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          FloatingActionButton(
+                onPressed:(){
+                  /////////////////////////// ลบข้อมูลตัวเองออกจากกลุ่มอย่างเดียว
+                  DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user?.userId,null);
+                  DatabaseService().updateTableData(null, null,user?.userId);
+                } ,
+                child:Icon(Icons.exit_to_app),
+                backgroundColor:Colors.red,
+                tooltip: 'Leave group',
+              ),
+        ],
+      ),
 
+
+    );
     final buttonFinish = Container(
       margin: EdgeInsets.all(10),
       width: 410,
       child:
-
       Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          (iAmMaster)?InkWell(
+          InkWell(
             onTap: (){
               for (var item in listMember) /////////////////////////// ลบข้อมูลคนอื่นออกจากกลุ่ม
                   {
@@ -115,6 +131,27 @@ class _MyTable1State extends State<MyTable1>
                 }
               }
               /////////////////////////// ลบข้อมูลตัวเองออกจากกลุ่ม
+              DatabaseService().updateFinish(
+                      mytable.resID,
+                      infoFromTable.name1,
+                      infoFromTable.name2,
+                      infoFromTable.imageUrl,
+                      infoFromTable.location,
+                      infoFromTable.time,
+                      infoFromTable.ageStart,
+                      infoFromTable.ageEnd,
+                      infoFromTable?.people,
+                      newDueTime,
+                      infoFromTable.gender,
+                      infoFromTable.fashion,
+                      infoFromTable.sport,
+                      infoFromTable.technology,
+                      infoFromTable.politics,
+                      infoFromTable.entertainment,
+                      infoFromTable.book,
+                      infoFromTable.pet,
+                      infoFromTable.number,
+                      user?.userId);
               DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user?.userId,'info');
               DatabaseService().updateTableData(null, null,user?.userId);
             },
@@ -122,24 +159,7 @@ class _MyTable1State extends State<MyTable1>
                 'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/notificationAndTable_test%2Ffinish.png?alt=media&token=8eb679d9-be8a-4a77-8fc5-4da352700d7e',
                 width: 100,
                 height:100),
-          ):
-          Container(
-            width: 100,
-            height:100,
-            child: FittedBox(
-              child: FloatingActionButton(
-                onPressed:(){
-                  /////////////////////////// ลบข้อมูลตัวเองออกจากกลุ่มอย่างเดียว
-                  DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user?.userId,null);
-                  DatabaseService().updateTableData(null, null,user?.userId);
-                } ,
-                child:Icon(Icons.close),
-                backgroundColor:Colors.red,
-                tooltip: 'Out from group',
-              ),
-            ),
-          ),
-
+          )
         ],
       ),
 
@@ -496,78 +516,82 @@ class _MyTable1State extends State<MyTable1>
       },
     );
 
-    final stackMatchCol = Stack(
-        children: [
-          SafeArea(
-              child: Column(
-                  children: <Widget>[
-                    Expanded(
-                        child: ListView(
-                            padding: EdgeInsets.symmetric(vertical: 10.0,horizontal: 15.0),
-                            children: <Widget>[
-                              info,
-                              Text(
-                                '  '+'Matching with',
-                                style: TextStyle(
-                                  fontFamily: 'Opun',
-                                  color: Colors.deepOrange,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-
-                                ),
-                              ),
-                              properties,
-                              Text(
-                                ' Interesting',
-                                style: TextStyle(
-                                  fontFamily: 'Opun',
-                                  color: Colors.deepOrange,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              interestList,
-                              Text(
-                                '  '+'Member',
-                                style: TextStyle(
-                                  fontFamily: 'Opun',
-                                  color: Colors.deepOrange,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-
-                                ),
-                              ),
-                              Container(
-                                height: 200,
-                                width: screenSize.width,
-                                color: Color(0xFFF5F5F5),
-                                child: memberBar,
-                              )
-                            ]
-                        )
-                    )
-                  ]
-              )
-          ),
-          Container(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children:[
-
-                    ((iAmMaster==false)&&(userMaster?.max))?nongBuffet:buttonFinish,//ไม่ใช่เจ้าของห้อง และกลุ่มเต็ม ปุ่มออกจากห้องจะหาย
-                  ]
-              )
-          )
-        ]
-    );
-
-    return StreamBuilder<InfoInTable>(
+     
+    print(iAmMaster);
+    final stackMatchCol = StreamBuilder<InfoInTable>(
         stream: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
         builder: (context, snapshot)
         {
           if (snapshot.hasData)
-          {
-            return stackMatchCol;
+          {  if(user?.userId == userMaster?.userId)
+              {
+                iAmMaster = true;
+              }
+            return Stack(
+              children: [
+                SafeArea(
+                    child: Column(
+                        children: <Widget>[
+                          Expanded(
+                              child: ListView(
+                                  padding: EdgeInsets.symmetric(vertical: 10.0,horizontal: 15.0),
+                                  children: <Widget>[
+                                    info,
+                                    Text(
+                                      '  '+'Matching with',
+                                      style: TextStyle(
+                                        fontFamily: 'Opun',
+                                        color: Colors.deepOrange,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+
+                                      ),
+                                    ),
+                                    properties,
+                                    Text(
+                                      ' Interesting',
+                                      style: TextStyle(
+                                        fontFamily: 'Opun',
+                                        color: Colors.deepOrange,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    interestList,
+                                    Text(
+                                      '  '+'Member',
+                                      style: TextStyle(
+                                        fontFamily: 'Opun',
+                                        color: Colors.deepOrange,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 200,
+                                      width: screenSize.width,
+                                      color: Color(0xFFF5F5F5),
+                                      child: memberBar,
+                                    )
+                                  ]
+                              )
+                          )
+                        ]
+                    )
+                ),
+                Container(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children:[
+                          (iAmMaster)?buttonFinish:Container(),
+                          ((iAmMaster==false)&&(userMaster?.max==false))?buttonLeaveGroup:Container(),//ไม่ใช่เจ้าของห้อง และกลุ่มเต็ม ปุ่มออกจากห้องจะหาย
+                          ((iAmMaster==false)&&(userMaster?.max))?nongBuffet:Container(),
+                        ]
+                    )
+                )
+              ]
+          );
           }
           else
             {
@@ -579,5 +603,6 @@ class _MyTable1State extends State<MyTable1>
             }
         }
     );
+    return stackMatchCol;
   }
 }

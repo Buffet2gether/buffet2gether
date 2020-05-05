@@ -69,17 +69,18 @@ class _MyTable1State extends State<MyTable1>
         }
       }
     }
-
-
     bool iAmMaster = false;
-    if(user?.userId == userMaster?.userId){
+    if(user?.userId == userMaster?.userId)
+    {
       iAmMaster = true;
     }
 
     final buttonFinish = Container(
       margin: EdgeInsets.all(10),
       width: 410,
-      child: Row(
+      child:
+
+      Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           (iAmMaster)?InkWell(
@@ -141,6 +142,8 @@ class _MyTable1State extends State<MyTable1>
 
         ],
       ),
+
+
     );
 
     final nongBuffet = Container(
@@ -389,99 +392,6 @@ class _MyTable1State extends State<MyTable1>
             }
             )
     );
-
-    /*final properties = Container(
-        height: 80,
-        margin: EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black26,
-                offset: Offset(0,4),
-                blurRadius: 5,
-              )
-            ]
-        ),
-        child: FittedBox(
-          fit: BoxFit.fitWidth,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              ///age
-              Text(
-                ///ค่าอายุเริ่ม - ค่าอายุจบ
-                '${infoFromTable?.ageStart.toString()} - ${infoFromTable?.ageEnd.toString()}',
-                style: TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.deepOrange,
-                  fontSize: 15,
-                ),
-              ),
-              Text(
-                '|',
-                style:  TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.amberAccent,
-                  fontSize: 25,
-                ),
-              ),
-              ///maxNum
-              Container(
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      /// 1/จำนวนคนที่เลือก
-                      (infoFromTable?.people != null)?'${listMember?.length.toString()} / ${infoFromTable?.people.round().toString()}':' ',
-                      style: TextStyle(
-                        fontFamily: 'Opun',
-                        color: Colors.deepOrange,
-                        fontSize: 15,
-                      ),
-                    ),
-                    Icon(
-                      Icons.people,
-                      color: Colors.deepOrange,
-                      size: 23,
-                    )
-                  ],
-                ),
-              ),
-              Text(
-                '|',
-                style:  TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.amberAccent,
-                  fontSize: 25,
-                ),
-              ),
-              ///Date and time
-              Text(
-                DateFormat('dd-MM-yyyy  h:mm a').format(newDueTime),
-                style: TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.deepOrange,
-                  fontSize: 15,
-                ),
-              ),
-              Text(
-                '|',
-                style:  TextStyle(
-                  fontFamily: 'Opun',
-                  color: Colors.amberAccent,
-                  fontSize: 25,
-                ),
-              ),
-              ///gender
-              Icon(
-                genderList[getGender()].genderIcon,
-                size: 23,
-                color: Colors.deepOrange,),
-            ],
-          ),
-        )
-    );*/
 
     final memberBar = ListView.builder(
       scrollDirection: Axis.vertical,

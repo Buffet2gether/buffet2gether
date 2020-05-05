@@ -1,3 +1,4 @@
+import 'package:buffet2gether_home/models/infoInTable_model.dart';
 import 'package:buffet2gether_home/models/userMaster_model.dart';
 import 'package:buffet2gether_home/main.dart';
 import 'package:buffet2gether_home/services/database.dart';
@@ -32,91 +33,106 @@ class _BarListState extends State<BarList> {
           final bar = bars[index];
 
           return StreamBuilder<UserMaster>(
-              stream: DatabaseService(
-                      resID: bar.getResID(), numberTable: bar.getNumber())
-                  .userMasterMax,
+              stream: DatabaseService(resID: bar.getResID(), numberTable: bar.getNumber()).userMasterMax,
               builder: (context, snapshot1) {
                 //if (snapshot1.hasData) {
                 UserMaster userMaster = snapshot1.data;
                 return StreamBuilder<UserMaster>(
-                    stream: DatabaseService(
-                            resID: mytable.resID,
-                            numberTable: mytable.numberTable)
-                        .userMasterMax,
+                    stream: DatabaseService(resID: mytable.resID, numberTable: mytable.numberTable).userMasterMax,
                     builder: (context, snapshot2) {
                       //if (snapshot2.hasData) {
                       UserMaster master = snapshot2.data;
                       return StreamBuilder<TableInfo>(
-                          stream: DatabaseService(
-                                  resID: mytable.resID,
-                                  numberTable: mytable.numberTable)
-                              .groupInterest,
+                          stream: DatabaseService(resID: mytable.resID, numberTable: mytable.numberTable).groupInterest,
                           builder: (context, snapshot3) {
                             //if (snapshot3.hasData) {
                             return StreamBuilder<UserData>(
-                                stream:
-                                    DatabaseService(uid: user.userId).userData,
+                                stream: DatabaseService(uid: user?.userId).userData,
                                 builder: (context, snapshot) {
                                   //if (snapshot.hasData) {
                                   UserData userData = snapshot.data;
                                   TableInfo tableInfo = snapshot3.data;
 
-                                  for (var item in userFindGroups) {
-                                    //matching
-
-                                    if (((item.getBook() &&
+                                  StreamBuilder<InfoInTable>(
+                                      stream: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData) {
+                                          for (var item in userFindGroups) {
+                                            //matching
+                                            if (((item.getBook() &&
                                                 tableInfo.getBook()) ==
-                                            false) &&
-                                        ((item.getEntertainment() &&
-                                                tableInfo.getEntertainment()) ==
-                                            false) &&
-                                        ((item.getFashion() &&
-                                                tableInfo.getFashion()) ==
-                                            false) &&
-                                        ((item.getPet() &&
-                                                tableInfo.getPet()) ==
-                                            false) &&
-                                        ((item.getPolitics() &&
-                                                tableInfo.getPolitics()) ==
-                                            false) &&
-                                        ((item.getSport() &&
-                                                tableInfo.getSport()) ==
-                                            false) &&
-                                        ((item.getTechnology() &&
-                                                tableInfo.getTechnology()) ==
-                                            false)) {
-                                      DatabaseService().deleteNotifData(
-                                          item.userID,
-                                          userData
-                                              .userId); ////เอาไว้ลบ document firebase
-                                      continue;
-                                    }
+                                                false) &&
+                                                ((item.getEntertainment() &&
+                                                    tableInfo
+                                                        .getEntertainment()) ==
+                                                    false) &&
+                                                ((item.getFashion() &&
+                                                    tableInfo.getFashion()) ==
+                                                    false) &&
+                                                ((item.getPet() &&
+                                                    tableInfo.getPet()) ==
+                                                    false) &&
+                                                ((item.getPolitics() &&
+                                                    tableInfo.getPolitics()) ==
+                                                    false) &&
+                                                ((item.getSport() &&
+                                                    tableInfo.getSport()) ==
+                                                    false) &&
+                                                ((item.getTechnology() &&
+                                                    tableInfo
+                                                        .getTechnology()) ==
+                                                    false)) {
+                                              DatabaseService().deleteNotifData(
+                                                  item.userID,
+                                                  userData
+                                                      .userId); ////เอาไว้ลบ document firebase
+                                              continue;
+                                            }
 
-                                    if ((item.age < tableInfo.getAgeStart()) ||
-                                        (item.age > tableInfo.getAgeEnd())) {
-                                      DatabaseService().deleteNotifData(
-                                          item.userID,
-                                          userData
-                                              .userId); ////เอาไว้ลบ document firebase
-                                    }
+                                            if ((item.age <
+                                                tableInfo.getAgeStart()) ||
+                                                (item.age >
+                                                    tableInfo.getAgeEnd())) {
+                                              DatabaseService().deleteNotifData(
+                                                  item.userID,
+                                                  userData
+                                                      .userId); ////เอาไว้ลบ document firebase
+                                            }
 
-                                    if (tableInfo.getGender() == 'Male') {
-                                      if (item.getGender() != 'Male') {
-                                        DatabaseService().deleteNotifData(
-                                            item.userID,
-                                            userData
-                                                .userId); ////เอาไว้ลบ document firebase
-                                      }
-                                    } else if (tableInfo.getGender() ==
-                                        'Female') {
-                                      if (item.getGender() != 'Female') {
-                                        DatabaseService().deleteNotifData(
-                                            item.userID,
-                                            userData
-                                                .userId); ////เอาไว้ลบ document firebase
-                                      }
-                                    }
-                                  }
+                                            if (tableInfo.getGender() ==
+                                                'Male') {
+                                              if (item.getGender() != 'Male') {
+                                                DatabaseService()
+                                                    .deleteNotifData(
+                                                    item.userID,
+                                                    userData
+                                                        .userId); ////เอาไว้ลบ document firebase
+                                              }
+                                            }
+                                            else if (tableInfo.getGender() ==
+                                                'Female') {
+                                              if (item.getGender() !=
+                                                  'Female') {
+                                                DatabaseService()
+                                                    .deleteNotifData(
+                                                    item.userID,
+                                                    userData
+                                                        .userId); ////เอาไว้ลบ document firebase
+                                              }
+                                            }
+                                          }
+                                        }
+                                        else
+                                        {
+                                          if (snapshot.hasError)
+                                          {
+                                            print(snapshot.error.toString());
+                                          }
+                                          return Loading();
+                                        }
+                                      });
+
+
 
                                   return Dismissible(
                                     ////Dismission คือให้มันปัดซ้ายปัดขวาได้
@@ -124,9 +140,9 @@ class _BarListState extends State<BarList> {
                                         color: Colors.red,
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.end,
+                                          MainAxisAlignment.end,
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                           children: <Widget>[
                                             Icon(Icons.cancel),
                                             Text(' delete   '),
@@ -136,9 +152,9 @@ class _BarListState extends State<BarList> {
                                         color: Colors.green,
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.start,
+                                          MainAxisAlignment.start,
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                           children: <Widget>[
                                             Text('   '),
                                             Icon(Icons.check_circle),
@@ -166,11 +182,11 @@ class _BarListState extends State<BarList> {
                                       Scaffold.of(context)
                                           .showSnackBar(SnackBar(
                                         content: Text(direction ==
-                                                DismissDirection.startToEnd
+                                            DismissDirection.startToEnd
                                             ? 'accept'
                                             : 'delete'),
                                         backgroundColor: direction ==
-                                                DismissDirection.startToEnd
+                                            DismissDirection.startToEnd
                                             ? Colors.green
                                             : Colors.red,
                                       ));
@@ -191,10 +207,10 @@ class _BarListState extends State<BarList> {
                                                 bar.getNumber(),
                                                 userData.gender,
                                                 (DateTime.now()
-                                                            .difference(userData
-                                                                .dateofBirth)
-                                                            .inDays /
-                                                        365)
+                                                    .difference(userData
+                                                    .dateofBirth)
+                                                    .inDays /
+                                                    365)
                                                     .floor(),
                                                 userData.fashion,
                                                 userData.sport,
@@ -213,22 +229,22 @@ class _BarListState extends State<BarList> {
                                               ////////////// ลบข้อมูล document ของเราใน user find Group เพราะเรามีกลุ่มแล้ว
                                               DatabaseService()
                                                   .deleteUserFindGroupData(
-                                                      bar.getResID(),
-                                                      userData.userId);
+                                                  bar.getResID(),
+                                                  userData.userId);
 
                                               ///////////// ไปที่หน้า Table///////////////////////////////
                                               Navigator.of(context).push(
                                                   MaterialPageRoute(
                                                       builder: (BuildContext context) =>
-                                                          StreamProvider<
-                                                                  User>.value(
-                                                              value:
-                                                                  AuthService()
-                                                                      .user,
-                                                              child:
-                                                                  MyCustomForm(
-                                                                tabsIndex: 1,
-                                                              ))));
+                                                      StreamProvider<
+                                                          User>.value(
+                                                          value:
+                                                          AuthService()
+                                                              .user,
+                                                          child:
+                                                          MyCustomForm(
+                                                            tabsIndex: 1,
+                                                          ))));
                                             } else {
                                               return showDialog(
                                                 context: context,
@@ -239,7 +255,7 @@ class _BarListState extends State<BarList> {
                                                       style: TextStyle(
                                                         fontFamily: 'Opun',
                                                         color:
-                                                            Colors.deepOrange,
+                                                        Colors.deepOrange,
                                                         fontSize: 13,
                                                       ),
                                                     ),
@@ -282,10 +298,10 @@ class _BarListState extends State<BarList> {
                                                     true,
                                                     userData.gender,
                                                     (DateTime.now()
-                                                                .difference(userData
-                                                                    .dateofBirth)
-                                                                .inDays /
-                                                            365)
+                                                        .difference(userData
+                                                        .dateofBirth)
+                                                        .inDays /
+                                                        365)
                                                         .floor(),
                                                     userData.fashion,
                                                     userData.sport,
@@ -312,7 +328,7 @@ class _BarListState extends State<BarList> {
                                                       style: TextStyle(
                                                         fontFamily: 'Opun',
                                                         color:
-                                                            Colors.deepOrange,
+                                                        Colors.deepOrange,
                                                         fontSize: 13,
                                                       ),
                                                     ),

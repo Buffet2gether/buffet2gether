@@ -38,6 +38,8 @@ class _MyTable1State extends State<MyTable1>
 {
   ScrollController scrollController;
 
+  bool iAmMaster = false;
+
   @override
   Widget build(BuildContext context)
   {
@@ -69,7 +71,7 @@ class _MyTable1State extends State<MyTable1>
         }
       }
     }
-    bool iAmMaster = false;
+
     if(user?.userId == userMaster?.userId)
     {
       iAmMaster = true;
@@ -78,15 +80,13 @@ class _MyTable1State extends State<MyTable1>
     final buttonFinish = Container(
       margin: EdgeInsets.all(10),
       width: 410,
-      child:
-
-      Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           (iAmMaster)?InkWell(
             onTap: (){
               for (var item in listMember) /////////////////////////// ลบข้อมูลคนอื่นออกจากกลุ่ม
-                  {
+                {
                 if(item?.userID != user?.userId)
                 {
                   DatabaseService().updateFinish(
@@ -115,6 +115,27 @@ class _MyTable1State extends State<MyTable1>
                 }
               }
               /////////////////////////// ลบข้อมูลตัวเองออกจากกลุ่ม
+              DatabaseService().updateFinish(
+                  mytable.resID,
+                  infoFromTable.name1,
+                  infoFromTable.name2,
+                  infoFromTable.imageUrl,
+                  infoFromTable.location,
+                  infoFromTable.time,
+                  infoFromTable.ageStart,
+                  infoFromTable.ageEnd,
+                  infoFromTable?.people,
+                  newDueTime,
+                  infoFromTable.gender,
+                  infoFromTable.fashion,
+                  infoFromTable.sport,
+                  infoFromTable.technology,
+                  infoFromTable.politics,
+                  infoFromTable.entertainment,
+                  infoFromTable.book,
+                  infoFromTable.pet,
+                  infoFromTable.number,
+                  user.userId);
               DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user?.userId,'info');
               DatabaseService().updateTableData(null, null,user?.userId);
             },
@@ -124,8 +145,8 @@ class _MyTable1State extends State<MyTable1>
                 height:100),
           ):
           Container(
-            width: 100,
-            height:100,
+            width: 60,
+            height:60,
             child: FittedBox(
               child: FloatingActionButton(
                 onPressed:(){
@@ -133,7 +154,7 @@ class _MyTable1State extends State<MyTable1>
                   DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user?.userId,null);
                   DatabaseService().updateTableData(null, null,user?.userId);
                 } ,
-                child:Icon(Icons.close),
+                child:Icon(FontAwesomeIcons.signOutAlt),
                 backgroundColor:Colors.red,
                 tooltip: 'Out from group',
               ),
@@ -160,16 +181,6 @@ class _MyTable1State extends State<MyTable1>
       ),
     );
 
-    List<bool> interestTable = [
-      infoFromTable?.fashion,
-      infoFromTable?.sport,
-      infoFromTable?.technology,
-      infoFromTable?.politics,
-      infoFromTable?.entertainment,
-      infoFromTable?.book,
-      infoFromTable?.pet
-    ];
-
     /// แสดง interest ตามที่เลือกจากหน้า edit interesting table
     final interestList = Container(
       margin: EdgeInsets.symmetric(horizontal: 20),
@@ -180,6 +191,24 @@ class _MyTable1State extends State<MyTable1>
           {
             if (snapshot.hasData)
             {
+              List<bool> interestTable = [
+                infoFromTable?.fashion,
+                infoFromTable?.sport,
+                infoFromTable?.technology,
+                infoFromTable?.politics,
+                infoFromTable?.entertainment,
+                infoFromTable?.book,
+                infoFromTable?.pet
+              ];
+
+              print(infoFromTable?.fashion);
+              print(infoFromTable?.sport);
+              print(infoFromTable?.technology);
+              print(infoFromTable?.politics);
+              print(infoFromTable?.entertainment);
+              print(infoFromTable?.book);
+              print(infoFromTable?.pet);
+
               return ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.horizontal,
@@ -496,10 +525,16 @@ class _MyTable1State extends State<MyTable1>
       },
     );
 
-    final stackMatchCol = Stack(
-        children: [
-          SafeArea(
-              child: Column(
+    final stackMatchCol = StreamBuilder<InfoInTable>(
+        stream: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
+        builder: (context, snapshot)
+        {
+          if (snapshot.hasData)
+          {
+            return Stack(
+                children: [
+                  SafeArea(
+                      child: Column(
                   children: <Widget>[
                     Expanded(
                         child: ListView(
@@ -548,26 +583,17 @@ class _MyTable1State extends State<MyTable1>
                     )
                   ]
               )
-          ),
-          Container(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children:[
-
-                    ((iAmMaster==false)&&(userMaster?.max))?nongBuffet:buttonFinish,//ไม่ใช่เจ้าของห้อง และกลุ่มเต็ม ปุ่มออกจากห้องจะหาย
-                  ]
-              )
-          )
-        ]
-    );
-
-    return StreamBuilder<InfoInTable>(
-        stream: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
-        builder: (context, snapshot)
-        {
-          if (snapshot.hasData)
-          {
-            return stackMatchCol;
+                  ),
+                  Container(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children:[
+                            ((iAmMaster==false)&&(userMaster?.max))?nongBuffet:buttonFinish,//ไม่ใช่เจ้าของห้อง และกลุ่มเต็ม ปุ่มออกจากห้องจะหาย
+                          ]
+                      )
+                  )
+                ]
+            );
           }
           else
             {
@@ -579,5 +605,7 @@ class _MyTable1State extends State<MyTable1>
             }
         }
     );
+
+    return stackMatchCol;
   }
 }

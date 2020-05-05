@@ -17,6 +17,7 @@ import 'package:buffet2gether_home/services/auth.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
 import 'package:buffet2gether_home/models/mytable_model.dart';
 import 'package:buffet2gether_home/models/history_model.dart';
+import 'package:buffet2gether_home/pages/login/getStarted_page.dart';
 
 void main() {
   //debugPaintSizeEnabled=true;
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Color(0xFFF3F5F7),
         ),
         home: //Wrapper()
-            new Wrapper());
+            new GetStartedColumn()
+    );
   }
 }
 

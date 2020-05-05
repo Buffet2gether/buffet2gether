@@ -202,32 +202,7 @@ class _InfoPageState extends State<InfoPage>
     final userFindGroups = Provider.of<List<UserFindGroup>>(context);
     ///ปุ่ม Matching
     bool iAmUserFindGroup = false;
-    ///////////  ถ้าเราอยู่ใน UserfindGroup แล้ว iAmUserFindGroup จะเป็น true
 
-    StreamBuilder<List<UserFindGroup>>(
-        stream: DatabaseService(resID: widget.resID).userFindGroup,
-        builder: (context, snapshot)
-        {
-          if (snapshot.hasData)
-          {
-            for (var item in userFindGroups)
-            {
-              if (item.userID == user.userId)
-              {
-                iAmUserFindGroup = true;
-              }
-            }
-          }
-          else
-            {
-              if (snapshot.hasError)
-              {
-                print(snapshot.error.toString());
-              }
-              return Loading();
-            }
-        }
-        );
 
     final buttonMatch = StreamBuilder<UserData>(
         stream: DatabaseService(uid: user?.userId).userData,
@@ -350,11 +325,11 @@ class _InfoPageState extends State<InfoPage>
             Column(
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(top:10),
+                  margin: EdgeInsets.only(top:20),
                   child: Image.network(
-                    'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2FBuffet_transparent.png?alt=media&token=cb9c8611-b998-42aa-92f5-6972a91078cb',
-                    height: 200,
-                    width: 200,
+                    'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/notificationAndTable_test%2Fmatching-orage-gray.png?alt=media&token=74b284d1-809b-4824-a0d8-edd46045fe8a',
+                    height: 170,
+                    width: 170,
                   ),
                 ),
                 Text(
@@ -448,18 +423,44 @@ class _InfoPageState extends State<InfoPage>
 
 
 
-    final allInPage = Container(
-        width: screenSize.width,
-        color: Color(0xFFF5F5F5),
-        child: Column(
-          children: [
-            info,
-            (iAmUserFindGroup)?Container():textPro,
-            (iAmUserFindGroup)?Container():textProInfo,
-            (iAmUserFindGroup)?nongBuffet:buttonMatch,
-            (iAmUserFindGroup)?buttonDeleteMatch:buttonCreate
-          ],
-        )
+    ///////////  ถ้าเราอยู่ใน UserfindGroup แล้ว iAmUserFindGroup จะเป็น true
+
+    final allInPage = StreamBuilder<List<UserFindGroup>>(
+        stream: DatabaseService(resID: widget.resID).userFindGroup,
+        builder: (context, snapshot)
+        {
+          if (snapshot.hasData)
+          {
+            for (var item in userFindGroups)
+            {
+              if (item.userID == user?.userId)
+              {
+                iAmUserFindGroup = true;
+              }
+            }
+            return Container(
+                width: screenSize.width,
+                color: Color(0xFFF5F5F5),
+                child: Column(
+                  children: [
+                    info,
+                    (iAmUserFindGroup)?Container():textPro,
+                    (iAmUserFindGroup)?Container():textProInfo,
+                    (iAmUserFindGroup)?nongBuffet:buttonMatch,
+                    (iAmUserFindGroup)?buttonDeleteMatch:buttonCreate
+                  ],
+                )
+            );
+          }
+          else
+          {
+            if (snapshot.hasError)
+            {
+              print(snapshot.error.toString());
+            }
+            return Loading();
+          }
+        }
     );
 
     return Scaffold(
@@ -476,14 +477,14 @@ class _InfoPageState extends State<InfoPage>
           backgroundColor: Colors.white70,
         ),
         body: SafeArea(
-          child: ListView.builder(
-            controller: scrollController,
-            itemCount: 1,
-            itemBuilder: (BuildContext context, int index)
-            {
-              return allInPage;
+            child: ListView.builder(
+              controller: scrollController,
+              itemCount: 1,
+              itemBuilder: (BuildContext context, int index)
+              {
+                return allInPage;
               },
-          )
+            )
         )
     );
   }

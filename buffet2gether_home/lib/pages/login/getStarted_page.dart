@@ -89,10 +89,10 @@ class _GetStartedColumnState extends State<GetStartedColumn>
                       color:Colors.deepOrange
                   ),
                 ),
-                Image.network(
+                /*Image.network(
                   'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2Fback.png?alt=media&token=bdd8c2a2-7243-4773-a7f2-3b2c0b736d8e',
                   width: screenSize.width,
-                ),
+                ),*/
                 Container(
                   width: screenSize.width,
                   height:180,

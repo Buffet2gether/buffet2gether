@@ -48,76 +48,48 @@ class _BarListState extends State<BarList> {
                             //if (snapshot3.hasData) {
                             return StreamBuilder<UserData>(
                                 stream: DatabaseService(uid: user?.userId).userData,
-                                builder: (context, snapshot) {
+                                builder: (context, snapshot)
+                                {
                                   //if (snapshot.hasData) {
                                   UserData userData = snapshot.data;
                                   TableInfo tableInfo = snapshot3.data;
 
                                   StreamBuilder<InfoInTable>(
                                       stream: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
-                                      builder: (context, snapshot) {
-                                        if (snapshot.hasData) {
-                                          for (var item in userFindGroups) {
+                                      builder: (context, snapshot)
+                                      {
+                                        if (snapshot.hasData)
+                                        {
+                                          for (var item in userFindGroups)
+                                          {
                                             //matching
-                                            if (((item.getBook() &&
-                                                tableInfo.getBook()) ==
-                                                false) &&
-                                                ((item.getEntertainment() &&
-                                                    tableInfo
-                                                        .getEntertainment()) ==
-                                                    false) &&
-                                                ((item.getFashion() &&
-                                                    tableInfo.getFashion()) ==
-                                                    false) &&
-                                                ((item.getPet() &&
-                                                    tableInfo.getPet()) ==
-                                                    false) &&
-                                                ((item.getPolitics() &&
-                                                    tableInfo.getPolitics()) ==
-                                                    false) &&
-                                                ((item.getSport() &&
-                                                    tableInfo.getSport()) ==
-                                                    false) &&
-                                                ((item.getTechnology() &&
-                                                    tableInfo
-                                                        .getTechnology()) ==
-                                                    false)) {
-                                              DatabaseService().deleteNotifData(
-                                                  item.userID,
-                                                  userData
-                                                      .userId); ////เอาไว้ลบ document firebase
+                                            if (((item.getBook() && tableInfo.getBook()) == false) &&
+                                                ((item.getEntertainment() && tableInfo.getEntertainment()) == false) &&
+                                                ((item.getFashion() && tableInfo.getFashion()) == false) &&
+                                                ((item.getPet() && tableInfo.getPet()) == false) &&
+                                                ((item.getPolitics() && tableInfo.getPolitics()) == false) &&
+                                                ((item.getSport() && tableInfo.getSport()) == false) &&
+                                                ((item.getTechnology() && tableInfo.getTechnology()) == false)) {
+                                              DatabaseService().deleteNotifData(item.userID, userData.userId); ////เอาไว้ลบ document firebase
                                               continue;
                                             }
 
-                                            if ((item.age <
-                                                tableInfo.getAgeStart()) ||
-                                                (item.age >
-                                                    tableInfo.getAgeEnd())) {
-                                              DatabaseService().deleteNotifData(
-                                                  item.userID,
-                                                  userData
-                                                      .userId); ////เอาไว้ลบ document firebase
+                                            if ((item.age < tableInfo.getAgeStart()) || (item.age > tableInfo.getAgeEnd()))
+                                            {
+                                              DatabaseService().deleteNotifData(item.userID, userData.userId); ////เอาไว้ลบ document firebase
                                             }
 
-                                            if (tableInfo.getGender() ==
-                                                'Male') {
-                                              if (item.getGender() != 'Male') {
-                                                DatabaseService()
-                                                    .deleteNotifData(
-                                                    item.userID,
-                                                    userData
-                                                        .userId); ////เอาไว้ลบ document firebase
+                                            if (tableInfo.getGender() == 'Male')
+                                            {
+                                              if (item.getGender() != 'Male')
+                                              {
+                                                DatabaseService().deleteNotifData(item.userID, userData.userId); ////เอาไว้ลบ document firebase
                                               }
                                             }
-                                            else if (tableInfo.getGender() ==
-                                                'Female') {
-                                              if (item.getGender() !=
-                                                  'Female') {
-                                                DatabaseService()
-                                                    .deleteNotifData(
-                                                    item.userID,
-                                                    userData
-                                                        .userId); ////เอาไว้ลบ document firebase
+                                            else if (tableInfo.getGender() == 'Female')
+                                            {
+                                              if (item.getGender() != 'Female') {
+                                                DatabaseService().deleteNotifData(item.userID, userData.userId); ////เอาไว้ลบ document firebase
                                               }
                                             }
                                           }
@@ -131,9 +103,6 @@ class _BarListState extends State<BarList> {
                                           return Loading();
                                         }
                                       });
-
-
-
                                   return Dismissible(
                                     ////Dismission คือให้มันปัดซ้ายปัดขวาได้
                                     secondaryBackground: Container(
@@ -197,7 +166,7 @@ class _BarListState extends State<BarList> {
                                         if (bar.getNumber() != null) {
                                           /////////ถ้าเป็น Group bar จะมีเลขกลุ่ม
                                           if (mytable.numberTable == null) {
-                                            if (userMaster.max == false) {
+                                            if (userMaster?.max == false) {
                                               //////////////// เพิ่มตัวเองลงในกลุ่มที่ยอมรับนั้น /////////////////////
                                               DatabaseService()
                                                   .updateMemberInGroup(
@@ -282,7 +251,7 @@ class _BarListState extends State<BarList> {
                                           }
                                         } else {
                                           /////////////////////// ถ้าเป็นแจ้งเตือนคนมาหากลุ่ม
-                                          if (master.max == false) {
+                                          if (master?.max == false) {
                                             bool haveInFindGroup = false;
                                             for (var item in userFindGroups) {
                                               if (bar.getUserID() ==

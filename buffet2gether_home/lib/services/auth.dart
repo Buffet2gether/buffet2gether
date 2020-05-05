@@ -1,3 +1,4 @@
+import 'package:buffet2gether_home/pages/login/createAccount_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:buffet2gether_home/models/profile_model.dart';
@@ -84,7 +85,8 @@ class AuthService {
       await DatabaseService().updateTableData(null, null, user.uid);
       return _userFromFirebaseUser(user);
     } catch (e) {
-      print(e.toString());
+      print("${e.toString()}");
+     
       return null;
     }
   }

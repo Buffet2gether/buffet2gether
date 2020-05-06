@@ -112,26 +112,26 @@ class _SearchPageState extends State<SearchPage> {
                     context: context,
                     builder: (context) {
                       return StreamProvider<List<UserFindGroup>>.value(
-                      value: DatabaseService(resID: element['resID']).userFindGroup,
-                      child: StreamProvider<Mytable>.value(
-                        value: DatabaseService(userID: user.userId).mytable,
-                        child: StreamProvider<List<UserMaster>>.value(
-                          value: DatabaseService(resID: element['resID']).userMaster,
-                          child: StreamProvider<User>.value(
-                              value: AuthService().user,
-                              child: InfoPage(
-                                resID: element['resID'],
-                                image: element['imageUrl'],
-                                name1: element['name1'],
-                                name2: element['name2'],
-                                location: element['location'],
-                                time: element['time'],
-                                promotion: element['promotion'],
-                                promotionInfo: element['promotionInfo'],
-                              )
-                          ),
-                        ),
-                      )
+                          value: DatabaseService(resID: element['resID']).userFindGroup,
+                          child: StreamProvider<Mytable>.value(
+                            value: DatabaseService(userID: user.userId).mytable,
+                            child: StreamProvider<List<UserMaster>>.value(
+                              value: DatabaseService(resID: element['resID']).userMaster,
+                              child: StreamProvider<User>.value(
+                                  value: AuthService().user,
+                                  child: InfoPage(
+                                    resID: element['resID'],
+                                    image: element['imageUrl'],
+                                    name1: element['name1'],
+                                    name2: element['name2'],
+                                    location: element['location'],
+                                    time: element['time'],
+                                    promotion: element['promotion'],
+                                    promotionInfo: element['promotionInfo'],
+                                  )
+                              ),
+                            ),
+                          )
                       );
                     }
                 );

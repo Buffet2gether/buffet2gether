@@ -28,49 +28,49 @@ class _NotifColumnState extends State<NotifColumn> {
     //print('now in notif');
 
     return new Scaffold(
-      appBar: new AppBar(
-        centerTitle: true,
-        leading: new Container(),
-        title: Text(
-          'การแจ้งเตือน',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: 'Opun',
-            color: Colors.deepOrange,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
+        appBar: new AppBar(
+          centerTitle: true,
+          leading: new Container(),
+          title: Text(
+            'การแจ้งเตือน',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'Opun',
+              color: Colors.deepOrange,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
           ),
+          backgroundColor: Color(0xfff5f5f5),
         ),
-        backgroundColor: Color(0xfff5f5f5),
-      ),
-      body:StreamBuilder<List<UserFindGroup>>(
-  stream: DatabaseService(resID: mytable?.resID).userFindGroup,
-  builder: (context, snapshot) {
-  if (snapshot.hasData)
-  {
-  return StreamProvider<List<UserFindGroup>>.value(
-  value: DatabaseService(resID: mytable?.resID).userFindGroup,
-  child: StreamProvider<Mytable>.value(
-  value: DatabaseService(userID: user?.userId).mytable,
-  child: StreamProvider<User>.value(
-  value: AuthService().user,
-  child: StreamProvider<List<Bar>>.value(
-  value: DatabaseService(userID: user?.userId).notifications,
-  child: BarList()
-  ),
-  ),
-  ),
-  );
-  }
-  else
-  {
-    if (snapshot.hasError)
-    {
-      print(snapshot.error.toString());
-    }
-    return Loading();
-  }
-  })
+        body:StreamBuilder<List<UserFindGroup>>(
+            stream: DatabaseService(resID: mytable?.resID).userFindGroup,
+            builder: (context, snapshot) {
+              if (snapshot.hasData)
+              {
+                return StreamProvider<List<UserFindGroup>>.value(
+                  value: DatabaseService(resID: mytable?.resID).userFindGroup,
+                  child: StreamProvider<Mytable>.value(
+                    value: DatabaseService(userID: user?.userId).mytable,
+                    child: StreamProvider<User>.value(
+                      value: AuthService().user,
+                      child: StreamProvider<List<Bar>>.value(
+                          value: DatabaseService(userID: user?.userId).notifications,
+                          child: BarList()
+                      ),
+                    ),
+                  ),
+                );
+              }
+              else
+              {
+                if (snapshot.hasError)
+                {
+                  print(snapshot.error.toString());
+                }
+                return Loading();
+              }
+            })
     );
   }
 }

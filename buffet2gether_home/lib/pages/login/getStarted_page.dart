@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/pages/login/login_page.dart';
+import 'package:buffet2gether_home/models/profile_model.dart';
+import 'package:buffet2gether_home/pages/wrapper.dart';
+import 'package:buffet2gether_home/services/auth.dart';
+import 'package:provider/provider.dart';
 
 class GetStartedColumn extends StatefulWidget
 {
@@ -30,7 +34,13 @@ class _GetStartedColumnState extends State<GetStartedColumn>
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => Login()
+                  builder: (context) {
+                            return StreamProvider<User>.value(
+                              value: AuthService().user,
+                              child: Wrapper(),
+                            );
+
+                          },
               )
           );
       },
@@ -83,15 +93,21 @@ class _GetStartedColumnState extends State<GetStartedColumn>
               children: <Widget>[
                 Container(
                   width: screenSize.width,
-                  height:165,
+                  height: 200,
                   margin: EdgeInsets.only(top:110.0),
                   decoration: BoxDecoration(
                       color:Colors.deepOrange
                   ),
                 ),
-                Image.network(
-                  'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/restaurantAndPromotion_pictures%2Fback.png?alt=media&token=bdd8c2a2-7243-4773-a7f2-3b2c0b736d8e',
-                  width: screenSize.width,
+                Align(
+                  child: Container(
+                    height:220,
+                    width: screenSize.width,
+                    decoration: new BoxDecoration(
+                      color: Colors.deepOrange,
+                      borderRadius: new BorderRadius.all(Radius.elliptical(200, 100)),
+                    ),
+                  ),
                 ),
                 Container(
                   width: screenSize.width,

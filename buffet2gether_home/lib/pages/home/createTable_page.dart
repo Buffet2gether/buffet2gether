@@ -30,10 +30,17 @@ List genderList = <GenderItem>[
   const GenderItem(FontAwesomeIcons.venusMars, 'Not specified'),
 ];
 
-class CreateTablePage extends StatefulWidget
-{
+class CreateTablePage extends StatefulWidget {
   ///รับข้อมูลร้านมาจากหน้า Info page
-  CreateTablePage({Key key, this.resID, this.name1, this.name2, this.image, this.location, this.time}) : super(key: key);
+  CreateTablePage(
+      {Key key,
+      this.resID,
+      this.name1,
+      this.name2,
+      this.image,
+      this.location,
+      this.time})
+      : super(key: key);
 
   final String resID;
   final String image;
@@ -46,8 +53,7 @@ class CreateTablePage extends StatefulWidget
   _CreateTablePageState createState() => new _CreateTablePageState();
 }
 
-class _CreateTablePageState extends State<CreateTablePage>
-{
+class _CreateTablePageState extends State<CreateTablePage> {
   ScrollController scrollController;
 
   ///ใช้แสดงคุณสมบัติต่างกันไป เช่นกดอายุขึ้นให้เลือกช่วงอายุ กดจำนวนขึ้นขึ้นให้เลือกจำนวนคน กดวันเวลาขึ้นให้เลือกวันเวลา กดเพศขึ้นให้เลือกเพศ
@@ -74,11 +80,10 @@ class _CreateTablePageState extends State<CreateTablePage>
   double selectedNumm = 2;
 
   ///ช่วงอายุ ค่าเริ่มค้นเป็น 35-50 เป็นชนิด double เวลาจะใช้เป็น Int ต้องใส่ .round() ต่อท้าย
-  RangeValues selectedRange = RangeValues(35,50);
+  RangeValues selectedRange = RangeValues(35, 50);
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final user = Provider.of<User>(context);
     final userFindGroups = Provider.of<List<UserFindGroup>>(context);
@@ -86,39 +91,37 @@ class _CreateTablePageState extends State<CreateTablePage>
 
     ///ข้อมูลร้าน
     final info = Container(
-        margin: EdgeInsets.only(top: 25, left: 10,right: 10,bottom: 20),
+        margin: EdgeInsets.only(top: 25, left: 10, right: 10, bottom: 20),
         decoration: new BoxDecoration(
             borderRadius: new BorderRadius.circular(10),
             color: Colors.white,
-            boxShadow:
-            [
+            boxShadow: [
               BoxShadow(
                 color: Colors.black26,
-                offset: Offset(0,2),
+                offset: Offset(0, 2),
                 blurRadius: 3,
               )
-            ]
-        ),
+            ]),
         child: Column(
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(widget.name1,
+                Text(
+                  widget.name1,
                   style: TextStyle(
                       fontFamily: 'Opun',
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.deepOrange
-                  ),
+                      color: Colors.deepOrange),
                 ),
-                Text(widget.name2,
+                Text(
+                  widget.name2,
                   style: TextStyle(
                       fontFamily: 'Opun',
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.deepOrange
-                  ),
+                      color: Colors.deepOrange),
                 ),
               ],
             ),
@@ -129,7 +132,8 @@ class _CreateTablePageState extends State<CreateTablePage>
                   widget.image,
                   fit: BoxFit.contain,
                   width: 250,
-                  height: 120,)
+                  height: 120,
+                )
               ],
             ),
             Row(
@@ -157,11 +161,7 @@ class _CreateTablePageState extends State<CreateTablePage>
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Icon(
-                    Icons.access_time,
-                    size: 25,
-                    color: Colors.amber
-                ),
+                Icon(Icons.access_time, size: 25, color: Colors.amber),
                 Text(
                   widget.time,
                   style: TextStyle(
@@ -173,14 +173,15 @@ class _CreateTablePageState extends State<CreateTablePage>
               ],
             ),
           ],
-        )
-    );
+        ));
 
     /// Matching with
     final textMatch = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(width: 15,),
+        SizedBox(
+          width: 15,
+        ),
         Text(
           'Matching with',
           style: TextStyle(
@@ -205,11 +206,10 @@ class _CreateTablePageState extends State<CreateTablePage>
           boxShadow: [
             BoxShadow(
               color: Colors.black26,
-              offset: Offset(0,4),
+              offset: Offset(0, 4),
               blurRadius: 5,
             )
-          ]
-      ),
+          ]),
       child: FittedBox(
         fit: BoxFit.fitWidth,
         child: Row(
@@ -217,10 +217,8 @@ class _CreateTablePageState extends State<CreateTablePage>
           children: <Widget>[
             ///age
             InkWell(
-                onTap: ()
-                {
-                  setState(()
-                  {
+                onTap: () {
+                  setState(() {
                     /// กดแล้วแสดงให้เลือกอายุ
                     isSelecting = 0;
                   });
@@ -233,22 +231,20 @@ class _CreateTablePageState extends State<CreateTablePage>
                     color: Colors.deepOrange,
                     fontSize: 15,
                   ),
-                )
-            ),
+                )),
             Text(
               '|',
-              style:  TextStyle(
+              style: TextStyle(
                 fontFamily: 'Opun',
                 color: Colors.amberAccent,
                 fontSize: 25,
               ),
             ),
+
             ///maxNum
             InkWell(
-              onTap: ()
-              {
-                setState(()
-                {
+              onTap: () {
+                setState(() {
                   /// กดจำนวนคน ขึ้นให้เลือกจำนวนคน
                   isSelecting = 1;
                 });
@@ -276,18 +272,17 @@ class _CreateTablePageState extends State<CreateTablePage>
             ),
             Text(
               '|',
-              style:  TextStyle(
+              style: TextStyle(
                 fontFamily: 'Opun',
                 color: Colors.amberAccent,
                 fontSize: 25,
               ),
             ),
+
             ///Date and time
             InkWell(
-              onTap: ()
-              {
-                setState(()
-                {
+              onTap: () {
+                setState(() {
                   /// กดวันเวลา ขึ้นให้เลือกวันเวลา
                   isSelecting = 2;
                 });
@@ -295,10 +290,12 @@ class _CreateTablePageState extends State<CreateTablePage>
                   context,
                   showTitleActions: true,
                   minTime: DateTime.now(),
-                  maxTime: DateTime.now().add(new Duration(days: 30)), ///นับจากเวลาปัจจุบันไปอีก 30 วัน
-                  onConfirm: (date)
-                  {
+                  maxTime: DateTime.now().add(new Duration(days: 30)),
+
+                  ///นับจากเวลาปัจจุบันไปอีก 30 วัน
+                  onConfirm: (date) {
                     newDateOfDue = date;
+
                     /// ใส่ setState ว่างๆไว้ให้มัน Update auto
                     setState(() {});
                   },
@@ -316,16 +313,16 @@ class _CreateTablePageState extends State<CreateTablePage>
             ),
             Text(
               '|',
-              style:  TextStyle(
+              style: TextStyle(
                 fontFamily: 'Opun',
                 color: Colors.amberAccent,
                 fontSize: 25,
               ),
             ),
+
             ///gender
             InkWell(
-              onTap: ()
-              {
+              onTap: () {
                 setState(() {
                   /// กดเพศ ขึ้นให้เลือกเพศ
                   isSelecting = 3;
@@ -346,26 +343,37 @@ class _CreateTablePageState extends State<CreateTablePage>
           children: [
             ///ให้เลือก age
             RangeSlider(
-              activeColor: Colors.pink, ///สีช่วงเลือก
-              inactiveColor: Colors.amberAccent, ///สีช่วงธรรมดา
+              activeColor: Colors.pink,
+
+              ///สีช่วงเลือก
+              inactiveColor: Colors.amberAccent,
+
+              ///สีช่วงธรรมดา
               values: selectedRange,
-              min: 10, ///อายุต่ำสุด
-              max: 60, ///อายุสูงสุด
-              divisions: 50, ///ช่วง 50 ช่วง(60-10=50) ห่างกันช่วงละ 1
-              labels: RangeLabels( ///ป้ายบอกเลข
+              min: 10,
+
+              ///อายุต่ำสุด
+              max: 60,
+
+              ///อายุสูงสุด
+              divisions: 50,
+
+              ///ช่วง 50 ช่วง(60-10=50) ห่างกันช่วงละ 1
+              labels: RangeLabels(
+
+                  ///ป้ายบอกเลข
                   '${selectedRange.start.round()}',
-                  '${selectedRange.end.round()}'
-              ),
-              onChanged: (value)
-              {
-                setState(()
-                {
+                  '${selectedRange.end.round()}'),
+              onChanged: (value) {
+                setState(() {
                   selectedRange = value;
                 });
               },
             ),
+
             ///ให้เลือก maxNum
-            Slider( ///เหมือน RangeSlider
+            Slider(
+              ///เหมือน RangeSlider
               activeColor: Colors.pink,
               inactiveColor: Colors.amberAccent,
               value: selectedNumm,
@@ -373,14 +381,13 @@ class _CreateTablePageState extends State<CreateTablePage>
               max: 10,
               divisions: 8,
               label: '${selectedNumm.round()}',
-              onChanged: (value)
-              {
-                setState(()
-                {
+              onChanged: (value) {
+                setState(() {
                   selectedNumm = value;
                 });
               },
             ),
+
             ///ให้เลือก Date and time
             Container(
               /// Date and time มันขึ้นอัตโนมัติอยู่แล้ว อันนี้เลยทำไว้ให้มันมี Index 2 เฉย ๆ
@@ -388,11 +395,12 @@ class _CreateTablePageState extends State<CreateTablePage>
               width: 1,
               height: 1,
             ),
+
             ///ให้เลือก gender
             Container(
               height: 50,
               margin: EdgeInsets.symmetric(horizontal: 20),
-              child:DropdownButton<GenderItem>(
+              child: DropdownButton<GenderItem>(
                 hint: Text('select gender'),
                 isDense: true,
                 isExpanded: true,
@@ -406,21 +414,23 @@ class _CreateTablePageState extends State<CreateTablePage>
                   color: Colors.black12,
                 ),
                 value: selectedGender,
-                onChanged: (GenderItem value)
-                {
-                  setState(()
-                  {
-                    selectedGender = value; ///เก็บเพศที่เลือกทั้ง icon และ name(string)
-                    newGender = Icon( ///เอาแค่ icon ที่เลือกไปแสดง
+                onChanged: (GenderItem value) {
+                  setState(() {
+                    selectedGender = value;
+
+                    ///เก็บเพศที่เลือกทั้ง icon และ name(string)
+                    newGender = Icon(
+                      ///เอาแค่ icon ที่เลือกไปแสดง
                       selectedGender.genderIcon,
                       size: 23,
                       color: Colors.deepOrange,
                     );
-                  }
-                  );
+                  });
                 },
-                items: genderList.map<DropdownMenuItem<GenderItem>>((value) ///list ให้เลือก
-                {
+                items: genderList.map<DropdownMenuItem<GenderItem>>((value)
+
+                    ///list ให้เลือก
+                    {
                   return DropdownMenuItem<GenderItem>(
                     value: value,
                     child: Row(
@@ -434,12 +444,10 @@ class _CreateTablePageState extends State<CreateTablePage>
                       ],
                     ),
                   );
-                }
-                ).toList(),
+                }).toList(),
               ),
             ),
-          ]
-      );
+          ]);
     }
 
     ///Text interest
@@ -468,17 +476,12 @@ class _CreateTablePageState extends State<CreateTablePage>
               ),
               onTap: () {
                 /// กด edit ไปหน้า edit interesting table
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => InterestingInTable()
-                    )
-                );
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => InterestingInTable()));
               },
             ),
           ],
-        )
-    );
+        ));
 
     /// แสดง interest ตามที่เลือกจากหน้า edit interesting table
     final interestList = Container(
@@ -487,11 +490,13 @@ class _CreateTablePageState extends State<CreateTablePage>
       child: ListView.builder(
           physics: NeverScrollableScrollPhysics(),
           scrollDirection: Axis.horizontal,
+
           /// myTable มาจาก table model จะมี list bool interest อยู่
           itemCount: myTable.interestingIconUrl.length,
-          itemBuilder: (BuildContext context, int index)
-          {
-            if (myTable.interestingBool[index]) ///ถ้าถูกเลือกขึ้นสีส้ม
+          itemBuilder: (BuildContext context, int index) {
+            if (myTable.interestingBool[index])
+
+            ///ถ้าถูกเลือกขึ้นสีส้ม
             {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -501,15 +506,15 @@ class _CreateTablePageState extends State<CreateTablePage>
                 ),
               );
             }
-            return Padding( ///ไม่เลือกขึ้นเเทา
+            return Padding(
+              ///ไม่เลือกขึ้นเเทา
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Icon(
                 myTable.interestingIconUrl[index],
                 color: Theme.of(context).buttonColor,
               ),
             );
-          }
-      ),
+          }),
     );
 
     final allInPage = Container(
@@ -519,15 +524,20 @@ class _CreateTablePageState extends State<CreateTablePage>
             info,
             textMatch,
             properties,
-            SizedBox(height: 60,),
+            SizedBox(
+              height: 60,
+            ),
             WhichProp(),
-            SizedBox(height: 60,),
+            SizedBox(
+              height: 60,
+            ),
             interest,
             interestList,
-            SizedBox(height: 30,)
+            SizedBox(
+              height: 30,
+            )
           ],
-        )
-    );
+        ));
 
     return new Scaffold(
         appBar: new AppBar(
@@ -544,33 +554,31 @@ class _CreateTablePageState extends State<CreateTablePage>
           actions: <Widget>[
             StreamBuilder<UserData>(
                 stream: DatabaseService(uid: user?.userId).userData,
-                builder: (context, snapshot)
-                {
+                builder: (context, snapshot) {
                   return InkWell(
-                    onTap: ()
-                    {
-                      if (selectedGender?.genderName == null) ///ถ้าไม่เลือก gender จะกด post ไม่ได้ เลยทำอันนี้ไว้เตือน แต่มันไม่ขึ้น...แงงงงง
+                    onTap: () {
+                      if (selectedGender?.genderName == null)
+
+                      ///ถ้าไม่เลือก gender จะกด post ไม่ได้ เลยทำอันนี้ไว้เตือน แต่มันไม่ขึ้น...แงงงงง
                       {
                         return showDialog(
                             context: context,
-                            builder: (context)
-                            {
+                            builder: (context) {
                               return AlertDialog(
                                   content: Text(
-                                    'Please select gender',
-                                    style: TextStyle(
-                                      fontFamily: 'Opun',
-                                      color: Colors.black45,
-                                      fontSize: 10,
-                                    ),
-                                  )
-                              );
+                                'Please select gender',
+                                style: TextStyle(
+                                  fontFamily: 'Opun',
+                                  color: Colors.black45,
+                                  fontSize: 10,
+                                ),
+                              ));
                             });
-                      }
-                      else ///กด post ได้
+                      } else
+
+                      ///กด post ได้
                       {
-                        if(mytable.numberTable == null)
-                        {
+                        if (mytable.numberTable == null) {
                           int numberTable = new Random().nextInt(100);
                           DatabaseService().updateGroups(
                               widget.resID,
@@ -593,8 +601,7 @@ class _CreateTablePageState extends State<CreateTablePage>
                               myTable.interestingBool[4],
                               myTable.interestingBool[5],
                               myTable.interestingBool[6],
-                              numberTable.toString()
-                          );
+                              numberTable.toString());
 
                           ///หัวข้อที่สนใจ
                           UserData userData = snapshot.data;
@@ -606,7 +613,11 @@ class _CreateTablePageState extends State<CreateTablePage>
                               userData.name,
                               numberTable.toString(),
                               userData.gender,
-                              (DateTime.now().difference(userData.dateofBirth).inDays / 365).floor(),
+                              (DateTime.now()
+                                          .difference(userData.dateofBirth)
+                                          .inDays /
+                                      365)
+                                  .floor(),
                               userData.fashion,
                               userData.sport,
                               userData.technology,
@@ -614,11 +625,11 @@ class _CreateTablePageState extends State<CreateTablePage>
                               userData.entertainment,
                               userData.book,
                               userData.pet,
-                              userData.userId
-                          );
+                              userData.userId);
 
                           ///เพิ่ม ID ของเราเป็น Master ของกลุ่มนี้
-                          DatabaseService().updateMasterData(widget.resID, numberTable.toString(), userData.userId,false);
+                          DatabaseService().updateMasterData(widget.resID,
+                              numberTable.toString(), userData.userId, false);
 
                           ///ถ้ามี  user find group ของร้านนี้อยู่ก่อนแล้ว ให้เพิ่ม user find group ทุกคนใน notification ของเรา
                           for (var item in userFindGroups) {
@@ -642,24 +653,22 @@ class _CreateTablePageState extends State<CreateTablePage>
                           }
 
                           ///เพิ่มหน้า Table ของเราว่าเรามีโต๊ะเลขนี้แล้ว
-                          DatabaseService().updateTableData(widget.resID, numberTable.toString(),userData.userId);
+                          DatabaseService().updateTableData(widget.resID,
+                              numberTable.toString(), userData.userId);
 
                           //// ไปหมุนหน้าน้องบุฟ 3 วิ ละค่อยไปหน้า Table
-                          return Navigator.of(context).push(
-                              MaterialPageRoute(builder: (BuildContext context) =>
-                              StreamProvider<Mytable>.value(
-                                  value: DatabaseService(userID: userData.userId).mytable,
-                                  child: MatchingPage())
-                              )
-                          );
-                        }
-                        else
-                        {
+                          return Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  StreamProvider<Mytable>.value(
+                                      value: DatabaseService(
+                                              userID: userData.userId)
+                                          .mytable,
+                                      child: MatchingPage())));
+                        } else {
                           /// ถ้ามีโต๊ะแล้วจะกด post ไม่ได้แล้วให้ขึ้นแจ้งเตือน
                           return showDialog(
                             context: context,
-                            builder: (context)
-                            {
+                            builder: (context) {
                               return AlertDialog(
                                 content: Text(
                                   'ขออภัย...ไม่สามารถสร้างกลุ่มใหม่ได้เนื่องจากคุณมีกลุ่มบุฟเฟฟต์แล้ว',
@@ -684,20 +693,18 @@ class _CreateTablePageState extends State<CreateTablePage>
                       ),
                     ),
                   );
-                }
-            ),
+                }),
           ],
         ),
         body: SafeArea(
           child: ListView.builder(
+            physics: BouncingScrollPhysics(),
             controller: scrollController,
             itemCount: 1,
-            itemBuilder: (BuildContext context, int index)
-            {
+            itemBuilder: (BuildContext context, int index) {
               return allInPage;
             },
           ),
-        )
-    );
+        ));
   }
 }

@@ -69,7 +69,7 @@ class _MyTable1State extends State<MyTable1>
         }
       }
     }
-    
+
     final buttonLeaveGroup = Container(
       margin: EdgeInsets.all(10),
       width: 410,
@@ -78,15 +78,15 @@ class _MyTable1State extends State<MyTable1>
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           FloatingActionButton(
-                onPressed:(){
-                  /////////////////////////// ลบข้อมูลตัวเองออกจากกลุ่มอย่างเดียว
-                  DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user?.userId,null);
-                  DatabaseService().updateTableData(null, null,user?.userId);
-                } ,
-                child:Icon(Icons.exit_to_app),
-                backgroundColor:Colors.red,
-                tooltip: 'Leave group',
-              ),
+            onPressed:(){
+              /////////////////////////// ลบข้อมูลตัวเองออกจากกลุ่มอย่างเดียว
+              DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user?.userId,null);
+              DatabaseService().updateTableData(null, null,user?.userId);
+            } ,
+            child:Icon(Icons.exit_to_app),
+            backgroundColor:Colors.red,
+            tooltip: 'Leave group',
+          ),
         ],
       ),
 
@@ -132,26 +132,26 @@ class _MyTable1State extends State<MyTable1>
               }
               /////////////////////////// ลบข้อมูลตัวเองออกจากกลุ่ม
               DatabaseService().updateFinish(
-                      mytable.resID,
-                      infoFromTable.name1,
-                      infoFromTable.name2,
-                      infoFromTable.imageUrl,
-                      infoFromTable.location,
-                      infoFromTable.time,
-                      infoFromTable.ageStart,
-                      infoFromTable.ageEnd,
-                      infoFromTable?.people,
-                      newDueTime,
-                      infoFromTable.gender,
-                      infoFromTable.fashion,
-                      infoFromTable.sport,
-                      infoFromTable.technology,
-                      infoFromTable.politics,
-                      infoFromTable.entertainment,
-                      infoFromTable.book,
-                      infoFromTable.pet,
-                      infoFromTable.number,
-                      user?.userId);
+                  mytable.resID,
+                  infoFromTable.name1,
+                  infoFromTable.name2,
+                  infoFromTable.imageUrl,
+                  infoFromTable.location,
+                  infoFromTable.time,
+                  infoFromTable.ageStart,
+                  infoFromTable.ageEnd,
+                  infoFromTable?.people,
+                  newDueTime,
+                  infoFromTable.gender,
+                  infoFromTable.fashion,
+                  infoFromTable.sport,
+                  infoFromTable.technology,
+                  infoFromTable.politics,
+                  infoFromTable.entertainment,
+                  infoFromTable.book,
+                  infoFromTable.pet,
+                  infoFromTable.number,
+                  user?.userId);
               DatabaseService().deleteGroupData(mytable.resID, mytable.numberTable,user?.userId,'info');
               DatabaseService().updateTableData(null, null,user?.userId);
             },
@@ -192,41 +192,41 @@ class _MyTable1State extends State<MyTable1>
 
     /// แสดง interest ตามที่เลือกจากหน้า edit interesting table
     final interestList = Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
-      height: 50,
-      child: StreamBuilder<InfoInTable>(
-          stream: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
-          builder: (context, snapshot)
-          {
-            if (snapshot.hasData)
+        margin: EdgeInsets.symmetric(horizontal: 20),
+        height: 50,
+        child: StreamBuilder<InfoInTable>(
+            stream: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
+            builder: (context, snapshot)
             {
-              return ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                /// myTable มาจาก table model จะมี list bool interest อยู่
-                itemCount: interestTable?.length,
-                itemBuilder: (BuildContext context, int index)
-                {
-                  if (interestTable[index]) ///ถ้าถูกเลือกขึ้นสีส้ม
-                  {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.5),
-                      child: Icon(
+              if (snapshot.hasData)
+              {
+                return ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    /// myTable มาจาก table model จะมี list bool interest อยู่
+                    itemCount: interestTable?.length,
+                    itemBuilder: (BuildContext context, int index)
+                    {
+                      if (interestTable[index]) ///ถ้าถูกเลือกขึ้นสีส้ม
+                      {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.5),
+                          child: Icon(
+                              myTable.interestingIconUrl[index],
+                              color: Colors.deepOrange
+                          ),
+                        );
+                      }
+                      return Padding( ///ไม่เลือกขึ้นเเทา
+                        padding: const EdgeInsets.symmetric(horizontal: 8.5),
+                        child: Icon(
                           myTable.interestingIconUrl[index],
-                          color: Colors.deepOrange
-                      ),
-                    );
-                  }
-                  return Padding( ///ไม่เลือกขึ้นเเทา
-                    padding: const EdgeInsets.symmetric(horizontal: 8.5),
-                    child: Icon(
-                      myTable.interestingIconUrl[index],
-                      color: Colors.grey,
-                    ),
-                  );
-                });
-            }
-            else
+                          color: Colors.grey,
+                        ),
+                      );
+                    });
+              }
+              else
               {
                 if (snapshot.hasError)
                 {
@@ -234,7 +234,7 @@ class _MyTable1State extends State<MyTable1>
                 }
                 return Loading();
               }
-          })
+            })
     );
 
     final info = Container(
@@ -352,68 +352,68 @@ class _MyTable1State extends State<MyTable1>
                     children: <Widget>[
                       ///age
                       Text(
-                    ///ค่าอายุเริ่ม - ค่าอายุจบ
-                    '${infoFromTable?.ageStart.toString()} - ${infoFromTable?.ageEnd.toString()}',
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.deepOrange,
-                      fontSize: 15,
-                    ),
-                  ),
+                        ///ค่าอายุเริ่ม - ค่าอายุจบ
+                        '${infoFromTable?.ageStart.toString()} - ${infoFromTable?.ageEnd.toString()}',
+                        style: TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.deepOrange,
+                          fontSize: 15,
+                        ),
+                      ),
                       Text(
-                    '|',
-                    style:  TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.amberAccent,
-                      fontSize: 25,
-                    ),
-                  ),
+                        '|',
+                        style:  TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.amberAccent,
+                          fontSize: 25,
+                        ),
+                      ),
                       ///maxNum
                       Container(
-                    child: Row(
-                      children: <Widget>[
-                        Text(
-                          /// 1/จำนวนคนที่เลือก
-                          (infoFromTable?.people != null)?'${listMember?.length.toString()} / ${infoFromTable?.people.round().toString()}':' ',
-                          style: TextStyle(
-                            fontFamily: 'Opun',
-                            color: Colors.deepOrange,
-                            fontSize: 15,
-                          ),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              /// 1/จำนวนคนที่เลือก
+                              (infoFromTable?.people != null)?'${listMember?.length.toString()} / ${infoFromTable?.people.round().toString()}':' ',
+                              style: TextStyle(
+                                fontFamily: 'Opun',
+                                color: Colors.deepOrange,
+                                fontSize: 15,
+                              ),
+                            ),
+                            Icon(
+                              Icons.people,
+                              color: Colors.deepOrange,
+                              size: 23,
+                            )
+                          ],
                         ),
-                        Icon(
-                          Icons.people,
-                          color: Colors.deepOrange,
-                          size: 23,
-                        )
-                      ],
-                    ),
-                  ),
+                      ),
                       Text(
-                    '|',
-                    style:  TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.amberAccent,
-                      fontSize: 25,
-                    ),
-                  ),
+                        '|',
+                        style:  TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.amberAccent,
+                          fontSize: 25,
+                        ),
+                      ),
                       ///Date and time
                       Text(
-                    DateFormat('dd-MM-yyyy  h:mm a').format(newDueTime),
-                    style: TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.deepOrange,
-                      fontSize: 15,
-                    ),
-                  ),
+                        DateFormat('dd-MM-yyyy  h:mm a').format(newDueTime),
+                        style: TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.deepOrange,
+                          fontSize: 15,
+                        ),
+                      ),
                       Text(
-                    '|',
-                    style:  TextStyle(
-                      fontFamily: 'Opun',
-                      color: Colors.amberAccent,
-                      fontSize: 25,
-                    ),
-                  ),
+                        '|',
+                        style:  TextStyle(
+                          fontFamily: 'Opun',
+                          color: Colors.amberAccent,
+                          fontSize: 25,
+                        ),
+                      ),
                       ///gender
                       Icon(
                         genderList[getGender()].genderIcon,
@@ -424,15 +424,15 @@ class _MyTable1State extends State<MyTable1>
                 );
               }
               else
+              {
+                if (snapshot.hasError)
                 {
-                  if (snapshot.hasError)
-                  {
-                    print(snapshot.error.toString());
-                  }
-                  return Loading();
+                  print(snapshot.error.toString());
                 }
+                return Loading();
+              }
             }
-            )
+        )
     );
 
     final memberBar = ListView.builder(
@@ -516,7 +516,7 @@ class _MyTable1State extends State<MyTable1>
       },
     );
 
-     
+
     print(iAmMaster);
     final stackMatchCol = StreamBuilder<InfoInTable>(
         stream: DatabaseService(numberTable:mytable?.numberTable,resID: mytable?.resID).infoInTable,
@@ -524,10 +524,10 @@ class _MyTable1State extends State<MyTable1>
         {
           if (snapshot.hasData)
           {  if(user?.userId == userMaster?.userId)
-              {
-                iAmMaster = true;
-              }
-            return Stack(
+          {
+            iAmMaster = true;
+          }
+          return Stack(
               children: [
                 SafeArea(
                     child: Column(
@@ -594,13 +594,13 @@ class _MyTable1State extends State<MyTable1>
           );
           }
           else
+          {
+            if (snapshot.hasError)
             {
-              if (snapshot.hasError)
-              {
-                print(snapshot.error.toString());
-              }
-              return Loading();
+              print(snapshot.error.toString());
             }
+            return Loading();
+          }
         }
     );
     return stackMatchCol;

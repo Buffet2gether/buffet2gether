@@ -21,7 +21,6 @@ class HomeColumn extends StatefulWidget {
 }
 
 class _HomeColumnState extends State<HomeColumn> {
-
   SwiperController swiperController = SwiperController();
   ScrollController scrollController = ScrollController(initialScrollOffset: 0);
 
@@ -76,6 +75,7 @@ class _HomeColumnState extends State<HomeColumn> {
     final picPro = ConstrainedBox(
         child: new Swiper(
           itemCount: proPics?.length,
+          autoplay: true,
           pagination: new SwiperPagination(),
           controller: swiperController,
           itemBuilder: (BuildContext context, int index) {
@@ -86,11 +86,13 @@ class _HomeColumnState extends State<HomeColumn> {
                     context: context,
                     builder: (context) {
                       return StreamProvider<List<UserFindGroup>>.value(
-                        value:DatabaseService(resID: proPic.resID).userFindGroup,
+                        value:
+                            DatabaseService(resID: proPic.resID).userFindGroup,
                         child: StreamProvider<Mytable>.value(
                           value: DatabaseService(userID: user.userId).mytable,
                           child: StreamProvider<List<UserMaster>>.value(
-                            value:DatabaseService(resID: proPic.resID).userMaster,
+                            value:
+                                DatabaseService(resID: proPic.resID).userMaster,
                             child: StreamProvider<User>.value(
                                 value: AuthService().user,
                                 child: InfoPage(
@@ -109,18 +111,14 @@ class _HomeColumnState extends State<HomeColumn> {
                     },
                   );
                 },
-                child: Image.network(proPic.proPic)
-            );
+                child: Image.network(proPic.proPic));
           },
         ),
         constraints: new BoxConstraints.loose(new Size(350, 220.0)));
 
     final promotion = Stack(
       alignment: Alignment.topCenter,
-      children: <Widget>[
-        picPro,
-        textPro
-      ],
+      children: <Widget>[picPro, textPro],
     );
 
     final textRecom = Row(
@@ -148,6 +146,7 @@ class _HomeColumnState extends State<HomeColumn> {
         height: 155,
         color: Color(0xFFF5F5F5),
         child: ListView.builder(
+          physics: BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
           itemCount: recs?.length,
           itemBuilder: (BuildContext context, int index) {
@@ -158,11 +157,13 @@ class _HomeColumnState extends State<HomeColumn> {
                       context: context,
                       builder: (context) {
                         return StreamProvider<List<UserFindGroup>>.value(
-                          value: DatabaseService(resID: rec.resID).userFindGroup,
+                          value:
+                              DatabaseService(resID: rec.resID).userFindGroup,
                           child: StreamProvider<Mytable>.value(
                             value: DatabaseService(userID: user.userId).mytable,
                             child: StreamProvider<List<UserMaster>>.value(
-                              value: DatabaseService(resID: rec.resID).userMaster,
+                              value:
+                                  DatabaseService(resID: rec.resID).userMaster,
                               child: StreamProvider<User>.value(
                                   value: AuthService().user,
                                   child: InfoPage(
@@ -237,7 +238,8 @@ class _HomeColumnState extends State<HomeColumn> {
                             ]),
                         child: Stack(
                           children: <Widget>[
-                            ClipRect(
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
                               child: Image.network(
                                 rec.imageUrl,
                                 fit: BoxFit.cover,
@@ -276,6 +278,7 @@ class _HomeColumnState extends State<HomeColumn> {
         color: Color(0xFFF5F5F5),
         child: ListView.builder(
             itemCount: more?.length,
+            physics: BouncingScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
               final m = more[index];
               return InkWell(
@@ -284,11 +287,14 @@ class _HomeColumnState extends State<HomeColumn> {
                         context: context,
                         builder: (context) {
                           return StreamProvider<List<UserFindGroup>>.value(
-                            value: DatabaseService(resID: m.resID).userFindGroup,
+                            value:
+                                DatabaseService(resID: m.resID).userFindGroup,
                             child: StreamProvider<Mytable>.value(
-                              value: DatabaseService(userID: user.userId).mytable,
+                              value:
+                                  DatabaseService(userID: user.userId).mytable,
                               child: StreamProvider<List<UserMaster>>.value(
-                                value: DatabaseService(resID: m.resID).userMaster,
+                                value:
+                                    DatabaseService(resID: m.resID).userMaster,
                                 child: StreamProvider<User>.value(
                                     value: AuthService().user,
                                     child: InfoPage(
@@ -316,11 +322,14 @@ class _HomeColumnState extends State<HomeColumn> {
                       ),
                       child: Row(
                         children: <Widget>[
-                          Image.network(
-                            m.imageUrl,
-                            fit: BoxFit.cover,
-                            width: 110,
-                            height: 80,
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              m.imageUrl,
+                              fit: BoxFit.cover,
+                              width: 110,
+                              height: 80,
+                            ),
                           ),
                           Container(
                             width: screenSize.width - 135,
@@ -426,38 +435,37 @@ class _HomeColumnState extends State<HomeColumn> {
 
     return Scaffold(
         appBar: new AppBar(
-                  leading: IconButton(
-                    icon: Icon(Icons.search),
-                    color: Colors.orange,
-                    onPressed: () {
-                      return showDialog(
-                        context: context,
-                        builder: (context) {
-                          return StreamProvider<User>.value(
-                            value: AuthService().user,
-                            child: new SearchPage(),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                  centerTitle: true,
-                  title: new Text(
-                    'Buffet2Gether',
-                    style: TextStyle(
-                        color: Colors.deepOrange,
-                        fontFamily: 'Opun',
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  backgroundColor: Color(0xfff5f5f5),
-                ),
+          leading: IconButton(
+            icon: Icon(Icons.search),
+            color: Colors.orange,
+            onPressed: () {
+              return showDialog(
+                context: context,
+                builder: (context) {
+                  return StreamProvider<User>.value(
+                    value: AuthService().user,
+                    child: new SearchPage(),
+                  );
+                },
+              );
+            },
+          ),
+          centerTitle: true,
+          title: new Text(
+            'Buffet2Gether',
+            style: TextStyle(
+                color: Colors.deepOrange,
+                fontFamily: 'Opun',
+                fontSize: 20,
+                fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: Color(0xfff5f5f5),
+        ),
         body: SafeArea(
             child: StreamBuilder<List<Promo>>(
                 stream: DatabaseService().promotionPic,
                 builder: (context, snapshot) {
-                  if (snapshot.hasData)
-                  {
+                  if (snapshot.hasData) {
                     return StreamProvider<User>.value(
                         value: AuthService().user,
                         child: StreamProvider<List<Recom>>.value(
@@ -468,27 +476,19 @@ class _HomeColumnState extends State<HomeColumn> {
                                     value: DatabaseService().promotionPic,
                                     child: ListView.builder(
                                       controller: scrollController,
+                                      physics: BouncingScrollPhysics(),
                                       itemCount: 1,
-                                      itemBuilder: (BuildContext context, int index) {
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
                                         return homeColumn;
-                                        },
-                                    )
-                                )
-                            )
-                        )
-                    );
-                  }
-                  else
-                    {
-                      if (snapshot.hasError)
-                      {
-                        print(snapshot.error.toString());
-                      }
-                      return Loading();
+                                      },
+                                    )))));
+                  } else {
+                    if (snapshot.hasError) {
+                      print(snapshot.error.toString());
                     }
-                }
-            )
-        )
-    );
+                    return Loading();
+                  }
+                })));
   }
 }

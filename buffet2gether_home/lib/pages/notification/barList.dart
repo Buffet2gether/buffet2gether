@@ -27,6 +27,7 @@ class _BarListState extends State<BarList> {
     final userFindGroups = Provider.of<List<UserFindGroup>>(context);
     //print('now in barlist');
     return ListView.builder(
+        physics: BouncingScrollPhysics(),
         itemCount: bars?.length ?? 0,
         itemBuilder: (context, index) {
           //print('now');
@@ -36,52 +37,69 @@ class _BarListState extends State<BarList> {
               stream: DatabaseService(resID: mytable.resID).userFindGroup,
               builder: (context, snapshot4) {
                 return StreamBuilder<UserMaster>(
-                    stream: DatabaseService(resID: bar.getResID(), numberTable: bar.getNumber()).userMasterMax,
+                    stream: DatabaseService(
+                            resID: bar.getResID(), numberTable: bar.getNumber())
+                        .userMasterMax,
                     builder: (context, snapshot1) {
                       //if (snapshot1.hasData) {
                       UserMaster userMaster = snapshot1.data;
                       return StreamBuilder<UserMaster>(
-                          stream: DatabaseService(resID: mytable.resID, numberTable: mytable.numberTable).userMasterMax,
+                          stream: DatabaseService(
+                                  resID: mytable.resID,
+                                  numberTable: mytable.numberTable)
+                              .userMasterMax,
                           builder: (context, snapshot2) {
                             //if (snapshot2.hasData) {
                             UserMaster master = snapshot2.data;
                             return StreamBuilder<TableInfo>(
-                                stream: DatabaseService(resID: mytable.resID, numberTable: mytable.numberTable).groupInterest,
+                                stream: DatabaseService(
+                                        resID: mytable.resID,
+                                        numberTable: mytable.numberTable)
+                                    .groupInterest,
                                 builder: (context, snapshot3) {
                                   //if (snapshot3.hasData) {
                                   return StreamBuilder<UserData>(
-                                      stream: DatabaseService(uid: user?.userId).userData,
+                                      stream: DatabaseService(uid: user?.userId)
+                                          .userData,
                                       builder: (context, snapshot) {
                                         //if (snapshot.hasData) {
                                         UserData userData = snapshot.data;
                                         TableInfo tableInfo = snapshot3.data;
 
-                                        if(mytable.resID != null){
-                                          if (snapshot4.hasData&&snapshot3.hasData) {
+                                        if (mytable.resID != null) {
+                                          if (snapshot4.hasData &&
+                                              snapshot3.hasData) {
                                             for (var item in userFindGroups) {
                                               //matching
-                                              if (((item.getBook() &&
-                                                  tableInfo.getBook()) ==
-                                                  false) &&
-                                                  ((item.getEntertainment() &&
-                                                      tableInfo
-                                                          .getEntertainment()) ==
+                                              if (((item
+                                                              .getBook() &&
+                                                          tableInfo
+                                                              .getBook()) ==
                                                       false) &&
-                                                  ((item.getFashion() &&
-                                                      tableInfo.getFashion()) ==
+                                                  ((item
+                                                              .getEntertainment() &&
+                                                          tableInfo
+                                                              .getEntertainment()) ==
+                                                      false) &&
+                                                  ((item
+                                                              .getFashion() &&
+                                                          tableInfo
+                                                              .getFashion()) ==
                                                       false) &&
                                                   ((item.getPet() &&
-                                                      tableInfo.getPet()) ==
+                                                          tableInfo.getPet()) ==
                                                       false) &&
                                                   ((item.getPolitics() &&
-                                                      tableInfo.getPolitics()) ==
+                                                          tableInfo
+                                                              .getPolitics()) ==
                                                       false) &&
                                                   ((item.getSport() &&
-                                                      tableInfo.getSport()) ==
+                                                          tableInfo
+                                                              .getSport()) ==
                                                       false) &&
                                                   ((item.getTechnology() &&
-                                                      tableInfo
-                                                          .getTechnology()) ==
+                                                          tableInfo
+                                                              .getTechnology()) ==
                                                       false)) {
                                                 DatabaseService().deleteNotifData(
                                                     item.userID,
@@ -91,7 +109,8 @@ class _BarListState extends State<BarList> {
                                               }
 
                                               if ((item.age <
-                                                  tableInfo.getAgeStart()) ||
+                                                      tableInfo
+                                                          .getAgeStart()) ||
                                                   (item.age >
                                                       tableInfo.getAgeEnd())) {
                                                 DatabaseService().deleteNotifData(
@@ -102,46 +121,39 @@ class _BarListState extends State<BarList> {
 
                                               if (tableInfo.getGender() ==
                                                   'Male') {
-                                                if (item.getGender() != 'Male') {
-                                                  DatabaseService()
-                                                      .deleteNotifData(
+                                                if (item.getGender() !=
+                                                    'Male') {
+                                                  DatabaseService().deleteNotifData(
                                                       item.userID,
                                                       userData
                                                           .userId); ////เอาไว้ลบ document firebase
                                                 }
-                                              }
-                                              else if (tableInfo.getGender() ==
+                                              } else if (tableInfo
+                                                      .getGender() ==
                                                   'Female') {
                                                 if (item.getGender() !=
                                                     'Female') {
-                                                  DatabaseService()
-                                                      .deleteNotifData(
+                                                  DatabaseService().deleteNotifData(
                                                       item.userID,
                                                       userData
                                                           .userId); ////เอาไว้ลบ document firebase
                                                 }
                                               }
                                             }
-                                          }
-                                          else
-                                          {
-                                            if (snapshot.hasError)
-                                            {
+                                          } else {
+                                            if (snapshot.hasError) {
                                               print(snapshot.error.toString());
                                             }
                                             return Loading();
                                           }
-                                        }else{
-                                          if(bar.getNumber() == null){
-                                            DatabaseService()
-                                                .deleteNotifData(
+                                        } else {
+                                          if (bar.getNumber() == null) {
+                                            DatabaseService().deleteNotifData(
                                                 bar.getUserID(),
                                                 userData
                                                     .userId); ////เอาไว้ลบ document firebase
                                           }
                                         }
-
-
 
                                         return Dismissible(
                                           ////Dismission คือให้มันปัดซ้ายปัดขวาได้
@@ -149,9 +161,9 @@ class _BarListState extends State<BarList> {
                                               color: Colors.red,
                                               child: Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.end,
+                                                    MainAxisAlignment.end,
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.center,
                                                 children: <Widget>[
                                                   Icon(Icons.cancel),
                                                   Text(' delete   '),
@@ -161,9 +173,9 @@ class _BarListState extends State<BarList> {
                                               color: Colors.green,
                                               child: Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.start,
+                                                    MainAxisAlignment.start,
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.center,
                                                 children: <Widget>[
                                                   Text('   '),
                                                   Icon(Icons.check_circle),
@@ -175,11 +187,14 @@ class _BarListState extends State<BarList> {
                                                   color: Colors.deepOrange[50]),
                                               child: ListTile(
                                                 /// สร้าง bar
-                                                title: bar.buildNotifBar(context),
-                                                subtitle: bar.buildGroupBar(context),
+                                                title:
+                                                    bar.buildNotifBar(context),
+                                                subtitle:
+                                                    bar.buildGroupBar(context),
                                               )),
                                           key: UniqueKey(),
-                                          onDismissed: (DismissDirection direction) {
+                                          onDismissed:
+                                              (DismissDirection direction) {
                                             setState(() {
                                               bars.removeAt(index);
                                             });
@@ -191,11 +206,13 @@ class _BarListState extends State<BarList> {
                                             Scaffold.of(context)
                                                 .showSnackBar(SnackBar(
                                               content: Text(direction ==
-                                                  DismissDirection.startToEnd
+                                                      DismissDirection
+                                                          .startToEnd
                                                   ? 'accept'
                                                   : 'delete'),
                                               backgroundColor: direction ==
-                                                  DismissDirection.startToEnd
+                                                      DismissDirection
+                                                          .startToEnd
                                                   ? Colors.green
                                                   : Colors.red,
                                             ));
@@ -205,7 +222,8 @@ class _BarListState extends State<BarList> {
                                               ////// ถ้า accept
                                               if (bar.getNumber() != null) {
                                                 /////////ถ้าเป็น Group bar จะมีเลขกลุ่ม
-                                                if (mytable.numberTable == null) {
+                                                if (mytable.numberTable ==
+                                                    null) {
                                                   if (userMaster.max == false) {
                                                     //////////////// เพิ่มตัวเองลงในกลุ่มที่ยอมรับนั้น /////////////////////
                                                     DatabaseService()
@@ -216,10 +234,11 @@ class _BarListState extends State<BarList> {
                                                       bar.getNumber(),
                                                       userData.gender,
                                                       (DateTime.now()
-                                                          .difference(userData
-                                                          .dateofBirth)
-                                                          .inDays /
-                                                          365)
+                                                                  .difference(
+                                                                      userData
+                                                                          .dateofBirth)
+                                                                  .inDays /
+                                                              365)
                                                           .floor(),
                                                       userData.fashion,
                                                       userData.sport,
@@ -231,30 +250,33 @@ class _BarListState extends State<BarList> {
                                                       userData.userId,
                                                     );
                                                     /////////////// เพิ่มหน้า Table ของเราว่าเรามีกลุ่มแล้ว /////////////
-                                                    DatabaseService().updateTableData(
-                                                        bar.getResID(),
-                                                        bar.getNumber(),
-                                                        userData.userId);
+                                                    DatabaseService()
+                                                        .updateTableData(
+                                                            bar.getResID(),
+                                                            bar.getNumber(),
+                                                            userData.userId);
                                                     ////////////// ลบข้อมูล document ของเราใน user find Group เพราะเรามีกลุ่มแล้ว
 
                                                     DatabaseService()
                                                         .deleteUserFindGroupData(
-                                                        bar.getResID(),
-                                                        userData.userId);
+                                                            bar.getResID(),
+                                                            userData.userId);
 
                                                     ///////////// ไปที่หน้า Table///////////////////////////////
                                                     Navigator.of(context).push(
                                                         MaterialPageRoute(
-                                                            builder: (BuildContext context) =>
-                                                            StreamProvider<
-                                                                User>.value(
-                                                                value:
-                                                                AuthService()
-                                                                    .user,
-                                                                child:
-                                                                MyCustomForm(
-                                                                  tabsIndex: 1,
-                                                                ))));
+                                                            builder: (BuildContext
+                                                                    context) =>
+                                                                StreamProvider<
+                                                                        User>.value(
+                                                                    value:
+                                                                        AuthService()
+                                                                            .user,
+                                                                    child:
+                                                                        MyCustomForm(
+                                                                      tabsIndex:
+                                                                          1,
+                                                                    ))));
                                                   } else {
                                                     return showDialog(
                                                       context: context,
@@ -263,9 +285,10 @@ class _BarListState extends State<BarList> {
                                                           content: Text(
                                                             'ขออภัย...ไม่สามารถเข้ากลุ่มได้เนื่องจากกลุ่มนี้เต็มแล้ว',
                                                             style: TextStyle(
-                                                              fontFamily: 'Opun',
-                                                              color:
-                                                              Colors.deepOrange,
+                                                              fontFamily:
+                                                                  'Opun',
+                                                              color: Colors
+                                                                  .deepOrange,
                                                               fontSize: 13,
                                                             ),
                                                           ),
@@ -282,7 +305,8 @@ class _BarListState extends State<BarList> {
                                                           'ขออภัย...ไม่สามารถเข้ากลุ่มได้เนื่องจากคุณมีกลุ่มแล้ว',
                                                           style: TextStyle(
                                                             fontFamily: 'Opun',
-                                                            color: Colors.deepOrange,
+                                                            color: Colors
+                                                                .deepOrange,
                                                             fontSize: 13,
                                                           ),
                                                         ),
@@ -291,11 +315,11 @@ class _BarListState extends State<BarList> {
                                                   );
                                                 }
                                               } else {
-
                                                 /////////////////////// ถ้าเป็นแจ้งเตือนคนมาหากลุ่ม
                                                 if (master.max == false) {
                                                   bool haveInFindGroup = false;
-                                                  for (var item in userFindGroups) {
+                                                  for (var item
+                                                      in userFindGroups) {
                                                     if (bar.getUserID() ==
                                                         item.userID) {
                                                       haveInFindGroup = true;
@@ -303,22 +327,25 @@ class _BarListState extends State<BarList> {
                                                       //////////// ถ้าผู้ใช้ที่เราเชิญเข้ากลุ่มอยู่ใน userFindGroup ให้ส่งแจ้งเตือนเชิญเข้ากลุ่มไปที่ user คนนั้น
                                                       DatabaseService().updateNotifData(
                                                           mytable?.resID,
-                                                          userData.profilePicture,
+                                                          userData
+                                                              .profilePicture,
                                                           userData.name,
                                                           mytable.numberTable,
                                                           true,
                                                           userData.gender,
                                                           (DateTime.now()
-                                                              .difference(userData
-                                                              .dateofBirth)
-                                                              .inDays /
-                                                              365)
+                                                                      .difference(
+                                                                          userData
+                                                                              .dateofBirth)
+                                                                      .inDays /
+                                                                  365)
                                                               .floor(),
                                                           userData.fashion,
                                                           userData.sport,
                                                           userData.technology,
                                                           userData.politics,
-                                                          userData.entertainment,
+                                                          userData
+                                                              .entertainment,
                                                           userData.book,
                                                           userData.pet,
                                                           userData.userId,
@@ -326,7 +353,8 @@ class _BarListState extends State<BarList> {
                                                     }
                                                   }
 
-                                                  if (haveInFindGroup == false) {
+                                                  if (haveInFindGroup ==
+                                                      false) {
                                                     //////////ถ้าผู้ใช้ไม่ได้อยู่ใน userFindGroup แปลว่าระหว่งที่เรายังไม่กดเชิญ ผู้ใช้นั้นมีกลุ่มไปแล้ว จึงถูกลบออกจาก user find group
                                                     showDialog(
                                                       context: context,
@@ -337,9 +365,10 @@ class _BarListState extends State<BarList> {
                                                                 bar.getMemberName() +
                                                                 ' มีกลุ่มบุฟเฟฟต์แล้ว',
                                                             style: TextStyle(
-                                                              fontFamily: 'Opun',
-                                                              color:
-                                                              Colors.deepOrange,
+                                                              fontFamily:
+                                                                  'Opun',
+                                                              color: Colors
+                                                                  .deepOrange,
                                                               fontSize: 13,
                                                             ),
                                                           ),
@@ -356,7 +385,8 @@ class _BarListState extends State<BarList> {
                                                           'ขออภัย...กลุ่มของคุณเต็มแล้ว',
                                                           style: TextStyle(
                                                             fontFamily: 'Opun',
-                                                            color: Colors.deepOrange,
+                                                            color: Colors
+                                                                .deepOrange,
                                                             fontSize: 13,
                                                           ),
                                                         ),

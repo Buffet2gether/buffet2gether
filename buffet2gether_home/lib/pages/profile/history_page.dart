@@ -4,12 +4,29 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:buffet2gether_home/models/table_model.dart';
 import 'package:intl/intl.dart';
 
-class HistoryPage extends StatefulWidget
-{
+class HistoryPage extends StatefulWidget {
   ///รับข้อมูลร้านมาจากหน้า Info page
-  HistoryPage({Key key, this.resID, this.name1, this.name2, this.image, this.location, this.time,
-    this.ageStart, this.ageEnd, this.num, this.dueTime, this.gender,
-    this.fashion, this.sport, this.technology, this.politics, this.entertainment, this.book, this.pet}) : super(key: key);
+  HistoryPage(
+      {Key key,
+      this.resID,
+      this.name1,
+      this.name2,
+      this.image,
+      this.location,
+      this.time,
+      this.ageStart,
+      this.ageEnd,
+      this.num,
+      this.dueTime,
+      this.gender,
+      this.fashion,
+      this.sport,
+      this.technology,
+      this.politics,
+      this.entertainment,
+      this.book,
+      this.pet})
+      : super(key: key);
 
   final String resID;
   final String image;
@@ -34,17 +51,13 @@ class HistoryPage extends StatefulWidget
   _HistoryPageState createState() => new _HistoryPageState();
 }
 
-class _HistoryPageState extends State<HistoryPage>
-{
+class _HistoryPageState extends State<HistoryPage> {
   ScrollController scrollController;
 
   Icon gender;
 
-
-
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     List<bool> interestingList = [
       widget.fashion,
       widget.sport,
@@ -55,22 +68,17 @@ class _HistoryPageState extends State<HistoryPage>
       widget.pet
     ];
 
-    if(widget.gender=='Male')
-    {
+    if (widget.gender == 'Male') {
       gender = Icon(
         FontAwesomeIcons.mars,
         color: Colors.deepOrange,
       );
-    }
-    else if(widget.gender=='Female')
-    {
+    } else if (widget.gender == 'Female') {
       gender = Icon(
         FontAwesomeIcons.venus,
         color: Colors.deepOrange,
       );
-    }
-    else if(widget.gender=='Not specified')
-    {
+    } else if (widget.gender == 'Not specified') {
       gender = Icon(
         FontAwesomeIcons.venusMars,
         color: Colors.deepOrange,
@@ -80,47 +88,47 @@ class _HistoryPageState extends State<HistoryPage>
     final screenSize = MediaQuery.of(context).size;
 
     // แปลง time stamp ให้เป็น date Time
-    int getDueTime(){
-      String stringDueTime = widget.dueTime.substring(18,28);
+    int getDueTime() {
+      String stringDueTime = widget.dueTime.substring(18, 28);
       return int.parse(stringDueTime);
     }
-    DateTime newDueTime = new DateTime.fromMillisecondsSinceEpoch(getDueTime()*1000);
+
+    DateTime newDueTime =
+        new DateTime.fromMillisecondsSinceEpoch(getDueTime() * 1000);
 
     ///ข้อมูลร้าน
     final info = Container(
-        margin: EdgeInsets.only(top: 25, left: 10,right: 10,bottom: 20),
+        margin: EdgeInsets.only(top: 25, left: 10, right: 10, bottom: 20),
         decoration: new BoxDecoration(
             borderRadius: new BorderRadius.circular(10),
             color: Colors.white,
-            boxShadow:
-            [
+            boxShadow: [
               BoxShadow(
                 color: Colors.black26,
-                offset: Offset(0,2),
+                offset: Offset(0, 2),
                 blurRadius: 3,
               )
-            ]
-        ),
+            ]),
         child: Column(
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(widget.name1,
+                Text(
+                  widget.name1,
                   style: TextStyle(
                       fontFamily: 'Opun',
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.deepOrange
-                  ),
+                      color: Colors.deepOrange),
                 ),
-                Text(widget.name2,
+                Text(
+                  widget.name2,
                   style: TextStyle(
                       fontFamily: 'Opun',
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.deepOrange
-                  ),
+                      color: Colors.deepOrange),
                 ),
               ],
             ),
@@ -131,7 +139,8 @@ class _HistoryPageState extends State<HistoryPage>
                   widget.image,
                   fit: BoxFit.contain,
                   width: 250,
-                  height: 120,)
+                  height: 120,
+                )
               ],
             ),
             Row(
@@ -152,17 +161,12 @@ class _HistoryPageState extends State<HistoryPage>
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
-
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Icon(
-                    Icons.access_time,
-                    size: 25,
-                    color: Colors.amber
-                ),
+                Icon(Icons.access_time, size: 25, color: Colors.amber),
                 Text(
                   widget.time,
                   style: TextStyle(
@@ -174,14 +178,15 @@ class _HistoryPageState extends State<HistoryPage>
               ],
             ),
           ],
-        )
-    );
+        ));
 
     /// Matching with
     final textMatch = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(width: 15,),
+        SizedBox(
+          width: 15,
+        ),
         Text(
           'Matching with',
           style: TextStyle(
@@ -206,11 +211,10 @@ class _HistoryPageState extends State<HistoryPage>
           boxShadow: [
             BoxShadow(
               color: Colors.black26,
-              offset: Offset(0,4),
+              offset: Offset(0, 4),
               blurRadius: 5,
             )
-          ]
-      ),
+          ]),
       child: FittedBox(
         fit: BoxFit.fitWidth,
         child: Row(
@@ -219,7 +223,7 @@ class _HistoryPageState extends State<HistoryPage>
             ///age
             Text(
               ///ค่าอายุเริ่ม - ค่าอายุจบ
-              widget.ageStart.toString()+' - '+widget.ageEnd.toString(),
+              widget.ageStart.toString() + ' - ' + widget.ageEnd.toString(),
               style: TextStyle(
                 fontFamily: 'Opun',
                 color: Colors.deepOrange,
@@ -228,19 +232,22 @@ class _HistoryPageState extends State<HistoryPage>
             ),
             Text(
               '|',
-              style:  TextStyle(
+              style: TextStyle(
                 fontFamily: 'Opun',
                 color: Colors.amberAccent,
                 fontSize: 25,
               ),
             ),
+
             ///maxNum
             Container(
               child: Row(
                 children: <Widget>[
                   Text(
                     /// 1/จำนวนคนที่เลือก
-                    widget.num.round().toString()+' / '+widget.num.round().toString(),
+                    widget.num.round().toString() +
+                        ' / ' +
+                        widget.num.round().toString(),
                     style: TextStyle(
                       fontFamily: 'Opun',
                       color: Colors.deepOrange,
@@ -257,12 +264,13 @@ class _HistoryPageState extends State<HistoryPage>
             ),
             Text(
               '|',
-              style:  TextStyle(
+              style: TextStyle(
                 fontFamily: 'Opun',
                 color: Colors.amberAccent,
                 fontSize: 25,
               ),
             ),
+
             ///Date and time
             Text(
               DateFormat('dd-MM-yyyy  h:mm a').format(newDueTime),
@@ -274,12 +282,13 @@ class _HistoryPageState extends State<HistoryPage>
             ),
             Text(
               '|',
-              style:  TextStyle(
+              style: TextStyle(
                 fontFamily: 'Opun',
                 color: Colors.amberAccent,
                 fontSize: 25,
               ),
             ),
+
             ///gender
             gender
           ],
@@ -305,8 +314,7 @@ class _HistoryPageState extends State<HistoryPage>
               ),
             ),
           ],
-        )
-    );
+        ));
 
     /// แสดง interest ตามที่เลือกจากหน้า edit interesting table
     final interestList = Container(
@@ -315,11 +323,13 @@ class _HistoryPageState extends State<HistoryPage>
       child: ListView.builder(
           physics: NeverScrollableScrollPhysics(),
           scrollDirection: Axis.horizontal,
+
           /// myTable มาจาก table model จะมี list bool interest อยู่
           itemCount: interestingList.length,
-          itemBuilder: (BuildContext context, int index)
-          {
-            if (interestingList[index]) ///ถ้าถูกเลือกขึ้นสีส้ม
+          itemBuilder: (BuildContext context, int index) {
+            if (interestingList[index])
+
+            ///ถ้าถูกเลือกขึ้นสีส้ม
             {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -329,15 +339,15 @@ class _HistoryPageState extends State<HistoryPage>
                 ),
               );
             }
-            return Padding( ///ไม่เลือกขึ้นเเทา
+            return Padding(
+              ///ไม่เลือกขึ้นเเทา
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Icon(
                 myTable.interestingIconUrl[index],
                 color: Theme.of(context).buttonColor,
               ),
             );
-          }
-      ),
+          }),
     );
 
     final allInPage = Container(
@@ -347,13 +357,16 @@ class _HistoryPageState extends State<HistoryPage>
             info,
             textMatch,
             properties,
-            SizedBox(height: 60,),
+            SizedBox(
+              height: 60,
+            ),
             interest,
             interestList,
-            SizedBox(height: 30,)
+            SizedBox(
+              height: 30,
+            )
           ],
-        )
-    );
+        ));
 
     return new Scaffold(
         appBar: new AppBar(
@@ -370,14 +383,13 @@ class _HistoryPageState extends State<HistoryPage>
         ),
         body: SafeArea(
           child: ListView.builder(
+            physics: BouncingScrollPhysics(),
             controller: scrollController,
             itemCount: 1,
-            itemBuilder: (BuildContext context, int index)
-            {
+            itemBuilder: (BuildContext context, int index) {
               return allInPage;
             },
           ),
-        )
-    );
+        ));
   }
 }

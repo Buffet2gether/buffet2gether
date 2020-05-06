@@ -4,6 +4,7 @@ import 'package:buffet2gether_home/pages/profile/detail_editing_screen.dart';
 import 'package:buffet2gether_home/pages/profile/interesting_editing_screen.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:buffet2gether_home/shared/loading.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -57,10 +58,10 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                   if (_tempImage != null) {
                     StorageReference storageReference = FirebaseStorage.instance
                         .ref()
-                    //.child('profile_pictures/${Path.basename(_tempImage.path)}');
+                        //.child('profile_pictures/${Path.basename(_tempImage.path)}');
                         .child('profile_pictures/user_' + userData.userId);
                     StorageUploadTask uploadTask =
-                    storageReference.putFile(_tempImage);
+                        storageReference.putFile(_tempImage);
                     await uploadTask.onComplete;
                     //print('File Uploaded');
                     storageReference.getDownloadURL().then((fileURL) {
@@ -68,8 +69,8 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                         _uploadedImageURL = fileURL;
                         DatabaseService(uid: user.userId)
                             .updateUserProfilePicture(_uploadedImageURL
-                          //userData.profilePicture
-                        );
+                                //userData.profilePicture
+                                );
                       });
                     });
                   }
@@ -86,7 +87,7 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                 }*/
                 return ListView(
                   padding:
-                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
                   children: <Widget>[
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -130,11 +131,22 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                             shape: BoxShape.circle,
                             color: Colors.white,
                           ),
-                          child: CircleAvatar(
-                            backgroundImage: NetworkImage(
-                                _uploadedImageURL ?? userData.profilePicture),
-                            //FileImage(_tempImage),
-                            radius: 70,
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                _uploadedImageURL ?? userData.profilePicture,
+                            imageBuilder: (context, imageProvider) => Container(
+                              width: 70.0,
+                              height: 70.0,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: imageProvider, fit: BoxFit.cover),
+                              ),
+                            ),
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
                           ),
                         ),
                         //////////////////////////////////////////////////////////////////////////////detail
@@ -168,9 +180,9 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (_) =>
-                                        StreamProvider<User>.value(
-                                            value: AuthService().user,
-                                            child: DetailEditingScreen())));
+                                            StreamProvider<User>.value(
+                                                value: AuthService().user,
+                                                child: DetailEditingScreen())));
                               },
                             ),
                           ],
@@ -237,10 +249,10 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                   Text(
                                     'Age : ' +
                                         (DateTime.now()
-                                            .difference(
-                                            userData.dateofBirth)
-                                            .inDays /
-                                            365)
+                                                    .difference(
+                                                        userData.dateofBirth)
+                                                    .inDays /
+                                                365)
                                             .floor()
                                             .toString(),
                                     textAlign: TextAlign.start,
@@ -308,10 +320,10 @@ class _ProfileSettingState extends State<ProfileSettingScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (_) => StreamProvider<
-                                            User>.value(
+                                                User>.value(
                                             value: AuthService().user,
                                             child:
-                                            InterestingEditingScreen())));
+                                                InterestingEditingScreen())));
                               },
                             ),
                           ],

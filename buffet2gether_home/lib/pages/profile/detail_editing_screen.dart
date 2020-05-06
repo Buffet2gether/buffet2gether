@@ -110,8 +110,8 @@ class _DetailEditingScreenState extends State<DetailEditingScreen> {
                                   if (value.isEmpty) {
                                     return 'Please enter some text.';
                                   }
-                                  if (value.length > 10) {
-                                    return 'Please fill within 10 charaters.';
+                                  if (value.length > 12) {
+                                    return 'Please fill within 12 charaters.';
                                   }
                                   return null;
                                 },

@@ -227,7 +227,7 @@ class _CreateProfileState extends State<CreateProfile>
   DateTime dateOfBirth;
   String error = "";
   GenderItem selectedGender;
-
+  bool inputError = false;
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
@@ -330,13 +330,17 @@ class _CreateProfileState extends State<CreateProfile>
                                       decoration: InputDecoration(
                                           border: InputBorder.none,
                                           hintText: 'Username',
+                                          errorText: inputError?"Enter a username 4-12 characters":null,
                                           prefixIcon: Icon(Icons.person)),
-                                      validator: (val) => val.length < 4
-                                          ? "Enter a username more than 4 character"
-                                          : null,
                                       onChanged: (val) {
-                                        setState(() => username =
-                                            val); //save username to textfield
+                                        if(val.length < 4||val.length>12){
+                                          setState(() => inputError = true);
+                                        }else{
+                                        setState(() {
+                                          username =val;
+                                          inputError = false;
+                                        }); //save username to textfield
+                                        }
                                       },
                                     ),
                                   ),

@@ -10,7 +10,7 @@ import 'package:buffet2gether_home/pages/notification/notification_page.dart';
 import 'package:buffet2gether_home/pages/table/table_page.dart';
 import 'package:buffet2gether_home/services/database.dart';
 import 'package:provider/provider.dart';
-import 'package:buffet2gether_home/pages/wrapper.dart';
+import 'package:buffet2gether_home/pages/login/getStarted_page.dart';
 import 'package:buffet2gether_home/models/rec_model.dart';
 import 'package:buffet2gether_home/models/more_model.dart';
 import 'package:buffet2gether_home/services/auth.dart';
@@ -33,8 +33,7 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.deepOrangeAccent,
           scaffoldBackgroundColor: Color(0xFFF3F5F7),
         ),
-        home: //Wrapper()
-        new Wrapper());
+        home: new GetStartedColumn());
   }
 }
 

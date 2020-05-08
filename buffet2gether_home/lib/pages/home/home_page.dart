@@ -87,12 +87,12 @@ class _HomeColumnState extends State<HomeColumn> {
                     builder: (context) {
                       return StreamProvider<List<UserFindGroup>>.value(
                         value:
-                            DatabaseService(resID: proPic.resID).userFindGroup,
+                        DatabaseService(resID: proPic.resID).userFindGroup,
                         child: StreamProvider<Mytable>.value(
                           value: DatabaseService(userID: user.userId).mytable,
                           child: StreamProvider<List<UserMaster>>.value(
                             value:
-                                DatabaseService(resID: proPic.resID).userMaster,
+                            DatabaseService(resID: proPic.resID).userMaster,
                             child: StreamProvider<User>.value(
                                 value: AuthService().user,
                                 child: InfoPage(
@@ -158,12 +158,12 @@ class _HomeColumnState extends State<HomeColumn> {
                       builder: (context) {
                         return StreamProvider<List<UserFindGroup>>.value(
                           value:
-                              DatabaseService(resID: rec.resID).userFindGroup,
+                          DatabaseService(resID: rec.resID).userFindGroup,
                           child: StreamProvider<Mytable>.value(
                             value: DatabaseService(userID: user.userId).mytable,
                             child: StreamProvider<List<UserMaster>>.value(
                               value:
-                                  DatabaseService(resID: rec.resID).userMaster,
+                              DatabaseService(resID: rec.resID).userMaster,
                               child: StreamProvider<User>.value(
                                   value: AuthService().user,
                                   child: InfoPage(
@@ -288,13 +288,13 @@ class _HomeColumnState extends State<HomeColumn> {
                         builder: (context) {
                           return StreamProvider<List<UserFindGroup>>.value(
                             value:
-                                DatabaseService(resID: m.resID).userFindGroup,
+                            DatabaseService(resID: m.resID).userFindGroup,
                             child: StreamProvider<Mytable>.value(
                               value:
-                                  DatabaseService(userID: user.userId).mytable,
+                              DatabaseService(userID: user.userId).mytable,
                               child: StreamProvider<List<UserMaster>>.value(
                                 value:
-                                    DatabaseService(resID: m.resID).userMaster,
+                                DatabaseService(resID: m.resID).userMaster,
                                 child: StreamProvider<User>.value(
                                     value: AuthService().user,
                                     child: InfoPage(

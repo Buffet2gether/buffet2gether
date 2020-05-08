@@ -8,24 +8,24 @@ class HistoryPage extends StatefulWidget {
   ///รับข้อมูลร้านมาจากหน้า Info page
   HistoryPage(
       {Key key,
-      this.resID,
-      this.name1,
-      this.name2,
-      this.image,
-      this.location,
-      this.time,
-      this.ageStart,
-      this.ageEnd,
-      this.num,
-      this.dueTime,
-      this.gender,
-      this.fashion,
-      this.sport,
-      this.technology,
-      this.politics,
-      this.entertainment,
-      this.book,
-      this.pet})
+        this.resID,
+        this.name1,
+        this.name2,
+        this.image,
+        this.location,
+        this.time,
+        this.ageStart,
+        this.ageEnd,
+        this.num,
+        this.dueTime,
+        this.gender,
+        this.fashion,
+        this.sport,
+        this.technology,
+        this.politics,
+        this.entertainment,
+        this.book,
+        this.pet})
       : super(key: key);
 
   final String resID;
@@ -94,7 +94,7 @@ class _HistoryPageState extends State<HistoryPage> {
     }
 
     DateTime newDueTime =
-        new DateTime.fromMillisecondsSinceEpoch(getDueTime() * 1000);
+    new DateTime.fromMillisecondsSinceEpoch(getDueTime() * 1000);
 
     ///ข้อมูลร้าน
     final info = Container(
@@ -329,7 +329,7 @@ class _HistoryPageState extends State<HistoryPage> {
           itemBuilder: (BuildContext context, int index) {
             if (interestingList[index])
 
-            ///ถ้าถูกเลือกขึ้นสีส้ม
+              ///ถ้าถูกเลือกขึ้นสีส้ม
             {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),

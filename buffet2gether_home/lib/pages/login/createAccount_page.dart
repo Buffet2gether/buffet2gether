@@ -39,7 +39,7 @@ class _SignUpState extends State<SignUp>
   //text field
   static String email = '';
   static String password = '';
-  bool pass = false;
+
   String error = '';
 
   bool isEmail(String em) {
@@ -133,7 +133,7 @@ class _SignUpState extends State<SignUp>
                                   hintText: 'Password',
                                   prefixIcon: Icon(Icons.lock)),
                               validator: (val) => val.length < 6
-                                  ? 'Enter a password 6+ chars long'
+                                  ? 'Please enter a password more than 6 characters'
                                   : null,
                               onChanged: (val) {
                                 setState(() => password =
@@ -149,18 +149,24 @@ class _SignUpState extends State<SignUp>
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                 new BorderRadius.all(Radius.circular(10))),
-                            onPressed: () {
+                            onPressed: () async {
                               if (_formkey.currentState.validate()) {
-                                _auth.registerWithEmailAndPassword(
+                                dynamic result = await _auth.registerWithEmailAndPassword(
                                     email, password);
-                                return showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return StreamProvider<User>.value(
-                                        value: AuthService().user,
-                                        child: CreateProfile());
-                                  },
-                                );
+                                print(result);
+                                if(result == null){
+
+                                  setState(() => error = "This email is already use");
+                                }else{
+                                  return showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return StreamProvider<User>.value(
+                                          value: AuthService().user,
+                                          child: CreateProfile());
+                                    },
+                                  );
+                                }
                               }
                             },
                             child: new Container(
@@ -177,6 +183,11 @@ class _SignUpState extends State<SignUp>
                                 ),
                               ),
                             ),
+                          ),
+                          SizedBox(height: 20.0),
+                          Text(
+                            error,
+                            style: TextStyle(color: Colors.red, fontSize: 14.0),
                           ),
                         ],
                       ),
@@ -206,6 +217,7 @@ class _CreateProfileState extends State<CreateProfile>
   final _formkey = GlobalKey<FormState>();
 
   //Text Field
+  static bool regSuccess = false;
   static String gender = '';
   static String username = '';
   _SignUpState signup = new _SignUpState();
@@ -215,7 +227,7 @@ class _CreateProfileState extends State<CreateProfile>
   DateTime dateOfBirth;
   String error = "";
   GenderItem selectedGender;
-
+  bool inputError = false;
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
@@ -318,13 +330,17 @@ class _CreateProfileState extends State<CreateProfile>
                                       decoration: InputDecoration(
                                           border: InputBorder.none,
                                           hintText: 'Username',
+                                          errorText: inputError?"Enter a username 4-12 characters":null,
                                           prefixIcon: Icon(Icons.person)),
-                                      validator: (val) => val.length < 4
-                                          ? "Enter a username more than 4 character"
-                                          : null,
                                       onChanged: (val) {
-                                        setState(() => username =
-                                            val); //save username to textfield
+                                        if(val.length < 4||val.length>12){
+                                          setState(() => inputError = true);
+                                        }else{
+                                          setState(() {
+                                            username =val;
+                                            inputError = false;
+                                          }); //save username to textfield
+                                        }
                                       },
                                     ),
                                   ),
@@ -464,22 +480,36 @@ class _CreateProfileState extends State<CreateProfile>
                                             10.0)),
                                     onPressed: () async {
                                       // if press
-                                      if (_formkey.currentState
-                                          .validate()) {
-                                        await DatabaseService(
-                                            uid: userData.userId)
-                                            .updateFirstTimeUserData(
-                                            _uploadedImageURL ??
-                                                'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/profile_pictures%2Fdefault.png?alt=media&token=c91f2a65-0928-4eb1-a284-c07c0a8c1517',
-                                            username,
-                                            selectedGender.genderName,
-                                            dateOfBirth); // <=;== pass arguement to register    [function is in service/auth  ]
+                                      if(selectedGender!=null&&dateOfBirth!=null&&username!=''){
+                                        if (_formkey.currentState
+                                            .validate()) {
+                                          await DatabaseService(
+                                              uid: userData.userId)
+                                              .updateFirstTimeUserData(
+                                              _uploadedImageURL ??
+                                                  'https://firebasestorage.googleapis.com/v0/b/buffet2gether.appspot.com/o/profile_pictures%2Fdefault.png?alt=media&token=c91f2a65-0928-4eb1-a284-c07c0a8c1517',
+                                              username,
+                                              selectedGender.genderName,
+                                              dateOfBirth); // <=;== pass arguement to register    [function is in service/auth  ]
 
-                                        return Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    Login()));
+                                          return Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Login()));
+                                        }
+                                      }else{
+                                        print(username);
+                                        setState(() {
+                                          if(username==''){
+
+                                            error = 'Username must not be empty';
+
+                                          }else{
+                                            error = (selectedGender==null)?'Please select your gender':'Please select your date of birth';
+                                          }
+                                        });
+
                                       }
                                     },
                                     child: new Container(

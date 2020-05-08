@@ -18,14 +18,14 @@ class InfoPage extends StatefulWidget {
   ///รับข้อมูลร้านมาจากหน้า home, หน้า home ดึงมาจาก firebase
   InfoPage(
       {Key key,
-      this.resID,
-      this.name1,
-      this.name2,
-      this.image,
-      this.location,
-      this.time,
-      this.promotion,
-      this.promotionInfo})
+        this.resID,
+        this.name1,
+        this.name2,
+        this.image,
+        this.location,
+        this.time,
+        this.promotion,
+        this.promotionInfo})
       : super(key: key);
 
   final String resID;
@@ -224,9 +224,9 @@ class _InfoPageState extends State<InfoPage> {
                           userData.profilePicture,
                           userData.gender,
                           (DateTime.now()
-                                      .difference(userData.dateofBirth)
-                                      .inDays /
-                                  365)
+                              .difference(userData.dateofBirth)
+                              .inDays /
+                              365)
                               .floor(),
 
                           ///interest ของ user
@@ -250,9 +250,9 @@ class _InfoPageState extends State<InfoPage> {
                                 false,
                                 userData.gender,
                                 (DateTime.now()
-                                            .difference(userData.dateofBirth)
-                                            .inDays /
-                                        365)
+                                    .difference(userData.dateofBirth)
+                                    .inDays /
+                                    365)
                                     .floor(),
                                 userData.fashion,
                                 userData.sport,
@@ -312,9 +312,9 @@ class _InfoPageState extends State<InfoPage> {
       children: <Widget>[
         Container(
             child: SpinKitRipple(
-          color: Colors.amberAccent,
-          size: 250.0,
-        )),
+              color: Colors.amberAccent,
+              size: 250.0,
+            )),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -381,26 +381,26 @@ class _InfoPageState extends State<InfoPage> {
             context,
             MaterialPageRoute(
                 builder: (context) => StreamProvider<Mytable>.value(
-                      value: DatabaseService(userID: user.userId).mytable,
-                      child: StreamProvider<List<UserFindGroup>>.value(
-                        value:
-                            DatabaseService(resID: widget.resID).userFindGroup,
-                        child: StreamProvider<User>.value(
-                            value: AuthService().user,
-                            child: CreateTablePage(
-                              resID: widget.resID,
-                              name1: widget.name1,
-                              name2: widget.name2,
-                              image: widget.image,
-                              location: widget.location,
-                              time: widget.time,
-                            )),
-                      ),
-                    )));
+                  value: DatabaseService(userID: user.userId).mytable,
+                  child: StreamProvider<List<UserFindGroup>>.value(
+                    value:
+                    DatabaseService(resID: widget.resID).userFindGroup,
+                    child: StreamProvider<User>.value(
+                        value: AuthService().user,
+                        child: CreateTablePage(
+                          resID: widget.resID,
+                          name1: widget.name1,
+                          name2: widget.name2,
+                          image: widget.image,
+                          location: widget.location,
+                          time: widget.time,
+                        )),
+                  ),
+                )));
       },
       child: new Container(
           margin:
-              EdgeInsets.only(top: 0, left: screenSize.width - 120, bottom: 0),
+          EdgeInsets.only(top: 0, left: screenSize.width - 120, bottom: 0),
           padding: EdgeInsets.all(20),
           decoration: new BoxDecoration(
               color: Colors.amberAccent, shape: BoxShape.circle),
@@ -412,7 +412,6 @@ class _InfoPageState extends State<InfoPage> {
     );
 
     ///////////  ถ้าเราอยู่ใน UserfindGroup แล้ว iAmUserFindGroup จะเป็น true
-
     final allInPage = StreamBuilder<List<UserFindGroup>>(
         stream: DatabaseService(resID: widget.resID).userFindGroup,
         builder: (context, snapshot) {
@@ -457,12 +456,12 @@ class _InfoPageState extends State<InfoPage> {
         ),
         body: SafeArea(
             child: ListView.builder(
-          physics: BouncingScrollPhysics(),
-          controller: scrollController,
-          itemCount: 1,
-          itemBuilder: (BuildContext context, int index) {
-            return allInPage;
-          },
-        )));
+              physics: BouncingScrollPhysics(),
+              controller: scrollController,
+              itemCount: 1,
+              itemBuilder: (BuildContext context, int index) {
+                return allInPage;
+              },
+            )));
   }
 }

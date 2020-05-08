@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:buffet2gether_home/pages/login/login_page.dart';
+import 'package:buffet2gether_home/models/profile_model.dart';
+import 'package:buffet2gether_home/pages/wrapper.dart';
+import 'package:buffet2gether_home/services/auth.dart';
+import 'package:provider/provider.dart';
 
 class GetStartedColumn extends StatefulWidget
 {
@@ -30,7 +34,13 @@ class _GetStartedColumnState extends State<GetStartedColumn>
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => Login()
+                builder: (context) {
+                  return StreamProvider<User>.value(
+                    value: AuthService().user,
+                    child: Wrapper(),
+                  );
+
+                },
               )
           );
       },
@@ -83,18 +93,20 @@ class _GetStartedColumnState extends State<GetStartedColumn>
               children: <Widget>[
                 Container(
                   width: screenSize.width,
-                  height:165,
+                  height: 200,
                   margin: EdgeInsets.only(top:110.0),
                   decoration: BoxDecoration(
                       color:Colors.deepOrange
                   ),
                 ),
-                Container(
-                  width: screenSize.width,
-                  height: screenSize.height,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.deepOrange
+                Align(
+                  child: Container(
+                    height:220,
+                    width: screenSize.width,
+                    decoration: new BoxDecoration(
+                      color: Colors.deepOrange,
+                      borderRadius: new BorderRadius.all(Radius.elliptical(200, 100)),
+                    ),
                   ),
                 ),
                 Container(

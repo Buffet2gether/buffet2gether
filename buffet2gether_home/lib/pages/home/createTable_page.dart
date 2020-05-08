@@ -34,12 +34,12 @@ class CreateTablePage extends StatefulWidget {
   ///รับข้อมูลร้านมาจากหน้า Info page
   CreateTablePage(
       {Key key,
-      this.resID,
-      this.name1,
-      this.name2,
-      this.image,
-      this.location,
-      this.time})
+        this.resID,
+        this.name1,
+        this.name2,
+        this.image,
+        this.location,
+        this.time})
       : super(key: key);
 
   final String resID;
@@ -361,7 +361,7 @@ class _CreateTablePageState extends State<CreateTablePage> {
               ///ช่วง 50 ช่วง(60-10=50) ห่างกันช่วงละ 1
               labels: RangeLabels(
 
-                  ///ป้ายบอกเลข
+                ///ป้ายบอกเลข
                   '${selectedRange.start.round()}',
                   '${selectedRange.end.round()}'),
               onChanged: (value) {
@@ -429,8 +429,8 @@ class _CreateTablePageState extends State<CreateTablePage> {
                 },
                 items: genderList.map<DropdownMenuItem<GenderItem>>((value)
 
-                    ///list ให้เลือก
-                    {
+                ///list ให้เลือก
+                {
                   return DropdownMenuItem<GenderItem>(
                     value: value,
                     child: Row(
@@ -496,7 +496,7 @@ class _CreateTablePageState extends State<CreateTablePage> {
           itemBuilder: (BuildContext context, int index) {
             if (myTable.interestingBool[index])
 
-            ///ถ้าถูกเลือกขึ้นสีส้ม
+              ///ถ้าถูกเลือกขึ้นสีส้ม
             {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -559,24 +559,24 @@ class _CreateTablePageState extends State<CreateTablePage> {
                     onTap: () {
                       if (selectedGender?.genderName == null)
 
-                      ///ถ้าไม่เลือก gender จะกด post ไม่ได้ เลยทำอันนี้ไว้เตือน แต่มันไม่ขึ้น...แงงงงง
+                        ///ถ้าไม่เลือก gender จะกด post ไม่ได้ เลยทำอันนี้ไว้เตือน แต่มันไม่ขึ้น...แงงงงง
                       {
                         return showDialog(
                             context: context,
                             builder: (context) {
                               return AlertDialog(
                                   content: Text(
-                                'Please select gender',
-                                style: TextStyle(
-                                  fontFamily: 'Opun',
-                                  color: Colors.black45,
-                                  fontSize: 10,
-                                ),
-                              ));
+                                    'Please select gender',
+                                    style: TextStyle(
+                                      fontFamily: 'Opun',
+                                      color: Colors.black45,
+                                      fontSize: 10,
+                                    ),
+                                  ));
                             });
                       } else
 
-                      ///กด post ได้
+                        ///กด post ได้
                       {
                         if (mytable.numberTable == null) {
                           int numberTable = new Random().nextInt(100);
@@ -614,9 +614,9 @@ class _CreateTablePageState extends State<CreateTablePage> {
                               numberTable.toString(),
                               userData.gender,
                               (DateTime.now()
-                                          .difference(userData.dateofBirth)
-                                          .inDays /
-                                      365)
+                                  .difference(userData.dateofBirth)
+                                  .inDays /
+                                  365)
                                   .floor(),
                               userData.fashion,
                               userData.sport,
@@ -659,11 +659,11 @@ class _CreateTablePageState extends State<CreateTablePage> {
                           //// ไปหมุนหน้าน้องบุฟ 3 วิ ละค่อยไปหน้า Table
                           return Navigator.of(context).push(MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  StreamProvider<Mytable>.value(
-                                      value: DatabaseService(
-                                              userID: userData.userId)
-                                          .mytable,
-                                      child: MatchingPage())));
+                              StreamProvider<Mytable>.value(
+                                  value: DatabaseService(
+                                      userID: userData.userId)
+                                      .mytable,
+                                  child: MatchingPage())));
                         } else {
                           /// ถ้ามีโต๊ะแล้วจะกด post ไม่ได้แล้วให้ขึ้นแจ้งเตือน
                           return showDialog(
